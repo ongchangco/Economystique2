@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow # type: ignore
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget # type: ignore
 from Test import Ui_MainWindow  # Import generated UI
 
 class MyApp(QMainWindow, Ui_MainWindow):

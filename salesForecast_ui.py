@@ -1,15 +1,10 @@
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_SalesForecast(QtWidgets.QWidget):
+class Ui_SalesForecast(object):
     def setupUi(self, SalesForecast):
-        super().__init__()
-        
-        # Load the UI
-        self.ui = Ui_SalesForecast()
-        self.ui.setupUi(self)  # This sets up the UI in the current QWidget
-        
         SalesForecast.setObjectName("SalesForecast")
         SalesForecast.resize(800, 600)
         palette = QtGui.QPalette()

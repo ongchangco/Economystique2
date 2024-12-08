@@ -1,12 +1,20 @@
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QWidget, QMainWindow
 from salesForecast_ui import Ui_SalesForecast
 
 
-class SalesForecastWindow(QtWidgets.QWidget):
+class SalesForecastWindow(QMainWindow):
     def __init__(self):
-        super().__init__()
+        super(SalesForecastWindow, self).__init__()
+        
+        # Instantiate UI class instance
         self.ui = Ui_SalesForecast()
-        self.ui.setupUi(self)
 
-        # Place any custom logic here
-        self.ui.label.setText("Welcome to the Forecast Window!")
+        # Wrap setupUi logic safely
+        self._setup_ui()
+        self.setWindowTitle("Sales Forecast")  # Explicitly set the window title
+
+    def _setup_ui(self):
+        try:
+            self.ui.setupUi(self)
+        except RecursionError as e:
+            print("Recursion error detected during UI setup:", e)

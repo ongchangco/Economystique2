@@ -3,18 +3,19 @@ from landingPage_ui import Ui_MainWindow
 from salesForecast import SalesForecastWindow
 
 
-class LandingPage(QMainWindow, Ui_MainWindow):
+class LandingPage(QMainWindow):
     def __init__(self):
-        super().__init__()
-        self.setupUi(self)
+        super(LandingPage, self).__init__()
+        
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
 
-        # Initialize a placeholder for logic windows
+        # Prepare button logic to open the sales forecast window
         self.sales_forecast_window = None
-
-        # Connect button signal to custom method
-        self.recommendationButton.clicked.connect(self.open_forecast)
+        self.ui.recommendationButton.clicked.connect(self.open_forecast)
 
     def open_forecast(self):
-        if not self.sales_forecast_window:
+        if self.sales_forecast_window is None:
+            # Instantiate the window only once
             self.sales_forecast_window = SalesForecastWindow()
         self.sales_forecast_window.show()

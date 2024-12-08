@@ -18,3 +18,5 @@ class LandingPage(QMainWindow):
         self.sales_forecast_window = SalesForecastWindow()
         self.sales_forecast_window.show()
         self.close()
+        
+    

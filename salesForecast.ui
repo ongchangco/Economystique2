@@ -1010,7 +1010,7 @@ color:white;</string>
    </property>
    <widget class="QMenu" name="menuProfile">
     <property name="title">
-     <string>Profile</string>
+     <string>Account</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuCalendar">
@@ -1028,16 +1028,10 @@ color:white;</string>
      <string>Inventory</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuFiles">
-    <property name="title">
-     <string>Files</string>
-    </property>
-   </widget>
    <addaction name="menuProfile"/>
    <addaction name="menuCalendar"/>
    <addaction name="menuSales"/>
    <addaction name="menuInventory"/>
-   <addaction name="menuFiles"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

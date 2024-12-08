@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from salesForecast import SalesForecastWindow
-
+from PyQt5.QtGui import QPixmap
 
 class LandingPage(QMainWindow):
     def __init__(self):
@@ -11,9 +11,12 @@ class LandingPage(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        
+        
         # Connect button
         self.ui.recommendationButton.clicked.connect(self.open_forecast)
-
+        
+        
     def open_forecast(self):
         self.sales_forecast_window = SalesForecastWindow()
         self.sales_forecast_window.show()

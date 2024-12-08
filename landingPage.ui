@@ -11,12 +11,29 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>EconoMystique</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>img/econologo_bkgd.png</normaloff>
+    <normalon>img/econologo.png</normalon>
+    <activeon>img/econologo.png</activeon>img/econologo_bkgd.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #f4f4ec;</string>
+   <string notr="true">background: #f4f4ec;
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#centralwidget {
+    background-image: url('img/econologo.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}</string>
+   </property>
    <widget class="QListView" name="assessmentListView">
     <property name="geometry">
      <rect>
@@ -25,6 +42,9 @@
       <width>291</width>
       <height>221</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -51,7 +71,7 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: gray;</string>
+        <string notr="true">background-color: transparent;</string>
        </property>
        <property name="text">
         <string>Inventory Status</string>
@@ -69,6 +89,9 @@
       <height>319</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="recommendationButton">
     <property name="geometry">
@@ -83,7 +106,7 @@
      <string>REQUEST RECOMMENDATION</string>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
+   <widget class="QWidget" name="verticalWidget_2" native="true">
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -91,6 +114,11 @@
       <width>161</width>
       <height>321</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget#verticalWidget_2{
+background: transparent;
+}</string>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
@@ -170,6 +198,9 @@
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
+    </property>
     <property name="text">
      <string>SUMMARY</string>
     </property>
@@ -193,6 +224,9 @@
       <weight>50</weight>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent;</string>
     </property>
     <property name="text">
      <string>ASSESSMENT</string>
@@ -219,25 +253,12 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>4</x>
-       <y>5</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>420</x>
        <y>0</y>
-       <width>411</width>
+       <width>381</width>
        <height>41</height>
       </rect>
      </property>
@@ -290,6 +311,31 @@ color: white;</string>
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QLabel" name="titleLabel">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>221</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Cambria</family>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;</string>
+     </property>
+     <property name="text">
+      <string>EconoMystique</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </widget>
   </widget>

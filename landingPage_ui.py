@@ -15,6 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(801, 600)
+        MainWindow.setStyleSheet("background: #f4f4ec;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.assessmentListView = QtWidgets.QListView(self.centralwidget)
@@ -39,7 +40,7 @@ class Ui_MainWindow(object):
         self.summaryListView.setGeometry(QtCore.QRect(10, 190, 279, 319))
         self.summaryListView.setObjectName("summaryListView")
         self.recommendationButton = QtWidgets.QPushButton(self.centralwidget)
-        self.recommendationButton.setGeometry(QtCore.QRect(510, 430, 241, 61))
+        self.recommendationButton.setGeometry(QtCore.QRect(520, 430, 241, 61))
         self.recommendationButton.setObjectName("recommendationButton")
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(310, 190, 161, 321))
@@ -95,6 +96,8 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 801, 26))
         self.menubar.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.menubar.setStyleSheet("background: #365b6d;\n"
+"color:white;")
         self.menubar.setObjectName("menubar")
         self.menuInventory = QtWidgets.QMenu(self.menubar)
         self.menuInventory.setObjectName("menuInventory")

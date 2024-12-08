@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background: #f4f4ec;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QListView" name="assessmentListView">
     <property name="geometry">
@@ -67,7 +70,7 @@
    <widget class="QPushButton" name="recommendationButton">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>520</x>
       <y>430</y>
       <width>241</width>
       <height>61</height>
@@ -208,6 +211,10 @@
    </property>
    <property name="layoutDirection">
     <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #365b6d;
+color:white;</string>
    </property>
    <widget class="QMenu" name="menuInventory">
     <property name="title">

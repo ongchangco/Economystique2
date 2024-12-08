@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -15,7 +15,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(801, 600)
-        MainWindow.setStyleSheet("background: #f4f4ec;")
+        MainWindow.setStyleSheet("background: #f4f4ec;\n"
+"color: black;\n"
+"")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.assessmentListView = QtWidgets.QListView(self.centralwidget)

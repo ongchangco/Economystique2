@@ -14,7 +14,9 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #f4f4ec;</string>
+   <string notr="true">background: #f4f4ec;
+color: black;
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QListView" name="assessmentListView">

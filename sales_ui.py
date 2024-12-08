@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\sales.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\sales.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #

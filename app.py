@@ -1,13 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget
-from landingPage_ui import Ui_MainWindow  # Import generated UI
-
-class MyApp(QMainWindow, Ui_MainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)  # Setup the UI
+import sys
+from PyQt5.QtWidgets import QApplication
+from landingPage import LandingPage
 
 if __name__ == "__main__":
-    app = QApplication([])
-    window = MyApp()
+    app = QApplication(sys.argv)
+    window = LandingPage()
     window.show()
-    app.exec_()
+    sys.exit(app.exec_())

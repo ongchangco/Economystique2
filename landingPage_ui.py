@@ -15,9 +15,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(801, 600)
-        MainWindow.setStyleSheet("background: #f4f4ec;\n"
-"color: black;\n"
-"")
+        MainWindow.setStyleSheet("background: #f4f4ec;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.assessmentListView = QtWidgets.QListView(self.centralwidget)
@@ -36,6 +34,7 @@ class Ui_MainWindow(object):
         font.setBold(False)
         font.setWeight(50)
         self.InventoryStatus.setFont(font)
+        self.InventoryStatus.setStyleSheet("color: gray;")
         self.InventoryStatus.setObjectName("InventoryStatus")
         self.verticalLayout.addWidget(self.InventoryStatus)
         self.summaryListView = QtWidgets.QListView(self.centralwidget)

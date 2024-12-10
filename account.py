@@ -81,7 +81,7 @@ class AccountWindow(QMainWindow):
             QMessageBox.warning(self, "Warning", "Please select a file to open.")
             return
         
-        selected_index = selected_indexes[0]  # Only allow single selection
+        selected_index = selected_indexes[0]  # Only allow single selectionss
         file_path = self.file_list[selected_index.row()]
         
         # Open the file (use an appropriate library for Excel files if needed)

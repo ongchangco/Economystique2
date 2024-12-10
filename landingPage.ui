@@ -256,9 +256,9 @@ background: transparent;
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>370</x>
        <y>0</y>
-       <width>389</width>
+       <width>431</width>
        <height>41</height>
       </rect>
      </property>
@@ -266,8 +266,14 @@ background: transparent;
       <property name="spacing">
        <number>5</number>
       </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="btnInventory">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -278,7 +284,7 @@ color: white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="btnSales">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -289,7 +295,7 @@ color: white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="btnCalendar">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -300,7 +306,7 @@ color: white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btnAccount">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>

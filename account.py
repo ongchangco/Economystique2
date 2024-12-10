@@ -18,8 +18,8 @@ class AccountWindow(QMainWindow):
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnOpenFile.clicked.connect(self.open_file)
-        self.ui.btnOpenFile.clicked.connect(self.open_file)
-        self.ui.btnOpenFile.clicked.connect(self.open_file)
+        self.ui.btnDeleteFile.clicked.connect(self.delete_file)
+        self.ui.btnAddFile.clicked.connect(self.add_file)
 
     def _setup_ui(self):
         try:
@@ -45,3 +45,20 @@ class AccountWindow(QMainWindow):
         self.account_window = CalendarWindow()
         self.account_window.show()
         self.close()
+        
+    def delete_file(self):
+        #Palceholder
+        from calendarLogic import CalendarWindow
+        self.account_window = CalendarWindow()
+        self.account_window.show()
+        self.close()
+        
+    def open_file(self):
+        #Palceholder
+        from calendarLogic import CalendarWindow
+        self.account_window = CalendarWindow()
+        self.account_window.show()
+        self.close()
+        
+    def add_file(self):
+        

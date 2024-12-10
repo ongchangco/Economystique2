@@ -1,8 +1,4 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from sales import SalesWindow
-from calendarLogic import CalendarWindow
-from account import AccountWindow
-from salesForecast import SalesForecastWindow
 from PyQt5.QtGui import QPixmap
 
 class LandingPage(QMainWindow):
@@ -12,8 +8,6 @@ class LandingPage(QMainWindow):
         from landingPage_ui import Ui_MainWindow
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
-        
         
         # Connect buttons
         self.ui.recommendationButton.clicked.connect(self.open_forecast)
@@ -24,21 +18,25 @@ class LandingPage(QMainWindow):
     # Button Functions
         
     def open_sales(self):
-        self.sales_forecast_window = SalesWindow()
-        self.sales_forecast_window.show()
+        from sales import SalesWindow
+        self.sales_window = SalesWindow()
+        self.sales_window.show()
         self.close()
         
     def open_calendar(self):
-        self.sales_forecast_window = CalendarWindow()
-        self.sales_forecast_window.show()
+        from calendarLogic import CalendarWindow
+        self.calendar_window = CalendarWindow()
+        self.calendar_window.show()
         self.close()
     
     def open_account(self):
-        self.sales_forecast_window = AccountWindow()
-        self.sales_forecast_window.show()
+        from account import AccountWindow
+        self.account_window = AccountWindow()
+        self.account_window.show()
         self.close()
         
     def open_forecast(self):
+        from salesForecast import SalesForecastWindow
         self.sales_forecast_window = SalesForecastWindow()
         self.sales_forecast_window.show()
         

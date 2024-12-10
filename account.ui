@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>802</width>
     <height>600</height>
    </rect>
   </property>
@@ -45,9 +45,9 @@ color: black;
     <widget class="QWidget" name="horizontalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>420</x>
+       <x>390</x>
        <y>0</y>
-       <width>389</width>
+       <width>411</width>
        <height>41</height>
       </rect>
      </property>
@@ -55,8 +55,14 @@ color: black;
       <property name="spacing">
        <number>5</number>
       </property>
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="btnInventory">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -67,7 +73,7 @@ color: white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_6">
+       <widget class="QPushButton" name="btnSales">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -78,7 +84,7 @@ color: white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_7">
+       <widget class="QPushButton" name="btnCalendar">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -89,7 +95,7 @@ color: white;</string>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_8">
+       <widget class="QPushButton" name="btnAccount">
         <property name="styleSheet">
          <string notr="true">background: #5b8ca4;
 color: white;</string>
@@ -127,29 +133,32 @@ color: white;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="imgBusinessLogo">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
-      <width>201</width>
-      <height>191</height>
+      <x>10</x>
+      <y>130</y>
+      <width>141</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>img/econologo_bkgd 200.png</pixmap>
+     <pixmap>img/all_seasons_logo.jpg</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="lblUserName">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>260</y>
-      <width>91</width>
-      <height>16</height>
+      <x>160</x>
+      <y>319</y>
+      <width>301</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -159,35 +168,41 @@ color: white;</string>
      </font>
     </property>
     <property name="text">
-     <string>Username</string>
+     <string>Kathlyn O. LAscota</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="lblBusinessName">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>300</y>
-      <width>171</width>
-      <height>21</height>
+      <x>170</x>
+      <y>120</y>
+      <width>291</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Sans Serif Collection</family>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="text">
      <string>All Seasons Cake Shop</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
-   <widget class="QFrame" name="frame_2">
+   <widget class="QFrame" name="cntFileList">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>70</y>
+      <x>480</x>
+      <y>160</y>
       <width>291</width>
-      <height>231</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -201,71 +216,248 @@ color: white;</string>
      <enum>QFrame::Raised</enum>
     </property>
    </widget>
-   <widget class="QFrame" name="frame_3">
+   <widget class="QPushButton" name="btnOpenFile">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>320</y>
+      <x>490</x>
+      <y>440</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open File</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnEditProfile">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>450</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Edit Profile</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnLogOut">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>530</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Log Out</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblFSTitle">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>120</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="text">
+     <string>Existing Files</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="imgProfile">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
       <width>141</width>
-      <height>81</height>
+      <height>131</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: white;</string>
+    <property name="text">
+     <string/>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="pixmap">
+     <pixmap>img/profile.png</pixmap>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
-   <widget class="QFrame" name="frame_4">
+   <widget class="QLabel" name="lblBusinessName_2">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>320</y>
-      <width>141</width>
-      <height>81</height>
+      <x>310</x>
+      <y>60</y>
+      <width>221</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: white;</string>
+    <property name="font">
+     <font>
+      <family>Sans Serif Collection</family>
+      <pointsize>18</pointsize>
+     </font>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="text">
+     <string>Account</string>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_5">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>420</y>
-      <width>291</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: white;</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QLabel" name="lblRole">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>330</y>
+      <x>210</x>
+      <y>359</y>
       <width>211</width>
-      <height>191</height>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Owner</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>160</y>
+      <width>281</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="lblBsnsType">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Business Type:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblOwnership">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>30</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Ownership:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblLocation">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>60</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Location:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="btnOpenFile_2">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>440</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string>❌ Delete File</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnOpenFile_3">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>490</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Add File</string>
     </property>
    </widget>
   </widget>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\account.ui'
+# Form implementation generated from reading ui file 'c:\Users\Ces\Economystique2\account.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_account(object):
         account.setObjectName("account")
         account.resize(802, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Ces\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         account.setWindowIcon(icon)
         account.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -68,7 +68,7 @@ class Ui_account(object):
         self.imgBusinessLogo = QtWidgets.QLabel(self.centralwidget)
         self.imgBusinessLogo.setGeometry(QtCore.QRect(10, 130, 141, 131))
         self.imgBusinessLogo.setText("")
-        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/all_seasons_logo.jpg"))
+        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Ces\\Economystique2\\img/all_seasons_logo.jpg"))
         self.imgBusinessLogo.setScaledContents(True)
         self.imgBusinessLogo.setObjectName("imgBusinessLogo")
         self.lblUserName = QtWidgets.QLabel(self.centralwidget)
@@ -107,7 +107,7 @@ class Ui_account(object):
         self.imgProfile = QtWidgets.QLabel(self.centralwidget)
         self.imgProfile.setGeometry(QtCore.QRect(10, 280, 141, 131))
         self.imgProfile.setText("")
-        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/profile.png"))
+        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Ces\\Economystique2\\img/profile.png"))
         self.imgProfile.setScaledContents(True)
         self.imgProfile.setObjectName("imgProfile")
         self.lblBusinessName_2 = QtWidgets.QLabel(self.centralwidget)

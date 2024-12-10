@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+import os
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QListView, QMainWindow
+from PyQt5.QtCore import QStringListModel
 from account_ui import Ui_account
 
 
@@ -13,6 +15,11 @@ class AccountWindow(QMainWindow):
         self._setup_ui()
         self.setWindowTitle("Account")  # Explicitly set the window title
 
+        # Set up the model for QListView
+        self.file_model = QStringListModel()
+        self.ui.fileListView.setModel(self.file_model)
+        self.file_list = []  # Stores file paths
+        
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
@@ -47,18 +54,49 @@ class AccountWindow(QMainWindow):
         self.close()
         
     def delete_file(self):
-        #Palceholder
-        from calendarLogic import CalendarWindow
-        self.account_window = CalendarWindow()
-        self.account_window.show()
-        self.close()
+        """Delete the selected file from the list."""
+        selected_indexes = self.ui.fileListView.selectedIndexes()
+        if not selected_indexes:
+            QMessageBox.warning(self, "Warning", "Please select a file to delete.")
+            return
+        
+        selected_index = selected_indexes[0]  # Only allow single selection
+        file_path = self.file_list[selected_index.row()]
+        
+        # Confirm deletion
+        reply = QMessageBox.question(
+            self, "Confirm Deletion",
+            f"Are you sure you want to delete:\n{file_path}?",
+            QMessageBox.Yes | QMessageBox.No
+        )
+        
+        if reply == QMessageBox.Yes:
+            self.file_list.pop(selected_index.row())
+            self.file_model.setStringList(self.file_list)
         
     def open_file(self):
-        #Palceholder
-        from calendarLogic import CalendarWindow
-        self.account_window = CalendarWindow()
-        self.account_window.show()
-        self.close()
+        """Open the selected file."""
+        selected_indexes = self.ui.fileListView.selectedIndexes()
+        if not selected_indexes:
+            QMessageBox.warning(self, "Warning", "Please select a file to open.")
+            return
+        
+        selected_index = selected_indexes[0]  # Only allow single selection
+        file_path = self.file_list[selected_index.row()]
+        
+        # Open the file (use an appropriate library for Excel files if needed)
+        try:
+            os.startfile(file_path)  # Windows-specific; use subprocess for other platforms
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to open file:\n{str(e)}")
         
     def add_file(self):
-        
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, "Select an Excel File", "", 
+            "Excel Files (*.xls *.xlsx);;All Files (*)", 
+            options=options
+        )
+        if file_path:
+            self.file_list.append(file_path)
+            self.file_model.setStringList(self.file_list)

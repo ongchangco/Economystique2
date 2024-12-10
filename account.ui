@@ -440,7 +440,7 @@ color: white;</string>
      <string>Add File</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QListView" name="fileListView">
     <property name="geometry">
      <rect>
       <x>480</x>

@@ -424,7 +424,7 @@ color: white;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="btnOpenFile_2">
+   <widget class="QPushButton" name="btnDeleteFile">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -440,7 +440,7 @@ color: white;</string>
      <string>❌ Delete File</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnOpenFile_3">
+   <widget class="QPushButton" name="btnAddFile">
     <property name="geometry">
      <rect>
       <x>550</x>

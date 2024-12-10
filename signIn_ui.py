@@ -89,16 +89,16 @@ class Ui_signUp(object):
         self.usernameLine_2.setStyleSheet("color: black;")
         self.usernameLine_2.setText("")
         self.usernameLine_2.setObjectName("usernameLine_2")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(200, 480, 151, 31))
+        self.loginButton = QtWidgets.QPushButton(self.centralwidget)
+        self.loginButton.setGeometry(QtCore.QRect(200, 480, 151, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setStyleSheet("background-color: #53786d;\n"
+        self.loginButton.setFont(font)
+        self.loginButton.setStyleSheet("background-color: #53786d;\n"
 "color: white;\n"
 "\n"
 "")
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.loginButton.setObjectName("loginButton")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(40, 490, 151, 21))
         font = QtGui.QFont()
@@ -185,6 +185,6 @@ class Ui_signUp(object):
         self.usernameLabel.setText(_translate("signUp", "Username:"))
         self.passwordLabel.setText(_translate("signUp", "Password:"))
         self.usernameLabel_2.setText(_translate("signUp", "Email:"))
-        self.pushButton_2.setText(_translate("signUp", "Login"))
+        self.loginButton.setText(_translate("signUp", "Login"))
         self.label_2.setText(_translate("signUp", "I already have an account"))
         self.pushButton.setText(_translate("signUp", "SIGN IN"))

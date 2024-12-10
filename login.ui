@@ -47,7 +47,7 @@ color: black;
       <rect>
        <x>-50</x>
        <y>80</y>
-       <width>491</width>
+       <width>341</width>
        <height>391</height>
       </rect>
      </property>
@@ -75,6 +75,9 @@ color: black;
       <weight>75</weight>
       <bold>true</bold>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #365b6d;</string>
     </property>
     <property name="text">
      <string>LOGIN</string>
@@ -162,29 +165,6 @@ color: black;
     </property>
     <property name="echoMode">
      <enum>QLineEdit::Password</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>330</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>8</pointsize>
-      <underline>true</underline>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: red;
-</string>
-    </property>
-    <property name="text">
-     <string>Forgot password?</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -400,7 +380,7 @@ color: white;
      <string>I don't have an account yet</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="signUpButton">
     <property name="geometry">
      <rect>
       <x>610</x>
@@ -424,11 +404,52 @@ color: white;
      <string>Sign Up</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="forgotPass">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>320</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <underline>true</underline>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: red;</string>
+    </property>
+    <property name="text">
+     <string>Forgot password?</string>
+    </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="error">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>350</y>
+      <width>311</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: red;
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="img/logo.qrc"/>
+  <include location="img/econologo_bkgd"/>
  </resources>
  <connections/>
 </ui>

@@ -353,9 +353,25 @@ color: black;
       <pointsize>10</pointsize>
      </font>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #365b6d;
-color: white;
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border: 2px solid #365b6d;
+    border-radius: 50px;
+    padding: 5px;
+}
+QPushButton:hover {
+    background-color: #289dd2;
+	border: 2px solid #289dd2;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
 </string>
     </property>
     <property name="text">
@@ -395,9 +411,21 @@ color: white;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #53786d;
-color: white;
-
+     <string notr="true">QPushButton {
+    background-color: #53786d;
+    color: white;
+    border: 2px solid #53786d;
+    border-radius: 50px;
+    padding: 5px;
+}
+QPushButton:hover {
+    background-color: #289dd2;
+	border: 2px solid #289dd2;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #53786d;
+}
 </string>
     </property>
     <property name="text">
@@ -448,8 +476,6 @@ color: white;
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="img/econologo_bkgd"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

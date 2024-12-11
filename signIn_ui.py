@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\signIn.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\signIn.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_signUp(object):
         signUp.setObjectName("signUp")
         signUp.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         signUp.setWindowIcon(icon)
         signUp.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -32,7 +32,7 @@ class Ui_signUp(object):
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(-50, 80, 491, 391))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"))
+        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"))
         self.label.setObjectName("label")
         self.loginLabel = QtWidgets.QLabel(self.centralwidget)
         self.loginLabel.setGeometry(QtCore.QRect(110, 50, 191, 51))
@@ -94,9 +94,21 @@ class Ui_signUp(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.loginButton.setFont(font)
-        self.loginButton.setStyleSheet("background-color: #53786d;\n"
-"color: white;\n"
-"\n"
+        self.loginButton.setStyleSheet("QPushButton {\n"
+"    background-color: #53786d;\n"
+"    color: white;\n"
+"    border: 2px solid #53786d;\n"
+"    border-radius: 50px;\n"
+"    padding: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #289dd2;\n"
+"    border: 2px solid #289dd2;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #53786d;\n"
+"}\n"
 "")
         self.loginButton.setObjectName("loginButton")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
@@ -166,8 +178,22 @@ class Ui_signUp(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("background-color: #365b6d;\n"
-"color: white;\n"
+        self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border: 2px solid #365b6d;\n"
+"    border-radius: 50px;\n"
+"    padding: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #289dd2;\n"
+"    border: 2px solid #289dd2;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
 "")
         self.pushButton.setObjectName("pushButton")
         signUp.setCentralWidget(self.centralwidget)

@@ -29,33 +29,6 @@ class Ui_account(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.frame)
-        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(390, 0, 411, 41))
-        self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
-        self.horizontalLayout_3.setContentsMargins(10, 0, 10, 0)
-        self.horizontalLayout_3.setSpacing(5)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.btnInventory = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.btnInventory.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnInventory.setObjectName("btnInventory")
-        self.horizontalLayout_3.addWidget(self.btnInventory)
-        self.btnSales = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.btnSales.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnSales.setObjectName("btnSales")
-        self.horizontalLayout_3.addWidget(self.btnSales)
-        self.btnCalendar = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.btnCalendar.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnCalendar.setObjectName("btnCalendar")
-        self.horizontalLayout_3.addWidget(self.btnCalendar)
-        self.btnAccount = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.btnAccount.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnAccount.setObjectName("btnAccount")
-        self.horizontalLayout_3.addWidget(self.btnAccount)
         self.titleLabel_2 = QtWidgets.QLabel(self.frame)
         self.titleLabel_2.setGeometry(QtCore.QRect(0, 0, 221, 41))
         font = QtGui.QFont()
@@ -65,6 +38,88 @@ class Ui_account(object):
         self.titleLabel_2.setStyleSheet("color: white;")
         self.titleLabel_2.setAlignment(QtCore.Qt.AlignCenter)
         self.titleLabel_2.setObjectName("titleLabel_2")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(570, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(480, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnCalendar = QtWidgets.QPushButton(self.frame)
+        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnCalendar.setFont(font)
+        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCalendar.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon1)
+        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
+        self.btnAccount.setObjectName("btnAccount")
         self.imgBusinessLogo = QtWidgets.QLabel(self.centralwidget)
         self.imgBusinessLogo.setGeometry(QtCore.QRect(140, 100, 101, 101))
         self.imgBusinessLogo.setText("")
@@ -89,11 +144,11 @@ class Ui_account(object):
         self.lblBusinessName.setObjectName("lblBusinessName")
         self.btnEditProfile = QtWidgets.QPushButton(self.centralwidget)
         self.btnEditProfile.setGeometry(QtCore.QRect(730, 330, 41, 31))
-        self.btnEditProfile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+        self.btnEditProfile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnEditProfile.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/editPfp.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.btnEditProfile.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/editPfp.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnEditProfile.setIcon(icon2)
         self.btnEditProfile.setFlat(True)
         self.btnEditProfile.setObjectName("btnEditProfile")
         self.btnLogOut = QtWidgets.QPushButton(self.centralwidget)
@@ -178,9 +233,9 @@ class Ui_account(object):
         self.btnOpenFile = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.btnOpenFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnOpenFile.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/fileIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnOpenFile.setIcon(icon2)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/fileIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnOpenFile.setIcon(icon3)
         self.btnOpenFile.setFlat(True)
         self.btnOpenFile.setObjectName("btnOpenFile")
         self.horizontalLayout.addWidget(self.btnOpenFile)
@@ -188,9 +243,9 @@ class Ui_account(object):
         self.btnDeleteFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnDeleteFile.setAutoFillBackground(False)
         self.btnDeleteFile.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnDeleteFile.setIcon(icon3)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDeleteFile.setIcon(icon4)
         self.btnDeleteFile.setFlat(True)
         self.btnDeleteFile.setObjectName("btnDeleteFile")
         self.horizontalLayout.addWidget(self.btnDeleteFile)
@@ -202,9 +257,9 @@ class Ui_account(object):
         self.btnAddFile.setFont(font)
         self.btnAddFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnAddFile.setText("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAddFile.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnAddFile.setIcon(icon5)
         self.btnAddFile.setFlat(True)
         self.btnAddFile.setObjectName("btnAddFile")
         self.horizontalLayout.addWidget(self.btnAddFile)
@@ -219,11 +274,10 @@ class Ui_account(object):
     def retranslateUi(self, account):
         _translate = QtCore.QCoreApplication.translate
         account.setWindowTitle(_translate("account", "Economystique"))
-        self.btnInventory.setText(_translate("account", "Inventory"))
-        self.btnSales.setText(_translate("account", "Sales"))
-        self.btnCalendar.setText(_translate("account", "Calendar"))
-        self.btnAccount.setText(_translate("account", "Account"))
         self.titleLabel_2.setText(_translate("account", "EconoMystique"))
+        self.btnSales.setText(_translate("account", "Sales"))
+        self.btnInventory.setText(_translate("account", "Inventory"))
+        self.btnCalendar.setText(_translate("account", "Calendar"))
         self.lblUserName.setText(_translate("account", "Kathlyn O. LAscota"))
         self.lblBusinessName.setText(_translate("account", "All Seasons Cake Shop"))
         self.btnLogOut.setText(_translate("account", "Log Out"))

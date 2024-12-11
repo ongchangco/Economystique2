@@ -246,42 +246,97 @@ class Ui_Sales(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.horizontalLayoutWidget_5 = QtWidgets.QWidget(self.frame)
-        self.horizontalLayoutWidget_5.setGeometry(QtCore.QRect(390, 0, 411, 41))
-        self.horizontalLayoutWidget_5.setObjectName("horizontalLayoutWidget_5")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_5)
-        self.horizontalLayout_5.setContentsMargins(10, 0, 10, 0)
-        self.horizontalLayout_5.setSpacing(5)
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.btnInventory = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
-        self.btnInventory.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnInventory.setObjectName("btnInventory")
-        self.horizontalLayout_5.addWidget(self.btnInventory)
-        self.btnSales = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
-        self.btnSales.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnSales.setObjectName("btnSales")
-        self.horizontalLayout_5.addWidget(self.btnSales)
-        self.btnCalendar = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
-        self.btnCalendar.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnCalendar.setObjectName("btnCalendar")
-        self.horizontalLayout_5.addWidget(self.btnCalendar)
-        self.btnAccount = QtWidgets.QPushButton(self.horizontalLayoutWidget_5)
-        self.btnAccount.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnAccount.setObjectName("btnAccount")
-        self.horizontalLayout_5.addWidget(self.btnAccount)
-        self.titleLabel_3 = QtWidgets.QLabel(self.frame)
-        self.titleLabel_3.setGeometry(QtCore.QRect(0, 0, 221, 41))
+        self.titleLabel_2 = QtWidgets.QLabel(self.frame)
+        self.titleLabel_2.setGeometry(QtCore.QRect(0, 0, 221, 41))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setPointSize(18)
-        self.titleLabel_3.setFont(font)
-        self.titleLabel_3.setStyleSheet("color: white;")
-        self.titleLabel_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.titleLabel_3.setObjectName("titleLabel_3")
+        self.titleLabel_2.setFont(font)
+        self.titleLabel_2.setStyleSheet("color: white;")
+        self.titleLabel_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.titleLabel_2.setObjectName("titleLabel_2")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(570, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(480, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnCalendar = QtWidgets.QPushButton(self.frame)
+        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnCalendar.setFont(font)
+        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCalendar.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon1)
+        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
+        self.btnAccount.setObjectName("btnAccount")
         Sales.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Sales)
         self.statusbar.setObjectName("statusbar")
@@ -301,8 +356,7 @@ class Ui_Sales(object):
         self.YearlyRecords.setText(_translate("Sales", "Yearly Records"))
         self.Assessment.setText(_translate("Sales", "Assessment"))
         self.forecastButton.setText(_translate("Sales", "GENERATE FORECAST"))
-        self.btnInventory.setText(_translate("Sales", "Inventory"))
+        self.titleLabel_2.setText(_translate("Sales", "EconoMystique"))
         self.btnSales.setText(_translate("Sales", "Sales"))
+        self.btnInventory.setText(_translate("Sales", "Inventory"))
         self.btnCalendar.setText(_translate("Sales", "Calendar"))
-        self.btnAccount.setText(_translate("Sales", "Account"))
-        self.titleLabel_3.setText(_translate("Sales", "EconoMystique"))

@@ -202,33 +202,6 @@ class Ui_Calendar(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.horizontalLayoutWidget_3 = QtWidgets.QWidget(self.frame)
-        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(390, 0, 411, 41))
-        self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
-        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
-        self.horizontalLayout_3.setContentsMargins(10, 0, 10, 0)
-        self.horizontalLayout_3.setSpacing(5)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.btnInventory = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
-        self.btnInventory.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnInventory.setObjectName("btnInventory")
-        self.horizontalLayout_3.addWidget(self.btnInventory)
-        self.btnSales = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
-        self.btnSales.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnSales.setObjectName("btnSales")
-        self.horizontalLayout_3.addWidget(self.btnSales)
-        self.btnCalendar = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
-        self.btnCalendar.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnCalendar.setObjectName("btnCalendar")
-        self.horizontalLayout_3.addWidget(self.btnCalendar)
-        self.btnAccount = QtWidgets.QPushButton(self.horizontalLayoutWidget_3)
-        self.btnAccount.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnAccount.setObjectName("btnAccount")
-        self.horizontalLayout_3.addWidget(self.btnAccount)
         self.titleLabel_2 = QtWidgets.QLabel(self.frame)
         self.titleLabel_2.setGeometry(QtCore.QRect(0, 0, 221, 41))
         font = QtGui.QFont()
@@ -238,6 +211,88 @@ class Ui_Calendar(object):
         self.titleLabel_2.setStyleSheet("color: white;")
         self.titleLabel_2.setAlignment(QtCore.Qt.AlignCenter)
         self.titleLabel_2.setObjectName("titleLabel_2")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(570, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(480, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnCalendar = QtWidgets.QPushButton(self.frame)
+        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnCalendar.setFont(font)
+        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCalendar.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon1)
+        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
+        self.btnAccount.setObjectName("btnAccount")
         Calendar.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Calendar)
         self.statusbar.setObjectName("statusbar")
@@ -251,8 +306,7 @@ class Ui_Calendar(object):
         Calendar.setWindowTitle(_translate("Calendar", "EconoMystique"))
         self.EventsCalendar.setText(_translate("Calendar", "Events Calendar"))
         self.eventLabel.setText(_translate("Calendar", "                    EVENT"))
-        self.btnInventory.setText(_translate("Calendar", "Inventory"))
-        self.btnSales.setText(_translate("Calendar", "Sales"))
-        self.btnCalendar.setText(_translate("Calendar", "Calendar"))
-        self.btnAccount.setText(_translate("Calendar", "Account"))
         self.titleLabel_2.setText(_translate("Calendar", "EconoMystique"))
+        self.btnSales.setText(_translate("Calendar", "Sales"))
+        self.btnInventory.setText(_translate("Calendar", "Inventory"))
+        self.btnCalendar.setText(_translate("Calendar", "Calendar"))

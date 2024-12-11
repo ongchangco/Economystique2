@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,9 +16,9 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(801, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("background: #f4f4ec;\n"
 "")
@@ -227,7 +227,7 @@ class Ui_MainWindow(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")

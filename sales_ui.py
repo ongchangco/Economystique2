@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\sales.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\sales.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -153,7 +153,7 @@ class Ui_Sales(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
         Sales.setPalette(palette)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         Sales.setWindowIcon(icon)
         Sales.setLayoutDirection(QtCore.Qt.LeftToRight)
         Sales.setStyleSheet("background: #f4f4ec;\n"
@@ -321,7 +321,7 @@ class Ui_Sales(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")

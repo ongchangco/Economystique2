@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\login.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\login.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_Login(object):
         Login.setObjectName("Login")
         Login.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         Login.setWindowIcon(icon)
         Login.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -32,7 +32,7 @@ class Ui_Login(object):
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(-50, 80, 341, 391))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"))
+        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"))
         self.label.setObjectName("label")
         self.loginLabel = QtWidgets.QLabel(self.centralwidget)
         self.loginLabel.setGeometry(QtCore.QRect(530, 60, 151, 51))

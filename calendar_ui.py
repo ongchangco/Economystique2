@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\calendar.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\calendar.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -153,7 +153,7 @@ class Ui_Calendar(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
         Calendar.setPalette(palette)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         Calendar.setWindowIcon(icon)
         Calendar.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"
@@ -289,7 +289,7 @@ class Ui_Calendar(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")

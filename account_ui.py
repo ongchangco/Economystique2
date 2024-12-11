@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\account.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\account.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_account(object):
     def setupUi(self, account):
         account.setObjectName("account")
+<<<<<<< HEAD
         account.resize(800, 600)
+=======
+        account.resize(802, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        account.setWindowIcon(icon)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         account.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
@@ -187,10 +194,11 @@ class Ui_account(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
+<<<<<<< HEAD
         self.imgProfile = QtWidgets.QLabel(account)
         self.imgProfile.setGeometry(QtCore.QRect(580, 100, 101, 91))
         self.imgProfile.setText("")
@@ -198,6 +206,51 @@ class Ui_account(object):
         self.imgProfile.setScaledContents(True)
         self.imgProfile.setObjectName("imgProfile")
         self.lblFSTitle = QtWidgets.QLabel(account)
+=======
+        self.imgBusinessLogo = QtWidgets.QLabel(self.centralwidget)
+        self.imgBusinessLogo.setGeometry(QtCore.QRect(140, 100, 101, 101))
+        self.imgBusinessLogo.setText("")
+        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/allseasonsL.jpg"))
+        self.imgBusinessLogo.setScaledContents(True)
+        self.imgBusinessLogo.setObjectName("imgBusinessLogo")
+        self.lblUserName = QtWidgets.QLabel(self.centralwidget)
+        self.lblUserName.setGeometry(QtCore.QRect(470, 200, 301, 41))
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        font.setPointSize(12)
+        self.lblUserName.setFont(font)
+        self.lblUserName.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblUserName.setObjectName("lblUserName")
+        self.lblBusinessName = QtWidgets.QLabel(self.centralwidget)
+        self.lblBusinessName.setGeometry(QtCore.QRect(60, 210, 291, 31))
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        font.setPointSize(12)
+        self.lblBusinessName.setFont(font)
+        self.lblBusinessName.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBusinessName.setObjectName("lblBusinessName")
+        self.btnEditProfile = QtWidgets.QPushButton(self.centralwidget)
+        self.btnEditProfile.setGeometry(QtCore.QRect(730, 330, 41, 31))
+        self.btnEditProfile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnEditProfile.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/editPfp.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnEditProfile.setIcon(icon2)
+        self.btnEditProfile.setFlat(True)
+        self.btnEditProfile.setObjectName("btnEditProfile")
+        self.btnLogOut = QtWidgets.QPushButton(self.centralwidget)
+        self.btnLogOut.setGeometry(QtCore.QRect(360, 540, 93, 28))
+        font = QtGui.QFont()
+        font.setUnderline(False)
+        self.btnLogOut.setFont(font)
+        self.btnLogOut.setStyleSheet("color: white;\n"
+"background-color: red;\n"
+"\n"
+"")
+        self.btnLogOut.setFlat(False)
+        self.btnLogOut.setObjectName("btnLogOut")
+        self.lblFSTitle = QtWidgets.QLabel(self.centralwidget)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.lblFSTitle.setGeometry(QtCore.QRect(350, 360, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -205,6 +258,7 @@ class Ui_account(object):
         self.lblFSTitle.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.lblFSTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.lblFSTitle.setObjectName("lblFSTitle")
+<<<<<<< HEAD
         self.imgBusinessLogo = QtWidgets.QLabel(account)
         self.imgBusinessLogo.setGeometry(QtCore.QRect(140, 100, 101, 101))
         self.imgBusinessLogo.setText("")
@@ -212,6 +266,63 @@ class Ui_account(object):
         self.imgBusinessLogo.setScaledContents(True)
         self.imgBusinessLogo.setObjectName("imgBusinessLogo")
         self.horizontalLayoutWidget = QtWidgets.QWidget(account)
+=======
+        self.imgProfile = QtWidgets.QLabel(self.centralwidget)
+        self.imgProfile.setGeometry(QtCore.QRect(580, 100, 101, 91))
+        self.imgProfile.setText("")
+        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/profile.png"))
+        self.imgProfile.setScaledContents(True)
+        self.imgProfile.setObjectName("imgProfile")
+        self.lblBusinessName_2 = QtWidgets.QLabel(self.centralwidget)
+        self.lblBusinessName_2.setGeometry(QtCore.QRect(310, 60, 221, 31))
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        font.setPointSize(18)
+        self.lblBusinessName_2.setFont(font)
+        self.lblBusinessName_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBusinessName_2.setObjectName("lblBusinessName_2")
+        self.lblRole = QtWidgets.QLabel(self.centralwidget)
+        self.lblRole.setGeometry(QtCore.QRect(520, 240, 211, 31))
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.lblRole.setFont(font)
+        self.lblRole.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblRole.setObjectName("lblRole")
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setGeometry(QtCore.QRect(70, 260, 271, 81))
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.lblBsnsType = QtWidgets.QLabel(self.frame_2)
+        self.lblBsnsType.setGeometry(QtCore.QRect(0, 0, 91, 31))
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.lblBsnsType.setFont(font)
+        self.lblBsnsType.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lblBsnsType.setObjectName("lblBsnsType")
+        self.lblOwnership = QtWidgets.QLabel(self.frame_2)
+        self.lblOwnership.setGeometry(QtCore.QRect(0, 30, 91, 31))
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.lblOwnership.setFont(font)
+        self.lblOwnership.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lblOwnership.setObjectName("lblOwnership")
+        self.lblLocation = QtWidgets.QLabel(self.frame_2)
+        self.lblLocation.setGeometry(QtCore.QRect(0, 60, 111, 31))
+        font = QtGui.QFont()
+        font.setBold(False)
+        font.setWeight(50)
+        self.lblLocation.setFont(font)
+        self.lblLocation.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lblLocation.setObjectName("lblLocation")
+        self.fileListView = QtWidgets.QListView(self.centralwidget)
+        self.fileListView.setGeometry(QtCore.QRect(20, 400, 761, 71))
+        self.fileListView.setObjectName("fileListView")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(630, 480, 151, 51))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
@@ -220,9 +331,15 @@ class Ui_account(object):
         self.btnOpenFile = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.btnOpenFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnOpenFile.setText("")
+<<<<<<< HEAD
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/fileIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnOpenFile.setIcon(icon2)
+=======
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/fileIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnOpenFile.setIcon(icon3)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.btnOpenFile.setFlat(True)
         self.btnOpenFile.setObjectName("btnOpenFile")
         self.horizontalLayout.addWidget(self.btnOpenFile)
@@ -230,9 +347,15 @@ class Ui_account(object):
         self.btnDeleteFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnDeleteFile.setAutoFillBackground(False)
         self.btnDeleteFile.setText("")
+<<<<<<< HEAD
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnDeleteFile.setIcon(icon3)
+=======
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDeleteFile.setIcon(icon4)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.btnDeleteFile.setFlat(True)
         self.btnDeleteFile.setObjectName("btnDeleteFile")
         self.horizontalLayout.addWidget(self.btnDeleteFile)
@@ -244,9 +367,15 @@ class Ui_account(object):
         self.btnAddFile.setFont(font)
         self.btnAddFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnAddFile.setText("")
+<<<<<<< HEAD
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAddFile.setIcon(icon4)
+=======
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnAddFile.setIcon(icon5)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.btnAddFile.setFlat(True)
         self.btnAddFile.setObjectName("btnAddFile")
         self.horizontalLayout.addWidget(self.btnAddFile)

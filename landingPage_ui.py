@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,6 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+<<<<<<< HEAD
         MainWindow.resize(800, 600)
         MainWindow.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
@@ -30,6 +31,31 @@ class Ui_MainWindow(object):
         self.Summary.setAlignment(QtCore.Qt.AlignCenter)
         self.Summary.setObjectName("Summary")
         self.verticalLayoutWidget = QtWidgets.QWidget(MainWindow)
+=======
+        MainWindow.resize(801, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet("background: #f4f4ec;\n"
+"")
+        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setAutoFillBackground(False)
+        self.centralwidget.setStyleSheet("QWidget#centralwidget {\n"
+"    background-image: url(\'img/econologo.png\');\n"
+"    background-repeat: no-repeat;\n"
+"    background-position: center;\n"
+"}")
+        self.centralwidget.setObjectName("centralwidget")
+        self.assessmentListView = QtWidgets.QListView(self.centralwidget)
+        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 241))
+        self.assessmentListView.setStyleSheet("background-color: transparent;")
+        self.assessmentListView.setObjectName("assessmentListView")
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 40, 801, 81))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
@@ -171,9 +197,15 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnAccount.setText("")
+<<<<<<< HEAD
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon)
+=======
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnAccount.setIcon(icon1)
+>>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.btnSales = QtWidgets.QPushButton(self.frame)

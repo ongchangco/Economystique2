@@ -228,18 +228,6 @@ class Ui_Sales(object):
         self.Assessment.setFont(font)
         self.Assessment.setObjectName("Assessment")
         self.horizontalLayout_2.addWidget(self.Assessment)
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(520, 490, 251, 51))
-        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.forecastButton = QtWidgets.QPushButton(self.verticalLayoutWidget_2)
-        font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
-        self.forecastButton.setFont(font)
-        self.forecastButton.setObjectName("forecastButton")
-        self.verticalLayout_2.addWidget(self.forecastButton)
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, 0, 801, 41))
         self.frame.setStyleSheet("background: #365b6d;")
@@ -337,6 +325,30 @@ class Ui_Sales(object):
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
+        self.forecastButton = QtWidgets.QPushButton(self.centralwidget)
+        self.forecastButton.setGeometry(QtCore.QRect(520, 490, 251, 36))
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        self.forecastButton.setFont(font)
+        self.forecastButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.forecastButton.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #365b6d;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.forecastButton.setFlat(False)
+        self.forecastButton.setObjectName("forecastButton")
         Sales.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Sales)
         self.statusbar.setObjectName("statusbar")
@@ -355,8 +367,8 @@ class Ui_Sales(object):
         self.MonthlyRecords.setText(_translate("Sales", "Monthly Records"))
         self.YearlyRecords.setText(_translate("Sales", "Yearly Records"))
         self.Assessment.setText(_translate("Sales", "Assessment"))
-        self.forecastButton.setText(_translate("Sales", "GENERATE FORECAST"))
         self.titleLabel_2.setText(_translate("Sales", "EconoMystique"))
         self.btnSales.setText(_translate("Sales", "Sales"))
         self.btnInventory.setText(_translate("Sales", "Inventory"))
         self.btnCalendar.setText(_translate("Sales", "Calendar"))
+        self.forecastButton.setText(_translate("Sales", "GENERATE FORECAST"))

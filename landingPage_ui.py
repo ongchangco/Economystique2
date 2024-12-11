@@ -22,6 +22,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("background: #f4f4ec;\n"
 "")
+        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setAutoFillBackground(False)
         self.centralwidget.setStyleSheet("QWidget#centralwidget {\n"
@@ -31,7 +33,7 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.assessmentListView = QtWidgets.QListView(self.centralwidget)
-        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 221))
+        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 241))
         self.assessmentListView.setStyleSheet("background-color: transparent;")
         self.assessmentListView.setObjectName("assessmentListView")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -55,7 +57,25 @@ class Ui_MainWindow(object):
         self.summaryListView.setStyleSheet("background-color: transparent;")
         self.summaryListView.setObjectName("summaryListView")
         self.recommendationButton = QtWidgets.QPushButton(self.centralwidget)
-        self.recommendationButton.setGeometry(QtCore.QRect(520, 430, 241, 61))
+        self.recommendationButton.setGeometry(QtCore.QRect(550, 460, 201, 51))
+        self.recommendationButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.recommendationButton.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #365b6d;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.recommendationButton.setDefault(False)
         self.recommendationButton.setObjectName("recommendationButton")
         self.verticalWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalWidget_2.setGeometry(QtCore.QRect(310, 190, 161, 321))
@@ -68,6 +88,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.dueInButton = QtWidgets.QPushButton(self.verticalWidget_2)
         self.dueInButton.setMinimumSize(QtCore.QSize(0, 50))
+        self.dueInButton.setStyleSheet("QPushButton{\n"
+"    background-color: #86ada0;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #86ada0;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.dueInButton.setObjectName("dueInButton")
         self.verticalLayout_2.addWidget(self.dueInButton)
         self.onHandButton = QtWidgets.QPushButton(self.verticalWidget_2)
@@ -78,12 +113,42 @@ class Ui_MainWindow(object):
         font.setStrikeOut(False)
         self.onHandButton.setFont(font)
         self.onHandButton.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.onHandButton.setStyleSheet("QPushButton {\n"
+"    background-color: #53786d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #53786d;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.onHandButton.setDefault(False)
         self.onHandButton.setFlat(False)
         self.onHandButton.setObjectName("onHandButton")
         self.verticalLayout_2.addWidget(self.onHandButton)
         self.owedButton = QtWidgets.QPushButton(self.verticalWidget_2)
         self.owedButton.setMinimumSize(QtCore.QSize(0, 50))
+        self.owedButton.setStyleSheet("QPushButton{\n"
+"    background-color: #4e655e;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #4e655e;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #4e655e;\n"
+"}")
         self.owedButton.setObjectName("owedButton")
         self.verticalLayout_2.addWidget(self.owedButton)
         self.Summary = QtWidgets.QLabel(self.centralwidget)

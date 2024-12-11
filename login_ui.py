@@ -16,6 +16,9 @@ class Ui_Login(object):
         Login.setObjectName("Login")
         Login.setEnabled(True)
         Login.resize(800, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        Login.setWindowIcon(icon)
         Login.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")

@@ -11,7 +11,12 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>EconoMystique</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <selectedon>img/econoLogo2.png</selectedon>
+   </iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #f4f4ec;

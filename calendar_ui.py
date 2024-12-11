@@ -15,6 +15,9 @@ class Ui_Calendar(object):
     def setupUi(self, Calendar):
         Calendar.setObjectName("Calendar")
         Calendar.resize(800, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        Calendar.setWindowIcon(icon)
         Calendar.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"
 "")
@@ -123,9 +126,9 @@ class Ui_Calendar(object):
 "}\n"
 "")
         self.btnAccount.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.btnAccount.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.horizontalLayoutWidget = QtWidgets.QWidget(Calendar)

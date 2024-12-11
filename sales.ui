@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>EconoMystique</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <selectedon>img/econoLogo2.png</selectedon>
+   </iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background: #f4f4ec;
 color: black;
@@ -61,15 +66,32 @@ color: black;
           <height>271</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: white;
+color: black;
+</string>
+        </property>
        </widget>
       </widget>
      </widget>
     </item>
     <item>
-     <widget class="QListView" name="yearlyRecordsListView"/>
+     <widget class="QListView" name="yearlyRecordsListView">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+color: black;
+</string>
+      </property>
+     </widget>
     </item>
     <item>
-     <widget class="QListView" name="assessmentListView"/>
+     <widget class="QListView" name="assessmentListView">
+      <property name="styleSheet">
+       <string notr="true">background-color: white;
+color: black;
+</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

@@ -15,6 +15,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -145,9 +148,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnAccount.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.btnSales = QtWidgets.QPushButton(self.frame)

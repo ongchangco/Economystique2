@@ -15,6 +15,9 @@ class Ui_signUp(object):
     def setupUi(self, signUp):
         signUp.setObjectName("signUp")
         signUp.resize(800, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        signUp.setWindowIcon(icon)
         signUp.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
         self.usernameLine = QtWidgets.QLineEdit(signUp)
@@ -199,7 +202,7 @@ class Ui_signUp(object):
 
     def retranslateUi(self, signUp):
         _translate = QtCore.QCoreApplication.translate
-        signUp.setWindowTitle(_translate("signUp", "Form"))
+        signUp.setWindowTitle(_translate("signUp", "EconoMystique"))
         self.pushButton.setText(_translate("signUp", "SIGN IN"))
         self.usernameLabel.setText(_translate("signUp", "Username:"))
         self.loginButton.setText(_translate("signUp", "Login"))

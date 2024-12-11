@@ -15,6 +15,9 @@ class Ui_Sales(object):
     def setupUi(self, Sales):
         Sales.setObjectName("Sales")
         Sales.resize(800, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        Sales.setWindowIcon(icon)
         Sales.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"
 "")
@@ -36,13 +39,22 @@ class Ui_Sales(object):
         self.tab_2.setObjectName("tab_2")
         self.tab2ListView = QtWidgets.QListView(self.tab_2)
         self.tab2ListView.setGeometry(QtCore.QRect(0, 0, 251, 271))
+        self.tab2ListView.setStyleSheet("background-color: white;\n"
+"color: black;\n"
+"")
         self.tab2ListView.setObjectName("tab2ListView")
         self.tabWidget.addTab(self.tab_2, "")
         self.horizontalLayout.addWidget(self.tabWidget)
         self.yearlyRecordsListView = QtWidgets.QListView(self.horizontalLayoutWidget)
+        self.yearlyRecordsListView.setStyleSheet("background-color: white;\n"
+"color: black;\n"
+"")
         self.yearlyRecordsListView.setObjectName("yearlyRecordsListView")
         self.horizontalLayout.addWidget(self.yearlyRecordsListView)
         self.assessmentListView = QtWidgets.QListView(self.horizontalLayoutWidget)
+        self.assessmentListView.setStyleSheet("background-color: white;\n"
+"color: black;\n"
+"")
         self.assessmentListView.setObjectName("assessmentListView")
         self.horizontalLayout.addWidget(self.assessmentListView)
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(Sales)
@@ -177,9 +189,9 @@ class Ui_Sales(object):
 "}\n"
 "")
         self.btnAccount.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.btnAccount.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.forecastButton = QtWidgets.QPushButton(Sales)

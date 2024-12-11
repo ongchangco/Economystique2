@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+'''from PyQt5.QtWidgets import QWidget, QMainWindow
 from sales_ui import Ui_Sales
 from PyQt5.QtGui import QPixmap
 
@@ -47,4 +47,4 @@ class SalesWindow(QMainWindow):
     def open_forecast(self):
         from salesForecast import SalesForecastWindow
         self.sales_forecast_window = SalesForecastWindow()
-        self.sales_forecast_window.show()
+        self.sales_forecast_window.show()'''

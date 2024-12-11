@@ -1,4 +1,4 @@
-import os
+''''import os
 from PyQt5.QtWidgets import QFileDialog, QMessageBox, QListView, QMainWindow
 from PyQt5.QtCore import QStringListModel
 from account_ui import Ui_account
@@ -121,4 +121,4 @@ class AccountWindow(QMainWindow):
                     self.file_list = [line.strip() for line in f.readlines()]
                 self.file_model.setStringList(self.file_list)
             except Exception as e:
-                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
+                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")'''

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,12 +16,14 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(801, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("background: #f4f4ec;\n"
 "")
+        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setAutoFillBackground(False)
         self.centralwidget.setStyleSheet("QWidget#centralwidget {\n"
@@ -31,7 +33,7 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.assessmentListView = QtWidgets.QListView(self.centralwidget)
-        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 221))
+        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 241))
         self.assessmentListView.setStyleSheet("background-color: transparent;")
         self.assessmentListView.setObjectName("assessmentListView")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -55,7 +57,25 @@ class Ui_MainWindow(object):
         self.summaryListView.setStyleSheet("background-color: transparent;")
         self.summaryListView.setObjectName("summaryListView")
         self.recommendationButton = QtWidgets.QPushButton(self.centralwidget)
-        self.recommendationButton.setGeometry(QtCore.QRect(520, 430, 241, 61))
+        self.recommendationButton.setGeometry(QtCore.QRect(550, 460, 201, 51))
+        self.recommendationButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.recommendationButton.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #365b6d;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.recommendationButton.setDefault(False)
         self.recommendationButton.setObjectName("recommendationButton")
         self.verticalWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalWidget_2.setGeometry(QtCore.QRect(310, 190, 161, 321))
@@ -68,6 +88,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.dueInButton = QtWidgets.QPushButton(self.verticalWidget_2)
         self.dueInButton.setMinimumSize(QtCore.QSize(0, 50))
+        self.dueInButton.setStyleSheet("QPushButton{\n"
+"    background-color: #86ada0;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #86ada0;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.dueInButton.setObjectName("dueInButton")
         self.verticalLayout_2.addWidget(self.dueInButton)
         self.onHandButton = QtWidgets.QPushButton(self.verticalWidget_2)
@@ -78,12 +113,42 @@ class Ui_MainWindow(object):
         font.setStrikeOut(False)
         self.onHandButton.setFont(font)
         self.onHandButton.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.onHandButton.setStyleSheet("QPushButton {\n"
+"    background-color: #53786d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #53786d;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.onHandButton.setDefault(False)
         self.onHandButton.setFlat(False)
         self.onHandButton.setObjectName("onHandButton")
         self.verticalLayout_2.addWidget(self.onHandButton)
         self.owedButton = QtWidgets.QPushButton(self.verticalWidget_2)
         self.owedButton.setMinimumSize(QtCore.QSize(0, 50))
+        self.owedButton.setStyleSheet("QPushButton{\n"
+"    background-color: #4e655e;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"    border: 2px solid #4e655e;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #4e655e;\n"
+"}")
         self.owedButton.setObjectName("owedButton")
         self.verticalLayout_2.addWidget(self.owedButton)
         self.Summary = QtWidgets.QLabel(self.centralwidget)
@@ -115,33 +180,6 @@ class Ui_MainWindow(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(self.frame)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(370, 0, 431, 41))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout_2.setContentsMargins(10, 0, 10, 0)
-        self.horizontalLayout_2.setSpacing(5)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.btnInventory = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.btnInventory.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnInventory.setObjectName("btnInventory")
-        self.horizontalLayout_2.addWidget(self.btnInventory)
-        self.btnSales = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.btnSales.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnSales.setObjectName("btnSales")
-        self.horizontalLayout_2.addWidget(self.btnSales)
-        self.btnCalendar = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.btnCalendar.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnCalendar.setObjectName("btnCalendar")
-        self.horizontalLayout_2.addWidget(self.btnCalendar)
-        self.btnAccount = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.btnAccount.setStyleSheet("background: #5b8ca4;\n"
-"color: white;")
-        self.btnAccount.setObjectName("btnAccount")
-        self.horizontalLayout_2.addWidget(self.btnAccount)
         self.titleLabel = QtWidgets.QLabel(self.frame)
         self.titleLabel.setGeometry(QtCore.QRect(0, 0, 221, 41))
         font = QtGui.QFont()
@@ -151,6 +189,88 @@ class Ui_MainWindow(object):
         self.titleLabel.setStyleSheet("color: white;")
         self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.titleLabel.setObjectName("titleLabel")
+        self.btnCalendar = QtWidgets.QPushButton(self.frame)
+        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnCalendar.setFont(font)
+        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCalendar.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnAccount.setIcon(icon1)
+        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
+        self.btnAccount.setObjectName("btnAccount")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(570, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(480, 0, 93, 41))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -169,8 +289,7 @@ class Ui_MainWindow(object):
         self.owedButton.setText(_translate("MainWindow", "OWED STOCKS"))
         self.Summary.setText(_translate("MainWindow", "SUMMARY"))
         self.Assessment.setText(_translate("MainWindow", "ASSESSMENT"))
-        self.btnInventory.setText(_translate("MainWindow", "Inventory"))
-        self.btnSales.setText(_translate("MainWindow", "Sales"))
-        self.btnCalendar.setText(_translate("MainWindow", "Calendar"))
-        self.btnAccount.setText(_translate("MainWindow", "Account"))
         self.titleLabel.setText(_translate("MainWindow", "EconoMystique"))
+        self.btnCalendar.setText(_translate("MainWindow", "Calendar"))
+        self.btnSales.setText(_translate("MainWindow", "Sales"))
+        self.btnInventory.setText(_translate("MainWindow", "Inventory"))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,64 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-<<<<<<< HEAD
         MainWindow.resize(800, 600)
         MainWindow.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
-        self.Summary = QtWidgets.QLabel(MainWindow)
-        self.Summary.setGeometry(QtCore.QRect(10, 127, 281, 51))
-        font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.Summary.setFont(font)
-        self.Summary.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.Summary.setStyleSheet("background-color: transparent;")
-        self.Summary.setAlignment(QtCore.Qt.AlignCenter)
-        self.Summary.setObjectName("Summary")
-        self.verticalLayoutWidget = QtWidgets.QWidget(MainWindow)
-=======
-        MainWindow.resize(801, 600)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Active, QtGui.QIcon.On)
-        MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("background: #f4f4ec;\n"
-"")
-        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
-        MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setAutoFillBackground(False)
-        self.centralwidget.setStyleSheet("QWidget#centralwidget {\n"
-"    background-image: url(\'img/econologo.png\');\n"
-"    background-repeat: no-repeat;\n"
-"    background-position: center;\n"
-"}")
         self.centralwidget.setObjectName("centralwidget")
-        self.assessmentListView = QtWidgets.QListView(self.centralwidget)
-        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 241))
-        self.assessmentListView.setStyleSheet("background-color: transparent;")
-        self.assessmentListView.setObjectName("assessmentListView")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
->>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 40, 801, 81))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(290, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.InventoryStatus = QtWidgets.QLabel(self.verticalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
-        font.setPointSize(18)
-        font.setBold(False)
-        font.setWeight(50)
-        self.InventoryStatus.setFont(font)
-        self.InventoryStatus.setStyleSheet("background-color: transparent;")
-        self.InventoryStatus.setObjectName("InventoryStatus")
-        self.verticalLayout.addWidget(self.InventoryStatus)
-        self.verticalWidget_2 = QtWidgets.QWidget(MainWindow)
+        self.verticalWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalWidget_2.setGeometry(QtCore.QRect(310, 190, 161, 321))
         self.verticalWidget_2.setStyleSheet("QWidget#verticalWidget_2{\n"
 "background: transparent;\n"
@@ -145,7 +93,7 @@ class Ui_MainWindow(object):
 "}")
         self.owedButton.setObjectName("owedButton")
         self.verticalLayout_2.addWidget(self.owedButton)
-        self.frame = QtWidgets.QFrame(MainWindow)
+        self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, 0, 801, 41))
         self.frame.setStyleSheet("background: #365b6d;")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -197,15 +145,9 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnAccount.setText("")
-<<<<<<< HEAD
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon)
-=======
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon1)
->>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.btnSales = QtWidgets.QPushButton(self.frame)
@@ -248,28 +190,7 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
-        self.Assessment = QtWidgets.QLabel(MainWindow)
-        self.Assessment.setGeometry(QtCore.QRect(500, 127, 281, 51))
-        font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.Assessment.setFont(font)
-        self.Assessment.setStyleSheet("background-color: transparent;")
-        self.Assessment.setAlignment(QtCore.Qt.AlignCenter)
-        self.Assessment.setObjectName("Assessment")
-        self.assessmentListView = QtWidgets.QListView(MainWindow)
-        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 241))
-        self.assessmentListView.setStyleSheet("background-color: transparent;\n"
-"color: black;")
-        self.assessmentListView.setObjectName("assessmentListView")
-        self.summaryListView = QtWidgets.QListView(MainWindow)
-        self.summaryListView.setGeometry(QtCore.QRect(10, 190, 279, 319))
-        self.summaryListView.setStyleSheet("background-color: transparent;\n"
-"color: black;")
-        self.summaryListView.setObjectName("summaryListView")
-        self.recommendationButton = QtWidgets.QPushButton(MainWindow)
+        self.recommendationButton = QtWidgets.QPushButton(self.centralwidget)
         self.recommendationButton.setGeometry(QtCore.QRect(550, 460, 201, 51))
         self.recommendationButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.recommendationButton.setStyleSheet("QPushButton{\n"
@@ -290,15 +211,66 @@ class Ui_MainWindow(object):
 "}")
         self.recommendationButton.setDefault(False)
         self.recommendationButton.setObjectName("recommendationButton")
+        self.Assessment = QtWidgets.QLabel(self.centralwidget)
+        self.Assessment.setGeometry(QtCore.QRect(500, 127, 281, 51))
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Assessment.setFont(font)
+        self.Assessment.setStyleSheet("background-color: transparent;")
+        self.Assessment.setAlignment(QtCore.Qt.AlignCenter)
+        self.Assessment.setObjectName("Assessment")
+        self.Summary = QtWidgets.QLabel(self.centralwidget)
+        self.Summary.setGeometry(QtCore.QRect(10, 127, 281, 51))
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setWeight(50)
+        self.Summary.setFont(font)
+        self.Summary.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.Summary.setStyleSheet("background-color: transparent;")
+        self.Summary.setAlignment(QtCore.Qt.AlignCenter)
+        self.Summary.setObjectName("Summary")
+        self.assessmentListView = QtWidgets.QListView(self.centralwidget)
+        self.assessmentListView.setGeometry(QtCore.QRect(500, 190, 291, 241))
+        self.assessmentListView.setStyleSheet("background-color: transparent;\n"
+"color: black;")
+        self.assessmentListView.setObjectName("assessmentListView")
+        self.summaryListView = QtWidgets.QListView(self.centralwidget)
+        self.summaryListView.setGeometry(QtCore.QRect(10, 190, 279, 319))
+        self.summaryListView.setStyleSheet("background-color: transparent;\n"
+"color: black;")
+        self.summaryListView.setObjectName("summaryListView")
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 40, 801, 81))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(290, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.InventoryStatus = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Sans Serif Collection")
+        font.setPointSize(18)
+        font.setBold(False)
+        font.setWeight(50)
+        self.InventoryStatus.setFont(font)
+        self.InventoryStatus.setStyleSheet("background-color: transparent;")
+        self.InventoryStatus.setObjectName("InventoryStatus")
+        self.verticalLayout.addWidget(self.InventoryStatus)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Form"))
-        self.Summary.setText(_translate("MainWindow", "SUMMARY"))
-        self.InventoryStatus.setText(_translate("MainWindow", "Inventory Status"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "EconoMystique"))
         self.dueInButton.setText(_translate("MainWindow", "DUE-IN STOCKS"))
         self.onHandButton.setText(_translate("MainWindow", "ON-HAND STOCKS"))
         self.owedButton.setText(_translate("MainWindow", "OWED STOCKS"))
@@ -306,5 +278,7 @@ class Ui_MainWindow(object):
         self.btnCalendar.setText(_translate("MainWindow", "Calendar"))
         self.btnSales.setText(_translate("MainWindow", "Sales"))
         self.btnInventory.setText(_translate("MainWindow", "Inventory"))
-        self.Assessment.setText(_translate("MainWindow", "ASSESSMENT"))
         self.recommendationButton.setText(_translate("MainWindow", "REQUEST RECOMMENDATION"))
+        self.Assessment.setText(_translate("MainWindow", "ASSESSMENT"))
+        self.Summary.setText(_translate("MainWindow", "SUMMARY"))
+        self.InventoryStatus.setText(_translate("MainWindow", "Inventory Status"))

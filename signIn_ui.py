@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\signIn.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\signIn.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -15,42 +15,9 @@ class Ui_signUp(object):
     def setupUi(self, signUp):
         signUp.setObjectName("signUp")
         signUp.resize(800, 600)
-<<<<<<< HEAD
         signUp.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
         self.usernameLine = QtWidgets.QLineEdit(signUp)
-=======
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        signUp.setWindowIcon(icon)
-        signUp.setStyleSheet("background-color: #f4f4ec;\n"
-"color: black;\n"
-"")
-        self.centralwidget = QtWidgets.QWidget(signUp)
-        self.centralwidget.setObjectName("centralwidget")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(400, 0, 401, 601))
-        self.frame.setStyleSheet("background: #365b6d;")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(-50, 80, 491, 391))
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"))
-        self.label.setObjectName("label")
-        self.loginLabel = QtWidgets.QLabel(self.centralwidget)
-        self.loginLabel.setGeometry(QtCore.QRect(110, 50, 191, 51))
-        font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(26)
-        font.setBold(True)
-        font.setWeight(75)
-        self.loginLabel.setFont(font)
-        self.loginLabel.setStyleSheet("color: #365b6d;")
-        self.loginLabel.setObjectName("loginLabel")
-        self.usernameLine = QtWidgets.QLineEdit(self.centralwidget)
->>>>>>> 122682ad555d02132b8225db76a651bbee6d44bc
         self.usernameLine.setGeometry(QtCore.QRect(40, 240, 311, 31))
         font = QtGui.QFont()
         font.setPointSize(10)

@@ -206,7 +206,7 @@ class AccountWindow(QMainWindow):
         self.ui.btnOpenFile_2.clicked.connect(self.open_file_2)
         self.ui.btnDeleteFile_2.clicked.connect(self.delete_file_2)
         self.ui.btnAddFile_2.clicked.connect(self.add_file_2)
-
+    
     def _setup_ui(self):
         try:
             self.ui.setupUi(self)

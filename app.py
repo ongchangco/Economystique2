@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
 
 #additional imports for each page
 from login_ui import Ui_Login
@@ -23,9 +23,9 @@ from sales_ui import Ui_Sales
 class Login(QMainWindow):
     def __init__(self):
         super(Login, self).__init__()
-
         self.ui = Ui_Login()
         self.ui.setupUi(self)
+
         # Connect sign up button
         self.ui.signUpButton.clicked.connect(self.open_signUp)
         #for login button on login == go to landingPage
@@ -44,7 +44,6 @@ class Login(QMainWindow):
 class SignUp(QMainWindow):
     def __init__(self):
         super(SignUp, self).__init__()
-        
         self.ui = Ui_signUp()
         self.ui.setupUi(self)
         
@@ -66,7 +65,6 @@ class SignUp(QMainWindow):
 class LandingPage(QMainWindow):
     def __init__(self):
         super(LandingPage, self).__init__()
-        
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("Inventory Status")
@@ -76,19 +74,6 @@ class LandingPage(QMainWindow):
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        
-    def update_tabs(self):
-        """This method updates the tabs based on the items in AccountWindow's QListView"""
-        file_list = list(self.account_window.file_map.keys())
-        
-        # Clear the existing tabs
-        self.tab_widget.clear()
-
-        # Add a new tab for each item in the file list
-        for file_name in file_list:
-            self.add_tab(file_name)
-
-    
     
     # Button Functions
     def open_sales(self):
@@ -114,36 +99,79 @@ class LandingPage(QMainWindow):
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()
-        
-        # Instantiate UI class instance
         self.ui = Ui_Sales()
-
-        # Wrap setupUi logic safely
         self._setup_ui()
         self.setWindowTitle("Sales")
+
+        # Load file list from storage and update tabs
+        self.file_map_2 = {}
+        self.load_files_2()
+        self.update_tabs(list(self.file_map_2.keys()))
 
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        
+        self.ui.forecastButton.clicked.connect(self.open_forecast)
+
     def _setup_ui(self):
         try:
             self.ui.setupUi(self)
         except RecursionError as e:
             print("Recursion error detected during UI setup:", e)
-    
+
     def update_tabs(self, file_list):
-        """Update QTabWidget based on the file list."""
+        """Update QTabWidget based on the file list and display Excel contents."""
         tab_widget = self.ui.tabWidget
         tab_widget.clear()  # Clear existing tabs
 
         for file_name in file_list:
             tab = QWidget()  # Create a new tab
             tab_layout = QVBoxLayout(tab)  # Add layout to the tab
-            label = QLabel(f"Content for {file_name}")  # Add a placeholder label
-            tab_layout.addWidget(label)
+
+            table_view = QTableView()  # Create a QTableView
+            tab_layout.addWidget(table_view)  # Add QTableView to the layout
+
+            # Load the Excel file and populate the table
+            file_path = self.file_map_2.get(file_name)
+            if file_path:
+                try:
+                    # Read Excel file using pandas
+                    df = pd.read_excel(file_path)
+
+                    # Convert pandas DataFrame to QStandardItemModel
+                    model = self._dataframe_to_model(df)
+
+                    # Set the model to the QTableView
+                    table_view.setModel(model)
+                except Exception as e:
+                    error_label = QLabel(f"Failed to load file {file_name}: {str(e)}")
+                    tab_layout.addWidget(error_label)
+
             tab_widget.addTab(tab, file_name)  # Add the tab to QTabWidget
+
+    def _dataframe_to_model(self, dataframe):
+        """Convert a pandas DataFrame to a QStandardItemModel."""
+        model = QStandardItemModel()
+        model.setColumnCount(len(dataframe.columns))
+        model.setHorizontalHeaderLabels(dataframe.columns)
+
+        for row_idx, row in dataframe.iterrows():
+            items = [QStandardItem(str(value)) for value in row]
+            model.appendRow(items)
+
+        return model
+
+    def load_files_2(self):
+        """Load files from storage."""
+        if os.path.exists('file_list_2.txt'):
+            try:
+                with open('file_list_2.txt', 'r') as f:
+                    for line in f:
+                        display_name, file_path = line.strip().split('||')
+                        self.file_map_2[display_name] = file_path
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
     
     # Button Functions  
     def open_inventory(self):
@@ -161,12 +189,15 @@ class SalesWindow(QMainWindow):
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
+    def open_forecast(self):
+        from salesForecast import SalesForecastWindow
+        self.sales_forecast_window = SalesForecastWindow()
+        self.sales_forecast_window.show()
+        
 class CalendarWindow(QMainWindow):
     def __init__(self):
         super(CalendarWindow, self).__init__()
         self.ui = Ui_Calendar()
-
-        # Wrap setupUi logic safely
         self._setup_ui()
         self.setWindowTitle("Events Calendar")
         
@@ -198,19 +229,13 @@ class CalendarWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         
 class AccountWindow(QMainWindow):
-    
     file_list_updated_2 = pyqtSignal(list)  # Signal to emit file list
     
     def __init__(self):
         super(AccountWindow, self).__init__()
-
-        # Instantiate UI class instance
         self.ui = Ui_account()
-
-        # Wrap setupUi logic safely
         self._setup_ui()
         self.setWindowTitle("Account")
-        
         
         # Set up the model for QListViews
         self.file_map = {}
@@ -257,6 +282,7 @@ class AccountWindow(QMainWindow):
         
         # Connect the signal to the slot in SalesWindow
         self.file_list_updated_2.connect(sales_window.update_tabs)
+        self.emit_file_list_updated_2()
 
     def open_calendar(self):
         account_window = CalendarWindow()
@@ -359,10 +385,12 @@ class AccountWindow(QMainWindow):
             display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
             self.file_map_2.pop(display_name, None)
             self.file_model_2.setStringList(list(self.file_map_2.keys()))
-            self.emit_file_list_updated_2()
             self.save_files_2()
+            
         else:
             QMessageBox.warning(self, "Warning", "Please select a file to delete.")
+        
+        self.emit_file_list_updated_2()
 
     def open_file_2(self):
         """Open the selected file."""
@@ -399,8 +427,8 @@ class AccountWindow(QMainWindow):
 
             # Update list view with new file
             self.file_model_2.setStringList(list(self.file_map_2.keys()))
-            self.emit_file_list_updated_2()
             self.save_files_2()
+            self.emit_file_list_updated_2()
             
     def save_files_2(self):
         try:

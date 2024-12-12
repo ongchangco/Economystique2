@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\account.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\account.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_account(object):
         account.setObjectName("account")
         account.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         account.setWindowIcon(icon)
         account.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -90,7 +90,7 @@ class Ui_account(object):
         self.btnEditProfile.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnEditProfile.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/editPfp.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/editPfp.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnEditProfile.setIcon(icon1)
         self.btnEditProfile.setFlat(True)
         self.btnEditProfile.setObjectName("btnEditProfile")
@@ -187,14 +187,14 @@ class Ui_account(object):
 "")
         self.btnAccount.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnAccount.setIcon(icon2)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.imgProfile = QtWidgets.QLabel(account)
         self.imgProfile.setGeometry(QtCore.QRect(580, 100, 101, 91))
         self.imgProfile.setText("")
-        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/profile.png"))
+        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/profile.png"))
         self.imgProfile.setScaledContents(True)
         self.imgProfile.setObjectName("imgProfile")
         self.lblFSTitle = QtWidgets.QLabel(account)
@@ -208,7 +208,7 @@ class Ui_account(object):
         self.imgBusinessLogo = QtWidgets.QLabel(account)
         self.imgBusinessLogo.setGeometry(QtCore.QRect(140, 100, 101, 101))
         self.imgBusinessLogo.setText("")
-        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/allseasonsL.jpg"))
+        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/allseasonsL.jpg"))
         self.imgBusinessLogo.setScaledContents(True)
         self.imgBusinessLogo.setObjectName("imgBusinessLogo")
         self.horizontalLayoutWidget = QtWidgets.QWidget(account)
@@ -221,7 +221,7 @@ class Ui_account(object):
         self.btnOpenFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnOpenFile.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/fileIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/fileIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnOpenFile.setIcon(icon3)
         self.btnOpenFile.setFlat(True)
         self.btnOpenFile.setObjectName("btnOpenFile")
@@ -231,7 +231,7 @@ class Ui_account(object):
         self.btnDeleteFile.setAutoFillBackground(False)
         self.btnDeleteFile.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnDeleteFile.setIcon(icon4)
         self.btnDeleteFile.setFlat(True)
         self.btnDeleteFile.setObjectName("btnDeleteFile")
@@ -245,7 +245,7 @@ class Ui_account(object):
         self.btnAddFile.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
         self.btnAddFile.setText("")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAddFile.setIcon(icon5)
         self.btnAddFile.setFlat(True)
         self.btnAddFile.setObjectName("btnAddFile")
@@ -327,7 +327,7 @@ class Ui_account(object):
         _translate = QtCore.QCoreApplication.translate
         account.setWindowTitle(_translate("account", "EconoMystique"))
         self.lblRole.setText(_translate("account", "Owner"))
-        self.lblUserName.setText(_translate("account", "Kathlyn O. LAscota"))
+        self.lblUserName.setText(_translate("account", "Kathlyn O. Lascota"))
         self.btnLogOut.setText(_translate("account", "Log Out"))
         self.lblBsnsType.setText(_translate("account", "Business Type:"))
         self.lblOwnership.setText(_translate("account", "Ownership:"))

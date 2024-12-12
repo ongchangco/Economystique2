@@ -28,21 +28,13 @@ class Ui_Sales(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.tabWidget = QtWidgets.QTabWidget(self.horizontalLayoutWidget)
+        self.tabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget.setObjectName("tabWidget")
         self.tab_1 = QtWidgets.QWidget()
         self.tab_1.setObjectName("tab_1")
-        self.tab1ListView = QtWidgets.QListView(self.tab_1)
-        self.tab1ListView.setGeometry(QtCore.QRect(0, 0, 251, 271))
-        self.tab1ListView.setObjectName("tab1ListView")
         self.tabWidget.addTab(self.tab_1, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
-        self.tab2ListView = QtWidgets.QListView(self.tab_2)
-        self.tab2ListView.setGeometry(QtCore.QRect(0, 0, 251, 271))
-        self.tab2ListView.setStyleSheet("background-color: white;\n"
-"color: black;\n"
-"")
-        self.tab2ListView.setObjectName("tab2ListView")
         self.tabWidget.addTab(self.tab_2, "")
         self.horizontalLayout.addWidget(self.tabWidget)
         self.yearlyRecordsListView = QtWidgets.QListView(self.horizontalLayoutWidget)
@@ -220,14 +212,14 @@ class Ui_Sales(object):
         self.forecastButton.setObjectName("forecastButton")
 
         self.retranslateUi(Sales)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Sales)
 
     def retranslateUi(self, Sales):
         _translate = QtCore.QCoreApplication.translate
         Sales.setWindowTitle(_translate("Sales", "EconoMystique"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("Sales", "August"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Sales", "September"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), _translate("Sales", "Month 1"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Sales", "Month 2"))
         self.MonthlyRecords.setText(_translate("Sales", "Monthly Records"))
         self.YearlyRecords.setText(_translate("Sales", "Yearly Records"))
         self.Assessment.setText(_translate("Sales", "Assessment"))

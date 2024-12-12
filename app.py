@@ -101,7 +101,7 @@ class SalesWindow(QMainWindow):
         super(SalesWindow, self).__init__()
         
         # Instantiate UI class instance
-        self.ui = Ui_SalesForecast()
+        self.ui = Ui_Sales()
 
         # Wrap setupUi logic safely
         self._setup_ui()

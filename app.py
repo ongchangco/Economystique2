@@ -1,5 +1,7 @@
 import sys
 import os
+import numpy as np
+import pandas as pd
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView

@@ -181,13 +181,18 @@ class AccountWindow(QMainWindow):
         self._setup_ui()
         self.setWindowTitle("Account")
 
-        # Set up the model for QListView
+        # Set up the model for QListViews
         self.file_model = QStringListModel()
         self.ui.fileListView.setModel(self.file_model)
-        self.file_list = [] # Stores file paths
+        self.file_list = []
+        
+        self.file_model_2 = QStringListModel()
+        self.ui.fileListView_2.setModel(self.file_model_2)
+        self.file_list_2 = []
 
         # Load files from storage
         self.load_files()
+        self.load_files_2()
 
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
@@ -196,6 +201,9 @@ class AccountWindow(QMainWindow):
         self.ui.btnOpenFile.clicked.connect(self.open_file)
         self.ui.btnDeleteFile.clicked.connect(self.delete_file)
         self.ui.btnAddFile.clicked.connect(self.add_file)
+        self.ui.btnOpenFile_2.clicked.connect(self.open_file_2)
+        self.ui.btnDeleteFile_2.clicked.connect(self.delete_file_2)
+        self.ui.btnAddFile_2.clicked.connect(self.add_file_2)
 
     def _setup_ui(self):
         try:
@@ -267,7 +275,7 @@ class AccountWindow(QMainWindow):
             self.file_list.append(file_path)
             self.file_model.setStringList(self.file_list)
             self.save_files()
-
+            
     def save_files(self):
         """Save the file list to a local file."""
         try:
@@ -286,6 +294,77 @@ class AccountWindow(QMainWindow):
                 self.file_model.setStringList(self.file_list)
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
+                
+    #Buttons for Sales Files
+    def delete_file_2(self):
+        """Delete the selected file from the list."""
+        selected_indexes = self.ui.fileListView_2.selectedIndexes()
+        if not selected_indexes:
+            QMessageBox.warning(self, "Warning", "Please select a file to delete.")
+            return
+
+        selected_index = selected_indexes[0] # Only allow single selection
+        file_path_2 = self.file_list_2[selected_index.row()]
+
+        # Confirm deletion
+        reply = QMessageBox.question(
+            self, "Confirm Deletion",
+            f"Are you sure you want to delete:\n{file_path_2}?",
+            QMessageBox.Yes | QMessageBox.No
+        )
+
+        if reply == QMessageBox.Yes:
+            self.file_list_2.pop(selected_index.row())
+            self.file_model_2.setStringList(self.file_list_2)
+            self.save_files_2()
+
+    def open_file_2(self):
+        """Open the selected file."""
+        selected_indexes = self.ui.fileListView_2.selectedIndexes()
+        if not selected_indexes:
+            QMessageBox.warning(self, "Warning", "Please select a file to open.")
+            return
+
+        selected_index = selected_indexes[0] # Only allow single selection
+        file_path_2 = self.file_list_2[selected_index.row()]
+
+        # Open the file (use an appropriate library for Excel files if needed)
+        try:
+            os.startfile(file_path_2) # Windows-specific; use subprocess for other platforms
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to open file:\n{str(e)}")
+
+    def add_file_2(self):
+        options = QFileDialog.Options()
+        file_path_2, _ = QFileDialog.getOpenFileName(
+            self, "Select an Excel File", "",
+            "Excel Files (*.xls *.xlsx);;All Files (*)",
+            options=options
+        )
+        if file_path_2:
+            self.file_list_2.append(file_path_2)
+            self.file_model_2.setStringList(self.file_list_2)
+            self.save_files_2()
+
+    def save_files_2(self):
+        """Save the file list to a local file."""
+        try:
+            with open('file_list_2.txt', 'w') as f:
+                for file_path_2 in self.file_list_2:
+                    f.write(file_path_2 + '\n')
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to save files:\n{str(e)}")
+
+    def load_files_2(self):
+        """Load the file list from a local file."""
+        if os.path.exists('file_list_2.txt'):
+            try:
+                with open('file_list_2.txt', 'r') as f:
+                    self.file_list_2 = [line.strip() for line in f.readlines()]
+                self.file_model_2.setStringList(self.file_list_2)
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
+    
         
         
 # main

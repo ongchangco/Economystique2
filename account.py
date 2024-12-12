@@ -125,7 +125,7 @@ class AccountWindow(QMainWindow):
                 QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
 
     def log_out(self):
-        from login import Login
+        from app import Login
         self.sales_window = Login()
         self.sales_window.show()
         self.close()

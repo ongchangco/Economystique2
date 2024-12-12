@@ -5,7 +5,7 @@ import pandas as pd
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView
-from PyQt5.QtCore import QStringListModel
+from PyQt5.QtCore import Qt, QStringListModel
 from PyQt5.QtGui import QPixmap
 
 #additional imports for each page
@@ -182,10 +182,12 @@ class AccountWindow(QMainWindow):
         self.setWindowTitle("Account")
 
         # Set up the model for QListViews
+        self.file_map = {}
         self.file_model = QStringListModel()
         self.ui.fileListView.setModel(self.file_model)
         self.file_list = []
         
+        self.file_map_2 = {}
         self.file_model_2 = QStringListModel()
         self.ui.fileListView_2.setModel(self.file_model_2)
         self.file_list_2 = []
@@ -227,26 +229,27 @@ class AccountWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def delete_file(self):
-        """Delete the selected file from the list."""
         selected_indexes = self.ui.fileListView.selectedIndexes()
         if not selected_indexes:
             QMessageBox.warning(self, "Warning", "Please select a file to delete.")
             return
 
-        selected_index = selected_indexes[0] # Only allow single selection
-        file_path = self.file_list[selected_index.row()]
+        selected_index = selected_indexes[0]  # Only allow single selection
+        display_name = self.file_model.data(selected_index, Qt.DisplayRole)
+        
+        # Get the corresponding file path from the file_map
+        file_path = self.file_map.get(display_name)
 
-        # Confirm deletion
-        reply = QMessageBox.question(
-            self, "Confirm Deletion",
-            f"Are you sure you want to delete:\n{file_path}?",
-            QMessageBox.Yes | QMessageBox.No
-        )
-
-        if reply == QMessageBox.Yes:
-            self.file_list.pop(selected_index.row())
-            self.file_model.setStringList(self.file_list)
-            self.save_files()
+        if not file_path:
+            QMessageBox.warning(self, "Error", "File not found for deletion.")
+            return
+        
+        del self.file_map[display_name]
+        self.file_list = list(self.file_map.values())
+        
+        # Update the model with the new file list
+        self.file_model.setStringList(list(self.file_map.keys()))
+        self.save_files()
 
     def open_file(self):
         """Open the selected file."""
@@ -255,12 +258,17 @@ class AccountWindow(QMainWindow):
             QMessageBox.warning(self, "Warning", "Please select a file to open.")
             return
 
-        selected_index = selected_indexes[0] # Only allow single selection
-        file_path = self.file_list[selected_index.row()]
+        selected_index = selected_indexes[0]  # Only allow single selection
+        display_name = self.file_model.data(selected_index, Qt.DisplayRole)
+        file_path = self.file_map.get(display_name)
 
-        # Open the file (use an appropriate library for Excel files if needed)
+        if not file_path:
+            QMessageBox.critical(self, "Error", f"File not found for: {display_name}")
+            return
+
+        # Attempt to open the file
         try:
-            os.startfile(file_path) # Windows-specific; use subprocess for other platforms
+            os.startfile(file_path)
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to open file:\n{str(e)}")
 
@@ -272,51 +280,56 @@ class AccountWindow(QMainWindow):
             options=options
         )
         if file_path:
-            self.file_list.append(file_path)
-            self.file_model.setStringList(self.file_list)
+            # Extract filename and store mapping
+            display_name = os.path.basename(file_path)  # Get the filename
+            self.file_map[display_name] = file_path
+
+            # Update list view with new file
+            self.file_model.setStringList(list(self.file_map.keys()))
             self.save_files()
             
     def save_files(self):
-        """Save the file list to a local file."""
         try:
             with open('file_list.txt', 'w') as f:
-                for file_path in self.file_list:
-                    f.write(file_path + '\n')
+                for display_name, file_path in self.file_map.items():
+                    f.write(f"{display_name}||{file_path}\n")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to save files:\n{str(e)}")
 
     def load_files(self):
-        """Load the file list from a local file."""
         if os.path.exists('file_list.txt'):
             try:
                 with open('file_list.txt', 'r') as f:
-                    self.file_list = [line.strip() for line in f.readlines()]
-                self.file_model.setStringList(self.file_list)
+                    for line in f:
+                        display_name, file_path = line.strip().split('||')
+                        self.file_map[display_name] = file_path
+                self.file_model.setStringList(list(self.file_map.keys()))
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
                 
     #Buttons for Sales Files
     def delete_file_2(self):
-        """Delete the selected file from the list."""
         selected_indexes = self.ui.fileListView_2.selectedIndexes()
         if not selected_indexes:
             QMessageBox.warning(self, "Warning", "Please select a file to delete.")
             return
 
-        selected_index = selected_indexes[0] # Only allow single selection
-        file_path_2 = self.file_list_2[selected_index.row()]
+        selected_index = selected_indexes[0]  # Only allow single selection
+        display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
+        
+        # Get the corresponding file path from the file_map
+        file_path = self.file_map_2.get(display_name)
 
-        # Confirm deletion
-        reply = QMessageBox.question(
-            self, "Confirm Deletion",
-            f"Are you sure you want to delete:\n{file_path_2}?",
-            QMessageBox.Yes | QMessageBox.No
-        )
-
-        if reply == QMessageBox.Yes:
-            self.file_list_2.pop(selected_index.row())
-            self.file_model_2.setStringList(self.file_list_2)
-            self.save_files_2()
+        if not file_path:
+            QMessageBox.warning(self, "Error", "File not found for deletion.")
+            return
+        
+        del self.file_map_2[display_name]
+        self.file_list_2 = list(self.file_map_2.values())
+        
+        # Update the model with the new file list
+        self.file_model_2.setStringList(list(self.file_map_2.keys()))
+        self.save_files_2()
 
     def open_file_2(self):
         """Open the selected file."""
@@ -325,48 +338,55 @@ class AccountWindow(QMainWindow):
             QMessageBox.warning(self, "Warning", "Please select a file to open.")
             return
 
-        selected_index = selected_indexes[0] # Only allow single selection
-        file_path_2 = self.file_list_2[selected_index.row()]
+        selected_index = selected_indexes[0]  # Only allow single selection
+        display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
+        file_path = self.file_map_2.get(display_name)
 
-        # Open the file (use an appropriate library for Excel files if needed)
+        if not file_path:
+            QMessageBox.critical(self, "Error", f"File not found for: {display_name}")
+            return
+
+        # Attempt to open the file
         try:
-            os.startfile(file_path_2) # Windows-specific; use subprocess for other platforms
+            os.startfile(file_path)
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to open file:\n{str(e)}")
 
     def add_file_2(self):
         options = QFileDialog.Options()
-        file_path_2, _ = QFileDialog.getOpenFileName(
+        file_path, _ = QFileDialog.getOpenFileName(
             self, "Select an Excel File", "",
             "Excel Files (*.xls *.xlsx);;All Files (*)",
             options=options
         )
-        if file_path_2:
-            self.file_list_2.append(file_path_2)
-            self.file_model_2.setStringList(self.file_list_2)
-            self.save_files_2()
+        if file_path:
+            # Extract filename and store mapping
+            display_name = os.path.basename(file_path)  # Get the filename
+            self.file_map_2[display_name] = file_path
 
+            # Update list view with new file
+            self.file_model_2.setStringList(list(self.file_map_2.keys()))
+            self.save_files_2()
+            
     def save_files_2(self):
-        """Save the file list to a local file."""
         try:
             with open('file_list_2.txt', 'w') as f:
-                for file_path_2 in self.file_list_2:
-                    f.write(file_path_2 + '\n')
+                for display_name, file_path in self.file_map_2.items():
+                    f.write(f"{display_name}||{file_path}\n")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to save files:\n{str(e)}")
 
     def load_files_2(self):
-        """Load the file list from a local file."""
         if os.path.exists('file_list_2.txt'):
             try:
                 with open('file_list_2.txt', 'r') as f:
-                    self.file_list_2 = [line.strip() for line in f.readlines()]
-                self.file_model_2.setStringList(self.file_list_2)
+                    for line in f:
+                        display_name, file_path = line.strip().split('||')
+                        self.file_map_2[display_name] = file_path
+                self.file_model_2.setStringList(list(self.file_map_2.keys()))
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
     
-        
-        
 # main
 app = QApplication(sys.argv)
 login = Login()

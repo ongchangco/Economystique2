@@ -193,6 +193,7 @@ class AccountWindow(QMainWindow):
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.btnLogOut.clicked.connect(self.open_login)
         #inventory files buttons
         self.ui.btnOpenFile.clicked.connect(self.open_file)
         self.ui.btnDeleteFile.clicked.connect(self.delete_file)
@@ -221,6 +222,11 @@ class AccountWindow(QMainWindow):
     def open_calendar(self):
         account_window = CalendarWindow()
         widget.addWidget(account_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        
+    def open_login(self):
+        account_login = Login()
+        widget.addWidget(account_login)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     #for Inventory Files Buttons

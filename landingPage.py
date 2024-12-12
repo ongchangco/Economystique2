@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
+'''from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPixmap
 
 class LandingPage(QMainWindow):
@@ -38,8 +38,7 @@ class LandingPage(QMainWindow):
     def open_forecast(self):
         from salesForecast import SalesForecastWindow
         self.sales_forecast_window = SalesForecastWindow()
-        self.sales_forecast_window.show()
-        self.close()
+        self.sales_forecast_window.show()'''
         
     
         

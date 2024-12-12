@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\login.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\login.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,27 +14,65 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Login(object):
     def setupUi(self, Login):
         Login.setObjectName("Login")
+        Login.setEnabled(True)
         Login.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         Login.setWindowIcon(icon)
         Login.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
-        self.centralwidget = QtWidgets.QWidget(Login)
-        self.centralwidget.setObjectName("centralwidget")
-        self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 401, 601))
-        self.frame.setStyleSheet("background: #365b6d;")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(-50, 80, 341, 391))
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd.png"))
-        self.label.setObjectName("label")
-        self.loginLabel = QtWidgets.QLabel(self.centralwidget)
+        self.signUpButton = QtWidgets.QPushButton(Login)
+        self.signUpButton.setGeometry(QtCore.QRect(620, 460, 151, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.signUpButton.setFont(font)
+        self.signUpButton.setStyleSheet("QPushButton {\n"
+"    background-color: #53786d;\n"
+"    color: white;\n"
+"    border: 2px solid #53786d;\n"
+"    border-radius: 50px;\n"
+"    padding: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #289dd2;\n"
+"    border: 2px solid #289dd2;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #53786d;\n"
+"}\n"
+"")
+        self.signUpButton.setObjectName("signUpButton")
+        self.user = QtWidgets.QLineEdit(Login)
+        self.user.setGeometry(QtCore.QRect(450, 190, 311, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.user.setFont(font)
+        self.user.setAutoFillBackground(False)
+        self.user.setStyleSheet("color: black;\n"
+"background-color: white;")
+        self.user.setText("")
+        self.user.setObjectName("user")
+        self.forgotPass = QtWidgets.QPushButton(Login)
+        self.forgotPass.setGeometry(QtCore.QRect(650, 320, 111, 31))
+        font = QtGui.QFont()
+        font.setUnderline(True)
+        self.forgotPass.setFont(font)
+        self.forgotPass.setStyleSheet("color: red;")
+        self.forgotPass.setFlat(True)
+        self.forgotPass.setObjectName("forgotPass")
+        self.password = QtWidgets.QLineEdit(Login)
+        self.password.setGeometry(QtCore.QRect(450, 290, 311, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.password.setFont(font)
+        self.password.setStyleSheet("color: black;\n"
+"background-color: white;")
+        self.password.setText("")
+        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.password.setObjectName("password")
+        self.loginLabel = QtWidgets.QLabel(Login)
         self.loginLabel.setGeometry(QtCore.QRect(530, 60, 151, 51))
         font = QtGui.QFont()
         font.setFamily("MS Shell Dlg 2")
@@ -44,37 +82,24 @@ class Ui_Login(object):
         self.loginLabel.setFont(font)
         self.loginLabel.setStyleSheet("color: #365b6d;")
         self.loginLabel.setObjectName("loginLabel")
-        self.usernameLabel = QtWidgets.QLabel(self.centralwidget)
+        self.frame = QtWidgets.QFrame(Login)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 401, 601))
+        self.frame.setStyleSheet("background: #365b6d;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(-50, 80, 341, 391))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo_bkgd.png"))
+        self.label.setObjectName("label")
+        self.usernameLabel = QtWidgets.QLabel(Login)
         self.usernameLabel.setGeometry(QtCore.QRect(450, 160, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.usernameLabel.setFont(font)
         self.usernameLabel.setObjectName("usernameLabel")
-        self.user = QtWidgets.QLineEdit(self.centralwidget)
-        self.user.setGeometry(QtCore.QRect(450, 190, 311, 31))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.user.setFont(font)
-        self.user.setAutoFillBackground(False)
-        self.user.setStyleSheet("color: black;")
-        self.user.setText("")
-        self.user.setObjectName("user")
-        self.passwordLabel = QtWidgets.QLabel(self.centralwidget)
-        self.passwordLabel.setGeometry(QtCore.QRect(450, 260, 81, 16))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.passwordLabel.setFont(font)
-        self.passwordLabel.setObjectName("passwordLabel")
-        self.password = QtWidgets.QLineEdit(self.centralwidget)
-        self.password.setGeometry(QtCore.QRect(450, 290, 311, 31))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.password.setFont(font)
-        self.password.setStyleSheet("color: black;")
-        self.password.setText("")
-        self.password.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.password.setObjectName("password")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton = QtWidgets.QPushButton(Login)
         self.pushButton.setGeometry(QtCore.QRect(450, 380, 311, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
@@ -153,52 +178,24 @@ class Ui_Login(object):
 "}\n"
 "")
         self.pushButton.setObjectName("pushButton")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(450, 470, 161, 21))
-        font = QtGui.QFont()
-        font.setUnderline(True)
-        self.label_2.setFont(font)
-        self.label_2.setObjectName("label_2")
-        self.signUpButton = QtWidgets.QPushButton(self.centralwidget)
-        self.signUpButton.setGeometry(QtCore.QRect(610, 460, 151, 31))
-        font = QtGui.QFont()
-        font.setPointSize(10)
-        self.signUpButton.setFont(font)
-        self.signUpButton.setStyleSheet("QPushButton {\n"
-"    background-color: #53786d;\n"
-"    color: white;\n"
-"    border: 2px solid #53786d;\n"
-"    border-radius: 50px;\n"
-"    padding: 5px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #289dd2;\n"
-"    border: 2px solid #289dd2;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #53786d;\n"
-"}\n"
-"")
-        self.signUpButton.setObjectName("signUpButton")
-        self.forgotPass = QtWidgets.QPushButton(self.centralwidget)
-        self.forgotPass.setGeometry(QtCore.QRect(650, 320, 111, 31))
-        font = QtGui.QFont()
-        font.setUnderline(True)
-        self.forgotPass.setFont(font)
-        self.forgotPass.setStyleSheet("color: red;")
-        self.forgotPass.setFlat(True)
-        self.forgotPass.setObjectName("forgotPass")
-        self.error = QtWidgets.QLabel(self.centralwidget)
+        self.error = QtWidgets.QLabel(Login)
         self.error.setGeometry(QtCore.QRect(450, 350, 311, 16))
         self.error.setStyleSheet("color: red;\n"
 "")
         self.error.setText("")
         self.error.setObjectName("error")
-        Login.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(Login)
-        self.statusbar.setObjectName("statusbar")
-        Login.setStatusBar(self.statusbar)
+        self.label_2 = QtWidgets.QLabel(Login)
+        self.label_2.setGeometry(QtCore.QRect(450, 470, 161, 21))
+        font = QtGui.QFont()
+        font.setUnderline(True)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.passwordLabel = QtWidgets.QLabel(Login)
+        self.passwordLabel.setGeometry(QtCore.QRect(450, 260, 81, 16))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.passwordLabel.setFont(font)
+        self.passwordLabel.setObjectName("passwordLabel")
 
         self.retranslateUi(Login)
         QtCore.QMetaObject.connectSlotsByName(Login)
@@ -206,10 +203,10 @@ class Ui_Login(object):
     def retranslateUi(self, Login):
         _translate = QtCore.QCoreApplication.translate
         Login.setWindowTitle(_translate("Login", "EconoMystique"))
-        self.loginLabel.setText(_translate("Login", "LOGIN"))
-        self.usernameLabel.setText(_translate("Login", "Username:"))
-        self.passwordLabel.setText(_translate("Login", "Password:"))
-        self.pushButton.setText(_translate("Login", "LOGIN"))
-        self.label_2.setText(_translate("Login", "I don\'t have an account yet"))
         self.signUpButton.setText(_translate("Login", "Sign Up"))
         self.forgotPass.setText(_translate("Login", "Forgot password?"))
+        self.loginLabel.setText(_translate("Login", "LOGIN"))
+        self.usernameLabel.setText(_translate("Login", "Username:"))
+        self.pushButton.setText(_translate("Login", "LOGIN"))
+        self.label_2.setText(_translate("Login", "I don\'t have an account yet"))
+        self.passwordLabel.setText(_translate("Login", "Password:"))

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+'''from PyQt5.QtWidgets import QWidget, QMainWindow
 from calendar_ui import Ui_Calendar
 
 
@@ -41,4 +41,4 @@ class CalendarWindow(QMainWindow):
         from account import AccountWindow
         self.account_window = AccountWindow()
         self.account_window.show()
-        self.close()
+        self.close()'''

@@ -29,6 +29,7 @@ class AccountWindow(QMainWindow):
         self.ui.btnOpenFile.clicked.connect(self.open_file)
         self.ui.btnDeleteFile.clicked.connect(self.delete_file)
         self.ui.btnAddFile.clicked.connect(self.add_file)
+        self.ui.btnLogOut.clicked.connect(self.log_out)
 
     def _setup_ui(self):
         try:
@@ -122,3 +123,9 @@ class AccountWindow(QMainWindow):
                 self.file_model.setStringList(self.file_list)
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
+
+    def log_out(self):
+        from login import Login
+        self.sales_window = Login()
+        self.sales_window.show()
+        self.close()

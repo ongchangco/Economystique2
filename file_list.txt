@@ -1,6 +1,0 @@
-C:/Users/Joumongo/Documents/Economystique/dataFiles/inv_09_24.xlsx
-C:/Users/Joumongo/Documents/Economystique/dataFiles/inv_10_24.xlsx
-C:/Users/Joumongo/Documents/Economystique/dataFiles/inv_11_24.xlsx
-C:/Users/Joumongo/Documents/Economystique/dataFiles/sales_09_24.xlsx
-C:/Users/Joumongo/Documents/Economystique/dataFiles/sales_10_24.xlsx
-C:/Users/Joumongo/Documents/Economystique/dataFiles/sales_11_24.xlsx

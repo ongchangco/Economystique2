@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView
-from PyQt5.QtCore import Qt, QStringListModel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget
+from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal
 from PyQt5.QtGui import QPixmap
 
 #additional imports for each page
@@ -75,6 +75,19 @@ class LandingPage(QMainWindow):
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
         
+    def update_tabs(self):
+        """This method updates the tabs based on the items in AccountWindow's QListView"""
+        file_list = list(self.account_window.file_map.keys())
+        
+        # Clear the existing tabs
+        self.tab_widget.clear()
+
+        # Add a new tab for each item in the file list
+        for file_name in file_list:
+            self.add_tab(file_name)
+
+    
+    
     # Button Functions
     def open_sales(self):
         sales_window = SalesWindow()
@@ -111,12 +124,24 @@ class SalesWindow(QMainWindow):
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
-    
+        
     def _setup_ui(self):
         try:
             self.ui.setupUi(self)
         except RecursionError as e:
             print("Recursion error detected during UI setup:", e)
+    
+    def update_tabs(self, file_list):
+        """Update QTabWidget based on the file list."""
+        tab_widget = self.ui.tabWidget
+        tab_widget.clear()  # Clear existing tabs
+
+        for file_name in file_list:
+            tab = QWidget()  # Create a new tab
+            tab_layout = QVBoxLayout(tab)  # Add layout to the tab
+            label = QLabel(f"Content for {file_name}")  # Add a placeholder label
+            tab_layout.addWidget(label)
+            tab_widget.addTab(tab, file_name)  # Add the tab to QTabWidget
     
     # Button Functions  
     def open_inventory(self):
@@ -171,6 +196,9 @@ class CalendarWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         
 class AccountWindow(QMainWindow):
+    
+    file_list_updated_2 = pyqtSignal(list)  # Signal to emit file list
+    
     def __init__(self):
         super(AccountWindow, self).__init__()
 
@@ -180,7 +208,8 @@ class AccountWindow(QMainWindow):
         # Wrap setupUi logic safely
         self._setup_ui()
         self.setWindowTitle("Account")
-
+        
+        
         # Set up the model for QListViews
         self.file_map = {}
         self.file_model = QStringListModel()
@@ -223,6 +252,9 @@ class AccountWindow(QMainWindow):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
+        
+        # Connect the signal to the slot in SalesWindow
+        self.file_list_updated_2.connect(sales_window.update_tabs)
 
     def open_calendar(self):
         account_window = CalendarWindow()
@@ -314,28 +346,21 @@ class AccountWindow(QMainWindow):
                 QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
                 
     #Buttons for Sales Files
+    def emit_file_list_updated_2(self):
+        """Emit the updated file list."""
+        self.file_list_updated_2.emit(list(self.file_map_2.keys()))
+        
     def delete_file_2(self):
         selected_indexes = self.ui.fileListView_2.selectedIndexes()
-        if not selected_indexes:
+        if selected_indexes:
+            selected_index = selected_indexes[0]
+            display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
+            self.file_map_2.pop(display_name, None)
+            self.file_model_2.setStringList(list(self.file_map_2.keys()))
+            self.emit_file_list_updated_2()
+            self.save_files_2()
+        else:
             QMessageBox.warning(self, "Warning", "Please select a file to delete.")
-            return
-
-        selected_index = selected_indexes[0]  # Only allow single selection
-        display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
-        
-        # Get the corresponding file path from the file_map
-        file_path = self.file_map_2.get(display_name)
-
-        if not file_path:
-            QMessageBox.warning(self, "Error", "File not found for deletion.")
-            return
-        
-        del self.file_map_2[display_name]
-        self.file_list_2 = list(self.file_map_2.values())
-        
-        # Update the model with the new file list
-        self.file_model_2.setStringList(list(self.file_map_2.keys()))
-        self.save_files_2()
 
     def open_file_2(self):
         """Open the selected file."""
@@ -372,6 +397,7 @@ class AccountWindow(QMainWindow):
 
             # Update list view with new file
             self.file_model_2.setStringList(list(self.file_map_2.keys()))
+            self.emit_file_list_updated_2()
             self.save_files_2()
             
     def save_files_2(self):

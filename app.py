@@ -206,6 +206,7 @@ class AccountWindow(QMainWindow):
         self.ui.btnOpenFile_2.clicked.connect(self.open_file_2)
         self.ui.btnDeleteFile_2.clicked.connect(self.delete_file_2)
         self.ui.btnAddFile_2.clicked.connect(self.add_file_2)
+        self.ui.btnLogOut.clicked.connect(self.open_login)
     
     def _setup_ui(self):
         try:
@@ -226,6 +227,11 @@ class AccountWindow(QMainWindow):
     def open_calendar(self):
         account_window = CalendarWindow()
         widget.addWidget(account_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def open_login(self):
+        account_login = Login()
+        widget.addWidget(account_login)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def delete_file(self):

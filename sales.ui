@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>802</width>
     <height>600</height>
    </rect>
   </property>
@@ -54,15 +54,6 @@ color: black;
      </widget>
     </item>
     <item>
-     <widget class="QListView" name="yearlyRecordsListView">
-      <property name="styleSheet">
-       <string notr="true">background-color: white;
-color: black;
-</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QListView" name="assessmentListView">
       <property name="styleSheet">
        <string notr="true">background-color: white;
@@ -76,15 +67,15 @@ color: black;
   <widget class="QWidget" name="horizontalLayoutWidget_2">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>20</x>
      <y>120</y>
-     <width>801</width>
+     <width>751</width>
      <height>61</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0">
+   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
     <property name="leftMargin">
-     <number>80</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
      <number>0</number>
@@ -100,18 +91,8 @@ color: black;
       <property name="text">
        <string>Monthly Records</string>
       </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="YearlyRecords">
-      <property name="font">
-       <font>
-        <family>Sans Serif Collection</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Yearly Records</string>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -125,6 +106,9 @@ color: black;
       </property>
       <property name="text">
        <string>Assessment</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -355,8 +339,8 @@ QPushButton:pressed {
   <widget class="QPushButton" name="forecastButton">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>490</y>
+     <x>270</x>
+     <y>500</y>
      <width>251</width>
      <height>36</height>
     </rect>

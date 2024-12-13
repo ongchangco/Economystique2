@@ -3,12 +3,15 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import torch
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView
-from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal
+from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
+from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
+from concurrent.futures import ThreadPoolExecutor
 
 #additional imports for each page
 from login_ui import Ui_Login
@@ -108,11 +111,17 @@ class SalesWindow(QMainWindow):
         self.load_files_2()
         self.update_tabs(list(self.file_map_2.keys()))
 
+        # Initialize the sales_forecast_window attribute to None
+        self.sales_forecast_window = None
+
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        self.ui.forecastButton.clicked.connect(self.open_forecast)
+        self.ui.forecastButton.clicked.connect(self.generate_sales_forecast)
+        
+        # Setup thread pool for async processing
+        self.executor = ThreadPoolExecutor(max_workers=1)
 
     def _setup_ui(self):
         try:
@@ -188,11 +197,91 @@ class SalesWindow(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
+    
+    def generate_sales_forecast(self):
+        # Use a separate thread for the forecast generation
+        self.executor.submit(self.generate_forecast)
+    
+    def generate_forecast(self):
+        """Generate the sales forecast in a background thread."""
+        try:
+            # Read data from the Excel files
+            sales_data = []
+            for file_path in self.file_map_2.values():
+                df = pd.read_excel(file_path)
+                sales_data.append(df)
+
+            # Combine sales data into a single DataFrame
+            combined_data = pd.concat(sales_data, ignore_index=True)
+
+            # Prepare data for GPT-Neo
+            sales_prompt = self.prepare_sales_prompt(combined_data)
+
+            # Create and start the worker thread for forecast generation
+            self.forecast_worker = ForecastWorker(sales_prompt, self.file_map_2)
+            self.forecast_worker.forecast_generated.connect(self.open_forecast)
+            self.forecast_worker.start()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to generate sales forecast:\n{str(e)}")
+
+    def prepare_sales_prompt(self, data):
+        # Summarize data into a plain text format for GPT-Neo
+        summary = "Sales data for the past months:\n"
+        for _, row in data.iterrows():
+            summary += f"{row.to_dict()}\n"
+        summary += "\nPredict the sales for the next month based on this data:"
+        return summary
         
-    def open_forecast(self):
+    def open_forecast(self, forecast):
         from salesForecast import SalesForecastWindow
+        if forecast is None:
+            QMessageBox.warning(self, "Warning", "No forecast data available to display.")
+            return
+
         self.sales_forecast_window = SalesForecastWindow()
+        self.sales_forecast_window.ui.textBrowser.setText(forecast)
         self.sales_forecast_window.show()
+        
+class ForecastWorker(QThread):
+    # Define a signal to pass the generated forecast back to the main thread
+    forecast_generated = pyqtSignal(str)
+
+    def __init__(self, sales_prompt, file_map_2):
+        super().__init__()
+        self.sales_prompt = sales_prompt
+        self.file_map_2 = file_map_2
+
+    def run(self):
+        try:
+            # Load tokenizer and model
+            tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
+            model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B")
+
+            # Move model to GPU if available
+            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            model.to(device)
+
+            # Tokenize the input
+            inputs = tokenizer(self.sales_prompt, return_tensors="pt", truncation=True, max_length=512, padding=False)
+            inputs = {key: value.to(device) for key, value in inputs.items()}
+
+            # Generate forecast
+            outputs = model.generate(
+                inputs["input_ids"],
+                attention_mask=inputs.get("attention_mask", None),
+                max_new_tokens=50,
+                num_beams=1,  # Greedy search for faster decoding
+                pad_token_id=tokenizer.eos_token_id
+            )
+
+            forecast = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+            # Emit the forecast using the signal
+            self.forecast_generated.emit(forecast)
+
+        except Exception as e:
+            self.forecast_generated.emit(f"Error: {str(e)}")
         
 class CalendarWindow(QMainWindow):
     def __init__(self):
@@ -227,7 +316,7 @@ class CalendarWindow(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        
+    
 class AccountWindow(QMainWindow):
     file_list_updated_2 = pyqtSignal(list)  # Signal to emit file list
     

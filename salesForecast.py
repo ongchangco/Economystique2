@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+import pyqtgraph as pg
+
+from PyQt5.QtWidgets import QWidget, QMainWindow, QVBoxLayout
 from salesForecast_ui import Ui_SalesForecast
 
 
@@ -14,7 +16,19 @@ class SalesForecastWindow(QMainWindow):
         # Wrap setupUi logic safely
         self._setup_ui()
         self.setWindowTitle("Sales Forecast")  # Explicitly set the window title
+        self.graph_layout = QVBoxLayout()
+        self.ui.graphWidget.setLayout(self.graph_layout)
 
+    def plot_forecast(self, data):
+        # Plot the forecast data using pyqtgraph
+        plot_widget = pg.PlotWidget()
+        self.graph_layout.addWidget(plot_widget)
+        
+        # Example: Add forecast data to the graph
+        months = list(data.keys())
+        values = list(data.values())
+        plot_widget.plot(months, values, pen=pg.mkPen(color="b", width=2))
+    
     def _setup_ui(self):
         try:
             self.ui.setupUi(self)

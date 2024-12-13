@@ -35,24 +35,7 @@ color: black;
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <family>Sans Serif Collection</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>                    Sales Forecast</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QListView" name="listView">
-       <property name="styleSheet">
-        <string notr="true">background-color: white;</string>
-       </property>
-      </widget>
+      <widget class="QWidget" name="graphWidget" native="true"/>
      </item>
     </layout>
    </widget>
@@ -259,110 +242,9 @@ QPushButton:pressed {
       <height>341</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,3">
+    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
      <item>
-      <widget class="QLabel" name="productsLabel">
-       <property name="font">
-        <font>
-         <family>Sans Serif Collection</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>                         PRODUCTS</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QFrame" name="frame">
-       <property name="styleSheet">
-        <string notr="true">background-color: white;
-</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <widget class="QScrollBar" name="verticalScrollBar">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>0</y>
-          <width>16</width>
-          <height>281</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: black;</string>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-       <widget class="QWidget" name="verticalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>351</width>
-          <height>281</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="radioButton">
-           <property name="text">
-            <string>p1</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_2">
-           <property name="text">
-            <string>p2</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_3">
-           <property name="text">
-            <string>p3</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_4">
-           <property name="text">
-            <string>p4</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_5">
-           <property name="text">
-            <string>p5</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_6">
-           <property name="text">
-            <string>p6</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_7">
-           <property name="text">
-            <string>p7</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
+      <widget class="QTextBrowser" name="textBrowser"/>
      </item>
     </layout>
    </widget>

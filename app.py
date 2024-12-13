@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import torch
+import openpyxl
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
@@ -72,10 +73,17 @@ class LandingPage(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("Inventory Status")
         
+        # Automatically show 'due-in' data on startup
+        self.selected_file = None
+        self.load_and_display_first_file_data()
+        
         # Connect buttons
         self.ui.recommendationButton.clicked.connect(self.open_forecast)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.onHandButton.clicked.connect(self.show_on_hand)
+        self.ui.owedButton.clicked.connect(self.show_owed)
+        self.ui.dueInButton.clicked.connect(self.show_due_in)
         self.ui.btnAccount.clicked.connect(self.open_account)
     
     # Button Functions
@@ -93,6 +101,105 @@ class LandingPage(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
+        
+    def get_selected_file(self):
+        """Get the file path from the file list in AccountWindow."""
+        account_window = AccountWindow()
+        file_paths = account_window.load_file_paths()  # Load file paths from file_list.txt
+        
+        # Show file selection dialog
+        file_dialog = QFileDialog(self)
+        selected_file, _ = file_dialog.getOpenFileName(self, "Select Inventory File", "", "Excel Files (*.xls *.xlsx);;All Files (*)")
+        
+        if selected_file and selected_file in file_paths:
+            return selected_file
+        else:
+            QMessageBox.warning(self, "Warning", "Invalid file selection.")
+            return None
+        
+    def get_selected_file(self):
+        """Get the file path from the file list in AccountWindow."""
+        account_window = AccountWindow()
+        file_paths = account_window.load_file_paths()  # Load file paths from file_list.txt
+        
+        # Show file selection dialog
+        file_dialog = QFileDialog(self)
+        selected_file, _ = file_dialog.getOpenFileName(self, "Select Inventory File", "", "Excel Files (*.xls *.xlsx);;All Files (*)")
+        
+        if selected_file and selected_file in file_paths:
+            return selected_file
+        else:
+            QMessageBox.warning(self, "Warning", "Invalid file selection.")
+            return None
+
+    def load_and_display_first_file_data(self):
+        """Automatically load and display data from the first file in the AccountWindow's file list."""
+        account_window = AccountWindow()  # Assuming AccountWindow is already open
+        selected_file = account_window.get_first_file_path()  # Add this method to AccountWindow
+        
+        if not selected_file:
+            QMessageBox.warning(self, "Warning", "No inventory file found in Account.")
+            return
+
+        self.selected_file = selected_file
+        inventory_data = self.load_inventory_data(self.selected_file)
+        self.display_inventory_data(inventory_data["due_in"])  # Show 'Due-In' by default
+
+    def show_on_hand(self):
+        """Display 'on-hand' data from the same file."""
+        if self.selected_file:
+            inventory_data = self.load_inventory_data(self.selected_file)
+            self.display_inventory_data(inventory_data["on_hand"])
+        else:
+            QMessageBox.warning(self, "Warning", "No file selected.")
+
+    def show_owed(self):
+        """Display 'owed' data from the same file."""
+        if self.selected_file:
+            inventory_data = self.load_inventory_data(self.selected_file)
+            self.display_inventory_data(inventory_data["owed"])
+        else:
+            QMessageBox.warning(self, "Warning", "No file selected.")
+
+    def show_due_in(self):
+        """Display 'due-in' data from the same file."""
+        if self.selected_file:
+            inventory_data = self.load_inventory_data(self.selected_file)
+            self.display_inventory_data(inventory_data["due_in"])
+        else:
+            QMessageBox.warning(self, "Warning", "No file selected.")
+
+    def load_inventory_data(self, file_path):
+        """Load inventory data from the selected Excel file."""
+        inventory_data = {"on_hand": [], "owed": [], "due_in": []}
+        
+        try:
+            wb = openpyxl.load_workbook(file_path)
+            sheet = wb.active
+            
+            for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping the header row
+                inventory_name = row[1]  # Assuming inventory name is in the 2nd column
+                on_hand = row[4]  # Assuming on-hand amount is in the 5th column
+                owed = row[5]  # Assuming owed amount is in the 6th column
+                due_in = row[6]  # Assuming due-in amount is in the 7th column
+                
+                if on_hand is not None:
+                    inventory_data["on_hand"].append(f"{inventory_name}: {on_hand}")
+                if owed is not None:
+                    inventory_data["owed"].append(f"{inventory_name}: {owed}")
+                if due_in is not None:
+                    inventory_data["due_in"].append(f"{inventory_name}: {due_in}")
+        
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to load inventory data:\n{str(e)}")
+        
+        return inventory_data
+
+    def display_inventory_data(self, data):
+        """Display the filtered inventory data in the ListView."""
+        model = QStringListModel()
+        model.setStringList(data)
+        self.ui.summaryListView.setModel(model)    
         
     def open_forecast(self):
         from salesForecast import SalesForecastWindow
@@ -382,6 +489,53 @@ class AccountWindow(QMainWindow):
         account_login = Login()
         widget.addWidget(account_login)
         widget.setCurrentIndex(widget.currentIndex()+1)
+    
+    def get_first_file_path(self):
+        """Returns the file path of the first file in the fileListView."""
+        if self.ui.fileListView.model().rowCount() > 0:
+            # Get the first item in the list view and return the file path
+            first_item = self.ui.fileListView.model().index(0, 0).data()  # Get the first file name
+            return self.file_map.get(first_item)  # Return the file path
+        return None  # Return None if no files are listed
+    
+    def load_file_paths(self):
+        """Load file paths from file_list.txt."""
+        file_paths = []
+        if os.path.exists('file_list.txt'):
+            try:
+                with open('file_list.txt', 'r') as f:
+                    for line in f:
+                        display_name, file_path = line.strip().split('||')
+                        file_paths.append(file_path)  # Add file path to the list
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Failed to load file paths:\n{str(e)}")
+        return file_paths
+    
+    def load_inventory_data(self, file_path):
+        """Load inventory data from Excel and return relevant columns."""
+        inventory_data = {"on_hand": [], "owed": [], "due_in": []}
+        
+        try:
+            wb = openpyxl.load_workbook(file_path)
+            sheet = wb.active
+            
+            for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping the header row
+                inventory_name = row[1] 
+                on_hand = row[4] 
+                owed = row[5] 
+                due_in = row[6]  
+                
+                if on_hand is not None:
+                    inventory_data["on_hand"].append(f"{inventory_name}: {on_hand}")
+                if owed is not None:
+                    inventory_data["owed"].append(f"{inventory_name}: {owed}")
+                if due_in is not None:
+                    inventory_data["due_in"].append(f"{inventory_name}: {due_in}")
+        
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to load inventory data:\n{str(e)}")
+        
+        return inventory_data
 
     def delete_file(self):
         selected_indexes = self.ui.fileListView.selectedIndexes()

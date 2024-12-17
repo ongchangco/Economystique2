@@ -65,7 +65,8 @@ class SignUp(QMainWindow):
         landing_page = LandingPage()
         widget.addWidget(landing_page)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        
+
+#landing
 class LandingPage(QMainWindow):
     def __init__(self):
         super(LandingPage, self).__init__()
@@ -205,7 +206,8 @@ class LandingPage(QMainWindow):
         from salesForecast import SalesForecastWindow
         self.sales_forecast_window = SalesForecastWindow()
         self.sales_forecast_window.show()
-        
+   
+#sales     
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()

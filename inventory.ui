@@ -217,7 +217,7 @@ QPushButton:pressed {
      <x>0</x>
      <y>40</y>
      <width>801</width>
-     <height>481</height>
+     <height>511</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -238,123 +238,29 @@ color: black;</string>
     </attribute>
    </widget>
   </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
+  <widget class="QPushButton" name="btnSave">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>520</y>
-     <width>801</width>
-     <height>80</height>
+     <x>750</x>
+     <y>560</y>
+     <width>41</width>
+     <height>31</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="dueInButton">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-	background-color: #86ada0;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-	border: 2px solid #86ada0;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-      </property>
-      <property name="text">
-       <string>DUE-IN STOCKS</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="onHandButton">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <italic>false</italic>
-        <underline>false</underline>
-        <strikeout>false</strikeout>
-       </font>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	background-color: #53786d;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-	border: 2px solid #53786d;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-      </property>
-      <property name="text">
-       <string>ON-HAND STOCKS</string>
-      </property>
-      <property name="default">
-       <bool>false</bool>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="owedButton">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-	background-color: #4e655e;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-	border: 2px solid #4e655e;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #4e655e;
-}</string>
-      </property>
-      <property name="text">
-       <string>OWED STOCKS</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset>
+     <selectedon>img/saveIcon.png</selectedon>
+    </iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -116,7 +116,7 @@ class Ui_inventoryManagement(object):
 "")
         self.btnInventory.setObjectName("btnInventory")
         self.tabWidget = QtWidgets.QTabWidget(inventoryManagement)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 40, 801, 481))
+        self.tabWidget.setGeometry(QtCore.QRect(0, 40, 801, 511))
         self.tabWidget.setStyleSheet("background-color: white;\n"
 "color: black;")
         self.tabWidget.setObjectName("tabWidget")
@@ -126,77 +126,15 @@ class Ui_inventoryManagement(object):
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.tabWidget.addTab(self.tab_2, "")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(inventoryManagement)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(0, 520, 801, 80))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.dueInButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.dueInButton.setMinimumSize(QtCore.QSize(0, 50))
-        self.dueInButton.setStyleSheet("QPushButton{\n"
-"    background-color: #86ada0;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"    border: 2px solid #86ada0;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.dueInButton.setObjectName("dueInButton")
-        self.horizontalLayout.addWidget(self.dueInButton)
-        self.onHandButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.onHandButton.setMinimumSize(QtCore.QSize(0, 50))
-        font = QtGui.QFont()
-        font.setItalic(False)
-        font.setUnderline(False)
-        font.setStrikeOut(False)
-        self.onHandButton.setFont(font)
-        self.onHandButton.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.onHandButton.setStyleSheet("QPushButton {\n"
-"    background-color: #53786d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"    border: 2px solid #53786d;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.onHandButton.setDefault(False)
-        self.onHandButton.setFlat(False)
-        self.onHandButton.setObjectName("onHandButton")
-        self.horizontalLayout.addWidget(self.onHandButton)
-        self.owedButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        self.owedButton.setMinimumSize(QtCore.QSize(0, 50))
-        self.owedButton.setStyleSheet("QPushButton{\n"
-"    background-color: #4e655e;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"    border: 2px solid #4e655e;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #4e655e;\n"
-"}")
-        self.owedButton.setObjectName("owedButton")
-        self.horizontalLayout.addWidget(self.owedButton)
+        self.btnSave = QtWidgets.QPushButton(inventoryManagement)
+        self.btnSave.setGeometry(QtCore.QRect(750, 560, 41, 31))
+        self.btnSave.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSave.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/saveIcon.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnSave.setIcon(icon1)
+        self.btnSave.setFlat(True)
+        self.btnSave.setObjectName("btnSave")
 
         self.retranslateUi(inventoryManagement)
         self.tabWidget.setCurrentIndex(0)
@@ -211,6 +149,3 @@ class Ui_inventoryManagement(object):
         self.btnInventory.setText(_translate("inventoryManagement", "Inventory"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("inventoryManagement", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("inventoryManagement", "Tab 2"))
-        self.dueInButton.setText(_translate("inventoryManagement", "DUE-IN STOCKS"))
-        self.onHandButton.setText(_translate("inventoryManagement", "ON-HAND STOCKS"))
-        self.owedButton.setText(_translate("inventoryManagement", "OWED STOCKS"))

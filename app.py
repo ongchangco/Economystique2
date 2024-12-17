@@ -82,10 +82,11 @@ class LandingPage(QMainWindow):
         self.ui.recommendationButton.clicked.connect(self.open_forecast)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
-        self.ui.onHandButton.clicked.connect(self.show_on_hand)
-        self.ui.owedButton.clicked.connect(self.show_owed)
-        self.ui.dueInButton.clicked.connect(self.show_due_in)
         self.ui.btnAccount.clicked.connect(self.open_account)
+        #self.ui.onHandButton.clicked.connect(self.show_on_hand)
+        #self.ui.owedButton.clicked.connect(self.show_owed)
+        #self.ui.dueInButton.clicked.connect(self.show_due_in)
+        
     
     # Button Functions
     def open_sales(self):

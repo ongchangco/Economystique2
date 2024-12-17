@@ -4,8 +4,22 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtCore import Qt
+from mainInventory_ui import Ui_mainInventory
 from inventory_ui import Ui_inventoryManagement
 
+
+class MainInventory(QMainWindow):
+    def __init__(self):
+        super(MainInventory, self).__init__()
+        self.ui = Ui_mainInventory()
+        self.ui.setupUi(self)
+        
+        self.ui.goToInventory.clicked.connect(self.open_inventory)
+        
+    def open_inventory(self):
+        inventory_window = Inventory()
+        widget.addWidget(inventory_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 class Inventory(QMainWindow):
     def __init__(self):
@@ -24,6 +38,12 @@ class Inventory(QMainWindow):
 
         # Connect the save button
         self.ui.btnSave.clicked.connect(self.save_table)
+        self.ui.btnBack.clicked.connect(self.main_inventory)
+        
+    def main_inventory(self):
+        main_inventory_window = MainInventory()
+        widget.addWidget(main_inventory_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
     def load_data(self):
         try:
@@ -80,13 +100,15 @@ class Inventory(QMainWindow):
         self.save_data()
 
         QtWidgets.QMessageBox.information(self, "Saved", "Data saved successfully.")
+        
+    
 
 
 # Main
 app = QApplication(sys.argv)
-inventory = Inventory()
+mainInventory = MainInventory()
 widget = QtWidgets.QStackedWidget()
-widget.addWidget(inventory)
+widget.addWidget(mainInventory)
 widget.setFixedHeight(600)
 widget.setFixedWidth(800)
 widget.show()

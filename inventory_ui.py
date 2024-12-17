@@ -15,6 +15,9 @@ class Ui_inventoryManagement(object):
     def setupUi(self, inventoryManagement):
         inventoryManagement.setObjectName("inventoryManagement")
         inventoryManagement.resize(800, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        inventoryManagement.setWindowIcon(icon)
         inventoryManagement.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
@@ -70,9 +73,9 @@ class Ui_inventoryManagement(object):
 "}\n"
 "")
         self.btnAccount.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.btnSales = QtWidgets.QPushButton(self.frame)
@@ -130,11 +133,16 @@ class Ui_inventoryManagement(object):
         self.btnSave.setGeometry(QtCore.QRect(750, 560, 41, 31))
         self.btnSave.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSave.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/saveIcon.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        self.btnSave.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/saveIcon.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnSave.setIcon(icon2)
         self.btnSave.setFlat(True)
         self.btnSave.setObjectName("btnSave")
+        self.btnBack = QtWidgets.QPushButton(inventoryManagement)
+        self.btnBack.setGeometry(QtCore.QRect(20, 560, 93, 28))
+        self.btnBack.setStyleSheet("color: red;")
+        self.btnBack.setFlat(True)
+        self.btnBack.setObjectName("btnBack")
 
         self.retranslateUi(inventoryManagement)
         self.tabWidget.setCurrentIndex(0)
@@ -149,3 +157,4 @@ class Ui_inventoryManagement(object):
         self.btnInventory.setText(_translate("inventoryManagement", "Inventory"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("inventoryManagement", "Tab 1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("inventoryManagement", "Tab 2"))
+        self.btnBack.setText(_translate("inventoryManagement", "<< Go Back"))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -11,16 +11,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+class Ui_landingPage(object):
+    def setupUi(self, landingPage):
+        landingPage.setObjectName("landingPage")
+        landingPage.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
-        MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("background-color: #f4f4ec;\n"
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        landingPage.setWindowIcon(icon)
+        landingPage.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(landingPage)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalWidget_2.setGeometry(QtCore.QRect(310, 190, 161, 321))
@@ -149,7 +149,7 @@ class Ui_MainWindow(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
@@ -263,25 +263,25 @@ class Ui_MainWindow(object):
         self.InventoryStatus.setStyleSheet("background-color: transparent;")
         self.InventoryStatus.setObjectName("InventoryStatus")
         self.verticalLayout.addWidget(self.InventoryStatus)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        landingPage.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(landingPage)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        landingPage.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(landingPage)
+        QtCore.QMetaObject.connectSlotsByName(landingPage)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, landingPage):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "EconoMystique"))
-        self.dueInButton.setText(_translate("MainWindow", "DUE-IN STOCKS"))
-        self.onHandButton.setText(_translate("MainWindow", "ON-HAND STOCKS"))
-        self.owedButton.setText(_translate("MainWindow", "OWED STOCKS"))
-        self.titleLabel.setText(_translate("MainWindow", "EconoMystique"))
-        self.btnCalendar.setText(_translate("MainWindow", "Calendar"))
-        self.btnSales.setText(_translate("MainWindow", "Sales"))
-        self.btnInventory.setText(_translate("MainWindow", "Inventory"))
-        self.recommendationButton.setText(_translate("MainWindow", "REQUEST RECOMMENDATION"))
-        self.Assessment.setText(_translate("MainWindow", "ASSESSMENT"))
-        self.Summary.setText(_translate("MainWindow", "SUMMARY"))
-        self.InventoryStatus.setText(_translate("MainWindow", "Inventory Status"))
+        landingPage.setWindowTitle(_translate("landingPage", "EconoMystique"))
+        self.dueInButton.setText(_translate("landingPage", "DUE-IN STOCKS"))
+        self.onHandButton.setText(_translate("landingPage", "ON-HAND STOCKS"))
+        self.owedButton.setText(_translate("landingPage", "OWED STOCKS"))
+        self.titleLabel.setText(_translate("landingPage", "EconoMystique"))
+        self.btnCalendar.setText(_translate("landingPage", "Calendar"))
+        self.btnSales.setText(_translate("landingPage", "Sales"))
+        self.btnInventory.setText(_translate("landingPage", "Inventory"))
+        self.recommendationButton.setText(_translate("landingPage", "REQUEST RECOMMENDATION"))
+        self.Assessment.setText(_translate("landingPage", "ASSESSMENT"))
+        self.Summary.setText(_translate("landingPage", "SUMMARY"))
+        self.InventoryStatus.setText(_translate("landingPage", "Inventory Status"))

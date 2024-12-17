@@ -14,7 +14,18 @@ class MainInventory(QMainWindow):
         self.ui = Ui_mainInventory()
         self.ui.setupUi(self)
         
+        # Load data from JSON
+        self.data = self.load_cake_data()
+        
         self.ui.goToInventory.clicked.connect(self.open_inventory)
+        
+    def load_cake_data(self):
+        try:
+            with open("cake_data.json", "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If no file or corrupt file exists, return empty data (editable)
+            return {}
         
     def open_inventory(self):
         inventory_window = Inventory()

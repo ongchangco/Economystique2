@@ -2,7 +2,7 @@ import sys
 import json
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QMainWindow, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QMainWindow, QVBoxLayout, QWidget, QInputDialog, QPushButton
 from PyQt5.QtCore import Qt
 from mainInventory_ui import Ui_mainInventory
 from inventory_ui import Ui_inventoryManagement
@@ -32,6 +32,7 @@ class MainInventory(QMainWindow):
         widget.addWidget(inventory_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
+
 class Inventory(QMainWindow):
     def __init__(self):
         super(Inventory, self).__init__()
@@ -47,9 +48,12 @@ class Inventory(QMainWindow):
         tab_widget.clear()
         self.setup_tabs()
 
-        # Connect the save button
+        # Connect buttons
         self.ui.btnSave.clicked.connect(self.save_table)
+        self.ui.btnEdit.clicked.connect(self.toggle_edit_mode)
         self.ui.btnBack.clicked.connect(self.main_inventory)
+        
+        self.edit_mode = False
         
     def main_inventory(self):
         main_inventory_window = MainInventory()
@@ -69,23 +73,24 @@ class Inventory(QMainWindow):
             json.dump(self.data, f, indent=4)
 
     def setup_tabs(self):
-        # Setup the tabs and tables for September, October, and November
-        for month in ["September", "October", "November"]:
-            data = self.data.get(month, [])
-            table_widget = self.create_table(data)
-            self.tables[month] = table_widget
-            tab_layout = QVBoxLayout()
-            tab_layout.addWidget(table_widget)
+        # Setup the tabs and tables for existing data
+        for month, data in self.data.items():
+            self.create_tab(month, data)
 
-            # Add tab layout for each month
-            tab_widget_container = QWidget()
-            tab_widget_container.setLayout(tab_layout)
-            self.ui.tabWidget.addTab(tab_widget_container, month)
+    def create_tab(self, name, data):
+        table_widget = self.create_table(data)
+        self.tables[name] = table_widget
+        tab_layout = QVBoxLayout()
+        tab_layout.addWidget(table_widget)
+
+        tab_widget_container = QWidget()
+        tab_widget_container.setLayout(tab_layout)
+        self.ui.tabWidget.addTab(tab_widget_container, name)
 
     def create_table(self, data):
         table_widget = QTableWidget()
         table_widget.setRowCount(len(data))
-        table_widget.setColumnCount(7)  # Now we have 7 columns
+        table_widget.setColumnCount(7)  # 7 columns as per the original example
         table_widget.setHorizontalHeaderLabels(["Inventory ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due-In"])
 
         for row in range(len(data)):
@@ -106,13 +111,46 @@ class Inventory(QMainWindow):
                 row_data.append(item.text() if item else "")
             new_data.append(row_data)
 
-        # Update data and save
         self.data[current_tab_name] = new_data
         self.save_data()
 
         QtWidgets.QMessageBox.information(self, "Saved", "Data saved successfully.")
         
-    
+        # Turn off edit mode after saving
+        if self.edit_mode:
+            self.toggle_edit_mode()
+
+    def toggle_edit_mode(self):
+        self.edit_mode = not self.edit_mode
+
+            
+        for table in self.tables.values():
+            table.setEditTriggers(QTableWidget.AllEditTriggers if self.edit_mode else QTableWidget.NoEditTriggers)
+        
+        self.ui.tabWidget.setTabsClosable(self.edit_mode)
+        if self.edit_mode:
+            self.ui.tabWidget.tabBar().tabCloseRequested.connect(self.delete_tab)
+            self.add_tab_button = QPushButton("+")
+            self.add_tab_button.clicked.connect(self.add_tab)
+            self.ui.tabWidget.setCornerWidget(self.add_tab_button, Qt.TopRightCorner)
+        else:
+            self.ui.tabWidget.tabBar().tabCloseRequested.disconnect(self.delete_tab)
+            self.ui.tabWidget.setCornerWidget(None)
+
+    def add_tab(self):
+        new_tab_name, ok = QInputDialog.getText(self, "Add Tab", "Enter tab name:")
+        if ok and new_tab_name:
+            self.create_tab(new_tab_name, [])
+            self.data[new_tab_name] = []
+            self.ui.tabWidget.setCurrentIndex(self.ui.tabWidget.count() - 1)
+
+    def delete_tab(self, index):
+        tab_name = self.ui.tabWidget.tabText(index)
+        self.ui.tabWidget.removeTab(index)
+        if tab_name in self.data:
+            del self.data[tab_name]
+        if tab_name in self.tables:
+            del self.tables[tab_name]
 
 
 # Main

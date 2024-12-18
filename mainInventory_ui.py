@@ -122,11 +122,11 @@ class Ui_mainInventory(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
-        self.summaryListView = QtWidgets.QListView(mainInventory)
-        self.summaryListView.setGeometry(QtCore.QRect(10, 90, 781, 261))
-        self.summaryListView.setStyleSheet("background-color: transparent;\n"
+        self.productsListView = QtWidgets.QListView(mainInventory)
+        self.productsListView.setGeometry(QtCore.QRect(10, 90, 781, 261))
+        self.productsListView.setStyleSheet("background-color: transparent;\n"
 "color: black;")
-        self.summaryListView.setObjectName("summaryListView")
+        self.productsListView.setObjectName("productsListView")
         self.recommendationButton = QtWidgets.QPushButton(mainInventory)
         self.recommendationButton.setGeometry(QtCore.QRect(310, 540, 201, 51))
         self.recommendationButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))

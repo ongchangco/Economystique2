@@ -229,7 +229,7 @@ QPushButton:pressed {
     </property>
    </widget>
   </widget>
-  <widget class="QListView" name="summaryListView">
+  <widget class="QListView" name="productsListView">
    <property name="geometry">
     <rect>
      <x>10</x>

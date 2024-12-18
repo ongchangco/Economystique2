@@ -17,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 #additional imports for each page
 from login_ui import Ui_Login
 from signIn_ui import Ui_signUp
-from landingPage_ui import Ui_MainWindow
+from landingPage_ui import Ui_landingPage
 from salesForecast_ui import Ui_SalesForecast
 from calendar_ui import Ui_Calendar
 from account_ui import Ui_account
@@ -70,7 +70,7 @@ class SignUp(QMainWindow):
 class LandingPage(QMainWindow):
     def __init__(self):
         super(LandingPage, self).__init__()
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_landingPage()
         self.ui.setupUi(self)
         self.setWindowTitle("Inventory Status")
         

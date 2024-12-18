@@ -229,20 +229,6 @@ QPushButton:pressed {
     </property>
    </widget>
   </widget>
-  <widget class="QListView" name="productsListView">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>90</y>
-     <width>781</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-color: black;</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="recommendationButton">
    <property name="geometry">
     <rect>
@@ -371,6 +357,16 @@ QPushButton:pressed {
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="productTable">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>781</width>
+     <height>261</height>
+    </rect>
    </property>
   </widget>
  </widget>

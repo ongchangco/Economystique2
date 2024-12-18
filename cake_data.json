@@ -1,0 +1,12 @@
+[
+    {"Product ID": "C001", "Product Name": "Chocolate", "Quantity": 10},
+    {"Product ID": "C002", "Product Name": "Yema", "Quantity": 5},
+    {"Product ID": "C003", "Product Name": "Ube Macapuno", "Quantity": 20},
+    {"Product ID": "C004", "Product Name": "Strawberry", "Quantity": 10},
+    {"Product ID": "C005", "Product Name": "Red Velvet", "Quantity": 5},
+    {"Product ID": "C006", "Product Name": "Number Cake", "Quantity": 20},
+    {"Product ID": "C007", "Product Name": "Bento Cake", "Quantity": 20},
+    {"Product ID": "C008", "Product Name": "Fondant Cake", "Quantity": 10},
+    {"Product ID": "C009", "Product Name": "Customized", "Quantity": 5},
+    {"Product ID": "C0010", "Product Name": "Cupcake", "Quantity": 20}
+]

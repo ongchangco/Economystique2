@@ -13,24 +13,75 @@ class MainInventory(QMainWindow):
         super(MainInventory, self).__init__()
         self.ui = Ui_mainInventory()
         self.ui.setupUi(self)
-        
+
         # Load data from JSON
         self.data = self.load_cake_data()
-        
+
+        # Populate the product table
+        self.populate_table()
+
+        # Connect go to inventory button
         self.ui.goToInventory.clicked.connect(self.open_inventory)
-        
+
+        # Connect the click event of the table
+        self.ui.productTable.cellClicked.connect(self.sell_product)
+
     def load_cake_data(self):
         try:
             with open("cake_data.json", "r") as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             # If no file or corrupt file exists, return empty data (editable)
-            return {}
-        
+            return []
+
+    def populate_table(self):
+        # Check if data is empty
+        if not self.data:
+            print("No data to populate the table.")
+            return
+
+        # Set the row count based on the number of products
+        self.ui.productTable.setRowCount(len(self.data))
+
+        # Set the column count to 3 for Product ID, Product Name, and Quantity
+        self.ui.productTable.setColumnCount(3)
+
+        # Set the headers for the columns
+        self.ui.productTable.setHorizontalHeaderLabels(["Product ID", "Product Name", "Quantity"])
+
+        # Loop through each product and populate the table
+        for row, product in enumerate(self.data):
+            self.ui.productTable.setItem(row, 0, QTableWidgetItem(str(product["Product ID"])))
+            self.ui.productTable.setItem(row, 1, QTableWidgetItem(product["Product Name"]))
+            self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(product["Quantity"])))
+
     def open_inventory(self):
         inventory_window = Inventory()
         widget.addWidget(inventory_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def sell_product(self, row, column):
+        if column == 0:  # Only if the Product ID column is clicked
+            product_id = self.ui.productTable.item(row, 0).text()
+            product_name = self.ui.productTable.item(row, 1).text()
+            quantity = int(self.ui.productTable.item(row, 2).text())
+
+            if quantity > 0:
+                quantity -= 1
+                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(quantity)))
+
+                # Update the data
+                for product in self.data:
+                    if product["Product ID"] == product_id:
+                        product["Quantity"] = quantity
+                        break
+
+                # Save the updated data
+                self.save_cake_data()
+
+    def save_cake_data(self):
+        with open("cake_data.json", "w") as f:
+            json.dump(self.data, f, indent=4)
 
 
 class Inventory(QMainWindow):
@@ -52,13 +103,13 @@ class Inventory(QMainWindow):
         self.ui.btnSave.clicked.connect(self.save_table)
         self.ui.btnEdit.clicked.connect(self.toggle_edit_mode)
         self.ui.btnBack.clicked.connect(self.main_inventory)
-        
+
         self.edit_mode = False
-        
+
     def main_inventory(self):
         main_inventory_window = MainInventory()
         widget.addWidget(main_inventory_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def load_data(self):
         try:
@@ -91,7 +142,8 @@ class Inventory(QMainWindow):
         table_widget = QTableWidget()
         table_widget.setRowCount(len(data))
         table_widget.setColumnCount(7)  # 7 columns as per the original example
-        table_widget.setHorizontalHeaderLabels(["Inventory ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due-In"])
+        table_widget.setHorizontalHeaderLabels(
+            ["Inventory ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due-In"])
 
         for row in range(len(data)):
             for col in range(len(data[row])):
@@ -115,7 +167,7 @@ class Inventory(QMainWindow):
         self.save_data()
 
         QtWidgets.QMessageBox.information(self, "Saved", "Data saved successfully.")
-        
+
         # Turn off edit mode after saving
         if self.edit_mode:
             self.toggle_edit_mode()
@@ -123,10 +175,9 @@ class Inventory(QMainWindow):
     def toggle_edit_mode(self):
         self.edit_mode = not self.edit_mode
 
-            
         for table in self.tables.values():
             table.setEditTriggers(QTableWidget.AllEditTriggers if self.edit_mode else QTableWidget.NoEditTriggers)
-        
+
         self.ui.tabWidget.setTabsClosable(self.edit_mode)
         if self.edit_mode:
             self.ui.tabWidget.tabBar().tabCloseRequested.connect(self.delete_tab)
@@ -162,6 +213,7 @@ widget.setFixedHeight(600)
 widget.setFixedWidth(800)
 widget.show()
 widget.closeEvent = lambda event: app.quit()
+
 try:
     sys.exit(app.exec_())
 except:

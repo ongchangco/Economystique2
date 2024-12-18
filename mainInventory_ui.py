@@ -122,11 +122,6 @@ class Ui_mainInventory(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
-        self.productsListView = QtWidgets.QListView(mainInventory)
-        self.productsListView.setGeometry(QtCore.QRect(10, 90, 781, 261))
-        self.productsListView.setStyleSheet("background-color: transparent;\n"
-"color: black;")
-        self.productsListView.setObjectName("productsListView")
         self.recommendationButton = QtWidgets.QPushButton(mainInventory)
         self.recommendationButton.setGeometry(QtCore.QRect(310, 540, 201, 51))
         self.recommendationButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -190,6 +185,11 @@ class Ui_mainInventory(object):
         self.Assessment.setStyleSheet("background-color: transparent;")
         self.Assessment.setAlignment(QtCore.Qt.AlignCenter)
         self.Assessment.setObjectName("Assessment")
+        self.productTable = QtWidgets.QTableWidget(mainInventory)
+        self.productTable.setGeometry(QtCore.QRect(10, 90, 781, 261))
+        self.productTable.setObjectName("productTable")
+        self.productTable.setColumnCount(0)
+        self.productTable.setRowCount(0)
 
         self.retranslateUi(mainInventory)
         QtCore.QMetaObject.connectSlotsByName(mainInventory)

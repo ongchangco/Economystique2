@@ -7,7 +7,6 @@ from PyQt5.QtCore import Qt
 from mainInventory_ui import Ui_mainInventory
 from inventory_ui import Ui_inventoryManagement
 
-
 class MainInventory(QMainWindow):
     def __init__(self):
         super(MainInventory, self).__init__()
@@ -43,17 +42,20 @@ class MainInventory(QMainWindow):
         # Set the row count based on the number of products
         self.ui.productTable.setRowCount(len(self.data))
 
-        # Set the column count to 3 for Product ID, Product Name, and Quantity
-        self.ui.productTable.setColumnCount(3)
+        # Set the column count to 5 for Product ID, Product Name, Quantity, Price, and Quantity Sold
+        self.ui.productTable.setColumnCount(5)
 
         # Set the headers for the columns
-        self.ui.productTable.setHorizontalHeaderLabels(["Product ID", "Product Name", "Quantity"])
+        self.ui.productTable.setHorizontalHeaderLabels(
+            ["Product ID", "Product Name", "Quantity", "Price", "Quantity Sold"])
 
         # Loop through each product and populate the table
         for row, product in enumerate(self.data):
             self.ui.productTable.setItem(row, 0, QTableWidgetItem(str(product["Product ID"])))
             self.ui.productTable.setItem(row, 1, QTableWidgetItem(product["Product Name"]))
             self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(product["Quantity"])))
+            self.ui.productTable.setItem(row, 3, QTableWidgetItem(str(product["Price"])))
+            self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(product["Quantity Sold"])))
 
     def open_inventory(self):
         inventory_window = Inventory()
@@ -65,15 +67,25 @@ class MainInventory(QMainWindow):
             product_id = self.ui.productTable.item(row, 0).text()
             product_name = self.ui.productTable.item(row, 1).text()
             quantity = int(self.ui.productTable.item(row, 2).text())
+            quantity_sold = int(self.ui.productTable.item(row, 4).text())
 
-            if quantity > 0:
-                quantity -= 1
-                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(quantity)))
+            # Ask the user how much was sold
+            amount_sold, ok = QInputDialog.getInt(self, "Amount Sold", f"How many {product_name} were sold?", 1, 1, quantity)
+
+            if ok and amount_sold > 0:
+                # Update the quantities
+                new_quantity = quantity - amount_sold
+                new_quantity_sold = quantity_sold + amount_sold
+
+                # Update the table view
+                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(new_quantity)))
+                self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(new_quantity_sold)))
 
                 # Update the data
                 for product in self.data:
                     if product["Product ID"] == product_id:
-                        product["Quantity"] = quantity
+                        product["Quantity"] = new_quantity
+                        product["Quantity Sold"] = new_quantity_sold
                         break
 
                 # Save the updated data
@@ -82,7 +94,6 @@ class MainInventory(QMainWindow):
     def save_cake_data(self):
         with open("cake_data.json", "w") as f:
             json.dump(self.data, f, indent=4)
-
 
 class Inventory(QMainWindow):
     def __init__(self):

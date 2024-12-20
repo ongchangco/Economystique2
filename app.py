@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ import openpyxl
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
@@ -22,6 +23,8 @@ from salesForecast_ui import Ui_SalesForecast
 from calendar_ui import Ui_Calendar
 from account_ui import Ui_account
 from sales_ui import Ui_Sales
+from inventory_ui import Ui_inventoryManagement
+from mainInventory_ui import Ui_mainInventory
 #import sqlite3
 
 class Login(QMainWindow):
@@ -30,9 +33,7 @@ class Login(QMainWindow):
         self.ui = Ui_Login()
         self.ui.setupUi(self)
 
-        # Connect sign up button
         self.ui.signUpButton.clicked.connect(self.open_signUp)
-        #for login button on login == go to landingPage
         self.ui.pushButton.clicked.connect(self.loginfunction)
         
     def open_signUp(self):
@@ -41,8 +42,8 @@ class Login(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
                 
     def loginfunction(self):
-        landing_page = LandingPage()
-        widget.addWidget(landing_page)
+        main_inventory = MainInventory()
+        widget.addWidget(main_inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
 class SignUp(QMainWindow):
@@ -51,9 +52,7 @@ class SignUp(QMainWindow):
         self.ui = Ui_signUp()
         self.ui.setupUi(self)
         
-        # Connect login button
         self.ui.loginButton.clicked.connect(self.open_Login)
-        #for signin button on signup == go to landingPage
         self.ui.pushButton.clicked.connect(self.signinfunction)
         
     def open_Login(self):
@@ -62,32 +61,64 @@ class SignUp(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def signinfunction(self):
-        landing_page = LandingPage()
-        widget.addWidget(landing_page)
+        main_inventory = MainInventory()
+        widget.addWidget(main_inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
-#landing
-class LandingPage(QMainWindow):
+class MainInventory(QMainWindow):
     def __init__(self):
-        super(LandingPage, self).__init__()
-        self.ui = Ui_landingPage()
+        super(MainInventory, self).__init__()
+        self.ui = Ui_mainInventory()
         self.ui.setupUi(self)
-        self.setWindowTitle("Inventory Status")
-        
-        # Automatically show 'due-in' data on startup
-        self.selected_file = None
-        self.load_and_display_first_file_data()
-        
-        # Connect buttons
+
+        # Load data from JSON
+        self.data = self.load_cake_data()
+
+        # Populate the product table
+        self.populate_table()
+
+        # Connect go to inventory button
+        self.ui.goToInventory.clicked.connect(self.open_inventory)
         self.ui.recommendationButton.clicked.connect(self.open_forecast)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        #self.ui.onHandButton.clicked.connect(self.show_on_hand)
-        #self.ui.owedButton.clicked.connect(self.show_owed)
-        #self.ui.dueInButton.clicked.connect(self.show_due_in)
-        
-    
+
+        # Connect the click event of the table
+        self.ui.productTable.cellClicked.connect(self.sell_product)
+
+    def load_cake_data(self):
+        try:
+            with open("cake_data.json", "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If no file or corrupt file exists, return empty data (editable)
+            return []
+
+    def populate_table(self):
+        # Check if data is empty
+        if not self.data:
+            print("No data to populate the table.")
+            return
+
+        # Set the row count based on the number of products
+        self.ui.productTable.setRowCount(len(self.data))
+
+        # Set the column count to 5 for Product ID, Product Name, Quantity, Price, and Quantity Sold
+        self.ui.productTable.setColumnCount(5)
+
+        # Set the headers for the columns
+        self.ui.productTable.setHorizontalHeaderLabels(
+            ["Product ID", "Product Name", "Quantity", "Price", "Quantity Sold"])
+
+        # Loop through each product and populate the table
+        for row, product in enumerate(self.data):
+            self.ui.productTable.setItem(row, 0, QTableWidgetItem(str(product["Product ID"])))
+            self.ui.productTable.setItem(row, 1, QTableWidgetItem(product["Product Name"]))
+            self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(product["Quantity"])))
+            self.ui.productTable.setItem(row, 3, QTableWidgetItem(str(product["Price"])))
+            self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(product["Quantity Sold"])))
+
     # Button Functions
     def open_sales(self):
         sales_window = SalesWindow()
@@ -103,112 +134,187 @@ class LandingPage(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        
-    def get_selected_file(self):
-        """Get the file path from the file list in AccountWindow."""
-        account_window = AccountWindow()
-        file_paths = account_window.load_file_paths()  # Load file paths from file_list.txt
-        
-        # Show file selection dialog
-        file_dialog = QFileDialog(self)
-        selected_file, _ = file_dialog.getOpenFileName(self, "Select Inventory File", "", "Excel Files (*.xls *.xlsx);;All Files (*)")
-        
-        if selected_file and selected_file in file_paths:
-            return selected_file
-        else:
-            QMessageBox.warning(self, "Warning", "Invalid file selection.")
-            return None
-        
-    def get_selected_file(self):
-        """Get the file path from the file list in AccountWindow."""
-        account_window = AccountWindow()
-        file_paths = account_window.load_file_paths()  # Load file paths from file_list.txt
-        
-        # Show file selection dialog
-        file_dialog = QFileDialog(self)
-        selected_file, _ = file_dialog.getOpenFileName(self, "Select Inventory File", "", "Excel Files (*.xls *.xlsx);;All Files (*)")
-        
-        if selected_file and selected_file in file_paths:
-            return selected_file
-        else:
-            QMessageBox.warning(self, "Warning", "Invalid file selection.")
-            return None
-
-    def load_and_display_first_file_data(self):
-        """Automatically load and display data from the first file in the AccountWindow's file list."""
-        account_window = AccountWindow()  # Assuming AccountWindow is already open
-        selected_file = account_window.get_first_file_path()  # Add this method to AccountWindow
-        
-        if not selected_file:
-            QMessageBox.warning(self, "Warning", "No inventory file found in Account.")
-            return
-
-        self.selected_file = selected_file
-        inventory_data = self.load_inventory_data(self.selected_file)
-        self.display_inventory_data(inventory_data["due_in"])  # Show 'Due-In' by default
-
-    def show_on_hand(self):
-        """Display 'on-hand' data from the same file."""
-        if self.selected_file:
-            inventory_data = self.load_inventory_data(self.selected_file)
-            self.display_inventory_data(inventory_data["on_hand"])
-        else:
-            QMessageBox.warning(self, "Warning", "No file selected.")
-
-    def show_owed(self):
-        """Display 'owed' data from the same file."""
-        if self.selected_file:
-            inventory_data = self.load_inventory_data(self.selected_file)
-            self.display_inventory_data(inventory_data["owed"])
-        else:
-            QMessageBox.warning(self, "Warning", "No file selected.")
-
-    def show_due_in(self):
-        """Display 'due-in' data from the same file."""
-        if self.selected_file:
-            inventory_data = self.load_inventory_data(self.selected_file)
-            self.display_inventory_data(inventory_data["due_in"])
-        else:
-            QMessageBox.warning(self, "Warning", "No file selected.")
-
-    def load_inventory_data(self, file_path):
-        """Load inventory data from the selected Excel file."""
-        inventory_data = {"on_hand": [], "owed": [], "due_in": []}
-        
-        try:
-            wb = openpyxl.load_workbook(file_path)
-            sheet = wb.active
-            
-            for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping the header row
-                inventory_name = row[1]  # Assuming inventory name is in the 2nd column
-                on_hand = row[4]  # Assuming on-hand amount is in the 5th column
-                owed = row[5]  # Assuming owed amount is in the 6th column
-                due_in = row[6]  # Assuming due-in amount is in the 7th column
-                
-                if on_hand is not None:
-                    inventory_data["on_hand"].append(f"{inventory_name}: {on_hand}")
-                if owed is not None:
-                    inventory_data["owed"].append(f"{inventory_name}: {owed}")
-                if due_in is not None:
-                    inventory_data["due_in"].append(f"{inventory_name}: {due_in}")
-        
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to load inventory data:\n{str(e)}")
-        
-        return inventory_data
-
-    def display_inventory_data(self, data):
-        """Display the filtered inventory data in the ListView."""
-        model = QStringListModel()
-        model.setStringList(data)
-        self.ui.summaryListView.setModel(model)    
+    
+    def open_inventory(self):
+        inventory_window = Inventory()
+        widget.addWidget(inventory_window)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
         
     def open_forecast(self):
         from salesForecast import SalesForecastWindow
         self.sales_forecast_window = SalesForecastWindow()
         self.sales_forecast_window.show()
+
+    def sell_product(self, row, column):
+        if column == 0:  # Only if the Product ID column is clicked
+            product_id = self.ui.productTable.item(row, 0).text()
+            product_name = self.ui.productTable.item(row, 1).text()
+            quantity = int(self.ui.productTable.item(row, 2).text())
+            quantity_sold = int(self.ui.productTable.item(row, 4).text())
+
+            # Ask the user how much was sold
+            amount_sold, ok = QInputDialog.getInt(self, "Amount Sold", f"How many {product_name} were sold?", 1, 1, quantity)
+
+            if ok and amount_sold > 0:
+                # Update the quantities
+                new_quantity = quantity - amount_sold
+                new_quantity_sold = quantity_sold + amount_sold
+
+                # Update the table view
+                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(new_quantity)))
+                self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(new_quantity_sold)))
+
+                # Update the data
+                for product in self.data:
+                    if product["Product ID"] == product_id:
+                        product["Quantity"] = new_quantity
+                        product["Quantity Sold"] = new_quantity_sold
+                        break
+
+                # Save the updated data
+                self.save_cake_data()
+
+    def save_cake_data(self):
+        with open("cake_data.json", "w") as f:
+            json.dump(self.data, f, indent=4)
+
+class Inventory(QMainWindow):
+    def __init__(self):
+        super(Inventory, self).__init__()
+        self.ui = Ui_inventoryManagement()
+        self.ui.setupUi(self)
+
+        # Load data from JSON
+        self.data = self.load_data()
+
+        # Initialize UI
+        self.tables = {}
+        tab_widget = self.ui.tabWidget
+        tab_widget.clear()
+        self.setup_tabs()
+
+        # Connect buttons
+        self.ui.btnSave.clicked.connect(self.save_table)
+        self.ui.btnEdit.clicked.connect(self.toggle_edit_mode)
+        self.ui.btnBack.clicked.connect(self.main_inventory)
+        self.ui.btnSales.clicked.connect(self.open_sales)
+        self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.btnAccount.clicked.connect(self.open_account)
+
+        self.edit_mode = False
+
+    def main_inventory(self):
+        main_inventory_window = MainInventory()
+        widget.addWidget(main_inventory_window)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+
+    def open_sales(self):
+        sales_window = SalesWindow()
+        widget.addWidget(sales_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        
+    def open_calendar(self):
+        calendar_window = CalendarWindow()
+        widget.addWidget(calendar_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    
+    def open_account(self):
+        account_window = AccountWindow()
+        widget.addWidget(account_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    
+    def load_data(self):
+        try:
+            with open("inventory_data.json", "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If no file or corrupt file exists, return empty data (editable)
+            return {}
+
+    def save_data(self):
+        with open("inventory_data.json", "w") as f:
+            json.dump(self.data, f, indent=4)
+
+    def setup_tabs(self):
+        # Setup the tabs and tables for existing data
+        for month, data in self.data.items():
+            self.create_tab(month, data)
+
+    def create_tab(self, name, data):
+        table_widget = self.create_table(data)
+        self.tables[name] = table_widget
+        tab_layout = QVBoxLayout()
+        tab_layout.addWidget(table_widget)
+
+        tab_widget_container = QWidget()
+        tab_widget_container.setLayout(tab_layout)
+        self.ui.tabWidget.addTab(tab_widget_container, name)
+
+    def create_table(self, data):
+        table_widget = QTableWidget()
+        table_widget.setRowCount(len(data))
+        table_widget.setColumnCount(7)  # 7 columns as per the original example
+        table_widget.setHorizontalHeaderLabels(
+            ["Inventory ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due-In"])
+
+        for row in range(len(data)):
+            for col in range(len(data[row])):
+                item = QTableWidgetItem(str(data[row][col]))
+                table_widget.setItem(row, col, item)
+        return table_widget
+
+    def save_table(self):
+        current_tab_name = self.ui.tabWidget.tabText(self.ui.tabWidget.currentIndex())
+        table_widget = self.tables[current_tab_name]
+        new_data = []
+
+        for row in range(table_widget.rowCount()):
+            row_data = []
+            for col in range(table_widget.columnCount()):
+                item = table_widget.item(row, col)
+                row_data.append(item.text() if item else "")
+            new_data.append(row_data)
+
+        self.data[current_tab_name] = new_data
+        self.save_data()
+
+        QtWidgets.QMessageBox.information(self, "Saved", "Data saved successfully.")
+
+        # Turn off edit mode after saving
+        if self.edit_mode:
+            self.toggle_edit_mode()
+
+    def toggle_edit_mode(self):
+        self.edit_mode = not self.edit_mode
+
+        for table in self.tables.values():
+            table.setEditTriggers(QTableWidget.AllEditTriggers if self.edit_mode else QTableWidget.NoEditTriggers)
+
+        self.ui.tabWidget.setTabsClosable(self.edit_mode)
+        if self.edit_mode:
+            self.ui.tabWidget.tabBar().tabCloseRequested.connect(self.delete_tab)
+            self.add_tab_button = QPushButton("+")
+            self.add_tab_button.clicked.connect(self.add_tab)
+            self.ui.tabWidget.setCornerWidget(self.add_tab_button, Qt.TopRightCorner)
+        else:
+            self.ui.tabWidget.tabBar().tabCloseRequested.disconnect(self.delete_tab)
+            self.ui.tabWidget.setCornerWidget(None)
+
+    def add_tab(self):
+        new_tab_name, ok = QInputDialog.getText(self, "Add Tab", "Enter tab name:")
+        if ok and new_tab_name:
+            self.create_tab(new_tab_name, [])
+            self.data[new_tab_name] = []
+            self.ui.tabWidget.setCurrentIndex(self.ui.tabWidget.count() - 1)
+
+    def delete_tab(self, index):
+        tab_name = self.ui.tabWidget.tabText(index)
+        self.ui.tabWidget.removeTab(index)
+        if tab_name in self.data:
+            del self.data[tab_name]
+        if tab_name in self.tables:
+            del self.tables[tab_name]
    
-#sales     
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()
@@ -294,8 +400,8 @@ class SalesWindow(QMainWindow):
     
     # Button Functions  
     def open_inventory(self):
-        inventory_window = LandingPage()
-        widget.addWidget(inventory_window)
+        main_inventory = MainInventory()
+        widget.addWidget(main_inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def open_calendar(self):
@@ -413,8 +519,8 @@ class CalendarWindow(QMainWindow):
             
     # Button Functions
     def open_inventory(self):
-        inventory_window = LandingPage()
-        widget.addWidget(inventory_window)
+        main_inventory = MainInventory()
+        widget.addWidget(main_inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def open_sales(self):
@@ -470,8 +576,8 @@ class AccountWindow(QMainWindow):
             print("Recursion error detected during UI setup:", e)
 
     def open_inventory(self):
-        inventory_window = LandingPage()
-        widget.addWidget(inventory_window)
+        main_inventory = MainInventory()
+        widget.addWidget(main_inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def open_sales(self):

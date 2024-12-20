@@ -30,9 +30,9 @@
     {
         "Product ID": "C005",
         "Product Name": "Red Velvet Cake",
-        "Quantity": 5,
+        "Quantity": 2,
         "Price": 850,
-        "Quantity Sold": 0
+        "Quantity Sold": 3
     },
     {
         "Product ID": "C006",

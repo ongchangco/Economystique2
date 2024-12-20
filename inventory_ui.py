@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\inventory.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\inventory.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_inventoryManagement(object):
         inventoryManagement.setObjectName("inventoryManagement")
         inventoryManagement.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         inventoryManagement.setWindowIcon(icon)
         inventoryManagement.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -74,7 +74,7 @@ class Ui_inventoryManagement(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
@@ -134,7 +134,7 @@ class Ui_inventoryManagement(object):
         self.btnSave.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSave.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/saveIcon.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/saveIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnSave.setIcon(icon2)
         self.btnSave.setFlat(True)
         self.btnSave.setObjectName("btnSave")
@@ -148,7 +148,7 @@ class Ui_inventoryManagement(object):
         self.btnEdit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnEdit.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/editPfp.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/editPfp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnEdit.setIcon(icon3)
         self.btnEdit.setFlat(True)
         self.btnEdit.setObjectName("btnEdit")

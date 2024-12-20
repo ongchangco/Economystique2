@@ -260,8 +260,7 @@ color: black;</string>
    </property>
    <property name="icon">
     <iconset>
-     <selectedon>img/saveIcon.png</selectedon>
-    </iconset>
+     <normaloff>img/saveIcon.png</normaloff>img/saveIcon.png</iconset>
    </property>
    <property name="flat">
     <bool>true</bool>
@@ -303,8 +302,7 @@ color: black;</string>
    </property>
    <property name="icon">
     <iconset>
-     <selectedon>img/editPfp.png</selectedon>
-    </iconset>
+     <normaloff>img/editPfp.png</normaloff>img/editPfp.png</iconset>
    </property>
    <property name="flat">
     <bool>true</bool>

@@ -23,125 +23,6 @@
 color: black;
 </string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>180</y>
-     <width>751</width>
-     <height>301</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab_1">
-       <attribute name="title">
-        <string>Month 1</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Month 2</string>
-       </attribute>
-      </widget>
-     </widget>
-    </item>
-    <item>
-     <widget class="QListView" name="assessmentListView">
-      <property name="styleSheet">
-       <string notr="true">background-color: white;
-color: black;
-</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>120</y>
-     <width>751</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <item>
-     <widget class="QLabel" name="MonthlyRecords">
-      <property name="font">
-       <font>
-        <family>Sans Serif Collection</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Monthly Records</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="Assessment">
-      <property name="font">
-       <font>
-        <family>Sans Serif Collection</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Assessment</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>40</y>
-     <width>801</width>
-     <height>80</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="leftMargin">
-     <number>310</number>
-    </property>
-    <item>
-     <widget class="QLabel" name="SalesRecords">
-      <property name="font">
-       <font>
-        <family>Sans Serif Collection</family>
-        <pointsize>18</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Sales Records</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
@@ -340,7 +221,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>500</y>
+     <y>550</y>
      <width>251</width>
      <height>36</height>
     </rect>
@@ -376,6 +257,70 @@ QPushButton:pressed {
    </property>
    <property name="flat">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Assessment">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>211</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Sans Serif Collection</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Assessment</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="SalesRecords">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>47</y>
+     <width>781</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Sans Serif Collection</family>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Sales</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="productTable">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>131</y>
+     <width>781</width>
+     <height>281</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="txtAssessment">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>430</y>
+     <width>521</width>
+     <height>91</height>
+    </rect>
    </property>
   </widget>
  </widget>

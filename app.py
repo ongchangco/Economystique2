@@ -42,8 +42,8 @@ class Login(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
                 
     def loginfunction(self):
-        main_inventory = MainInventory()
-        widget.addWidget(main_inventory)
+        inventory = Inventory()
+        widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
 class SignUp(QMainWindow):
@@ -61,8 +61,8 @@ class SignUp(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def signinfunction(self):
-        main_inventory = MainInventory()
-        widget.addWidget(main_inventory)
+        inventory = Inventory()
+        widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class MainInventory(QMainWindow):
@@ -196,17 +196,11 @@ class Inventory(QMainWindow):
         # Connect buttons
         self.ui.btnSave.clicked.connect(self.save_table)
         self.ui.btnEdit.clicked.connect(self.toggle_edit_mode)
-        self.ui.btnBack.clicked.connect(self.main_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
         self.ui.btnAccount.clicked.connect(self.open_account)
 
         self.edit_mode = False
-
-    def main_inventory(self):
-        main_inventory_window = MainInventory()
-        widget.addWidget(main_inventory_window)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def open_sales(self):
         sales_window = SalesWindow()
@@ -322,13 +316,17 @@ class SalesWindow(QMainWindow):
         self._setup_ui()
         self.setWindowTitle("Sales")
 
-        # Load file list from storage and update tabs
-        self.file_map_2 = {}
-        self.load_files_2()
-        self.update_tabs(list(self.file_map_2.keys()))
+        # Load data from JSON
+        self.data = self.load_cake_data()
+
+        # Populate the product table
+        self.populate_table()
 
         # Initialize the sales_forecast_window attribute to None
         self.sales_forecast_window = None
+
+        # Connect the click event of the table
+        self.ui.productTable.cellClicked.connect(self.sell_product)
 
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
@@ -345,63 +343,75 @@ class SalesWindow(QMainWindow):
         except RecursionError as e:
             print("Recursion error detected during UI setup:", e)
 
-    def update_tabs(self, file_list):
-        """Update QTabWidget based on the file list and display Excel contents."""
-        tab_widget = self.ui.tabWidget
-        tab_widget.clear()  # Clear existing tabs
+    def load_cake_data(self):
+        try:
+            with open("cake_data.json", "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            # If no file or corrupt file exists, return empty data (editable)
+            return []
 
-        for file_name in file_list:
-            tab = QWidget()  # Create a new tab
-            tab_layout = QVBoxLayout(tab)  # Add layout to the tab
+    def populate_table(self):
+        # Check if data is empty
+        if not self.data:
+            print("No data to populate the table.")
+            return
 
-            table_view = QTableView()  # Create a QTableView
-            tab_layout.addWidget(table_view)  # Add QTableView to the layout
+        # Set the row count based on the number of products
+        self.ui.productTable.setRowCount(len(self.data))
 
-            # Load the Excel file and populate the table
-            file_path = self.file_map_2.get(file_name)
-            if file_path:
-                try:
-                    # Read Excel file using pandas
-                    df = pd.read_excel(file_path)
+        # Set the column count to 5 for Product ID, Product Name, Quantity, Price, and Quantity Sold
+        self.ui.productTable.setColumnCount(5)
 
-                    # Convert pandas DataFrame to QStandardItemModel
-                    model = self._dataframe_to_model(df)
+        # Set the headers for the columns
+        self.ui.productTable.setHorizontalHeaderLabels(
+            ["Product ID", "Product Name", "Quantity", "Price", "Quantity Sold"])
 
-                    # Set the model to the QTableView
-                    table_view.setModel(model)
-                except Exception as e:
-                    error_label = QLabel(f"Failed to load file {file_name}: {str(e)}")
-                    tab_layout.addWidget(error_label)
+        # Loop through each product and populate the table
+        for row, product in enumerate(self.data):
+            self.ui.productTable.setItem(row, 0, QTableWidgetItem(str(product["Product ID"])))
+            self.ui.productTable.setItem(row, 1, QTableWidgetItem(product["Product Name"]))
+            self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(product["Quantity"])))
+            self.ui.productTable.setItem(row, 3, QTableWidgetItem(str(product["Price"])))
+            self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(product["Quantity Sold"])))
 
-            tab_widget.addTab(tab, file_name)  # Add the tab to QTabWidget
+    def sell_product(self, row, column):
+        if column == 4:  # Only if the Sold column is clicked
+            product_id = self.ui.productTable.item(row, 0).text()
+            product_name = self.ui.productTable.item(row, 1).text()
+            quantity = int(self.ui.productTable.item(row, 2).text())
+            quantity_sold = int(self.ui.productTable.item(row, 4).text())
 
-    def _dataframe_to_model(self, dataframe):
-        """Convert a pandas DataFrame to a QStandardItemModel."""
-        model = QStandardItemModel()
-        model.setColumnCount(len(dataframe.columns))
-        model.setHorizontalHeaderLabels(dataframe.columns)
+            # Ask the user how much was sold
+            amount_sold, ok = QInputDialog.getInt(self, "Amount Sold", f"How many {product_name} were sold?", 1, 1, quantity)
 
-        for row_idx, row in dataframe.iterrows():
-            items = [QStandardItem(str(value)) for value in row]
-            model.appendRow(items)
+            if ok and amount_sold > 0:
+                # Update the quantities
+                new_quantity = quantity - amount_sold
+                new_quantity_sold = quantity_sold + amount_sold
 
-        return model
+                # Update the table view
+                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(new_quantity)))
+                self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(new_quantity_sold)))
 
-    def load_files_2(self):
-        """Load files from storage."""
-        if os.path.exists('file_list_2.txt'):
-            try:
-                with open('file_list_2.txt', 'r') as f:
-                    for line in f:
-                        display_name, file_path = line.strip().split('||')
-                        self.file_map_2[display_name] = file_path
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
-    
+                # Update the data
+                for product in self.data:
+                    if product["Product ID"] == product_id:
+                        product["Quantity"] = new_quantity
+                        product["Quantity Sold"] = new_quantity_sold
+                        break
+
+                # Save the updated data
+                self.save_cake_data()
+
+    def save_cake_data(self):
+        with open("cake_data.json", "w") as f:
+            json.dump(self.data, f, indent=4)
+
     # Button Functions  
     def open_inventory(self):
-        main_inventory = MainInventory()
-        widget.addWidget(main_inventory)
+        inventory = Inventory()
+        widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def open_calendar(self):
@@ -519,8 +529,8 @@ class CalendarWindow(QMainWindow):
             
     # Button Functions
     def open_inventory(self):
-        main_inventory = MainInventory()
-        widget.addWidget(main_inventory)
+        inventory = Inventory()
+        widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def open_sales(self):
@@ -534,39 +544,16 @@ class CalendarWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
     
 class AccountWindow(QMainWindow):
-    file_list_updated_2 = pyqtSignal(list)  # Signal to emit file list
-    
     def __init__(self):
         super(AccountWindow, self).__init__()
         self.ui = Ui_account()
         self._setup_ui()
         self.setWindowTitle("Account")
         
-        # Set up the model for QListViews
-        self.file_map = {}
-        self.file_model = QStringListModel()
-        self.ui.fileListView.setModel(self.file_model)
-        self.file_list = []
-        
-        self.file_map_2 = {}
-        self.file_model_2 = QStringListModel()
-        self.ui.fileListView_2.setModel(self.file_model_2)
-        self.file_list_2 = []
-
-        # Load files from storage
-        self.load_files()
-        self.load_files_2()
-
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnCalendar.clicked.connect(self.open_calendar)
-        self.ui.btnOpenFile.clicked.connect(self.open_file)
-        self.ui.btnDeleteFile.clicked.connect(self.delete_file)
-        self.ui.btnAddFile.clicked.connect(self.add_file)
-        self.ui.btnOpenFile_2.clicked.connect(self.open_file_2)
-        self.ui.btnDeleteFile_2.clicked.connect(self.delete_file_2)
-        self.ui.btnAddFile_2.clicked.connect(self.add_file_2)
         self.ui.btnLogOut.clicked.connect(self.open_login)
     
     def _setup_ui(self):
@@ -576,230 +563,24 @@ class AccountWindow(QMainWindow):
             print("Recursion error detected during UI setup:", e)
 
     def open_inventory(self):
-        main_inventory = MainInventory()
-        widget.addWidget(main_inventory)
+        inventory = Inventory()
+        widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        
-        # Connect the signal to the slot in SalesWindow
-        self.file_list_updated_2.connect(sales_window.update_tabs)
-        self.emit_file_list_updated_2()
 
     def open_calendar(self):
-        account_window = CalendarWindow()
-        widget.addWidget(account_window)
+        calendar_window = CalendarWindow()
+        widget.addWidget(calendar_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def open_login(self):
         account_login = Login()
         widget.addWidget(account_login)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    
-    def get_first_file_path(self):
-        """Returns the file path of the first file in the fileListView."""
-        if self.ui.fileListView.model().rowCount() > 0:
-            # Get the first item in the list view and return the file path
-            first_item = self.ui.fileListView.model().index(0, 0).data()  # Get the first file name
-            return self.file_map.get(first_item)  # Return the file path
-        return None  # Return None if no files are listed
-    
-    def load_file_paths(self):
-        """Load file paths from file_list.txt."""
-        file_paths = []
-        if os.path.exists('file_list.txt'):
-            try:
-                with open('file_list.txt', 'r') as f:
-                    for line in f:
-                        display_name, file_path = line.strip().split('||')
-                        file_paths.append(file_path)  # Add file path to the list
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Failed to load file paths:\n{str(e)}")
-        return file_paths
-    
-    def load_inventory_data(self, file_path):
-        """Load inventory data from Excel and return relevant columns."""
-        inventory_data = {"on_hand": [], "owed": [], "due_in": []}
-        
-        try:
-            wb = openpyxl.load_workbook(file_path)
-            sheet = wb.active
-            
-            for row in sheet.iter_rows(min_row=2, values_only=True):  # Skipping the header row
-                inventory_name = row[1] 
-                on_hand = row[4] 
-                owed = row[5] 
-                due_in = row[6]  
-                
-                if on_hand is not None:
-                    inventory_data["on_hand"].append(f"{inventory_name}: {on_hand}")
-                if owed is not None:
-                    inventory_data["owed"].append(f"{inventory_name}: {owed}")
-                if due_in is not None:
-                    inventory_data["due_in"].append(f"{inventory_name}: {due_in}")
-        
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to load inventory data:\n{str(e)}")
-        
-        return inventory_data
-
-    def delete_file(self):
-        selected_indexes = self.ui.fileListView.selectedIndexes()
-        if not selected_indexes:
-            QMessageBox.warning(self, "Warning", "Please select a file to delete.")
-            return
-
-        selected_index = selected_indexes[0]  # Only allow single selection
-        display_name = self.file_model.data(selected_index, Qt.DisplayRole)
-        
-        # Get the corresponding file path from the file_map
-        file_path = self.file_map.get(display_name)
-
-        if not file_path:
-            QMessageBox.warning(self, "Error", "File not found for deletion.")
-            return
-        
-        del self.file_map[display_name]
-        self.file_list = list(self.file_map.values())
-        
-        # Update the model with the new file list
-        self.file_model.setStringList(list(self.file_map.keys()))
-        self.save_files()
-
-    def open_file(self):
-        """Open the selected file."""
-        selected_indexes = self.ui.fileListView.selectedIndexes()
-        if not selected_indexes:
-            QMessageBox.warning(self, "Warning", "Please select a file to open.")
-            return
-
-        selected_index = selected_indexes[0]  # Only allow single selection
-        display_name = self.file_model.data(selected_index, Qt.DisplayRole)
-        file_path = self.file_map.get(display_name)
-
-        if not file_path:
-            QMessageBox.critical(self, "Error", f"File not found for: {display_name}")
-            return
-
-        # Attempt to open the file
-        try:
-            os.startfile(file_path)
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to open file:\n{str(e)}")
-
-    def add_file(self):
-        options = QFileDialog.Options()
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, "Select an Excel File", "",
-            "Excel Files (*.xls *.xlsx);;All Files (*)",
-            options=options
-        )
-        if file_path:
-            # Extract filename and store mapping
-            display_name = os.path.basename(file_path)  # Get the filename
-            self.file_map[display_name] = file_path
-
-            # Update list view with new file
-            self.file_model.setStringList(list(self.file_map.keys()))
-            self.save_files()
-            
-    def save_files(self):
-        try:
-            with open('file_list.txt', 'w') as f:
-                for display_name, file_path in self.file_map.items():
-                    f.write(f"{display_name}||{file_path}\n")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to save files:\n{str(e)}")
-
-    def load_files(self):
-        if os.path.exists('file_list.txt'):
-            try:
-                with open('file_list.txt', 'r') as f:
-                    for line in f:
-                        display_name, file_path = line.strip().split('||')
-                        self.file_map[display_name] = file_path
-                self.file_model.setStringList(list(self.file_map.keys()))
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
-                
-    #Buttons for Sales Files
-    def emit_file_list_updated_2(self):
-        """Emit the updated file list."""
-        self.file_list_updated_2.emit(list(self.file_map_2.keys()))
-        
-    def delete_file_2(self):
-        selected_indexes = self.ui.fileListView_2.selectedIndexes()
-        if selected_indexes:
-            selected_index = selected_indexes[0]
-            display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
-            self.file_map_2.pop(display_name, None)
-            self.file_model_2.setStringList(list(self.file_map_2.keys()))
-            self.save_files_2()
-            
-        else:
-            QMessageBox.warning(self, "Warning", "Please select a file to delete.")
-        
-        self.emit_file_list_updated_2()
-
-    def open_file_2(self):
-        """Open the selected file."""
-        selected_indexes = self.ui.fileListView_2.selectedIndexes()
-        if not selected_indexes:
-            QMessageBox.warning(self, "Warning", "Please select a file to open.")
-            return
-
-        selected_index = selected_indexes[0]  # Only allow single selection
-        display_name = self.file_model_2.data(selected_index, Qt.DisplayRole)
-        file_path = self.file_map_2.get(display_name)
-
-        if not file_path:
-            QMessageBox.critical(self, "Error", f"File not found for: {display_name}")
-            return
-
-        # Attempt to open the file
-        try:
-            os.startfile(file_path)
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to open file:\n{str(e)}")
-
-    def add_file_2(self):
-        options = QFileDialog.Options()
-        file_path, _ = QFileDialog.getOpenFileName(
-            self, "Select an Excel File", "",
-            "Excel Files (*.xls *.xlsx);;All Files (*)",
-            options=options
-        )
-        if file_path:
-            # Extract filename and store mapping
-            display_name = os.path.basename(file_path)  # Get the filename
-            self.file_map_2[display_name] = file_path
-
-            # Update list view with new file
-            self.file_model_2.setStringList(list(self.file_map_2.keys()))
-            self.save_files_2()
-            self.emit_file_list_updated_2()
-            
-    def save_files_2(self):
-        try:
-            with open('file_list_2.txt', 'w') as f:
-                for display_name, file_path in self.file_map_2.items():
-                    f.write(f"{display_name}||{file_path}\n")
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to save files:\n{str(e)}")
-
-    def load_files_2(self):
-        if os.path.exists('file_list_2.txt'):
-            try:
-                with open('file_list_2.txt', 'r') as f:
-                    for line in f:
-                        display_name, file_path = line.strip().split('||')
-                        self.file_map_2[display_name] = file_path
-                self.file_model_2.setStringList(list(self.file_map_2.keys()))
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Failed to load files:\n{str(e)}")
     
 # main
 app = QApplication(sys.argv)

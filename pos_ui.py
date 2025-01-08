@@ -114,7 +114,7 @@ class Ui_pos(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\../.designer/backup/img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
@@ -130,9 +130,13 @@ class Ui_pos(object):
         self.frame_6.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_6.setObjectName("frame_6")
-        self.btnC005 = QtWidgets.QPushButton(self.frame_6)
+        self.btnC005 = QtWidgets.QToolButton(self.frame_6)
         self.btnC005.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC005.setFlat(True)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C005.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC005.setIcon(icon2)
+        self.btnC005.setIconSize(QtCore.QSize(80, 80))
+        self.btnC005.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC005.setObjectName("btnC005")
         self.gridLayout_2.addWidget(self.frame_6, 1, 0, 1, 1)
         self.frame_4 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -140,9 +144,13 @@ class Ui_pos(object):
         self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
-        self.btnC003 = QtWidgets.QPushButton(self.frame_4)
+        self.btnC003 = QtWidgets.QToolButton(self.frame_4)
         self.btnC003.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC003.setFlat(True)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C003.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC003.setIcon(icon3)
+        self.btnC003.setIconSize(QtCore.QSize(80, 80))
+        self.btnC003.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC003.setObjectName("btnC003")
         self.gridLayout_2.addWidget(self.frame_4, 0, 2, 1, 1)
         self.frame_2 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -150,23 +158,31 @@ class Ui_pos(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.btnC001 = QtWidgets.QPushButton(self.frame_2)
-        self.btnC001.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC001.setFlat(True)
-        self.btnC001.setObjectName("btnC001")
         self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
         self.pushButton_2.setGeometry(QtCore.QRect(80, 150, 111, 171))
         self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.btnC001 = QtWidgets.QToolButton(self.frame_2)
+        self.btnC001.setGeometry(QtCore.QRect(0, 0, 111, 171))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C001.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC001.setIcon(icon4)
+        self.btnC001.setIconSize(QtCore.QSize(80, 80))
+        self.btnC001.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
+        self.btnC001.setObjectName("btnC001")
         self.gridLayout_2.addWidget(self.frame_2, 0, 0, 1, 1)
         self.frame_3 = QtWidgets.QFrame(self.gridLayoutWidget)
         self.frame_3.setStyleSheet("background-color: white;")
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
-        self.btnC002 = QtWidgets.QPushButton(self.frame_3)
+        self.btnC002 = QtWidgets.QToolButton(self.frame_3)
         self.btnC002.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC002.setFlat(True)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C002.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC002.setIcon(icon5)
+        self.btnC002.setIconSize(QtCore.QSize(80, 80))
+        self.btnC002.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC002.setObjectName("btnC002")
         self.gridLayout_2.addWidget(self.frame_3, 0, 1, 1, 1)
         self.frame_8 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -174,9 +190,13 @@ class Ui_pos(object):
         self.frame_8.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_8.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_8.setObjectName("frame_8")
-        self.btnC007 = QtWidgets.QPushButton(self.frame_8)
+        self.btnC007 = QtWidgets.QToolButton(self.frame_8)
         self.btnC007.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC007.setFlat(True)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C007.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC007.setIcon(icon6)
+        self.btnC007.setIconSize(QtCore.QSize(80, 80))
+        self.btnC007.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC007.setObjectName("btnC007")
         self.gridLayout_2.addWidget(self.frame_8, 1, 2, 1, 1)
         self.frame_5 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -184,9 +204,13 @@ class Ui_pos(object):
         self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
-        self.btnC004 = QtWidgets.QPushButton(self.frame_5)
+        self.btnC004 = QtWidgets.QToolButton(self.frame_5)
         self.btnC004.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC004.setFlat(True)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C004.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC004.setIcon(icon7)
+        self.btnC004.setIconSize(QtCore.QSize(80, 80))
+        self.btnC004.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC004.setObjectName("btnC004")
         self.gridLayout_2.addWidget(self.frame_5, 0, 3, 1, 1)
         self.frame_9 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -194,9 +218,13 @@ class Ui_pos(object):
         self.frame_9.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_9.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_9.setObjectName("frame_9")
-        self.btnC008 = QtWidgets.QPushButton(self.frame_9)
+        self.btnC008 = QtWidgets.QToolButton(self.frame_9)
         self.btnC008.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC008.setFlat(True)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C008.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC008.setIcon(icon8)
+        self.btnC008.setIconSize(QtCore.QSize(80, 80))
+        self.btnC008.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC008.setObjectName("btnC008")
         self.gridLayout_2.addWidget(self.frame_9, 1, 3, 1, 1)
         self.frame_10 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -204,9 +232,13 @@ class Ui_pos(object):
         self.frame_10.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_10.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_10.setObjectName("frame_10")
-        self.btnC009 = QtWidgets.QPushButton(self.frame_10)
+        self.btnC009 = QtWidgets.QToolButton(self.frame_10)
         self.btnC009.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC009.setFlat(True)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C009.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC009.setIcon(icon9)
+        self.btnC009.setIconSize(QtCore.QSize(80, 80))
+        self.btnC009.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC009.setObjectName("btnC009")
         self.gridLayout_2.addWidget(self.frame_10, 2, 0, 1, 1)
         self.frame_11 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -214,9 +246,13 @@ class Ui_pos(object):
         self.frame_11.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_11.setObjectName("frame_11")
-        self.btnC010 = QtWidgets.QPushButton(self.frame_11)
+        self.btnC010 = QtWidgets.QToolButton(self.frame_11)
         self.btnC010.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC010.setFlat(True)
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C010.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC010.setIcon(icon10)
+        self.btnC010.setIconSize(QtCore.QSize(80, 80))
+        self.btnC010.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC010.setObjectName("btnC010")
         self.gridLayout_2.addWidget(self.frame_11, 2, 1, 1, 1)
         self.frame_7 = QtWidgets.QFrame(self.gridLayoutWidget)
@@ -224,9 +260,13 @@ class Ui_pos(object):
         self.frame_7.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_7.setObjectName("frame_7")
-        self.btnC006 = QtWidgets.QPushButton(self.frame_7)
+        self.btnC006 = QtWidgets.QToolButton(self.frame_7)
         self.btnC006.setGeometry(QtCore.QRect(0, 0, 111, 171))
-        self.btnC006.setFlat(True)
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/C006.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC006.setIcon(icon11)
+        self.btnC006.setIconSize(QtCore.QSize(80, 80))
+        self.btnC006.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC006.setObjectName("btnC006")
         self.gridLayout_2.addWidget(self.frame_7, 1, 1, 1, 1)
         self.cartlabel = QtWidgets.QLabel(pos)
@@ -236,6 +276,22 @@ class Ui_pos(object):
         self.cartlabel.setObjectName("cartlabel")
         self.btnClear = QtWidgets.QPushButton(pos)
         self.btnClear.setGeometry(QtCore.QRect(700, 50, 93, 28))
+        self.btnClear.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnClear.setObjectName("btnClear")
         self.checkoutlabel = QtWidgets.QLabel(pos)
         self.checkoutlabel.setGeometry(QtCore.QRect(510, 440, 281, 141))
@@ -244,6 +300,22 @@ class Ui_pos(object):
         self.checkoutlabel.setObjectName("checkoutlabel")
         self.btnCheckout = QtWidgets.QPushButton(pos)
         self.btnCheckout.setGeometry(QtCore.QRect(510, 550, 281, 28))
+        self.btnCheckout.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnCheckout.setObjectName("btnCheckout")
 
         self.retranslateUi(pos)
@@ -262,10 +334,10 @@ class Ui_pos(object):
         self.btnC003.setText(_translate("pos", "C003\n"
 "Caramel Cake\n"
 "₱820"))
+        self.pushButton_2.setText(_translate("pos", "C001"))
         self.btnC001.setText(_translate("pos", "C001\n"
 "Chocolate Moist\n"
 "₱850.00"))
-        self.pushButton_2.setText(_translate("pos", "C001"))
         self.btnC002.setText(_translate("pos", "C002\n"
 "Yema Vanilla\n"
 "₱760"))

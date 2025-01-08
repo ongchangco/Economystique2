@@ -205,8 +205,7 @@ QPushButton:pressed {
     </property>
     <property name="icon">
      <iconset>
-      <selectedon>../.designer/backup/img/pfBtn.png</selectedon>
-     </iconset>
+      <normaloff>img/pfBtn.png</normaloff>img/pfBtn.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -240,7 +239,7 @@ QPushButton:pressed {
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC005">
+      <widget class="QToolButton" name="btnC005">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -254,8 +253,18 @@ QPushButton:pressed {
 Red Velvet
 ₱850</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C005.png</normaloff>img/C005.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -271,7 +280,7 @@ Red Velvet
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC003">
+      <widget class="QToolButton" name="btnC003">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -285,8 +294,18 @@ Red Velvet
 Caramel Cake
 ₱820</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C003.png</normaloff>img/C003.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -302,24 +321,6 @@ Caramel Cake
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC001">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>111</width>
-         <height>171</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>C001
-Chocolate Moist
-₱850.00</string>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-      </widget>
       <widget class="QPushButton" name="pushButton_2">
        <property name="geometry">
         <rect>
@@ -336,6 +337,34 @@ Chocolate Moist
         <bool>true</bool>
        </property>
       </widget>
+      <widget class="QToolButton" name="btnC001">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>111</width>
+         <height>171</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>C001
+Chocolate Moist
+₱850.00</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C001.png</normaloff>img/C001.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
      </widget>
     </item>
     <item row="0" column="1">
@@ -349,7 +378,7 @@ Chocolate Moist
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC002">
+      <widget class="QToolButton" name="btnC002">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -363,8 +392,18 @@ Chocolate Moist
 Yema Vanilla
 ₱760</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C002.png</normaloff>img/C002.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -380,7 +419,7 @@ Yema Vanilla
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC007">
+      <widget class="QToolButton" name="btnC007">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -394,8 +433,18 @@ Yema Vanilla
 Strawberry Cake
 ₱780</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C007.png</normaloff>img/C007.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -411,7 +460,7 @@ Strawberry Cake
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC004">
+      <widget class="QToolButton" name="btnC004">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -425,8 +474,18 @@ Strawberry Cake
 Ube Caramel
 ₱750</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C004.png</normaloff>img/C004.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -442,7 +501,7 @@ Ube Caramel
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC008">
+      <widget class="QToolButton" name="btnC008">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -456,8 +515,18 @@ Ube Caramel
 Biscoff Mocha
 900</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C008.png</normaloff>img/C008.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -473,7 +542,7 @@ Biscoff Mocha
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC009">
+      <widget class="QToolButton" name="btnC009">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -487,8 +556,18 @@ Biscoff Mocha
 Bento Cake
 370</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C009.png</normaloff>img/C009.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -504,7 +583,7 @@ Bento Cake
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC010">
+      <widget class="QToolButton" name="btnC010">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -518,8 +597,18 @@ Bento Cake
 Cupcake
 ₱40</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C010.png</normaloff>img/C010.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -535,7 +624,7 @@ Cupcake
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="btnC006">
+      <widget class="QToolButton" name="btnC006">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -549,8 +638,18 @@ Cupcake
 Pandan Cake
 ₱760</string>
        </property>
-       <property name="flat">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset>
+         <normaloff>img/C006.png</normaloff>img/C006.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>80</width>
+         <height>80</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
        </property>
       </widget>
      </widget>
@@ -582,6 +681,24 @@ Pandan Cake
      <height>28</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background: #365b6d;
+	color: white;
+	border-style: outset;
+	border-width: 2px;
+	border-radius:10px;
+	border-color: black;
+}
+QPushButton:hover {
+    background-color: #53786d;
+	border: 2px solid black;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}</string>
+   </property>
    <property name="text">
     <string>Clear</string>
    </property>
@@ -610,6 +727,24 @@ Pandan Cake
      <width>281</width>
      <height>28</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background: #365b6d;
+	color: white;
+	border-style: outset;
+	border-width: 2px;
+	border-radius:10px;
+	border-color: black;
+}
+QPushButton:hover {
+    background-color: #53786d;
+	border: 2px solid black;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}</string>
    </property>
    <property name="text">
     <string>Checkout</string>

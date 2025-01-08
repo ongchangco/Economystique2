@@ -10,6 +10,8 @@ class POSApp(QMainWindow, Ui_pos):
         super().__init__()
         self.setupUi(self)
 
+        #add editable amount on add to cart (should show amount when a product is clicked (C001 x3))
+
         # Data for POS
         self.cart = []
         self.products = {

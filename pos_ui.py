@@ -16,7 +16,7 @@ class Ui_pos(object):
         pos.setObjectName("pos")
         pos.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\../.designer/backup/img/econoLogo2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         pos.setWindowIcon(icon)
         pos.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"

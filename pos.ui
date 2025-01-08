@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../.designer/backup/img/econoLogo2.png</normaloff>../.designer/backup/img/econoLogo2.png</iconset>
+    <normaloff>img/econoLogo2.png</normaloff>img/econoLogo2.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #f4f4ec;

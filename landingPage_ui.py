@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\landingPage.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\landingPage.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_landingPage(object):
         landingPage.setObjectName("landingPage")
         landingPage.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         landingPage.setWindowIcon(icon)
         landingPage.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;")
@@ -111,13 +111,13 @@ class Ui_landingPage(object):
         self.titleLabel.setStyleSheet("color: white;")
         self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.titleLabel.setObjectName("titleLabel")
-        self.btnCalendar = QtWidgets.QPushButton(self.frame)
-        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(660, 0, 93, 41))
         font = QtGui.QFont()
         font.setPointSize(9)
-        self.btnCalendar.setFont(font)
-        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnCalendar.setStyleSheet("QPushButton {\n"
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
 "    background-color: #365b6d;\n"
 "    color: white;\n"
 "    border-radius: 50px;\n"
@@ -130,7 +130,7 @@ class Ui_landingPage(object):
 "    background-color: #365b6d;\n"
 "}\n"
 "")
-        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnPOS.setObjectName("btnPOS")
         self.btnAccount = QtWidgets.QPushButton(self.frame)
         self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
         self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -149,7 +149,7 @@ class Ui_landingPage(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
@@ -248,7 +248,7 @@ class Ui_landingPage(object):
 "color: black;")
         self.summaryListView.setObjectName("summaryListView")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 40, 801, 81))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 40, 801, 104))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(290, 0, 0, 0)
@@ -278,7 +278,7 @@ class Ui_landingPage(object):
         self.onHandButton.setText(_translate("landingPage", "ON-HAND STOCKS"))
         self.owedButton.setText(_translate("landingPage", "OWED STOCKS"))
         self.titleLabel.setText(_translate("landingPage", "EconoMystique"))
-        self.btnCalendar.setText(_translate("landingPage", "Calendar"))
+        self.btnPOS.setText(_translate("landingPage", "POS"))
         self.btnSales.setText(_translate("landingPage", "Sales"))
         self.btnInventory.setText(_translate("landingPage", "Inventory"))
         self.recommendationButton.setText(_translate("landingPage", "REQUEST RECOMMENDATION"))

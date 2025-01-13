@@ -26,8 +26,8 @@ color: black;
   <widget class="QLabel" name="lblRole">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>240</y>
+     <x>510</x>
+     <y>300</y>
      <width>211</width>
      <height>31</height>
     </rect>
@@ -48,8 +48,8 @@ color: black;
   <widget class="QLabel" name="lblUserName">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>200</y>
+     <x>460</x>
+     <y>260</y>
      <width>301</width>
      <height>41</height>
     </rect>
@@ -70,8 +70,8 @@ color: black;
   <widget class="QPushButton" name="btnLogOut">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>420</y>
+     <x>350</x>
+     <y>520</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -97,8 +97,8 @@ background-color: red;
   <widget class="QFrame" name="frame_2">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>260</y>
+     <x>60</x>
+     <y>320</y>
      <width>271</width>
      <height>81</height>
     </rect>
@@ -179,8 +179,8 @@ background-color: red;
   <widget class="QLabel" name="lblBusinessName_2">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>60</y>
+     <x>290</x>
+     <y>70</y>
      <width>221</width>
      <height>31</height>
     </rect>
@@ -395,8 +395,8 @@ QPushButton:pressed {
   <widget class="QLabel" name="imgProfile">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>100</y>
+     <x>570</x>
+     <y>160</y>
      <width>101</width>
      <height>91</height>
     </rect>
@@ -414,8 +414,8 @@ QPushButton:pressed {
   <widget class="QLabel" name="imgBusinessLogo">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>100</y>
+     <x>130</x>
+     <y>160</y>
      <width>101</width>
      <height>101</height>
     </rect>
@@ -433,8 +433,8 @@ QPushButton:pressed {
   <widget class="QLabel" name="lblBusinessName">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>210</y>
+     <x>50</x>
+     <y>270</y>
      <width>291</width>
      <height>31</height>
     </rect>

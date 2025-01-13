@@ -20,11 +20,11 @@ from login_ui import Ui_Login
 from signIn_ui import Ui_signUp
 from landingPage_ui import Ui_landingPage
 from salesForecast_ui import Ui_SalesForecast
-from calendar_ui import Ui_Calendar
 from account_ui import Ui_account
 from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
 from mainInventory_ui import Ui_mainInventory
+from pos_ui import Ui_pos
 #import sqlite3
 
 class Login(QMainWindow):
@@ -81,7 +81,7 @@ class MainInventory(QMainWindow):
         self.ui.goToInventory.clicked.connect(self.open_inventory)
         self.ui.recommendationButton.clicked.connect(self.open_forecast)
         self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
 
         # Connect the click event of the table
@@ -126,9 +126,9 @@ class MainInventory(QMainWindow):
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
-    def open_calendar(self):
-        calendar_window = CalendarWindow()
-        widget.addWidget(calendar_window)
+    def open_POS(self):
+        POS_window = POSWindow()
+        widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     
     def open_account(self):
@@ -199,7 +199,7 @@ class Inventory(QMainWindow):
         self.ui.btnSave.clicked.connect(self.save_table)
         self.ui.btnEdit.clicked.connect(self.toggle_edit_mode)
         self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
 
         self.edit_mode = False
@@ -209,9 +209,9 @@ class Inventory(QMainWindow):
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
-    def open_calendar(self):
-        calendar_window = CalendarWindow()
-        widget.addWidget(calendar_window)
+    def open_POS(self):
+        POS_window = POSWindow()
+        widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     
     def open_account(self):
@@ -334,7 +334,7 @@ class SalesWindow(QMainWindow):
 
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
-        self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
         self.ui.forecastButton.clicked.connect(self.generate_sales_forecast)
         
@@ -420,9 +420,9 @@ class SalesWindow(QMainWindow):
         widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
-    def open_calendar(self):
-        calendar_window = CalendarWindow()
-        widget.addWidget(calendar_window)
+    def open_POS(self):
+        POS_window = POSWindow()
+        widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     
     def open_account(self):
@@ -515,30 +515,102 @@ class ForecastWorker(QThread):
         except Exception as e:
             self.forecast_generated.emit(f"Error: {str(e)}")
         
-class CalendarWindow(QMainWindow):
+class POSWindow(QMainWindow):
     def __init__(self):
-        super(CalendarWindow, self).__init__()
-        self.ui = Ui_Calendar()
-        self._setup_ui()
-        self.setWindowTitle("Events Calendar")
-        
-        # Connect buttons
+        super(POSWindow, self).__init__()
+        self.ui = Ui_pos()
+        self.ui.setupUi(self)
+        self.setWindowTitle("POS")
+
+        #add editable amount on add to cart (should show amount when a product is clicked (C001 x3))
+
+        # Data for POS
+        self.cart = []
+        self.products = {
+            "C001": ("Chocolate Moist", 850.00),
+            "C002": ("Yema Vanilla", 760.00),
+            "C003": ("Caramel Cake", 820.00),
+            "C004": ("Ube Caramel", 750.00),
+            "C005": ("Red Velvet", 850.00),
+            "C006": ("Pandan Cake", 760.00),
+            "C007": ("Strawberry Cake", 780.00),
+            "C008": ("Biscoff Mocha", 900.00),
+            "C009": ("Bento Cake", 370.00),
+            "C010": ("Cupcake", 40.00),
+        }
+
+        # Connect buttons to functions
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnAccount.clicked.connect(self.open_account)
-
-    def _setup_ui(self):
-        try:
-            self.ui.setupUi(self)
-        except RecursionError as e:
-            print("Recursion error detected during UI setup:", e)
-            
-    # Button Functions
-    def open_inventory(self):
-        inventory = Inventory()
-        widget.addWidget(inventory)
-        widget.setCurrentIndex(widget.currentIndex()+1)
         
+        self.ui.btnC001.clicked.connect(lambda: self.add_to_cart("C001"))
+        self.ui.btnC002.clicked.connect(lambda: self.add_to_cart("C002"))
+        self.ui.btnC003.clicked.connect(lambda: self.add_to_cart("C003"))
+        self.ui.btnC004.clicked.connect(lambda: self.add_to_cart("C004"))
+        self.ui.btnC005.clicked.connect(lambda: self.add_to_cart("C005"))
+        self.ui.btnC006.clicked.connect(lambda: self.add_to_cart("C006"))
+        self.ui.btnC007.clicked.connect(lambda: self.add_to_cart("C007"))
+        self.ui.btnC008.clicked.connect(lambda: self.add_to_cart("C008"))
+        self.ui.btnC009.clicked.connect(lambda: self.add_to_cart("C009"))
+        self.ui.btnC010.clicked.connect(lambda: self.add_to_cart("C010"))
+
+        self.ui.btnClear.clicked.connect(self.clear_cart)
+        self.ui.btnCheckout.clicked.connect(self.checkout)
+
+    def add_to_cart(self, product_code):
+        """Add product to cart."""
+        product_name, price = self.products[product_code]
+        self.cart.append((product_name, price))
+        self.update_cart_display()
+
+    def update_cart_display(self):
+        """Update the cart display."""
+        if self.cart:
+            cart_summary = "\n".join([f"{item[0]} - ₱{item[1]:.2f}" for item in self.cart])
+            self.ui.cartlabel.setText(cart_summary)
+            
+            total = sum(item[1] for item in self.cart)
+            self.ui.checkoutlabel.setText(f"\n\nTotal: ₱{total:.2f}")
+            
+        else:
+            self.ui.cartlabel.setText("Cart is empty")
+            self.ui.checkoutlabel.setText("Total: ₱0.00")
+        
+    def clear_cart(self):
+        """Clear the cart."""
+        self.cart.clear()
+        self.update_cart_display()
+
+    def checkout(self):
+        """Process checkout."""
+        if not self.cart:
+            QMessageBox.warning(self, "Checkout Error", "Cart is empty!")
+            return
+
+        # Create Receipt
+        counter_path = os.path.join("json","receipt_counter.json")
+        with open(counter_path, "r") as json_file:
+            rcptNum = json.load(json_file)
+            
+        counter_update = rcptNum + 1
+        receipt = f"R#{counter_update:05}.json"
+        file_path = os.path.join("receipts", receipt)
+        
+        # Write data to the JSON file
+        with open(file_path, "w") as json_file:
+            json.dump(self.cart, json_file, indent=4)
+        
+        # Update Receipt Counter
+        with open(counter_path, "w") as json_file:
+            json.dump(counter_update, json_file)
+        
+        total = sum(item[1] for item in self.cart)
+        QMessageBox.information(self, "Checkout", f"Total Amount: ₱{total:.2f}\nThank you for your purchase!")
+        self.clear_cart()
+    
+    #for menu buttons
+    # Button Functions
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -548,6 +620,11 @@ class CalendarWindow(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
+    
+    def open_inventory(self):
+        inventory_window = Inventory()
+        widget.addWidget(inventory_window)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
     
 class AccountWindow(QMainWindow):
     def __init__(self):
@@ -559,7 +636,7 @@ class AccountWindow(QMainWindow):
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnCalendar.clicked.connect(self.open_calendar)
+        self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnLogOut.clicked.connect(self.open_login)
     
     def _setup_ui(self):
@@ -578,9 +655,9 @@ class AccountWindow(QMainWindow):
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
-    def open_calendar(self):
-        calendar_window = CalendarWindow()
-        widget.addWidget(calendar_window)
+    def open_POS(self):
+        POS_window = POSWindow()
+        widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def open_login(self):

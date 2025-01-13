@@ -313,7 +313,7 @@ QPushButton:pressed {
      <string>Inventory</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnCalendar">
+   <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -346,7 +346,7 @@ QPushButton:pressed {
 </string>
     </property>
     <property name="text">
-     <string>Calendar</string>
+     <string>POS</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btnAccount">

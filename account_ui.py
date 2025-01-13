@@ -140,13 +140,13 @@ class Ui_account(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
-        self.btnCalendar = QtWidgets.QPushButton(self.frame)
-        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(660, 0, 93, 41))
         font = QtGui.QFont()
         font.setPointSize(9)
-        self.btnCalendar.setFont(font)
-        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnCalendar.setStyleSheet("QPushButton {\n"
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
 "    background-color: #365b6d;\n"
 "    color: white;\n"
 "    border-radius: 50px;\n"
@@ -159,7 +159,7 @@ class Ui_account(object):
 "    background-color: #365b6d;\n"
 "}\n"
 "")
-        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnPOS.setObjectName("btnPOS")
         self.btnAccount = QtWidgets.QPushButton(self.frame)
         self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
         self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -219,5 +219,5 @@ class Ui_account(object):
         self.titleLabel_2.setText(_translate("account", "EconoMystique"))
         self.btnSales.setText(_translate("account", "Sales"))
         self.btnInventory.setText(_translate("account", "Inventory"))
-        self.btnCalendar.setText(_translate("account", "Calendar"))
+        self.btnPOS.setText(_translate("account", "POS"))
         self.lblBusinessName.setText(_translate("account", "All Seasons Cake Shop"))

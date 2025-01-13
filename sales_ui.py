@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\sales.ui'
+# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\sales.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_Sales(object):
         Sales.setObjectName("Sales")
         Sales.resize(802, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\../.designer/backup/img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\../.designer/backup/img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         Sales.setWindowIcon(icon)
         Sales.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"
@@ -76,13 +76,13 @@ class Ui_Sales(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
-        self.btnCalendar = QtWidgets.QPushButton(self.frame)
-        self.btnCalendar.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(660, 0, 93, 41))
         font = QtGui.QFont()
         font.setPointSize(9)
-        self.btnCalendar.setFont(font)
-        self.btnCalendar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnCalendar.setStyleSheet("QPushButton {\n"
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
 "    background-color: #365b6d;\n"
 "    color: white;\n"
 "    border-radius: 50px;\n"
@@ -95,7 +95,7 @@ class Ui_Sales(object):
 "    background-color: #365b6d;\n"
 "}\n"
 "")
-        self.btnCalendar.setObjectName("btnCalendar")
+        self.btnPOS.setObjectName("btnPOS")
         self.btnAccount = QtWidgets.QPushButton(self.frame)
         self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
         self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -114,7 +114,7 @@ class Ui_Sales(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
@@ -176,7 +176,7 @@ class Ui_Sales(object):
         self.titleLabel_2.setText(_translate("Sales", "EconoMystique"))
         self.btnSales.setText(_translate("Sales", "Sales"))
         self.btnInventory.setText(_translate("Sales", "Inventory"))
-        self.btnCalendar.setText(_translate("Sales", "Calendar"))
+        self.btnPOS.setText(_translate("Sales", "POS"))
         self.forecastButton.setText(_translate("Sales", "GENERATE FORECAST"))
         self.Assessment.setText(_translate("Sales", "Assessment"))
         self.SalesRecords.setText(_translate("Sales", "Sales"))

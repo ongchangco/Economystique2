@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <selectedon>img/econoLogo2.png</selectedon>
+    <selectedon>../.designer/backup/img/econoLogo2.png</selectedon>
    </iconset>
   </property>
   <property name="styleSheet">
@@ -206,8 +206,7 @@ QPushButton:pressed {
     </property>
     <property name="icon">
      <iconset>
-      <selectedon>img/pfBtn.png</selectedon>
-     </iconset>
+      <normaloff>img/pfBtn.png</normaloff>img/pfBtn.png</iconset>
     </property>
     <property name="iconSize">
      <size>

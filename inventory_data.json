@@ -59,7 +59,7 @@
             "Powdered Sugar",
             "N/A",
             "Grams",
-            "100",
+            "500",
             "500",
             "0"
         ],
@@ -243,7 +243,7 @@
             "All-purpose Flour",
             "White King",
             "Grams",
-            "500",
+            "13250",
             "2500",
             "0"
         ],
@@ -252,7 +252,7 @@
             "Baking Powder",
             "Calumet",
             "Grams",
-            "25",
+            "500",
             "0",
             "100"
         ],
@@ -261,7 +261,7 @@
             "Baking Soda",
             "Queen",
             "Grams",
-            "200",
+            "250",
             "0",
             "0"
         ],
@@ -270,7 +270,7 @@
             "Cocoa Powder",
             "JB15",
             "Grams",
-            "700",
+            "1750",
             "0",
             "0"
         ],
@@ -279,7 +279,7 @@
             "White Sugar",
             "N/A",
             "Grams",
-            "200",
+            "8250",
             "1000",
             "0"
         ],
@@ -288,7 +288,7 @@
             "Brown Sugar",
             "N/A",
             "Grams",
-            "1100",
+            "6700",
             "0",
             "0"
         ],
@@ -297,7 +297,7 @@
             "Powdered Sugar",
             "N/A",
             "Grams",
-            "450",
+            "3500",
             "0",
             "0"
         ],
@@ -306,16 +306,16 @@
             "Butter",
             "Anchor",
             "Grams",
-            "100",
+            "7450",
             "0",
-            "454"
+            "500"
         ],
         [
             "IN009",
             "Cream Cheese",
             "Philadelphia",
             "Grams",
-            "226",
+            "1335",
             "0",
             "0"
         ],
@@ -333,7 +333,7 @@
             "Vanilla Extract",
             "Bakersfield",
             "Milliliters",
-            "30",
+            "300",
             "0",
             "0"
         ],
@@ -342,7 +342,7 @@
             "Milk",
             "N/A",
             "Milliliters",
-            "800",
+            "5000",
             "0",
             "0"
         ],
@@ -350,8 +350,8 @@
             "IN013",
             "Eggs",
             "N/A",
-            "Dozens",
-            "2",
+            "Pieces",
+            "36",
             "5",
             "0"
         ]

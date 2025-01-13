@@ -308,7 +308,7 @@ class Inventory(QMainWindow):
             del self.data[tab_name]
         if tab_name in self.tables:
             del self.tables[tab_name]
-   
+     
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()

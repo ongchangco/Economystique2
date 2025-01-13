@@ -16,7 +16,6 @@ class POSApp(QMainWindow, Ui_pos):
 
         # Data for POS
         self.cart = []
-        self.rcptNum = 0
         self.products = {
             "C001": ("Chocolate Moist", 850.00),
             "C002": ("Yema Vanilla", 760.00),
@@ -76,13 +75,21 @@ class POSApp(QMainWindow, Ui_pos):
             return
 
         # Create Receipt
-        rcptName = f"Receipt #{self.rcptNum}"
-        receipt = f"{rcptName}.json"
+        counter_path = os.path.join("json","receipt_counter.json")
+        with open(counter_path, "r") as json_file:
+            rcptNum = json.load(json_file)
+            
+        counter_update = rcptNum + 1
+        receipt = f"R#{counter_update:05}.json"
         file_path = os.path.join("receipts", receipt)
+        
         # Write data to the JSON file
         with open(file_path, "w") as json_file:
             json.dump(self.cart, json_file, indent=4)
-        self.rcptNum = self.rcptNum + 1
+        
+        # Update Receipt Counter
+        with open(counter_path, "w") as json_file:
+            json.dump(counter_update, json_file)
         
         total = sum(item[1] for item in self.cart)
         QMessageBox.information(self, "Checkout", f"Total Amount: ₱{total:.2f}\nThank you for your purchase!")

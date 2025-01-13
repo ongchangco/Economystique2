@@ -89,7 +89,8 @@ class MainInventory(QMainWindow):
 
     def load_cake_data(self):
         try:
-            with open("cake_data.json", "r") as f:
+            file_path = os.path.join("json", "cake_data.json")
+            with open(file_path, "r") as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             # If no file or corrupt file exists, return empty data (editable)
@@ -175,7 +176,8 @@ class MainInventory(QMainWindow):
                 self.save_cake_data()
 
     def save_cake_data(self):
-        with open("cake_data.json", "w") as f:
+        file_path = os.path.join("json","cake_data.json")
+        with open(file_path, "w") as f:
             json.dump(self.data, f, indent=4)
 
 class Inventory(QMainWindow):
@@ -219,14 +221,16 @@ class Inventory(QMainWindow):
     
     def load_data(self):
         try:
-            with open("inventory_data.json", "r") as f:
+            file_path = os.path.join("json","inventory_data.json")
+            with open(file_path, "r") as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             # If no file or corrupt file exists, return empty data (editable)
             return {}
 
     def save_data(self):
-        with open("inventory_data.json", "w") as f:
+        file_path = os.path.join("json","inventory_data.json")
+        with open(file_path, "w") as f:
             json.dump(self.data, f, indent=4)
 
     def setup_tabs(self):
@@ -345,7 +349,8 @@ class SalesWindow(QMainWindow):
 
     def load_cake_data(self):
         try:
-            with open("cake_data.json", "r") as f:
+            file_path = os.path.join("json","cake_data.json")
+            with open(file_path, "r") as f:
                 return json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             # If no file or corrupt file exists, return empty data (editable)
@@ -405,7 +410,8 @@ class SalesWindow(QMainWindow):
                 self.save_cake_data()
 
     def save_cake_data(self):
-        with open("cake_data.json", "w") as f:
+        file_path = os.path.join("json","cake_data.json")
+        with open(file_path, "w") as f:
             json.dump(self.data, f, indent=4)
 
     # Button Functions  

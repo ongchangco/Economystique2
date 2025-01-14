@@ -72,6 +72,7 @@ class Inventory(QMainWindow):
         
         # Connect buttons
         self.ui.btnAddItem.clicked.connect(self.add_item)
+        self.ui.btnRemoveItem.clicked.connect(self.remove_item)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
@@ -101,12 +102,20 @@ class Inventory(QMainWindow):
         # Populate the table with the data
         for row, item in enumerate(inventory_items):
             for col, value in enumerate(item):
-                self.ui.tab1Table.setItem(row, col, QTableWidgetItem(str(value)))
+                table_item = QTableWidgetItem(str(value))
+                table_item.setTextAlignment(Qt.AlignCenter)
+                self.ui.tab1Table.setItem(row, col, table_item)
+        
+        num_columns = self.ui.tab1Table.columnCount()
+        col_width = self.ui.tab1Table.width() / num_columns
+        for col in range(num_columns):
+            # Set each column to have the same width
+            self.ui.tab1Table.setColumnWidth(col, int(col_width))
+                                             
+        # Adjust column widths to fit content
+        self.ui.tab1Table.resizeRowsToContents()
 
-        # Optional: Adjust column widths to fit content
-        self.ui.tab1Table.resizeColumnsToContents()
-
-        conn.close()
+        conn.close()    
     
     @staticmethod
     def save_inventory_item(inventory_id, description, brand, unit, on_hand, owed, due_in):
@@ -134,7 +143,53 @@ class Inventory(QMainWindow):
         conn.close()
         
         self.populate_inventory_table()
-    
+        
+    def remove_item(self):
+        # Get selected items
+        selected_items = self.ui.tab1Table.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Selection Error", "No item selected. Please select a row to delete.")
+            return
+
+        # Identify unique rows from selected cells
+        rows_to_delete = sorted(set(item.row() for item in selected_items), reverse=True)
+
+        # Confirm with the user
+        reply = QMessageBox.question(self, "Remove Item", "Are you sure you want to remove the selected items?",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.No:
+            return
+
+        # Connect to the database
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+
+        try:
+            for row in rows_to_delete:
+                # Retrieve the inventory_id from the first column
+                inventory_item = self.ui.tab1Table.item(row, 0)  # Assuming Inventory ID is in the first column
+                if inventory_item:
+                    inventory_id = inventory_item.text()
+
+                    # Delete the item from the database
+                    cursor.execute("DELETE FROM inventory WHERE inventory_id = ?", (inventory_id,))
+
+                    # Remove the row from the table widget
+                    self.ui.tab1Table.removeRow(row)
+                else:
+                    QMessageBox.warning(self, "Missing Data", f"Could not find Inventory ID for row {row + 1}.")
+
+            # Commit changes to the database
+            conn.commit()
+            QMessageBox.information(self, "Success", "Selected item(s) removed successfully.")
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
+        finally:
+            conn.close()
+
+        # Refresh the table to reflect the updated database
+        self.populate_inventory_table()
+
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -184,6 +239,7 @@ class AddItem(QDialog):
             self.db_connection.commit()
 
             self.accept() 
+            
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please ensure all numerical fields have valid numbers.")
         except sqlite3.IntegrityError as e:

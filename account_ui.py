@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\account.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\account.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_account(object):
         account.setObjectName("account")
         account.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         account.setWindowIcon(icon)
         account.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -178,20 +178,20 @@ class Ui_account(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
         self.imgProfile = QtWidgets.QLabel(account)
         self.imgProfile.setGeometry(QtCore.QRect(570, 160, 101, 91))
         self.imgProfile.setText("")
-        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/profile.png"))
+        self.imgProfile.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/profile.png"))
         self.imgProfile.setScaledContents(True)
         self.imgProfile.setObjectName("imgProfile")
         self.imgBusinessLogo = QtWidgets.QLabel(account)
         self.imgBusinessLogo.setGeometry(QtCore.QRect(130, 160, 101, 101))
         self.imgBusinessLogo.setText("")
-        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/allseasonsL.jpg"))
+        self.imgBusinessLogo.setPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/allseasonsL.jpg"))
         self.imgBusinessLogo.setScaledContents(True)
         self.imgBusinessLogo.setObjectName("imgBusinessLogo")
         self.lblBusinessName = QtWidgets.QLabel(account)

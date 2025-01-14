@@ -15,8 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <selectedon>img/econoLogo2.png</selectedon>
-   </iconset>
+    <normaloff>img/econologo.png</normaloff>img/econologo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: #f4f4ec;
@@ -392,7 +391,7 @@ QPushButton:pressed {
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>img/econologo_bkgd.png</pixmap>
+     <pixmap>img/econologo.png</pixmap>
     </property>
    </widget>
   </widget>

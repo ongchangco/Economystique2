@@ -1,17 +1,13 @@
-import sys
-import os
-import json
+import sys, sqlite3, os, json, torch, openpyxl
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import torch
-import openpyxl
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
-from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from concurrent.futures import ThreadPoolExecutor
 
@@ -23,8 +19,8 @@ from salesForecast_ui import Ui_SalesForecast
 from account_ui import Ui_account
 from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
-from mainInventory_ui import Ui_mainInventory
 from pos_ui import Ui_pos
+from db_setup import initialize_database
 #import sqlite3
 
 class Login(QMainWindow):
@@ -64,121 +60,6 @@ class SignUp(QMainWindow):
         inventory = Inventory()
         widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
-
-class MainInventory(QMainWindow):
-    def __init__(self):
-        super(MainInventory, self).__init__()
-        self.ui = Ui_mainInventory()
-        self.ui.setupUi(self)
-
-        # Load data from JSON
-        self.data = self.load_cake_data()
-
-        # Populate the product table
-        self.populate_table()
-
-        # Connect go to inventory button
-        self.ui.goToInventory.clicked.connect(self.open_inventory)
-        self.ui.recommendationButton.clicked.connect(self.open_forecast)
-        self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnPOS.clicked.connect(self.open_POS)
-        self.ui.btnAccount.clicked.connect(self.open_account)
-
-        # Connect the click event of the table
-        self.ui.productTable.cellClicked.connect(self.sell_product)
-
-    def load_cake_data(self):
-        try:
-            file_path = os.path.join("json", "cake_data.json")
-            with open(file_path, "r") as f:
-                return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            # If no file or corrupt file exists, return empty data (editable)
-            return []
-
-    def populate_table(self):
-        # Check if data is empty
-        if not self.data:
-            print("No data to populate the table.")
-            return
-
-        # Set the row count based on the number of products
-        self.ui.productTable.setRowCount(len(self.data))
-
-        # Set the column count to 5 for Product ID, Product Name, Quantity, Price, and Quantity Sold
-        self.ui.productTable.setColumnCount(5)
-
-        # Set the headers for the columns
-        self.ui.productTable.setHorizontalHeaderLabels(
-            ["Product ID", "Product Name", "Quantity", "Price", "Quantity Sold"])
-
-        # Loop through each product and populate the table
-        for row, product in enumerate(self.data):
-            self.ui.productTable.setItem(row, 0, QTableWidgetItem(str(product["Product ID"])))
-            self.ui.productTable.setItem(row, 1, QTableWidgetItem(product["Product Name"]))
-            self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(product["Quantity"])))
-            self.ui.productTable.setItem(row, 3, QTableWidgetItem(str(product["Price"])))
-            self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(product["Quantity Sold"])))
-
-    # Button Functions
-    def open_sales(self):
-        sales_window = SalesWindow()
-        widget.addWidget(sales_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-        
-    def open_POS(self):
-        POS_window = POSWindow()
-        widget.addWidget(POS_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    
-    def open_account(self):
-        account_window = AccountWindow()
-        widget.addWidget(account_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    
-    def open_inventory(self):
-        inventory_window = Inventory()
-        widget.addWidget(inventory_window)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
-        
-    def open_forecast(self):
-        from salesForecast import SalesForecastWindow
-        self.sales_forecast_window = SalesForecastWindow()
-        self.sales_forecast_window.show()
-
-    def sell_product(self, row, column):
-        if column == 0:  # Only if the Product ID column is clicked
-            product_id = self.ui.productTable.item(row, 0).text()
-            product_name = self.ui.productTable.item(row, 1).text()
-            quantity = int(self.ui.productTable.item(row, 2).text())
-            quantity_sold = int(self.ui.productTable.item(row, 4).text())
-
-            # Ask the user how much was sold
-            amount_sold, ok = QInputDialog.getInt(self, "Amount Sold", f"How many {product_name} were sold?", 1, 1, quantity)
-
-            if ok and amount_sold > 0:
-                # Update the quantities
-                new_quantity = quantity - amount_sold
-                new_quantity_sold = quantity_sold + amount_sold
-
-                # Update the table view
-                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(new_quantity)))
-                self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(new_quantity_sold)))
-
-                # Update the data
-                for product in self.data:
-                    if product["Product ID"] == product_id:
-                        product["Quantity"] = new_quantity
-                        product["Quantity Sold"] = new_quantity_sold
-                        break
-
-                # Save the updated data
-                self.save_cake_data()
-
-    def save_cake_data(self):
-        file_path = os.path.join("json","cake_data.json")
-        with open(file_path, "w") as f:
-            json.dump(self.data, f, indent=4)
 
 class Inventory(QMainWindow):
     def __init__(self):
@@ -666,12 +547,16 @@ class AccountWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
     
 # main
+initialize_database()
 app = QApplication(sys.argv)
 login = Login()
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(login)
 widget.setFixedHeight(600)
 widget.setFixedWidth(800)
+windowIconPath = os.path.join(os.path.dirname(__file__), "img", "econologo_bkgd.png")
+widget.setWindowIcon(QIcon(windowIconPath))
+widget.setWindowTitle("Economystique")
 widget.show()
 widget.closeEvent = lambda event: app.quit()
 try:

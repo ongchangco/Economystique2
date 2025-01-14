@@ -270,12 +270,14 @@ class Ui_pos(object):
         self.btnC006.setObjectName("btnC006")
         self.gridLayout_2.addWidget(self.frame_7, 1, 1, 1, 1)
         self.cartlabel = QtWidgets.QLabel(pos)
-        self.cartlabel.setGeometry(QtCore.QRect(510, 50, 281, 371))
+        self.cartlabel.setGeometry(QtCore.QRect(510, 50, 281, 311))
         self.cartlabel.setStyleSheet("background-color: white;")
+        self.cartlabel.setFrameShape(QtWidgets.QFrame.Panel)
+        self.cartlabel.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.cartlabel.setText("")
         self.cartlabel.setObjectName("cartlabel")
         self.btnClear = QtWidgets.QPushButton(pos)
-        self.btnClear.setGeometry(QtCore.QRect(700, 50, 93, 28))
+        self.btnClear.setGeometry(QtCore.QRect(610, 370, 93, 28))
         self.btnClear.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -294,8 +296,10 @@ class Ui_pos(object):
 "}")
         self.btnClear.setObjectName("btnClear")
         self.checkoutlabel = QtWidgets.QLabel(pos)
-        self.checkoutlabel.setGeometry(QtCore.QRect(510, 440, 281, 141))
+        self.checkoutlabel.setGeometry(QtCore.QRect(510, 440, 281, 101))
         self.checkoutlabel.setStyleSheet("background-color: white;")
+        self.checkoutlabel.setFrameShape(QtWidgets.QFrame.Panel)
+        self.checkoutlabel.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.checkoutlabel.setText("")
         self.checkoutlabel.setObjectName("checkoutlabel")
         self.btnCheckout = QtWidgets.QPushButton(pos)

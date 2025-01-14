@@ -662,11 +662,17 @@ Pandan Cake
      <x>510</x>
      <y>50</y>
      <width>281</width>
-     <height>371</height>
+     <height>311</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
    </property>
    <property name="text">
     <string/>
@@ -675,8 +681,8 @@ Pandan Cake
   <widget class="QPushButton" name="btnClear">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>50</y>
+     <x>610</x>
+     <y>370</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -709,11 +715,17 @@ QPushButton:pressed {
      <x>510</x>
      <y>440</y>
      <width>281</width>
-     <height>141</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: white;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
    </property>
    <property name="text">
     <string/>

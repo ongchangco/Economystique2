@@ -21,7 +21,7 @@ from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
 from add_item_ui import Ui_Dialog
 from pos_ui import Ui_pos
-from db_setup import inv_database
+from inv_db_setup import inv_database
 #import sqlite3
 
 class Login(QMainWindow):
@@ -116,27 +116,7 @@ class Inventory(QMainWindow):
                                              
         # Adjust column widths to fit content
         self.ui.tab1Table.resizeRowsToContents()
-
         conn.close()    
-    
-    @staticmethod
-    def save_inventory_item(inventory_id, description, brand, unit, on_hand, owed, due_in):
-        try:
-            conn = Inventory.connect_to_database()
-            cursor = conn.cursor()
-            
-            # Insert into the inventory table
-            cursor.execute("""
-            INSERT INTO inventory (inventory_id, description, brand, unit, on_hand, owed, due_in)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (inventory_id, description, brand, unit, on_hand, owed, due_in))
-            
-            conn.commit()
-            print("Item saved successfully.")
-        except sqlite3.IntegrityError as e:
-            print(f"Error: {e}")
-        finally:
-            conn.close()
     
     def add_item(self):
         conn = self.connect_to_database()
@@ -219,13 +199,13 @@ class Inventory(QMainWindow):
                 if original_inventory_item:
                     original_inventory_id = original_inventory_item.text()
 
-                    # Gather the updated values for all columns, including inventory_id
+                    # Gather the updated values
                     updated_values = []
                     for col in range(self.ui.tab1Table.columnCount()):
                         item = self.ui.tab1Table.item(row, col)
                         updated_values.append(item.text() if item else None)
 
-                    # Construct the dynamic update query using actual column names
+                    # Construct the dynamic update query
                     set_clause = ', '.join([f"[{column_names[col]}] = ?" for col in range(len(column_names))])
                     query = f"UPDATE inventory SET {set_clause} WHERE [inventory_id] = ?"
                     cursor.execute(query, (*updated_values, original_inventory_id))
@@ -238,12 +218,10 @@ class Inventory(QMainWindow):
         finally:
             conn.close()
 
-        # Refresh the table to reflect the updated database
+        # Refresh and Disable Editing
         self.populate_inventory_table()
-
-        # Disable editing
         self.ui.tab1Table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-
+    
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -291,7 +269,6 @@ class AddItem(QDialog):
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (inventory_id, description, brand, unit, on_hand, owed, due_in))
             self.db_connection.commit()
-
             self.accept() 
             
         except ValueError:

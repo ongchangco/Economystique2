@@ -1,7 +1,8 @@
-import sqlite3
+import sqlite3, os
 
 def initialize_database():
-    connection = sqlite3.connect("inventory_system.db")
+    connectionPath = os.path.join("db", "inventory_db.db")
+    connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
     # Create tables

@@ -112,7 +112,7 @@
      <x>140</x>
      <y>30</y>
      <width>241</width>
-     <height>261</height>
+     <height>653</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -197,7 +197,7 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
     <item>
-     <widget class="QTextEdit" name="teOnHand_2">
+     <widget class="QTextEdit" name="teOnHand">
       <property name="styleSheet">
        <string notr="true">background: #ffffff</string>
       </property>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\add_item.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\add_item.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -17,7 +17,7 @@ class Ui_Dialog(object):
         Dialog.setWindowModality(QtCore.Qt.NonModal)
         Dialog.resize(400, 350)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         Dialog.setStyleSheet("background-color: #f4f4ec;")
         Dialog.setModal(False)
@@ -55,7 +55,7 @@ class Ui_Dialog(object):
         self.label_5.setObjectName("label_5")
         self.loParam.addWidget(self.label_5)
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(140, 30, 241, 261))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(140, 30, 241, 653))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -84,12 +84,12 @@ class Ui_Dialog(object):
         self.teUnit.setTabChangesFocus(True)
         self.teUnit.setObjectName("teUnit")
         self.verticalLayout_2.addWidget(self.teUnit)
-        self.teOnHand_2 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
-        self.teOnHand_2.setStyleSheet("background: #ffffff")
-        self.teOnHand_2.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teOnHand_2.setTabChangesFocus(True)
-        self.teOnHand_2.setObjectName("teOnHand_2")
-        self.verticalLayout_2.addWidget(self.teOnHand_2)
+        self.teOnHand = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
+        self.teOnHand.setStyleSheet("background: #ffffff")
+        self.teOnHand.setFrameShape(QtWidgets.QFrame.Panel)
+        self.teOnHand.setTabChangesFocus(True)
+        self.teOnHand.setObjectName("teOnHand")
+        self.verticalLayout_2.addWidget(self.teOnHand)
         self.teOwed = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.teOwed.setStyleSheet("background: #ffffff")
         self.teOwed.setFrameShape(QtWidgets.QFrame.Panel)
@@ -138,7 +138,7 @@ class Ui_Dialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teOnHand_2.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.teOnHand.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"

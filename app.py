@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
@@ -19,6 +19,7 @@ from salesForecast_ui import Ui_SalesForecast
 from account_ui import Ui_account
 from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
+from add_item_ui import Ui_Dialog
 from pos_ui import Ui_pos
 from db_setup import initialize_database
 #import sqlite3
@@ -79,12 +80,17 @@ class Inventory(QMainWindow):
         # Connect buttons
         self.ui.btnSave.clicked.connect(self.save_table)
         self.ui.btnEdit.clicked.connect(self.toggle_edit_mode)
+        self.ui.btnAddItem.clicked.connect(self.add_item)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
 
         self.edit_mode = False
 
+    def add_item(self):
+        add_item_window = AddItem()
+        add_item_window.exec_()
+    
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -194,6 +200,12 @@ class Inventory(QMainWindow):
         if tab_name in self.tables:
             del self.tables[tab_name]
      
+class AddItem(QDialog):     
+     def __init__(self):
+        super(AddItem, self).__init__()
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+        
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()

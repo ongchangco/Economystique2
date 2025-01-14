@@ -8,18 +8,18 @@ def inv_database():
     # Create tables
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS inventory (
-        inventory_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        inventory_id TEXT PRIMARY KEY,
         description TEXT NOT NULL,
         brand TEXT NOT NULL,
         unit TEXT NOT NULL,
-        on_hand INTEGER NOT NULL,
-        owed INTEGER NOT NULL DEFAULT 0,
-        due_in INTEGER NOT NULL DEFAULT 0
+        on_hand FLOAT NOT NULL,
+        owed FLOAT NOT NULL DEFAULT 0,
+        due_in FLOAT NOT NULL DEFAULT 0
     )
     """)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS products (
-        product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        product_id TEXT PRIMARY KEY,
         product_name TEXT NOT NULL,
         price REAL NOT NULL,
         inventory_id INTEGER,
@@ -28,14 +28,14 @@ def inv_database():
     """)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS sales (
-        sale_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sale_id TEXT PRIMARY KEY,
         sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         total_amount REAL NOT NULL
     )
     """)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS sale_items (
-        sale_item_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sale_item_id TEXT PRIMARY KEY,
         sale_id INTEGER NOT NULL,
         product_id INTEGER NOT NULL,
         quantity_sold INTEGER NOT NULL,

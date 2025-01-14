@@ -68,20 +68,50 @@ class Inventory(QMainWindow):
         self.ui = Ui_inventoryManagement()
         self.ui.setupUi(self)
 
+        self.populate_inventory_table()
+        
         # Connect buttons
         self.ui.btnAddItem.clicked.connect(self.add_item)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
 
-    def connect_to_database():
+    def connect_to_database(self):
         # Database Path
         db_path = os.path.join("db", "inventory_db.db")
         return sqlite3.connect(db_path)
     
+    def populate_inventory_table(self):
+        # Get database connection
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+
+        # Fetch all items from the inventory table
+        cursor.execute("SELECT inventory_id, description, brand, unit, on_hand, owed, due_in FROM inventory")
+        inventory_items = cursor.fetchall()
+
+        # Set up the table
+        self.ui.tab1Table.setRowCount(len(inventory_items)) 
+        self.ui.tab1Table.setColumnCount(7)
+
+        # Set headers for the table
+        headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due In"]
+        self.ui.tab1Table.setHorizontalHeaderLabels(headers)
+
+        # Populate the table with the data
+        for row, item in enumerate(inventory_items):
+            for col, value in enumerate(item):
+                self.ui.tab1Table.setItem(row, col, QTableWidgetItem(str(value)))
+
+        # Optional: Adjust column widths to fit content
+        self.ui.tab1Table.resizeColumnsToContents()
+
+        conn.close()
+    
+    @staticmethod
     def save_inventory_item(inventory_id, description, brand, unit, on_hand, owed, due_in):
         try:
-            conn = connect_to_database()
+            conn = Inventory.connect_to_database()
             cursor = conn.cursor()
             
             # Insert into the inventory table
@@ -98,8 +128,12 @@ class Inventory(QMainWindow):
             conn.close()
     
     def add_item(self):
-        add_item_window = AddItem()
+        conn = self.connect_to_database()
+        add_item_window = AddItem(conn) 
         add_item_window.exec_()
+        conn.close()
+        
+        self.populate_inventory_table()
     
     def open_sales(self):
         sales_window = SalesWindow()
@@ -117,10 +151,11 @@ class Inventory(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
      
 class AddItem(QDialog):     
-    def __init__(self):
+    def __init__(self, db_connection):
         super(AddItem, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.db_connection = db_connection
         
         # Connect buttons
         self.ui.buttonBox.accepted.connect(self.confirm)
@@ -131,9 +166,9 @@ class AddItem(QDialog):
             description = self.ui.teDescription.toPlainText()
             brand = self.ui.teBrand.toPlainText()
             unit = self.ui.teUnit.toPlainText()
-            on_hand = int(self.ui.teOnHand.toPlainText())
-            owed = int(self.ui.teOwed.toPlainText())
-            due_in = int(self.ui.teDueIn.toPlainText())
+            on_hand = float(self.ui.teOnHand.toPlainText())
+            owed = float(self.ui.teOwed.toPlainText())
+            due_in = float(self.ui.teDueIn.toPlainText())
 
             # Ensure Inventory ID is provided or unique
             if not inventory_id:
@@ -141,14 +176,14 @@ class AddItem(QDialog):
                 return
 
             # Insert into database
-            self.parent().cursor.execute("""
+            cursor = self.db_connection.cursor()
+            cursor.execute("""
             INSERT INTO inventory (inventory_id, description, brand, unit, on_hand, owed, due_in)
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (inventory_id, description, brand, unit, on_hand, owed, due_in))
-            self.parent().db_connection.commit()
+            self.db_connection.commit()
 
-            QMessageBox.information(self, "Success", "Item added successfully!")
-            self.accept()  # Close the dialog
+            self.accept() 
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please ensure all numerical fields have valid numbers.")
         except sqlite3.IntegrityError as e:

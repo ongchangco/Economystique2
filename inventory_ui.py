@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Patricia\Economystique2\inventory.ui'
+# Form implementation generated from reading ui file 'c:\Users\Joumongo\Documents\Economystique\inventory.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -16,7 +16,7 @@ class Ui_inventoryManagement(object):
         inventoryManagement.setObjectName("inventoryManagement")
         inventoryManagement.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         inventoryManagement.setWindowIcon(icon)
         inventoryManagement.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
@@ -74,7 +74,7 @@ class Ui_inventoryManagement(object):
 "")
         self.btnAccount.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
@@ -125,6 +125,12 @@ class Ui_inventoryManagement(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+        self.tab1Table = QtWidgets.QTableWidget(self.tab)
+        self.tab1Table.setGeometry(QtCore.QRect(0, 0, 771, 351))
+        self.tab1Table.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.tab1Table.setObjectName("tab1Table")
+        self.tab1Table.setColumnCount(0)
+        self.tab1Table.setRowCount(0)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -150,7 +156,7 @@ class Ui_inventoryManagement(object):
         self.btnEdit.setGeometry(QtCore.QRect(160, 20, 101, 31))
         self.btnEdit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/editPfp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/editPfp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnEdit.setIcon(icon2)
         self.btnEdit.setFlat(True)
         self.btnEdit.setObjectName("btnEdit")
@@ -158,7 +164,7 @@ class Ui_inventoryManagement(object):
         self.btnSave.setGeometry(QtCore.QRect(300, 20, 111, 31))
         self.btnSave.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/saveIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/saveIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnSave.setIcon(icon3)
         self.btnSave.setFlat(True)
         self.btnSave.setObjectName("btnSave")
@@ -166,7 +172,7 @@ class Ui_inventoryManagement(object):
         self.btnAddItem.setGeometry(QtCore.QRect(10, 20, 121, 31))
         self.btnAddItem.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Patricia\\Economystique2\\img/plusIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/plusIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnAddItem.setIcon(icon4)
         self.btnAddItem.setFlat(True)
         self.btnAddItem.setObjectName("btnAddItem")

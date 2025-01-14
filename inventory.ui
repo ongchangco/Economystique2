@@ -235,6 +235,19 @@ color: black;</string>
     <attribute name="title">
      <string>Tab 1</string>
     </attribute>
+    <widget class="QTableWidget" name="tab1Table">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>771</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">

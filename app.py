@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QAbstractItemView, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
@@ -73,6 +73,8 @@ class Inventory(QMainWindow):
         # Connect buttons
         self.ui.btnAddItem.clicked.connect(self.add_item)
         self.ui.btnRemoveItem.clicked.connect(self.remove_item)
+        self.ui.btnEditItems.clicked.connect(self.enable_editing)
+        self.ui.btnSave.clicked.connect(self.save_changes)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
@@ -96,7 +98,7 @@ class Inventory(QMainWindow):
         self.ui.tab1Table.setColumnCount(7)
 
         # Set headers for the table
-        headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due In"]
+        headers = ["Inventory_ID", "Description", "Brand", "Unit", "On_Hand", "Owed", "Due_In"]
         self.ui.tab1Table.setHorizontalHeaderLabels(headers)
 
         # Populate the table with the data
@@ -189,6 +191,58 @@ class Inventory(QMainWindow):
 
         # Refresh the table to reflect the updated database
         self.populate_inventory_table()
+
+    def enable_editing(self):
+        self.ui.tab1Table.setEditTriggers(QAbstractItemView.AllEditTriggers)
+        QMessageBox.information(self, "Edit Mode", "You can now edit the table. Click 'Save Changes' when done.")
+
+    def save_changes(self):
+        # Confirm with the user
+        reply = QMessageBox.question(self, "Save Changes", "Are you sure you want to save the changes?",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.No:
+            return
+
+        # Connect to the database
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+
+        try:
+            # Get column names from the QTableWidget header
+            column_names = [
+                self.ui.tab1Table.horizontalHeaderItem(col).text() for col in range(self.ui.tab1Table.columnCount())
+            ]
+
+            for row in range(self.ui.tab1Table.rowCount()):
+                # Retrieve the original inventory_id (stored before editing)
+                original_inventory_item = self.ui.tab1Table.item(row, 0)
+                if original_inventory_item:
+                    original_inventory_id = original_inventory_item.text()
+
+                    # Gather the updated values for all columns, including inventory_id
+                    updated_values = []
+                    for col in range(self.ui.tab1Table.columnCount()):
+                        item = self.ui.tab1Table.item(row, col)
+                        updated_values.append(item.text() if item else None)
+
+                    # Construct the dynamic update query using actual column names
+                    set_clause = ', '.join([f"[{column_names[col]}] = ?" for col in range(len(column_names))])
+                    query = f"UPDATE inventory SET {set_clause} WHERE [inventory_id] = ?"
+                    cursor.execute(query, (*updated_values, original_inventory_id))
+
+            # Commit changes to the database
+            conn.commit()
+            QMessageBox.information(self, "Success", "Changes saved successfully.")
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to save changes: {e}")
+        finally:
+            conn.close()
+
+        # Refresh the table to reflect the updated database
+        self.populate_inventory_table()
+
+        # Disable editing
+        self.ui.tab1Table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
     def open_sales(self):
         sales_window = SalesWindow()

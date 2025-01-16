@@ -220,9 +220,9 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>270</x>
-     <y>550</y>
+     <y>535</y>
      <width>251</width>
-     <height>36</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -262,15 +262,15 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>440</y>
-     <width>211</width>
-     <height>71</height>
+     <y>460</y>
+     <width>241</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Sans Serif Collection</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
    <property name="text">
@@ -311,6 +311,12 @@ QPushButton:pressed {
      <height>281</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background: #ffffff</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
   </widget>
   <widget class="QTextBrowser" name="txtAssessment">
    <property name="geometry">
@@ -320,6 +326,12 @@ QPushButton:pressed {
      <width>521</width>
      <height>91</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #ffffff</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
    </property>
   </widget>
  </widget>

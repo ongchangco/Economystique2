@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QAbstractItemView, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QListWidgetItem, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
@@ -22,6 +22,8 @@ from inventory_ui import Ui_inventoryManagement
 from add_item_ui import Ui_Dialog
 from pos_ui import Ui_pos
 from inv_db_setup import inv_database
+from sales_db_setup import sales_database
+from ingredients_db_setup import ingredients_database
 #import sqlite3
 
 class Login(QMainWindow):
@@ -30,7 +32,6 @@ class Login(QMainWindow):
         self.ui = Ui_Login()
         self.ui.setupUi(self)
 
-        self.ui.signUpButton.clicked.connect(self.open_signUp)
         self.ui.pushButton.clicked.connect(self.loginfunction)
         
     def open_signUp(self):
@@ -67,7 +68,7 @@ class Inventory(QMainWindow):
         super(Inventory, self).__init__()
         self.ui = Ui_inventoryManagement()
         self.ui.setupUi(self)
-
+     
         self.populate_inventory_table()
         
         # Connect buttons
@@ -98,8 +99,11 @@ class Inventory(QMainWindow):
         self.ui.tab1Table.setColumnCount(7)
 
         # Set headers for the table
-        headers = ["Inventory_ID", "Description", "Brand", "Unit", "On_Hand", "Owed", "Due_In"]
+        headers = ["Inventory_ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due In"]
         self.ui.tab1Table.setHorizontalHeaderLabels(headers)
+        header = self.ui.tab1Table.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
 
         # Populate the table with the data
         for row, item in enumerate(inventory_items):
@@ -107,12 +111,6 @@ class Inventory(QMainWindow):
                 table_item = QTableWidgetItem(str(value))
                 table_item.setTextAlignment(Qt.AlignCenter)
                 self.ui.tab1Table.setItem(row, col, table_item)
-        
-        num_columns = self.ui.tab1Table.columnCount()
-        col_width = self.ui.tab1Table.width() / num_columns
-        for col in range(num_columns):
-            # Set each column to have the same width
-            self.ui.tab1Table.setColumnWidth(col, int(col_width))
                                              
         # Adjust column widths to fit content
         self.ui.tab1Table.resizeRowsToContents()
@@ -280,119 +278,58 @@ class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()
         self.ui = Ui_Sales()
-        self._setup_ui()
-        self.setWindowTitle("Sales")
-
-        # Load data from JSON
-        self.data = self.load_cake_data()
-
-        # Populate the product table
-        self.populate_table()
-
-        # Initialize the sales_forecast_window attribute to None
-        self.sales_forecast_window = None
-
-        # Connect the click event of the table
-        self.ui.productTable.cellClicked.connect(self.sell_product)
+        self.ui.setupUi(self)
+       
+        self.load_sales_data()
 
         # Connect buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        self.ui.forecastButton.clicked.connect(self.generate_sales_forecast)
         
-        # Setup thread pool for async processing
-        self.executor = ThreadPoolExecutor(max_workers=1)
+        
+    def load_sales_data(self):
+        # Connect to the sales database
+        connection = sqlite3.connect("db/sales_db.db")
+        cursor = connection.cursor()
 
-    def _setup_ui(self):
-        try:
-            self.ui.setupUi(self)
-        except RecursionError as e:
-            print("Recursion error detected during UI setup:", e)
+        # Query all rows from the sales table
+        cursor.execute("SELECT * FROM sales")
+        rows = cursor.fetchall()
+        column_names = [description[0] for description in cursor.description]  # Get column names
+        connection.close()
 
-    def load_cake_data(self):
-        try:
-            file_path = os.path.join("json","cake_data.json")
-            with open(file_path, "r") as f:
-                return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            # If no file or corrupt file exists, return empty data (editable)
-            return []
+        # Set column count and headers in QTableWidget
+        self.ui.productTable.setColumnCount(len(column_names))
+        self.ui.productTable.setHorizontalHeaderLabels(column_names)
 
-    def populate_table(self):
-        # Check if data is empty
-        if not self.data:
-            print("No data to populate the table.")
-            return
+        self.ui.productTable.setRowCount(len(rows))
 
-        # Set the row count based on the number of products
-        self.ui.productTable.setRowCount(len(self.data))
+        # Populate the table with data
+        for row_index, row_data in enumerate(rows):
+            for col_index, cell_data in enumerate(row_data):
+                item = QTableWidgetItem(str(cell_data))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.ui.productTable.setItem(row_index, col_index, item)
 
-        # Set the column count to 5 for Product ID, Product Name, Quantity, Price, and Quantity Sold
-        self.ui.productTable.setColumnCount(5)
-
-        # Set the headers for the columns
-        self.ui.productTable.setHorizontalHeaderLabels(
-            ["Product ID", "Product Name", "Quantity", "Price", "Quantity Sold"])
-
-        # Loop through each product and populate the table
-        for row, product in enumerate(self.data):
-            self.ui.productTable.setItem(row, 0, QTableWidgetItem(str(product["Product ID"])))
-            self.ui.productTable.setItem(row, 1, QTableWidgetItem(product["Product Name"]))
-            self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(product["Quantity"])))
-            self.ui.productTable.setItem(row, 3, QTableWidgetItem(str(product["Price"])))
-            self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(product["Quantity Sold"])))
-
-    def sell_product(self, row, column):
-        if column == 4:  # Only if the Sold column is clicked
-            product_id = self.ui.productTable.item(row, 0).text()
-            product_name = self.ui.productTable.item(row, 1).text()
-            quantity = int(self.ui.productTable.item(row, 2).text())
-            quantity_sold = int(self.ui.productTable.item(row, 4).text())
-
-            # Ask the user how much was sold
-            amount_sold, ok = QInputDialog.getInt(self, "Amount Sold", f"How many {product_name} were sold?", 1, 1, quantity)
-
-            if ok and amount_sold > 0:
-                # Update the quantities
-                new_quantity = quantity - amount_sold
-                new_quantity_sold = quantity_sold + amount_sold
-
-                # Update the table view
-                self.ui.productTable.setItem(row, 2, QTableWidgetItem(str(new_quantity)))
-                self.ui.productTable.setItem(row, 4, QTableWidgetItem(str(new_quantity_sold)))
-
-                # Update the data
-                for product in self.data:
-                    if product["Product ID"] == product_id:
-                        product["Quantity"] = new_quantity
-                        product["Quantity Sold"] = new_quantity_sold
-                        break
-
-                # Save the updated data
-                self.save_cake_data()
-
-    def save_cake_data(self):
-        file_path = os.path.join("json","cake_data.json")
-        with open(file_path, "w") as f:
-            json.dump(self.data, f, indent=4)
-
+        # Adjust column widths to evenly fill the table
+        header = self.ui.productTable.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        
     # Button Functions  
     def open_inventory(self):
         inventory = Inventory()
         widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        
     def open_POS(self):
         POS_window = POSWindow()
         widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    
     def open_account(self):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    
     def generate_sales_forecast(self):
         # Use a separate thread for the forecast generation
         self.executor.submit(self.generate_forecast)
@@ -485,28 +422,22 @@ class POSWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("POS")
 
-        #add editable amount on add to cart (should show amount when a product is clicked (C001 x3))
-
-        # Data for POS
-        self.cart = []
-        self.products = {
-            "C001": ("Chocolate Moist", 850.00),
-            "C002": ("Yema Vanilla", 760.00),
-            "C003": ("Caramel Cake", 820.00),
-            "C004": ("Ube Caramel", 750.00),
-            "C005": ("Red Velvet", 850.00),
-            "C006": ("Pandan Cake", 760.00),
-            "C007": ("Strawberry Cake", 780.00),
-            "C008": ("Biscoff Mocha", 900.00),
-            "C009": ("Bento Cake", 370.00),
-            "C010": ("Cupcake", 40.00),
-        }
+        # Create a model for the QListView
+        self.cart_model = QStandardItemModel()
+        self.ui.cartList.setModel(self.cart_model)
+        
+        self.total_price = 0.0
+        self.update_total_label()
 
         # Connect buttons to functions
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnAccount.clicked.connect(self.open_account)
         
+        self.ui.btnClear.clicked.connect(self.clear_cart)
+        self.ui.btnCheckout.clicked.connect(self.checkout)
+        
+        # Connect product buttons to their respective functions
         self.ui.btnC001.clicked.connect(lambda: self.add_to_cart("C001"))
         self.ui.btnC002.clicked.connect(lambda: self.add_to_cart("C002"))
         self.ui.btnC003.clicked.connect(lambda: self.add_to_cart("C003"))
@@ -517,73 +448,140 @@ class POSWindow(QMainWindow):
         self.ui.btnC008.clicked.connect(lambda: self.add_to_cart("C008"))
         self.ui.btnC009.clicked.connect(lambda: self.add_to_cart("C009"))
         self.ui.btnC010.clicked.connect(lambda: self.add_to_cart("C010"))
+    
+    def add_to_cart(self, product_id):
+        # Connect to the sales database
+        connection = sqlite3.connect("db/sales_db.db")
+        cursor = connection.cursor()
 
-        self.ui.btnClear.clicked.connect(self.clear_cart)
-        self.ui.btnCheckout.clicked.connect(self.checkout)
+        # Query the sales table for the product
+        cursor.execute("SELECT product_name, price FROM sales WHERE product_id = ?", (product_id,))
+        product = cursor.fetchone()  # Fetch one result
+        connection.close()
 
-    def add_to_cart(self, product_code):
-        """Add product to cart."""
-        product_name, price = self.products[product_code]
-        self.cart.append((product_name, price))
-        self.update_cart_display()
+        if product:
+            # Check if the product is already in the cart
+            existing_items = [self.cart_model.item(row) for row in range(self.cart_model.rowCount())]
+            product_details = f"{product[0]} @ {product[1]:.2f}"
 
-    def update_cart_display(self):
-        """Update the cart display."""
-        if self.cart:
-            cart_summary = "\n".join([f"{item[0]} - ₱{item[1]:.2f}" for item in self.cart])
-            self.ui.cartlabel.setText(cart_summary)
-            
-            total = sum(item[1] for item in self.cart)
-            self.ui.checkoutlabel.setText(f"\n\nTotal: ₱{total:.2f}")
-            
-        else:
-            self.ui.cartlabel.setText("Cart is empty")
-            self.ui.checkoutlabel.setText("Total: ₱0.00")
-        
+            # Add the product price to the total price
+            self.total_price += product[1]
+            self.update_total_label()
+
+            for item in existing_items:
+                if item.text().startswith(product[0]):  # Check if product already in cart
+                    # If already in the cart, increase the quantity (optional step)
+                    item.setText(item.text() + " (Qty: 2)")  # Modify this part to handle actual quantity increment
+                    return  # Exit if the product already exists
+
+            # Add the product details to the cart model if not already added
+            item = QStandardItem(product_details)
+            self.cart_model.appendRow(item)
+    
     def clear_cart(self):
-        """Clear the cart."""
-        self.cart.clear()
-        self.update_cart_display()
-
+        self.cart_model.clear()
+        self.total_price = 0.0
+        self.update_total_label()
+        
+    def update_total_label(self):
+        # Update the lblTotal label with the total price
+        self.ui.lblTotal.setText(f"Total: {self.total_price:.2f}")
+        
     def checkout(self):
-        """Process checkout."""
-        if not self.cart:
-            QMessageBox.warning(self, "Checkout Error", "Cart is empty!")
+        # Check if the cart is empty
+        if self.cart_model.rowCount() == 0:
+            QMessageBox.warning(self, "Error", "Your cart is empty.", QMessageBox.Ok)
             return
 
-        # Create Receipt
-        counter_path = os.path.join("json","receipt_counter.json")
-        with open(counter_path, "r") as json_file:
-            rcptNum = json.load(json_file)
-            
-        counter_update = rcptNum + 1
-        receipt = f"R#{counter_update:05}.json"
-        file_path = os.path.join("receipts", receipt)
-        
-        # Write data to the JSON file
-        with open(file_path, "w") as json_file:
-            json.dump(self.cart, json_file, indent=4)
-        
-        # Update Receipt Counter
-        with open(counter_path, "w") as json_file:
-            json.dump(counter_update, json_file)
-        
-        total = sum(item[1] for item in self.cart)
-        QMessageBox.information(self, "Checkout", f"Total Amount: ₱{total:.2f}\nThank you for your purchase!")
+        confirmation = QMessageBox.question(
+            self, "Confirm Checkout", "Are you sure you want to check out with these products?",
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No
+        )
+
+        if confirmation == QMessageBox.No:
+            return  # Exit if "No" is clicked
+
+        # Process the checkout and update the sales and inventory database
+        for row in range(self.cart_model.rowCount()):
+            product_details = self.cart_model.item(row).text()
+            product_name = product_details.split(" @")[0]  # Extract product_name
+            quantity = 1  # Adjust this to reflect how many of the product were bought (if applicable)
+
+            # Connect to the sales database
+            connection = sqlite3.connect("db/sales_db.db")
+            cursor = connection.cursor()
+
+            cursor.execute("SELECT product_id, price FROM sales WHERE product_name = ?", (product_name,))
+            product = cursor.fetchone()
+            connection.close()
+
+            if product:
+                product_id = product[0]
+                # Update the quantity_sold in the sales table
+                connection = sqlite3.connect("db/sales_db.db")
+                cursor = connection.cursor()
+                cursor.execute(""" 
+                    UPDATE sales
+                    SET quantity_sold = quantity_sold + ?
+                    WHERE product_id = ?
+                """, (quantity, product_id))
+                connection.commit()
+                connection.close()
+
+                # Now update the inventory by subtracting the ingredients
+                connection = sqlite3.connect("db/ingredients_db.db")
+                cursor = connection.cursor()
+                cursor.execute("SELECT * FROM ingredients WHERE product_id = ?", (product_id,))
+                ingredients = cursor.fetchone()  # Get the ingredients for the product
+
+                if ingredients:
+                    # Loop through the ingredient columns (IN001, IN002, IN003, etc.)
+                    for i, ingredient_quantity in enumerate(ingredients[1:], start=1):  # Skip the first column (product_id)
+                        if ingredient_quantity:  # If the quantity for the ingredient is not zero
+                            ingredient_id = f"IN{str(i).zfill(3)}"  # Construct the ingredient_id (e.g., IN001, IN002, ...)
+                            
+                            # Fetch the current inventory for this ingredient
+                            connection_inventory = sqlite3.connect("db/inventory_db.db")
+                            cursor_inventory = connection_inventory.cursor()
+                            cursor_inventory.execute("SELECT on_hand FROM inventory WHERE inventory_id = ?", (ingredient_id,))
+                            inventory = cursor_inventory.fetchone()
+
+                            if inventory:
+                                on_hand = inventory[0]
+                                # Subtract the quantity sold of this ingredient from the on_hand
+                                new_on_hand = on_hand - (ingredient_quantity * quantity)  # Adjust for the sold quantity
+
+                                # Check if there's enough stock to subtract
+                                if new_on_hand < 0:
+                                    QMessageBox.warning(self, "Error", f"Not enough stock for ingredient {ingredient_id}.")
+                                    return  # Stop the checkout process if any ingredient is out of stock
+
+                                # Update the inventory by subtracting the quantity
+                                cursor_inventory.execute("""
+                                    UPDATE inventory
+                                    SET on_hand = ?
+                                    WHERE inventory_id = ?
+                                """, (new_on_hand, ingredient_id))
+                                connection_inventory.commit()
+                                connection_inventory.close()
+                connection.close()
+
+        QMessageBox.information(self, "Success", "Checkout successful!", QMessageBox.Ok)
+
+        # Clear the cart and reset the total
         self.clear_cart()
-    
-    #for menu buttons
+        self.total_price = 0.0
+        self.update_total_label()
+
     # Button Functions
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    
     def open_account(self):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    
     def open_inventory(self):
         inventory_window = Inventory()
         widget.addWidget(inventory_window)
@@ -630,6 +628,8 @@ class AccountWindow(QMainWindow):
     
 # main
 inv_database()
+sales_database()
+ingredients_database()
 app = QApplication(sys.argv)
 login = Login()
 widget = QtWidgets.QStackedWidget()

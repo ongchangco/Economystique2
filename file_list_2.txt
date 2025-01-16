@@ -1,3 +1,0 @@
-sales_09_24.xlsx||C:/Users/Joumongo/Documents/Economystique/dataFiles/sales_09_24.xlsx
-sales_10_24.xlsx||C:/Users/Joumongo/Documents/Economystique/dataFiles/sales_10_24.xlsx
-sales_11_24.xlsx||C:/Users/Joumongo/Documents/Economystique/dataFiles/sales_11_24.xlsx

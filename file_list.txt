@@ -1,3 +1,0 @@
-inv_09_24.xlsx||C:/Users/Joumongo/Documents/Economystique/dataFiles/inv_09_24.xlsx
-inv_10_24.xlsx||C:/Users/Joumongo/Documents/Economystique/dataFiles/inv_10_24.xlsx
-inv_11_24.xlsx||C:/Users/Joumongo/Documents/Economystique/dataFiles/inv_11_24.xlsx

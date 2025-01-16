@@ -410,7 +410,7 @@ color: black;</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>img/plusIcon.png</normaloff>img/plusIcon.png</iconset>
+      <normaloff>img/deleteIcon.png</normaloff>img/deleteIcon.png</iconset>
     </property>
     <property name="flat">
      <bool>true</bool>

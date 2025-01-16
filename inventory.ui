@@ -215,70 +215,6 @@ QPushButton:pressed {
     </property>
    </widget>
   </widget>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>781</width>
-     <height>381</height>
-    </rect>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>781</width>
-     <height>381</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: white;
-color: black;</string>
-   </property>
-   <property name="currentIndex">
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="tab">
-    <property name="maximumSize">
-     <size>
-      <width>775</width>
-      <height>352</height>
-     </size>
-    </property>
-    <attribute name="title">
-     <string>Tab 1</string>
-    </attribute>
-    <widget class="QTableWidget" name="tab1Table">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>771</width>
-       <height>351</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>771</width>
-       <height>351</height>
-      </size>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Tab 2</string>
-    </attribute>
-   </widget>
-  </widget>
   <widget class="QLabel" name="InventoryStatus">
    <property name="geometry">
     <rect>
@@ -416,6 +352,34 @@ color: black;</string>
      <bool>true</bool>
     </property>
    </widget>
+  </widget>
+  <widget class="QTableWidget" name="tab1Table">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>771</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>771</width>
+     <height>351</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #ffffff</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
   </widget>
  </widget>
  <resources/>

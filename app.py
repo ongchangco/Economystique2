@@ -147,7 +147,7 @@ class Inventory(QMainWindow):
         try:
             for row in rows_to_delete:
                 # Retrieve the inventory_id from the first column
-                inventory_item = self.ui.tab1Table.item(row, 0)  # Assuming Inventory ID is in the first column
+                inventory_item = self.ui.tab1Table.item(row, 0) 
                 if inventory_item:
                     inventory_id = inventory_item.text()
 

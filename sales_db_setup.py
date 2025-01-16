@@ -15,7 +15,7 @@ def sales_database():
     )
     """)
     
-    
+    '''
     data = [
     ("C001", "Chocolate Moist Cake", 850, 0),
     ("C002", "Yema Vanilla Cake", 760, 0),
@@ -34,8 +34,6 @@ def sales_database():
     INSERT OR IGNORE INTO sales (product_id, product_name, price, quantity_sold)
     VALUES (?, ?, ?, ?)
     """, data)
-    
+    '''
     connection.commit()
     connection.close()
-    
-sales_database()

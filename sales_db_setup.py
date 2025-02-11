@@ -35,5 +35,7 @@ def sales_database():
     VALUES (?, ?, ?, ?)
     """, data)
     '''
+    
     connection.commit()
     connection.close()
+    

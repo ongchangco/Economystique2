@@ -20,6 +20,7 @@ from account_ui import Ui_account
 from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
 from add_item_ui import Ui_Dialog
+from restock_ui import Ui_Restock
 from pos_ui import Ui_pos
 from inv_db_setup import inv_database
 from sales_db_setup import sales_database
@@ -72,10 +73,7 @@ class Inventory(QMainWindow):
         self.populate_inventory_table()
         
         # Connect buttons
-        self.ui.btnAddItem.clicked.connect(self.add_item)
-        self.ui.btnRemoveItem.clicked.connect(self.remove_item)
-        self.ui.btnEditItems.clicked.connect(self.enable_editing)
-        self.ui.btnSave.clicked.connect(self.save_changes)
+        self.ui.btnRestock.clicked.connect(self.restock)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
@@ -99,7 +97,7 @@ class Inventory(QMainWindow):
         self.ui.tab1Table.setColumnCount(7)
 
         # Set headers for the table
-        headers = ["Inventory_ID", "Description", "Brand", "Unit", "On Hand", "Owed", "Due In"]
+        headers = ["Inventory_ID", "Description", "Brand", "Unit", "On_Hand", "Owed", "Due_In"]
         self.ui.tab1Table.setHorizontalHeaderLabels(headers)
         header = self.ui.tab1Table.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
@@ -116,6 +114,11 @@ class Inventory(QMainWindow):
         self.ui.tab1Table.resizeRowsToContents()
         conn.close()    
     
+    def restock(self):
+        restock_window = Restock()
+        restock_window.exec_()
+        
+    '''
     def add_item(self):
         conn = self.connect_to_database()
         add_item_window = AddItem(conn) 
@@ -219,6 +222,7 @@ class Inventory(QMainWindow):
         # Refresh and Disable Editing
         self.populate_inventory_table()
         self.ui.tab1Table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+    '''
     
     def open_sales(self):
         sales_window = SalesWindow()
@@ -234,6 +238,12 @@ class Inventory(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
+     
+class Restock(QDialog):     
+    def __init__(self):
+        super(Restock, self).__init__()
+        self.ui = Ui_Restock()
+        self.ui.setupUi(self)
      
 class AddItem(QDialog):     
     def __init__(self, db_connection):

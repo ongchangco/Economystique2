@@ -15,20 +15,20 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.NonModal)
-        Dialog.resize(400, 350)
+        Dialog.resize(400, 280)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         Dialog.setStyleSheet("background-color: #f4f4ec;")
         Dialog.setModal(False)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(0, 300, 401, 41))
+        self.buttonBox.setGeometry(QtCore.QRect(0, 220, 401, 51))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 30, 111, 261))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 30, 111, 191))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.loParam = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.loParam.setContentsMargins(0, 0, 0, 0)
@@ -48,12 +48,6 @@ class Ui_Dialog(object):
         self.label_7 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_7.setObjectName("label_7")
         self.loParam.addWidget(self.label_7)
-        self.label_6 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_6.setObjectName("label_6")
-        self.loParam.addWidget(self.label_6)
-        self.label_5 = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.label_5.setObjectName("label_5")
-        self.loParam.addWidget(self.label_5)
         self.teInvID = QtWidgets.QTextEdit(Dialog)
         self.teInvID.setGeometry(QtCore.QRect(131, 31, 256, 31))
         self.teInvID.setStyleSheet("background: #ffffff")
@@ -78,24 +72,12 @@ class Ui_Dialog(object):
         self.teUnit.setFrameShape(QtWidgets.QFrame.Panel)
         self.teUnit.setTabChangesFocus(True)
         self.teUnit.setObjectName("teUnit")
-        self.teOnHand = QtWidgets.QTextEdit(Dialog)
-        self.teOnHand.setGeometry(QtCore.QRect(131, 183, 256, 31))
-        self.teOnHand.setStyleSheet("background: #ffffff")
-        self.teOnHand.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teOnHand.setTabChangesFocus(True)
-        self.teOnHand.setObjectName("teOnHand")
-        self.teOwed = QtWidgets.QTextEdit(Dialog)
-        self.teOwed.setGeometry(QtCore.QRect(131, 221, 256, 31))
-        self.teOwed.setStyleSheet("background: #ffffff")
-        self.teOwed.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teOwed.setTabChangesFocus(True)
-        self.teOwed.setObjectName("teOwed")
-        self.teDueIn = QtWidgets.QTextEdit(Dialog)
-        self.teDueIn.setGeometry(QtCore.QRect(131, 259, 256, 31))
-        self.teDueIn.setStyleSheet("background: #ffffff")
-        self.teDueIn.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teDueIn.setTabChangesFocus(True)
-        self.teDueIn.setObjectName("teDueIn")
+        self.teAmount = QtWidgets.QTextEdit(Dialog)
+        self.teAmount.setGeometry(QtCore.QRect(131, 183, 256, 31))
+        self.teAmount.setStyleSheet("background: #ffffff")
+        self.teAmount.setFrameShape(QtWidgets.QFrame.Panel)
+        self.teAmount.setTabChangesFocus(True)
+        self.teAmount.setObjectName("teAmount")
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
@@ -109,9 +91,7 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Description"))
         self.label_3.setText(_translate("Dialog", "Brand"))
         self.label_4.setText(_translate("Dialog", "Unit"))
-        self.label_7.setText(_translate("Dialog", "On-Hand Stocks"))
-        self.label_6.setText(_translate("Dialog", "Owed Stocks"))
-        self.label_5.setText(_translate("Dialog", "Due-In Stocks"))
+        self.label_7.setText(_translate("Dialog", "Amount"))
         self.teInvID.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -132,17 +112,7 @@ class Ui_Dialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teOnHand.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teOwed.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teDueIn.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.teAmount.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"

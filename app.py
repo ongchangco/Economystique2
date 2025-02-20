@@ -25,6 +25,7 @@ from pos_ui import Ui_pos
 from inv_db_setup import inv_database
 from sales_db_setup import sales_database
 from ingredients_db_setup import ingredients_database
+from restock_db_setup import restock_database
 #import sqlite3
 
 class Login(QMainWindow):
@@ -115,6 +116,7 @@ class Inventory(QMainWindow):
         conn.close()    
     
     def restock(self):
+        restock_database()
         restock_window = Restock()
         restock_window.exec_()
         
@@ -244,26 +246,84 @@ class Restock(QDialog):
         super(Restock, self).__init__()
         self.ui = Ui_Restock()
         self.ui.setupUi(self)
-     
+        
+        
+        self.populate_restock_table()
+        
+        # Connect Buttons
+        self.ui.btnAdd.clicked.connect(self.add)
+        #self.ui.btnRemove.clicked.connect(self.removeItem)
+        #self.ui.btnConfirm.clicked.connect(self.confirmItems)
+        self.ui.btnCancel.clicked.connect(self.closeWithClear)
+    
+    def closeWithClear(self):
+        conn = self.connect_rsDB()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM restock")
+        conn.commit()
+        conn.close()
+        self.close()
+        
+    def connect_rsDB(self):
+        # Database Path
+        db_path = os.path.join("db", "restock_db.db")
+        return sqlite3.connect(db_path)
+        
+    def populate_restock_table(self):
+        # Get database connection
+        conn = self.connect_rsDB()
+        cursor = conn.cursor()
+
+        # Fetch all items from the inventory table
+        cursor.execute("SELECT inventory_id, description, brand, unit, amount FROM restock")
+        restock_items = cursor.fetchall()
+
+        # Set up the table
+        self.ui.tabRestockTable.setRowCount(len(restock_items)) 
+        self.ui.tabRestockTable.setColumnCount(5)
+
+        # Set headers for the table
+        headers = ["Inventory_ID", "Description", "Brand", "Unit", "Amount"]
+        self.ui.tabRestockTable.setHorizontalHeaderLabels(headers)
+        header = self.ui.tabRestockTable.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+
+        # Populate the table with the data
+        for row, item in enumerate(restock_items):
+            for col, value in enumerate(item):
+                table_item = QTableWidgetItem(str(value))
+                table_item.setTextAlignment(Qt.AlignCenter)
+                self.ui.tabRestockTable.setItem(row, col, table_item)
+                                             
+        # Adjust column widths to fit content
+        self.ui.tabRestockTable.resizeRowsToContents()
+        conn.close()
+    
+    def add(self):
+        conn = self.connect_rsDB()
+        add_item_window = AddItem(conn) 
+        add_item_window.exec_()
+        
+        conn.close()
+        self.populate_restock_table()
+        
 class AddItem(QDialog):     
-    def __init__(self, db_connection):
+    def __init__(self, conn):
         super(AddItem, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
-        self.db_connection = db_connection
-        
+        self.db_connection = conn
         # Connect buttons
         self.ui.buttonBox.accepted.connect(self.confirm)
-    
+        
     def confirm(self):
         try:
             inventory_id = self.ui.teInvID.toPlainText()
             description = self.ui.teDescription.toPlainText()
             brand = self.ui.teBrand.toPlainText()
             unit = self.ui.teUnit.toPlainText()
-            on_hand = float(self.ui.teOnHand.toPlainText())
-            owed = float(self.ui.teOwed.toPlainText())
-            due_in = float(self.ui.teDueIn.toPlainText())
+            amount = float(self.ui.teAmount.toPlainText())
 
             # Ensure Inventory ID is provided or unique
             if not inventory_id:
@@ -273,9 +333,9 @@ class AddItem(QDialog):
             # Insert into database
             cursor = self.db_connection.cursor()
             cursor.execute("""
-            INSERT INTO inventory (inventory_id, description, brand, unit, on_hand, owed, due_in)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (inventory_id, description, brand, unit, on_hand, owed, due_in))
+            INSERT INTO restock (inventory_id, description, brand, unit, amount)
+            VALUES (?, ?, ?, ?, ?)
+            """, (inventory_id, description, brand, unit, amount))
             self.db_connection.commit()
             self.accept() 
             
@@ -296,7 +356,6 @@ class SalesWindow(QMainWindow):
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        
         
     def load_sales_data(self):
         # Connect to the sales database
@@ -386,7 +445,7 @@ class SalesWindow(QMainWindow):
         self.sales_forecast_window.show()
         
 class ForecastWorker(QThread):
-    # Define a signal to pass the generated forecast back to the main thread
+    # Signal to pass the generated forecast back to the main thread
     forecast_generated = pyqtSignal(str)
 
     def __init__(self, sales_prompt, file_map_2):

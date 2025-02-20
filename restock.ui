@@ -70,9 +70,9 @@
   <widget class="QPushButton" name="btnRemove">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>210</y>
-     <width>111</width>
+     <x>470</x>
+     <y>260</y>
+     <width>131</width>
      <height>51</height>
     </rect>
    </property>
@@ -84,17 +84,17 @@
      <normaloff>img/deleteIcon.png</normaloff>img/deleteIcon.png</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnAdd">
+  <widget class="QPushButton" name="btnAddNew">
    <property name="geometry">
     <rect>
-     <x>490</x>
-     <y>140</y>
-     <width>111</width>
+     <x>470</x>
+     <y>190</y>
+     <width>131</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>Add Item</string>
+    <string>Add New Item</string>
    </property>
    <property name="icon">
     <iconset>
@@ -106,7 +106,7 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>471</width>
+     <width>441</width>
      <height>251</height>
     </rect>
    </property>
@@ -127,6 +127,23 @@
    </property>
    <property name="frameShape">
     <enum>QFrame::Panel</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAdd">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>120</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Exisiting Item</string>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>img/addIcon.png</normaloff>img/addIcon.png</iconset>
    </property>
   </widget>
  </widget>

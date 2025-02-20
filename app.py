@@ -21,6 +21,7 @@ from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
 from add_item_ui import Ui_Dialog
 from restock_ui import Ui_Restock
+from addExisting_ui import Ui_AddExisting
 from pos_ui import Ui_pos
 from inv_db_setup import inv_database
 from sales_db_setup import sales_database
@@ -145,25 +146,16 @@ class Restock(QDialog):
         
         # Connect Buttons
         self.ui.btnAdd.clicked.connect(self.add)
+        self.ui.btnAddNew.clicked.connect(self.addNew)
         self.ui.btnRemove.clicked.connect(self.removeItem)
         self.ui.btnConfirm.clicked.connect(self.confirmItems)
         self.ui.btnCancel.clicked.connect(self.close)
     
-    def confirmItems(self):
-        conn = self.connect_rsDB()
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM restock")
-        conn.commit()
-        conn.close()
-        self.close()
-        
     def connect_rsDB(self):
-        # Database Path
         db_path = os.path.join("db", "restock_db.db")
         return sqlite3.connect(db_path)
         
     def populate_restock_table(self):
-        # Get database connection
         conn = self.connect_rsDB()
         cursor = conn.cursor()
 
@@ -195,9 +187,15 @@ class Restock(QDialog):
     
     def add(self):
         conn = self.connect_rsDB()
+        add_existing_window = AddExisting(conn)
+        add_existing_window.exec_()
+        conn.close()
+        self.populate_restock_table()
+    
+    def addNew(self):
+        conn = self.connect_rsDB()
         add_item_window = AddItem(conn) 
         add_item_window.exec_()
-        
         conn.close()
         self.populate_restock_table()
         
@@ -246,6 +244,49 @@ class Restock(QDialog):
         # Refresh the table to reflect the updated database
         self.populate_restock_table()
         
+    def confirmItems(self):
+        inv_path = os.path.join("db", "inventory_db.db")
+        inv_conn = sqlite3.connect(inv_path)
+        inv_cursor = inv_conn.cursor()
+        
+        res_conn = self.connect_rsDB()
+        res_cursor = res_conn.cursor()
+        
+        # Fetch all entries from restock
+        res_cursor.execute("SELECT * FROM restock")
+        restock_entries = res_cursor.fetchall()
+
+        for restock_entry in restock_entries:
+            inventory_id, description, brand, unit, amount = restock_entry
+
+            # Check if inventory_id exists in inventory
+            inv_cursor.execute("SELECT on_hand FROM inventory WHERE inventory_id = ?", (inventory_id,))
+            existing_entry = inv_cursor.fetchone()
+
+            if existing_entry:
+                # If exists, update on_hand quantity
+                new_on_hand = existing_entry[0] + amount
+                inv_cursor.execute("UPDATE inventory SET on_hand = ? WHERE inventory_id = ?", (new_on_hand, inventory_id))
+            else:
+                # If not exists, insert new entry
+                inv_cursor.execute("INSERT INTO inventory (inventory_id, description, brand, unit, on_hand) VALUES (?, ?, ?, ?, ?)", 
+                            (inventory_id, description, brand, unit, amount))
+        
+        inv_conn.commit()
+        inv_conn.close()
+        res_cursor.execute("DELETE FROM restock")
+        res_conn.commit()
+        self.populate_restock_table()
+        res_conn.close()
+        self.close()
+
+class AddExisting(QDialog):     
+    def __init__(self, conn):
+        super(AddExisting, self).__init__()
+        self.ui = Ui_AddExisting()
+        self.ui.setupUi(self)
+        self.db_connection = conn
+
 class AddItem(QDialog):     
     def __init__(self, conn):
         super(AddItem, self).__init__()

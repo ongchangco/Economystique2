@@ -119,6 +119,7 @@ class Inventory(QMainWindow):
     def restock(self):
         restock_database()
         restock_window = Restock()
+        restock_window.restockConfirmed.connect(self.populate_inventory_table)
         restock_window.exec_()
     
     def open_sales(self):
@@ -136,7 +137,8 @@ class Inventory(QMainWindow):
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
      
-class Restock(QDialog):     
+class Restock(QDialog):
+    restockConfirmed = pyqtSignal()     
     def __init__(self):
         super(Restock, self).__init__()
         self.ui = Ui_Restock()
@@ -274,10 +276,14 @@ class Restock(QDialog):
         
         inv_conn.commit()
         inv_conn.close()
+        # Empty Restock Database        
         res_cursor.execute("DELETE FROM restock")
         res_conn.commit()
-        self.populate_restock_table()
         res_conn.close()
+        
+        # Emit signal before closing
+        self.restockConfirmed.emit()
+        
         self.close()
 
 class AddExisting(QDialog):     
@@ -317,7 +323,7 @@ class AddItem(QDialog):
             """, (inventory_id, description, brand, unit, amount))
             self.db_connection.commit()
             self.accept() 
-            
+            3
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please ensure all numerical fields have valid numbers.")
         except sqlite3.IntegrityError as e:

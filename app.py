@@ -247,16 +247,15 @@ class Restock(QDialog):
         self.ui = Ui_Restock()
         self.ui.setupUi(self)
         
-        
         self.populate_restock_table()
         
         # Connect Buttons
         self.ui.btnAdd.clicked.connect(self.add)
-        #self.ui.btnRemove.clicked.connect(self.removeItem)
-        #self.ui.btnConfirm.clicked.connect(self.confirmItems)
-        self.ui.btnCancel.clicked.connect(self.closeWithClear)
+        self.ui.btnRemove.clicked.connect(self.removeItem)
+        self.ui.btnConfirm.clicked.connect(self.confirmItems)
+        self.ui.btnCancel.clicked.connect(self.close)
     
-    def closeWithClear(self):
+    def confirmItems(self):
         conn = self.connect_rsDB()
         cursor = conn.cursor()
         cursor.execute("DELETE FROM restock")
@@ -306,6 +305,51 @@ class Restock(QDialog):
         add_item_window.exec_()
         
         conn.close()
+        self.populate_restock_table()
+        
+    def removeItem(self):
+        # Get selected items
+        selected_items = self.ui.tabRestockTable.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Selection Error", "No item selected. Please select a row to delete.")
+            return
+
+        # Identify unique rows from selected cells
+        rows_to_delete = sorted(set(item.row() for item in selected_items), reverse=True)
+
+        reply = QMessageBox.question(self, "Remove Item", "Are you sure you want to remove the selected items?",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.No:
+            return
+
+        # Connect to the database
+        conn = self.connect_rsDB()
+        cursor = conn.cursor()
+
+        try:
+            for row in rows_to_delete:
+                # Retrieve the inventory_id from the first column
+                inventory_item = self.ui.tabRestockTable.item(row, 0) 
+                if inventory_item:
+                    inventory_id = inventory_item.text()
+
+                    # Delete the item from the database
+                    cursor.execute("DELETE FROM restock WHERE inventory_id = ?", (inventory_id,))
+
+                    # Remove the row from the table widget
+                    self.ui.tabRestockTable.removeRow(row)
+                else:
+                    QMessageBox.warning(self, "Missing Data", f"Could not find Inventory ID for row {row + 1}.")
+
+            # Commit changes to the database
+            conn.commit()
+            QMessageBox.information(self, "Success", "Selected item(s) removed successfully.")
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
+        finally:
+            conn.close()
+
+        # Refresh the table to reflect the updated database
         self.populate_restock_table()
         
 class AddItem(QDialog):     

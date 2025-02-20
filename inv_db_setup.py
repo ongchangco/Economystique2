@@ -12,9 +12,7 @@ def inv_database():
         description TEXT NOT NULL,
         brand TEXT NOT NULL,
         unit TEXT NOT NULL,
-        on_hand FLOAT NOT NULL,
-        owed FLOAT NOT NULL DEFAULT 0,
-        due_in FLOAT NOT NULL DEFAULT 0
+        on_hand FLOAT NOT NULL DEFAULT 0
     )
     """)
     

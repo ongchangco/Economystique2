@@ -91,15 +91,15 @@ class Inventory(QMainWindow):
         cursor = conn.cursor()
 
         # Fetch all items from the inventory table
-        cursor.execute("SELECT inventory_id, description, brand, unit, on_hand, owed, due_in FROM inventory")
+        cursor.execute("SELECT inventory_id, description, brand, unit, on_hand FROM inventory")
         inventory_items = cursor.fetchall()
 
         # Set up the table
         self.ui.tab1Table.setRowCount(len(inventory_items)) 
-        self.ui.tab1Table.setColumnCount(7)
+        self.ui.tab1Table.setColumnCount(5)
 
         # Set headers for the table
-        headers = ["Inventory_ID", "Description", "Brand", "Unit", "On_Hand", "Owed", "Due_In"]
+        headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
         self.ui.tab1Table.setHorizontalHeaderLabels(headers)
         header = self.ui.tab1Table.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")

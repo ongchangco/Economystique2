@@ -283,15 +283,82 @@ class Restock(QDialog):
         
         # Emit signal before closing
         self.restockConfirmed.emit()
-        
         self.close()
+        QMessageBox.information(self, "Success", "Item(s) added successfully.")
 
 class AddExisting(QDialog):     
-    def __init__(self, conn):
+    def __init__(self, conn): 
         super(AddExisting, self).__init__()
         self.ui = Ui_AddExisting()
         self.ui.setupUi(self)
-        self.db_connection = conn
+        self.db_connection = conn 
+        self.populate_combobox()
+        self.ui.cbItems.currentIndexChanged.connect(self.update_unit_label)
+        
+        self.ui.buttonBox.accepted.connect(self.confirm)
+        
+    def populate_combobox(self):
+        inv_path = os.path.join("db", "inventory_db.db")
+        inv_conn = sqlite3.connect(inv_path)
+        inv_cursor = inv_conn.cursor()
+        
+        # Fetch inventory_id, description, and brand
+        inv_cursor.execute("SELECT inventory_id, description, brand, unit FROM inventory")
+        self.inventory_items = inv_cursor.fetchall()
+
+        # Clear existing items in the combo box
+        self.ui.cbItems.clear()
+
+        # Populate the combo box with formatted entries
+        for item in self.inventory_items:
+            inventory_id, description, brand, unit = item
+            display_text = f"{inventory_id} - {description} ({brand})"
+            self.ui.cbItems.addItem(display_text, inventory_id)  # Store inventory_id as userData
+
+        inv_cursor.close()
+
+        # Set initial unit label if there's at least one item
+        if self.inventory_items:
+            self.update_unit_label()
+        
+    def update_unit_label(self):
+        index = self.ui.cbItems.currentIndex()
+        if index >= 0:
+            unit = self.inventory_items[index][3]
+            self.ui.lblUnit.setText(f"(in {unit})")
+        else:
+            self.ui.lblUnit.setText("Unit: N/A")
+            
+    def confirm(self):
+        try:
+            index = self.ui.cbItems.currentIndex()
+            if index < 0:
+                QMessageBox.warning(self, "Selection Error", "Please select an item.")
+                return
+
+            # Retrieve selected item details
+            inventory_id, description, brand, unit = self.inventory_items[index]
+            amount_text = self.ui.teAmount.toPlainText()
+
+            if not amount_text.strip():
+                QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
+                return
+
+            amount = float(amount_text)  # Convert to float
+
+            # Insert into the restock database
+            cursor = self.db_connection.cursor()
+            cursor.execute("""
+                INSERT INTO restock (inventory_id, description, brand, unit, amount)
+                VALUES (?, ?, ?, ?, ?)
+            """, (inventory_id, description, brand, unit, amount))
+            self.db_connection.commit()
+            self.accept()  # Close the dialog on success
+
+        except ValueError:
+            QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
+        except sqlite3.IntegrityError as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to add item: {e}")
 
 class AddItem(QDialog):     
     def __init__(self, conn):
@@ -323,7 +390,7 @@ class AddItem(QDialog):
             """, (inventory_id, description, brand, unit, amount))
             self.db_connection.commit()
             self.accept() 
-            3
+            
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please ensure all numerical fields have valid numbers.")
         except sqlite3.IntegrityError as e:

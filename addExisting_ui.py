@@ -38,19 +38,20 @@ class Ui_AddExisting(object):
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
         self.teAmount = QtWidgets.QTextEdit(AddExisting)
-        self.teAmount.setGeometry(QtCore.QRect(100, 80, 161, 31))
+        self.teAmount.setGeometry(QtCore.QRect(100, 80, 171, 31))
         self.teAmount.setStyleSheet("background: #ffffff")
         self.teAmount.setFrameShape(QtWidgets.QFrame.Panel)
         self.teAmount.setTabChangesFocus(True)
         self.teAmount.setObjectName("teAmount")
-        self.lblUnit = QtWidgets.QLabel(AddExisting)
-        self.lblUnit.setGeometry(QtCore.QRect(278, 80, 101, 36))
-        self.lblUnit.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblUnit.setObjectName("lblUnit")
         self.cbItems = QtWidgets.QComboBox(AddExisting)
         self.cbItems.setGeometry(QtCore.QRect(102, 31, 281, 31))
         self.cbItems.setStyleSheet("background: white;")
         self.cbItems.setObjectName("cbItems")
+        self.lblUnit = QtWidgets.QLabel(AddExisting)
+        self.lblUnit.setGeometry(QtCore.QRect(284, 75, 101, 41))
+        self.lblUnit.setText("")
+        self.lblUnit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lblUnit.setObjectName("lblUnit")
 
         self.retranslateUi(AddExisting)
         self.buttonBox.accepted.connect(AddExisting.accept) # type: ignore
@@ -67,4 +68,3 @@ class Ui_AddExisting(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.lblUnit.setText(_translate("AddExisting", "Amount"))

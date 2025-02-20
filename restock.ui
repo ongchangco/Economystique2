@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
-    <height>391</height>
+    <width>667</width>
+    <height>397</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>340</y>
-     <width>91</width>
+     <y>350</y>
+     <width>121</width>
      <height>28</height>
     </rect>
    </property>
@@ -36,9 +36,9 @@
   <widget class="QPushButton" name="btnCancel">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>340</y>
-     <width>91</width>
+     <x>350</x>
+     <y>350</y>
+     <width>121</width>
      <height>28</height>
     </rect>
    </property>
@@ -51,7 +51,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>591</width>
+     <width>651</width>
      <height>61</height>
     </rect>
    </property>
@@ -70,7 +70,7 @@
   <widget class="QPushButton" name="btnRemove">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>520</x>
      <y>260</y>
      <width>131</width>
      <height>51</height>
@@ -87,7 +87,7 @@
   <widget class="QPushButton" name="btnAddNew">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>520</x>
      <y>190</y>
      <width>131</width>
      <height>51</height>
@@ -106,7 +106,7 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>441</width>
+     <width>501</width>
      <height>251</height>
     </rect>
    </property>
@@ -132,14 +132,14 @@
   <widget class="QPushButton" name="btnAdd">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>520</x>
      <y>120</y>
      <width>131</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>Add Exisiting Item</string>
+    <string>Add Existing Item</string>
    </property>
    <property name="icon">
     <iconset>

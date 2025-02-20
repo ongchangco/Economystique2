@@ -118,38 +118,6 @@ class Ui_Sales(object):
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
-        self.forecastButton = QtWidgets.QPushButton(Sales)
-        self.forecastButton.setGeometry(QtCore.QRect(270, 535, 251, 51))
-        font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
-        self.forecastButton.setFont(font)
-        self.forecastButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.forecastButton.setStyleSheet("QPushButton{\n"
-"    background: #365b6d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"    border-color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"    border: 2px solid #365b6d;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.forecastButton.setFlat(False)
-        self.forecastButton.setObjectName("forecastButton")
-        self.Assessment = QtWidgets.QLabel(Sales)
-        self.Assessment.setGeometry(QtCore.QRect(10, 460, 241, 51))
-        font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
-        font.setPointSize(16)
-        self.Assessment.setFont(font)
-        self.Assessment.setAlignment(QtCore.Qt.AlignCenter)
-        self.Assessment.setObjectName("Assessment")
         self.SalesRecords = QtWidgets.QLabel(Sales)
         self.SalesRecords.setGeometry(QtCore.QRect(9, 47, 781, 71))
         font = QtGui.QFont()
@@ -159,17 +127,79 @@ class Ui_Sales(object):
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
         self.productTable = QtWidgets.QTableWidget(Sales)
-        self.productTable.setGeometry(QtCore.QRect(10, 131, 781, 281))
+        self.productTable.setGeometry(QtCore.QRect(10, 131, 781, 331))
         self.productTable.setStyleSheet("background: #ffffff")
         self.productTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.productTable.setObjectName("productTable")
         self.productTable.setColumnCount(0)
         self.productTable.setRowCount(0)
-        self.txtAssessment = QtWidgets.QTextBrowser(Sales)
-        self.txtAssessment.setGeometry(QtCore.QRect(270, 430, 521, 91))
-        self.txtAssessment.setStyleSheet("background: #ffffff")
-        self.txtAssessment.setFrameShape(QtWidgets.QFrame.Panel)
-        self.txtAssessment.setObjectName("txtAssessment")
+        self.label = QtWidgets.QLabel(Sales)
+        self.label.setGeometry(QtCore.QRect(10, 500, 81, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label.setFont(font)
+        self.label.setStyleSheet("")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.lblTotal = QtWidgets.QLabel(Sales)
+        self.lblTotal.setGeometry(QtCore.QRect(100, 500, 271, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lblTotal.setFont(font)
+        self.lblTotal.setStyleSheet("background: white;\n"
+"")
+        self.lblTotal.setFrameShape(QtWidgets.QFrame.Box)
+        self.lblTotal.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.lblTotal.setText("")
+        self.lblTotal.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblTotal.setObjectName("lblTotal")
+        self.btnAssessment = QtWidgets.QPushButton(Sales)
+        self.btnAssessment.setGeometry(QtCore.QRect(460, 510, 161, 41))
+        self.btnAssessment.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnAssessment.setObjectName("btnAssessment")
+        self.forecastButton = QtWidgets.QPushButton(Sales)
+        self.forecastButton.setGeometry(QtCore.QRect(630, 510, 161, 41))
+        self.forecastButton.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.forecastButton.setIcon(icon2)
+        self.forecastButton.setIconSize(QtCore.QSize(15, 40))
+        self.forecastButton.setObjectName("forecastButton")
+        self.label_2 = QtWidgets.QLabel(Sales)
+        self.label_2.setGeometry(QtCore.QRect(460, 560, 331, 21))
+        self.label_2.setStyleSheet("")
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
 
         self.retranslateUi(Sales)
         QtCore.QMetaObject.connectSlotsByName(Sales)
@@ -181,6 +211,8 @@ class Ui_Sales(object):
         self.btnSales.setText(_translate("Sales", "Sales"))
         self.btnInventory.setText(_translate("Sales", "Inventory"))
         self.btnPOS.setText(_translate("Sales", "POS"))
-        self.forecastButton.setText(_translate("Sales", "GENERATE FORECAST"))
-        self.Assessment.setText(_translate("Sales", "Assessment"))
         self.SalesRecords.setText(_translate("Sales", "Sales"))
+        self.label.setText(_translate("Sales", "Total"))
+        self.btnAssessment.setText(_translate("Sales", "See Assessment"))
+        self.forecastButton.setText(_translate("Sales", "Generate Forecast"))
+        self.label_2.setText(_translate("Sales", "Powered by: GPT Neo"))

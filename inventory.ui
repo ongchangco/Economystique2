@@ -284,12 +284,30 @@ QPushButton:pressed {
      <pointsize>10</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+	background: #365b6d;
+	color: white;
+	border-style: outset;
+	border-width: 2px;
+	border-radius:10px;
+	border-color: black;
+}
+QPushButton:hover {
+    background-color: #53786d;
+	border: 2px solid black;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}</string>
+   </property>
    <property name="text">
     <string> Restock</string>
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>img/restock.png</normaloff>img/restock.png</iconset>
+     <normaloff>img/restock_white.png</normaloff>img/restock_white.png</iconset>
    </property>
   </widget>
  </widget>

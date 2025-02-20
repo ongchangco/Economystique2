@@ -147,8 +147,24 @@ class Ui_inventoryManagement(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.btnRestock.setFont(font)
+        self.btnRestock.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnRestock.setIcon(icon2)
         self.btnRestock.setObjectName("btnRestock")
 

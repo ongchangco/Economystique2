@@ -170,7 +170,7 @@ class Restock(QDialog):
         self.ui.tabRestockTable.setColumnCount(5)
 
         # Set headers for the table
-        headers = ["Inventory_ID", "Description", "Brand", "Unit", "Amount"]
+        headers = ["Inventory ID", "Description", "Brand", "Unit", "Amount"]
         self.ui.tabRestockTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabRestockTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
@@ -410,34 +410,35 @@ class SalesWindow(QMainWindow):
         self.ui.btnAccount.clicked.connect(self.open_account)
         
     def load_sales_data(self):
-        # Connect to the sales database
-        connection = sqlite3.connect("db/sales_db.db")
-        cursor = connection.cursor()
+        sales_path = os.path.join("db", "sales_db.db")
+        sales_conn = sqlite3.connect(sales_path)
+        sales_cursor = sales_conn.cursor()
+        # Fetch all items from the inventory table
+        sales_cursor.execute("SELECT product_id, product_name, price, quantity_sold FROM sales")
+        products = sales_cursor.fetchall()
 
-        # Query all rows from the sales table
-        cursor.execute("SELECT * FROM sales")
-        rows = cursor.fetchall()
-        column_names = [description[0] for description in cursor.description]  # Get column names
-        connection.close()
+        # Set up the table
+        self.ui.productTable.setRowCount(len(products)) 
+        self.ui.productTable.setColumnCount(4)
 
-        # Set column count and headers in QTableWidget
-        self.ui.productTable.setColumnCount(len(column_names))
-        self.ui.productTable.setHorizontalHeaderLabels(column_names)
-
-        self.ui.productTable.setRowCount(len(rows))
-
-        # Populate the table with data
-        for row_index, row_data in enumerate(rows):
-            for col_index, cell_data in enumerate(row_data):
-                item = QTableWidgetItem(str(cell_data))
-                item.setTextAlignment(Qt.AlignCenter)
-                self.ui.productTable.setItem(row_index, col_index, item)
-
-        # Adjust column widths to evenly fill the table
+        # Set headers for the table
+        headers = ["Product ID", "Product Name", "Price", "Quantity Sold"]
+        self.ui.productTable.setHorizontalHeaderLabels(headers)
         header = self.ui.productTable.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.Stretch)
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+
+        # Populate the table with the data
+        for row, item in enumerate(products):
+            for col, value in enumerate(item):
+                table_item = QTableWidgetItem(str(value))
+                table_item.setTextAlignment(Qt.AlignCenter)
+                self.ui.productTable.setItem(row, col, table_item)
         
+        # Compute & Display Total Sales
+        total = sum(item[2] * item[3] for item in products)
+        self.ui.lblTotal.setText(f"{total:.2f}")
+            
     # Button Functions  
     def open_inventory(self):
         inventory = Inventory()

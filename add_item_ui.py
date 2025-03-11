@@ -23,6 +23,23 @@ class Ui_Dialog(object):
         Dialog.setModal(False)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(0, 220, 401, 51))
+        self.buttonBox.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"    padding: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)

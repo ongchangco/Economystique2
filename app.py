@@ -23,6 +23,7 @@ from restock_ui import Ui_Restock
 from productRestock_ui import Ui_PrRestock
 from addExisting_ui import Ui_AddExisting
 from addPrExisting_ui import Ui_AddPrExisting
+from addPrNew_ui import Ui_addPrNew
 from pos_ui import Ui_pos
 #import sqlite3
 
@@ -325,7 +326,7 @@ class PrRestock(QDialog):
         self.ui.tabPrRestockTable.setColumnCount(4)
         self.ui.tabPrRestockTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.tabPrRestockTable.verticalHeader().hide()
-        headers = ["Product ID", "Name of Product", "Amount to Add", "Expiration Date"]
+        headers = ["Product ID", "Product Name", "Amount", "Expiration Date"]
         self.ui.tabPrRestockTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabPrRestockTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
@@ -346,7 +347,8 @@ class PrRestock(QDialog):
         self.populate_restock_table()
         
     def addNew(self):
-        pass
+        add_new_window = AddPrNew()
+        add_new_window.exec_()
     def removeProduct(self):
         # Get selected items
         selected_items = self.ui.tabPrRestockTable.selectedItems()
@@ -495,6 +497,7 @@ class AddPrExisting(QDialog):
         self.db_connection = conn 
         self.populate_combobox()
         self.ui.buttonBox.accepted.connect(self.confirm)
+        self.ui.buttonBox.rejected.connect(self.reject)
     def populate_combobox(self):
         pr_path = os.path.join("db", "product_db.db")
         pr_conn = sqlite3.connect(pr_path)
@@ -571,7 +574,13 @@ class AddItem(QDialog):
             QMessageBox.critical(self, "Input Error", "Please ensure all numerical fields have valid numbers.")
         except sqlite3.IntegrityError as e:
             QMessageBox.critical(self, "Database Error", f"Failed to add item: {e}")
-        
+class AddPrNew(QDialog):     
+    def __init__(self):
+        super(AddPrNew, self).__init__()
+        self.ui = Ui_addPrNew()
+        self.ui.setupUi(self)
+        # Connect buttons
+        self.ui.btnCancel.clicked.connect(self.close)
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()

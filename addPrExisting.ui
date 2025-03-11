@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>AddExisting</class>
- <widget class="QDialog" name="AddExisting">
+ <class>AddPrExisting</class>
+ <widget class="QDialog" name="AddPrExisting">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>183</height>
+    <height>215</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add Existing Item</string>
+   <string>Add Existing Product</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -20,13 +20,26 @@
   <property name="styleSheet">
    <string notr="true">background-color: #f4f4ec;</string>
   </property>
+  <widget class="QComboBox" name="cbProducts">
+   <property name="geometry">
+    <rect>
+     <x>122</x>
+     <y>31</y>
+     <width>261</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: white;</string>
+   </property>
+  </widget>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>140</y>
+     <y>160</y>
      <width>341</width>
-     <height>32</height>
+     <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -63,22 +76,29 @@ QPushButton:pressed {
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>81</width>
-     <height>81</height>
+     <width>91</width>
+     <height>111</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>Item to Add</string>
+       <string>Product to Add</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Amount</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Expiry Date</string>
       </property>
      </widget>
     </item>
@@ -87,9 +107,9 @@ QPushButton:pressed {
   <widget class="QTextEdit" name="teAmount">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>80</y>
-     <width>171</width>
+     <x>120</x>
+     <y>70</y>
+     <width>261</width>
      <height>31</height>
     </rect>
    </property>
@@ -110,69 +130,33 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cbItems">
+  <widget class="QTextEdit" name="teExpDate">
    <property name="geometry">
     <rect>
-     <x>102</x>
-     <y>31</y>
-     <width>281</width>
+     <x>120</x>
+     <y>110</y>
+     <width>261</width>
      <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: white;</string>
+    <string notr="true">background: #ffffff</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="lblUnit">
-   <property name="geometry">
-    <rect>
-     <x>284</x>
-     <y>75</y>
-     <width>101</width>
-     <height>41</height>
-    </rect>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
    </property>
-   <property name="text">
-    <string/>
+   <property name="tabChangesFocus">
+    <bool>true</bool>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   <property name="html">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>AddExisting</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>AddExisting</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

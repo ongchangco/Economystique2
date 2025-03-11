@@ -20,7 +20,7 @@ class Ui_Restock(object):
         Restock.setWindowIcon(icon)
         Restock.setStyleSheet("background-color: #f4f4ec;")
         self.btnConfirm = QtWidgets.QPushButton(Restock)
-        self.btnConfirm.setGeometry(QtCore.QRect(200, 350, 121, 28))
+        self.btnConfirm.setGeometry(QtCore.QRect(200, 350, 121, 31))
         self.btnConfirm.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -39,7 +39,7 @@ class Ui_Restock(object):
 "}")
         self.btnConfirm.setObjectName("btnConfirm")
         self.btnCancel = QtWidgets.QPushButton(Restock)
-        self.btnCancel.setGeometry(QtCore.QRect(350, 350, 121, 28))
+        self.btnCancel.setGeometry(QtCore.QRect(350, 350, 121, 31))
         self.btnCancel.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"

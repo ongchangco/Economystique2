@@ -2,20 +2,27 @@ import os
 import sqlite3
 
 
-def prod_database():
-    connectionPath = os.path.join("db", "product_db.db")
+def edit_database():
+    connectionPath = os.path.join("db", "prrestock_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
     # Create tables
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS products_on_hand (
+    CREATE TABLE IF NOT EXISTS restock_product (
         product_id TEXT PRIMARY KEY,
         product_name TEXT NOT NULL,
-        on_hand INT NOT NULL DEFAULT 0,
+        amount INT NOT NULL DEFAULT 0,
         exp_date TEXT NOT NULL
     )
     """)
+    
+    cursor.execute("DELETE FROM restock_product WHERE product_id = 'C001'")
+    
+    connection.commit()
+    connection.close()
+    
+
     '''
     data = [
     ("C001", "Chocolate Moist Cake", 5, "04/15/25"),
@@ -36,14 +43,14 @@ def prod_database():
     VALUES (?, ?, ?, ?)
     """, data)
     '''
-    connection.commit()
-    connection.close()
     
+
 '''
 path = os.path.join("db", "inventory_db.db")
 conn = sqlite3.connect(path)
 cursor = conn.cursor()
 
+# DELETE
 cursor.execute("DELETE FROM inventory WHERE inventory_id = 'test'")
 conn.commit()
 conn.close()'''

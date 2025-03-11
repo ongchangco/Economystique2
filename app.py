@@ -20,7 +20,9 @@ from sales_ui import Ui_Sales
 from inventory_ui import Ui_inventoryManagement
 from add_item_ui import Ui_Dialog
 from restock_ui import Ui_Restock
+from productRestock_ui import Ui_PrRestock
 from addExisting_ui import Ui_AddExisting
+from addPrExisting_ui import Ui_AddPrExisting
 from pos_ui import Ui_pos
 #import sqlite3
 
@@ -29,7 +31,6 @@ class Login(QMainWindow):
         super(Login, self).__init__()
         self.ui = Ui_Login()
         self.ui.setupUi(self)
-
         self.ui.pushButton.clicked.connect(self.loginfunction)
         
     def open_signUp(self):
@@ -66,31 +67,28 @@ class Inventory(QMainWindow):
         super(Inventory, self).__init__()
         self.ui = Ui_inventoryManagement()
         self.ui.setupUi(self)
-     
         self.populate_ingredients()
         self.populate_products()
         self.ui.tabWidget.setCurrentIndex(0)
-        
         # Connect buttons
         self.ui.btnRestock.clicked.connect(self.restock)
+        self.ui.btnAddProduct.clicked.connect(self.addProduct)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
-    
+        
     def populate_ingredients(self):
         # Get database connection
         db_path = os.path.join("db", "inventory_db.db")
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-
         # Fetch all items from the inventory table
         cursor.execute("SELECT inventory_id, description, brand, unit, on_hand FROM inventory")
         inventory_items = cursor.fetchall()
-
         # Set up the table
         self.ui.tabIngredientTable.setRowCount(len(inventory_items)) 
         self.ui.tabIngredientTable.setColumnCount(5)
-
+        self.ui.tabIngredientTable.verticalHeader().hide()
         # Set headers for the table
         headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
         self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
@@ -109,6 +107,7 @@ class Inventory(QMainWindow):
         # Adjust column widths to fit content
         self.ui.tabIngredientTable.resizeRowsToContents()
         conn.close()
+        
     def populate_products(self):
         db_path = os.path.join("db", "product_db.db")
         conn = sqlite3.connect(db_path)
@@ -117,6 +116,7 @@ class Inventory(QMainWindow):
         products = cursor.fetchall()
         self.ui.tabProductTable.setRowCount(len(products)) 
         self.ui.tabProductTable.setColumnCount(4)
+        self.ui.tabProductTable.verticalHeader().hide()
         headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date"]
         self.ui.tabProductTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabProductTable.horizontalHeader()
@@ -136,6 +136,10 @@ class Inventory(QMainWindow):
         restock_window = Restock()
         restock_window.restockConfirmed.connect(self.populate_ingredients)
         restock_window.exec_()
+    def addProduct(self):
+        addProduct_window = PrRestock()
+        addProduct_window.restockConfirmed.connect(self.populate_products)
+        addProduct_window.exec_()
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -154,9 +158,7 @@ class Restock(QDialog):
         super(Restock, self).__init__()
         self.ui = Ui_Restock()
         self.ui.setupUi(self)
-        
         self.populate_restock_table()
-        
         # Connect Buttons
         self.ui.btnAdd.clicked.connect(self.add)
         self.ui.btnAddNew.clicked.connect(self.addNew)
@@ -172,7 +174,7 @@ class Restock(QDialog):
         conn = self.connect_rsDB()
         cursor = conn.cursor()
 
-        # Fetch all items from the inventory table
+        # Fetch all items from the restock table
         cursor.execute("SELECT inventory_id, description, brand, unit, amount FROM restock")
         restock_items = cursor.fetchall()
 
@@ -296,6 +298,134 @@ class Restock(QDialog):
         self.restockConfirmed.emit()
         self.close()
         QMessageBox.information(self, "Success", "Item(s) added successfully.")
+class PrRestock(QDialog):
+    restockConfirmed = pyqtSignal()     
+    def __init__(self):
+        super(PrRestock, self).__init__()
+        self.ui = Ui_PrRestock()
+        self.ui.setupUi(self)
+        self.populate_restock_table()
+        # Connect Buttons
+        self.ui.btnAdd.clicked.connect(self.add)
+        self.ui.btnAddNew.clicked.connect(self.addNew)
+        self.ui.btnRemove.clicked.connect(self.removeProduct)
+        self.ui.btnConfirm.clicked.connect(self.confirmProducts)
+        self.ui.btnCancel.clicked.connect(self.close)
+    
+    def connect_rsDB(self):
+        db_path = os.path.join("db", "prrestock_db.db")
+        return sqlite3.connect(db_path)
+        
+    def populate_restock_table(self):
+        conn = self.connect_rsDB()
+        cursor = conn.cursor()
+        cursor.execute("SELECT product_id, product_name, amount, exp_date FROM restock_product")
+        restock_products = cursor.fetchall()
+        self.ui.tabPrRestockTable.setRowCount(len(restock_products)) 
+        self.ui.tabPrRestockTable.setColumnCount(4)
+        self.ui.tabPrRestockTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.ui.tabPrRestockTable.verticalHeader().hide()
+        headers = ["Product ID", "Name of Product", "Amount to Add", "Expiration Date"]
+        self.ui.tabPrRestockTable.setHorizontalHeaderLabels(headers)
+        header = self.ui.tabPrRestockTable.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        for row, item in enumerate(restock_products):
+            for col, value in enumerate(item):
+                table_item = QTableWidgetItem(str(value))
+                table_item.setTextAlignment(Qt.AlignCenter)
+                self.ui.tabPrRestockTable.setItem(row, col, table_item)
+        self.ui.tabPrRestockTable.resizeRowsToContents()
+        conn.close()
+    
+    def add(self):
+        conn = self.connect_rsDB()
+        add_existing_window = AddPrExisting(conn)
+        add_existing_window.exec_()
+        conn.close()
+        self.populate_restock_table()
+        
+    def addNew(self):
+        pass
+    def removeProduct(self):
+        # Get selected items
+        selected_items = self.ui.tabPrRestockTable.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Selection Error", "No item selected. Please select a row to delete.")
+            return
+        # Identify unique rows from selected cells
+        rows_to_delete = sorted(set(item.row() for item in selected_items), reverse=True)
+        reply = QMessageBox.question(self, "Remove Item", "Are you sure you want to remove the selected items?",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.No:
+            return
+        # Connect to the database
+        conn = self.connect_rsDB()
+        cursor = conn.cursor()
+        try:
+            for row in rows_to_delete:
+                # Retrieve the product_id from the first column
+                product_item = self.ui.tabPrRestockTable.item(row, 0) 
+                if product_item:
+                    product_id = product_item()
+
+                    # Delete the item from the database
+                    cursor.execute("DELETE FROM restock_product WHERE product_id = ?", (product_id,))
+
+                    # Remove the row from the table widget
+                    self.ui.tabPrRestockTable.removeRow(row)
+                else:
+                    QMessageBox.warning(self, "Missing Data", f"Could not find Product ID for row {row + 1}.")
+            # Commit changes to the database
+            conn.commit()
+            QMessageBox.information(self, "Success", "Selected item(s) removed successfully.")
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
+        finally:
+            conn.close()
+        # Refresh the table to reflect the updated database
+        self.populate_restock_table()
+        
+    def confirmProducts(self):
+        pr_path = os.path.join("db", "product_db.db")
+        pr_conn = sqlite3.connect(pr_path)
+        pr_cursor = pr_conn.cursor()
+        
+        res_conn = self.connect_rsDB()
+        res_cursor = res_conn.cursor()
+        
+        # Fetch all entries from restock
+        res_cursor.execute("SELECT * FROM restock_product")
+        restock_entries = res_cursor.fetchall()
+
+        for restock_entry in restock_entries:
+            product_id, product_name, amount, exp_date = restock_entry
+
+            # Check if product_id exists in products_on_hand
+            # hayy pagod na ako (-_-)
+            pr_cursor.execute("SELECT on_hand FROM products_on_hand WHERE product_id = ?", (product_id,))
+            existing_entry = pr_cursor.fetchone()
+
+            if existing_entry:
+                # If exists, update on_hand quantity
+                new_on_hand = existing_entry[0] + amount
+                pr_cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?", (new_on_hand, product_id))
+            else:
+                # If not exists, insert new entry
+                pr_cursor.execute("INSERT INTO products_on_hand (product_id, product_name, on_hand, exp_date) VALUES (?, ?, ?, ?)", 
+                            (product_id, product_name, amount, exp_date))
+        
+        pr_conn.commit()
+        pr_conn.close()
+        # Empty Restock Database        
+        res_cursor.execute("DELETE FROM restock_product")
+        res_conn.commit()
+        res_conn.close()
+        
+        # Emit signal before closing
+        self.restockConfirmed.emit()
+        self.close()
+        QMessageBox.information(self, "Success", "Item(s) added successfully.")
 
 class AddExisting(QDialog):     
     def __init__(self, conn): 
@@ -305,33 +435,25 @@ class AddExisting(QDialog):
         self.db_connection = conn 
         self.populate_combobox()
         self.ui.cbItems.currentIndexChanged.connect(self.update_unit_label)
-        
         self.ui.buttonBox.accepted.connect(self.confirm)
-        
     def populate_combobox(self):
         inv_path = os.path.join("db", "inventory_db.db")
         inv_conn = sqlite3.connect(inv_path)
         inv_cursor = inv_conn.cursor()
-        
         # Fetch inventory_id, description, and brand
         inv_cursor.execute("SELECT inventory_id, description, brand, unit FROM inventory")
         self.inventory_items = inv_cursor.fetchall()
-
         # Clear existing items in the combo box
         self.ui.cbItems.clear()
-
         # Populate the combo box with formatted entries
         for item in self.inventory_items:
             inventory_id, description, brand, unit = item
             display_text = f"{inventory_id} - {description} ({brand})"
             self.ui.cbItems.addItem(display_text, inventory_id)  # Store inventory_id as userData
-
         inv_cursor.close()
-
         # Set initial unit label if there's at least one item
         if self.inventory_items:
             self.update_unit_label()
-        
     def update_unit_label(self):
         index = self.ui.cbItems.currentIndex()
         if index >= 0:
@@ -339,24 +461,19 @@ class AddExisting(QDialog):
             self.ui.lblUnit.setText(f"(in {unit})")
         else:
             self.ui.lblUnit.setText("Unit: N/A")
-            
     def confirm(self):
         try:
             index = self.ui.cbItems.currentIndex()
             if index < 0:
                 QMessageBox.warning(self, "Selection Error", "Please select an item.")
                 return
-
             # Retrieve selected item details
             inventory_id, description, brand, unit = self.inventory_items[index]
             amount_text = self.ui.teAmount.toPlainText()
-
             if not amount_text.strip():
                 QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
                 return
-
             amount = float(amount_text)  # Convert to float
-
             # Insert into the restock database
             cursor = self.db_connection.cursor()
             cursor.execute("""
@@ -365,7 +482,55 @@ class AddExisting(QDialog):
             """, (inventory_id, description, brand, unit, amount))
             self.db_connection.commit()
             self.accept()
-
+        except ValueError:
+            QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
+        except sqlite3.IntegrityError as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to add item: {e}")
+            
+class AddPrExisting(QDialog):     
+    def __init__(self, conn): 
+        super(AddPrExisting, self).__init__()
+        self.ui = Ui_AddPrExisting()
+        self.ui.setupUi(self)
+        self.db_connection = conn 
+        self.populate_combobox()
+        self.ui.buttonBox.accepted.connect(self.confirm)
+    def populate_combobox(self):
+        pr_path = os.path.join("db", "product_db.db")
+        pr_conn = sqlite3.connect(pr_path)
+        pr_cursor = pr_conn.cursor()
+        # Fetch product_id, product_name
+        pr_cursor.execute("SELECT product_id, product_name, exp_date FROM products_on_hand")
+        self.product_items = pr_cursor.fetchall()
+        # Clear existing items in the combo box
+        self.ui.cbProducts.clear()
+        # Populate the combo box with formatted entries
+        for item in self.product_items:
+            product_id, product_name, exp_date = item
+            display_text = f"{product_id} - {product_name}"
+            self.ui.cbProducts.addItem(display_text, product_id)
+        pr_cursor.close()
+    def confirm(self):
+        try:
+            index = self.ui.cbProducts.currentIndex()
+            if index < 0:
+                QMessageBox.warning(self, "Selection Error", "Please select an item.")
+                return
+            # Retrieve selected item details
+            product_id, product_name, exp_date = self.product_items[index]
+            amount_text = self.ui.teAmount.toPlainText()
+            if not amount_text.strip():
+                QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
+                return
+            amount = int(amount_text)
+            # Insert into the restock database
+            cursor = self.db_connection.cursor()
+            cursor.execute("""
+                INSERT INTO restock_product (product_id, product_name, amount, exp_date)
+                VALUES (?, ?, ?, ?)
+            """, (product_id, product_name, amount, exp_date))
+            self.db_connection.commit()
+            self.accept()
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
         except sqlite3.IntegrityError as e:

@@ -21,6 +21,23 @@ class Ui_AddExisting(object):
         AddExisting.setStyleSheet("background-color: #f4f4ec;")
         self.buttonBox = QtWidgets.QDialogButtonBox(AddExisting)
         self.buttonBox.setGeometry(QtCore.QRect(30, 140, 341, 32))
+        self.buttonBox.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"    padding: 5px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(True)
@@ -60,8 +77,8 @@ class Ui_AddExisting(object):
 
     def retranslateUi(self, AddExisting):
         _translate = QtCore.QCoreApplication.translate
-        AddExisting.setWindowTitle(_translate("AddExisting", "Add Exisiting Item"))
-        self.label.setText(_translate("AddExisting", "Inventory ID"))
+        AddExisting.setWindowTitle(_translate("AddExisting", "Add Existing Item"))
+        self.label.setText(_translate("AddExisting", "Item to Add"))
         self.label_2.setText(_translate("AddExisting", "Amount"))
         self.teAmount.setHtml(_translate("AddExisting", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"

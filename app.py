@@ -347,8 +347,11 @@ class PrRestock(QDialog):
         self.populate_restock_table()
         
     def addNew(self):
-        add_new_window = AddPrNew()
-        add_new_window.exec_()
+        conn = self.connect_rsDB()
+        add_item_window = AddPrNew(conn) 
+        add_item_window.exec_()
+        conn.close()
+        self.populate_restock_table()
     def removeProduct(self):
         # Get selected items
         selected_items = self.ui.tabPrRestockTable.selectedItems()
@@ -575,12 +578,39 @@ class AddItem(QDialog):
         except sqlite3.IntegrityError as e:
             QMessageBox.critical(self, "Database Error", f"Failed to add item: {e}")
 class AddPrNew(QDialog):     
-    def __init__(self):
+    def __init__(self, conn):
         super(AddPrNew, self).__init__()
         self.ui = Ui_addPrNew()
         self.ui.setupUi(self)
+        self.db_connection = conn
+        self.populate_combobox()
         # Connect buttons
         self.ui.btnCancel.clicked.connect(self.close)
+    #sakit ng shoulders    
+    def populate_ingredients(self):
+        pass
+    def populate_combobox(self):
+        inv_path = os.path.join("db", "inventory_db.db")
+        inv_conn = sqlite3.connect(inv_path)
+        inv_cursor = inv_conn.cursor()
+        # Fetch inventory_id, description, and brand
+        inv_cursor.execute("SELECT inventory_id, description, unit FROM inventory")
+        self.inventory_items = inv_cursor.fetchall()
+        # Clear existing items in the combo box
+        self.ui.cbItems.clear()
+        # Populate the combo box with formatted entries
+        for item in self.inventory_items:
+            inventory_id, description, unit = item
+            display_text = f"{inventory_id} - {description} (in {unit})"
+            self.ui.cbItems.addItem(display_text, inventory_id)  # Store inventory_id as userData
+        inv_cursor.close()
+    def add(self):
+        pass
+    def remove(self):
+        pass
+    def confirm(self):
+        pass
+    
 class SalesWindow(QMainWindow):
     def __init__(self):
         super(SalesWindow, self).__init__()

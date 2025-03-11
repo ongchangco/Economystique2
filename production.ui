@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mainInventory</class>
- <widget class="QWidget" name="mainInventory">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,31 +11,8 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>EconoMystique</string>
+   <string>Form</string>
   </property>
-  <property name="windowIcon">
-   <iconset>
-    <selectedon>img/econologo.png</selectedon>
-   </iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: #f4f4ec;
-color: black;</string>
-  </property>
-  <widget class="QListView" name="assessmentListView">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>450</y>
-     <width>781</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;
-color: black;</string>
-   </property>
-  </widget>
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
@@ -229,122 +206,19 @@ QPushButton:pressed {
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="recommendationButton">
+  <widget class="QLabel" name="InventoryStatus">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>540</y>
-     <width>201</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
-	background: #365b6d;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-	border-color: black;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-	border: 2px solid #365b6d;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-   </property>
-   <property name="text">
-    <string>REQUEST RECOMMENDATION</string>
-   </property>
-   <property name="default">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="goToInventory">
-   <property name="geometry">
-    <rect>
-     <x>650</x>
-     <y>360</y>
-     <width>139</width>
-     <height>50</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>0</width>
-     <height>50</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
-	background-color: #86ada0;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-	border: 2px solid #86ada0;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-   </property>
-   <property name="text">
-    <string>Go to INVENTORY &gt;&gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="Summary">
-   <property name="geometry">
-    <rect>
-     <x>360</x>
+     <x>9</x>
      <y>50</y>
-     <width>99</width>
-     <height>49</height>
+     <width>781</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Sans Serif Collection</family>
-     <pointsize>12</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: transparent;</string>
-   </property>
-   <property name="text">
-    <string>PRODUCTS</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="Assessment">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>410</y>
-     <width>118</width>
-     <height>49</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif Collection</family>
-     <pointsize>12</pointsize>
+     <pointsize>18</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
@@ -353,20 +227,38 @@ QPushButton:pressed {
     <string notr="true">background-color: transparent;</string>
    </property>
    <property name="text">
-    <string>ASSESSMENT</string>
+    <string>Production</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QTableWidget" name="productTable">
+  <widget class="QTableWidget" name="productsTable">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>90</y>
-     <width>781</width>
-     <height>261</height>
+     <y>120</y>
+     <width>771</width>
+     <height>351</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>771</width>
+     <height>351</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #ffffff</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
    </property>
   </widget>
  </widget>

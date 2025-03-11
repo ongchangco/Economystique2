@@ -21,9 +21,41 @@ class Ui_Restock(object):
         Restock.setStyleSheet("background-color: #f4f4ec;")
         self.btnConfirm = QtWidgets.QPushButton(Restock)
         self.btnConfirm.setGeometry(QtCore.QRect(200, 350, 121, 28))
+        self.btnConfirm.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnConfirm.setObjectName("btnConfirm")
         self.btnCancel = QtWidgets.QPushButton(Restock)
         self.btnCancel.setGeometry(QtCore.QRect(350, 350, 121, 28))
+        self.btnCancel.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnCancel.setObjectName("btnCancel")
         self.label_9 = QtWidgets.QLabel(Restock)
         self.label_9.setGeometry(QtCore.QRect(10, 10, 651, 61))
@@ -34,15 +66,41 @@ class Ui_Restock(object):
         self.label_9.setObjectName("label_9")
         self.btnRemove = QtWidgets.QPushButton(Restock)
         self.btnRemove.setGeometry(QtCore.QRect(520, 260, 131, 51))
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/deleteIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnRemove.setIcon(icon1)
+        self.btnRemove.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnRemove.setObjectName("btnRemove")
         self.btnAddNew = QtWidgets.QPushButton(Restock)
         self.btnAddNew.setGeometry(QtCore.QRect(520, 190, 131, 51))
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/plusIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAddNew.setIcon(icon2)
+        self.btnAddNew.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnAddNew.setObjectName("btnAddNew")
         self.tabRestockTable = QtWidgets.QTableWidget(Restock)
         self.tabRestockTable.setGeometry(QtCore.QRect(10, 80, 501, 251))
@@ -59,9 +117,22 @@ class Ui_Restock(object):
         self.tabRestockTable.setRowCount(0)
         self.btnAdd = QtWidgets.QPushButton(Restock)
         self.btnAdd.setGeometry(QtCore.QRect(520, 120, 131, 51))
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/addIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAdd.setIcon(icon3)
+        self.btnAdd.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
         self.btnAdd.setObjectName("btnAdd")
 
         self.retranslateUi(Restock)

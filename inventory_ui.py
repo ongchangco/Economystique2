@@ -129,21 +129,32 @@ class Ui_inventoryManagement(object):
         self.InventoryStatus.setStyleSheet("background-color: transparent;")
         self.InventoryStatus.setAlignment(QtCore.Qt.AlignCenter)
         self.InventoryStatus.setObjectName("InventoryStatus")
-        self.tab1Table = QtWidgets.QTableWidget(inventoryManagement)
-        self.tab1Table.setGeometry(QtCore.QRect(10, 120, 771, 351))
+        self.tabWidget = QtWidgets.QTabWidget(inventoryManagement)
+        self.tabWidget.setGeometry(QtCore.QRect(10, 100, 781, 491))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.tabWidget.setFont(font)
+        self.tabWidget.setObjectName("tabWidget")
+        self.tabIngredients = QtWidgets.QWidget()
+        self.tabIngredients.setObjectName("tabIngredients")
+        self.tabIngredientTable = QtWidgets.QTableWidget(self.tabIngredients)
+        self.tabIngredientTable.setGeometry(QtCore.QRect(0, 0, 781, 371))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.tab1Table.sizePolicy().hasHeightForWidth())
-        self.tab1Table.setSizePolicy(sizePolicy)
-        self.tab1Table.setMaximumSize(QtCore.QSize(771, 351))
-        self.tab1Table.setStyleSheet("background: #ffffff")
-        self.tab1Table.setFrameShape(QtWidgets.QFrame.Panel)
-        self.tab1Table.setObjectName("tab1Table")
-        self.tab1Table.setColumnCount(0)
-        self.tab1Table.setRowCount(0)
-        self.btnRestock = QtWidgets.QPushButton(inventoryManagement)
-        self.btnRestock.setGeometry(QtCore.QRect(330, 500, 121, 51))
+        sizePolicy.setHeightForWidth(self.tabIngredientTable.sizePolicy().hasHeightForWidth())
+        self.tabIngredientTable.setSizePolicy(sizePolicy)
+        self.tabIngredientTable.setMaximumSize(QtCore.QSize(1920, 1080))
+        self.tabIngredientTable.setStyleSheet("background: #ffffff")
+        self.tabIngredientTable.setFrameShape(QtWidgets.QFrame.Panel)
+        self.tabIngredientTable.setObjectName("tabIngredientTable")
+        self.tabIngredientTable.setColumnCount(0)
+        self.tabIngredientTable.setRowCount(0)
+        self.btnRestock = QtWidgets.QPushButton(self.tabIngredients)
+        self.btnRestock.setGeometry(QtCore.QRect(330, 400, 121, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.btnRestock.setFont(font)
@@ -167,8 +178,49 @@ class Ui_inventoryManagement(object):
         icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnRestock.setIcon(icon2)
         self.btnRestock.setObjectName("btnRestock")
+        self.tabWidget.addTab(self.tabIngredients, "")
+        self.tabProducts = QtWidgets.QWidget()
+        self.tabProducts.setObjectName("tabProducts")
+        self.tabProductTable = QtWidgets.QTableWidget(self.tabProducts)
+        self.tabProductTable.setGeometry(QtCore.QRect(0, 0, 781, 371))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tabProductTable.sizePolicy().hasHeightForWidth())
+        self.tabProductTable.setSizePolicy(sizePolicy)
+        self.tabProductTable.setMaximumSize(QtCore.QSize(1920, 1080))
+        self.tabProductTable.setStyleSheet("background: #ffffff")
+        self.tabProductTable.setFrameShape(QtWidgets.QFrame.Panel)
+        self.tabProductTable.setObjectName("tabProductTable")
+        self.tabProductTable.setColumnCount(0)
+        self.tabProductTable.setRowCount(0)
+        self.btnAddProduct = QtWidgets.QPushButton(self.tabProducts)
+        self.btnAddProduct.setGeometry(QtCore.QRect(320, 400, 141, 41))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.btnAddProduct.setFont(font)
+        self.btnAddProduct.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnAddProduct.setIcon(icon2)
+        self.btnAddProduct.setObjectName("btnAddProduct")
+        self.tabWidget.addTab(self.tabProducts, "")
 
         self.retranslateUi(inventoryManagement)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(inventoryManagement)
 
     def retranslateUi(self, inventoryManagement):
@@ -180,3 +232,6 @@ class Ui_inventoryManagement(object):
         self.btnInventory.setText(_translate("inventoryManagement", "Inventory"))
         self.InventoryStatus.setText(_translate("inventoryManagement", "Inventory Status"))
         self.btnRestock.setText(_translate("inventoryManagement", " Restock"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabIngredients), _translate("inventoryManagement", "Ingredients"))
+        self.btnAddProduct.setText(_translate("inventoryManagement", "Add Product"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabProducts), _translate("inventoryManagement", "Products"))

@@ -242,50 +242,74 @@ QPushButton:pressed {
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tab1Table">
+  <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>120</y>
-     <width>771</width>
-     <height>351</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>771</width>
-     <height>351</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: #ffffff</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Panel</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnRestock">
-   <property name="geometry">
-    <rect>
-     <x>330</x>
-     <y>500</y>
-     <width>121</width>
-     <height>51</height>
+     <y>100</y>
+     <width>781</width>
+     <height>491</height>
     </rect>
    </property>
    <property name="font">
     <font>
+     <family>Century Gothic</family>
      <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="tabIngredients">
+    <attribute name="title">
+     <string>Ingredients</string>
+    </attribute>
+    <widget class="QTableWidget" name="tabIngredientTable">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>781</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>1920</width>
+       <height>1080</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #ffffff</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnRestock">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>400</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
 	background: #365b6d;
 	color: white;
 	border-style: outset;
@@ -301,14 +325,89 @@ QPushButton:pressed {
     border-style: inset;
     background-color: #365b6d;
 }</string>
-   </property>
-   <property name="text">
-    <string> Restock</string>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>img/restock_white.png</normaloff>img/restock_white.png</iconset>
-   </property>
+     </property>
+     <property name="text">
+      <string> Restock</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>img/restock_white.png</normaloff>img/restock_white.png</iconset>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabProducts">
+    <attribute name="title">
+     <string>Products</string>
+    </attribute>
+    <widget class="QTableWidget" name="tabProductTable">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>781</width>
+       <height>371</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>1920</width>
+       <height>1080</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: #ffffff</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnAddProduct">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>400</y>
+       <width>141</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #365b6d;
+	color: white;
+	border-style: outset;
+	border-width: 2px;
+	border-radius:10px;
+	border-color: black;
+}
+QPushButton:hover {
+    background-color: #53786d;
+	border: 2px solid black;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}</string>
+     </property>
+     <property name="text">
+      <string>Add Product</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>img/restock_white.png</normaloff>img/restock_white.png</iconset>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources/>

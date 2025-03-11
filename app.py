@@ -14,7 +14,6 @@ from concurrent.futures import ThreadPoolExecutor
 #additional imports for each page
 from login_ui import Ui_Login
 from signIn_ui import Ui_signUp
-from landingPage_ui import Ui_landingPage
 from salesForecast_ui import Ui_SalesForecast
 from account_ui import Ui_account
 from sales_ui import Ui_Sales
@@ -23,10 +22,6 @@ from add_item_ui import Ui_Dialog
 from restock_ui import Ui_Restock
 from addExisting_ui import Ui_AddExisting
 from pos_ui import Ui_pos
-from inv_db_setup import inv_database
-from sales_db_setup import sales_database
-from ingredients_db_setup import ingredients_database
-from restock_db_setup import restock_database
 #import sqlite3
 
 class Login(QMainWindow):
@@ -72,22 +67,20 @@ class Inventory(QMainWindow):
         self.ui = Ui_inventoryManagement()
         self.ui.setupUi(self)
      
-        self.populate_inventory_table()
+        self.populate_ingredients()
+        self.populate_products()
+        self.ui.tabWidget.setCurrentIndex(0)
         
         # Connect buttons
         self.ui.btnRestock.clicked.connect(self.restock)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
-
-    def connect_to_database(self):
-        # Database Path
-        db_path = os.path.join("db", "inventory_db.db")
-        return sqlite3.connect(db_path)
     
-    def populate_inventory_table(self):
+    def populate_ingredients(self):
         # Get database connection
-        conn = self.connect_to_database()
+        db_path = os.path.join("db", "inventory_db.db")
+        conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
         # Fetch all items from the inventory table
@@ -95,48 +88,66 @@ class Inventory(QMainWindow):
         inventory_items = cursor.fetchall()
 
         # Set up the table
-        self.ui.tab1Table.setRowCount(len(inventory_items)) 
-        self.ui.tab1Table.setColumnCount(5)
+        self.ui.tabIngredientTable.setRowCount(len(inventory_items)) 
+        self.ui.tabIngredientTable.setColumnCount(5)
 
         # Set headers for the table
         headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
-        self.ui.tab1Table.setHorizontalHeaderLabels(headers)
-        header = self.ui.tab1Table.horizontalHeader()
+        self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
+        header = self.ui.tabIngredientTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
         header.setSectionResizeMode(QHeaderView.Stretch)
-
+        # Set Table to Read-Only
+        self.ui.tabIngredientTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tabIngredientTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         # Populate the table with the data
         for row, item in enumerate(inventory_items):
             for col, value in enumerate(item):
                 table_item = QTableWidgetItem(str(value))
                 table_item.setTextAlignment(Qt.AlignCenter)
-                self.ui.tab1Table.setItem(row, col, table_item)
-                                             
+                self.ui.tabIngredientTable.setItem(row, col, table_item)
         # Adjust column widths to fit content
-        self.ui.tab1Table.resizeRowsToContents()
+        self.ui.tabIngredientTable.resizeRowsToContents()
+        conn.close()
+    def populate_products(self):
+        db_path = os.path.join("db", "product_db.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT product_id, product_name, on_hand, exp_date FROM products_on_hand")
+        products = cursor.fetchall()
+        self.ui.tabProductTable.setRowCount(len(products)) 
+        self.ui.tabProductTable.setColumnCount(4)
+        headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date"]
+        self.ui.tabProductTable.setHorizontalHeaderLabels(headers)
+        header = self.ui.tabProductTable.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tabProductTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tabProductTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        for row, item in enumerate(products):
+            for col, value in enumerate(item):
+                table_item = QTableWidgetItem(str(value))
+                table_item.setTextAlignment(Qt.AlignCenter)
+                self.ui.tabProductTable.setItem(row, col, table_item)
+        self.ui.tabProductTable.resizeRowsToContents()
         conn.close()    
     
     def restock(self):
-        restock_database()
         restock_window = Restock()
-        restock_window.restockConfirmed.connect(self.populate_inventory_table)
+        restock_window.restockConfirmed.connect(self.populate_ingredients)
         restock_window.exec_()
-    
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        
     def open_POS(self):
         POS_window = POSWindow()
         widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-    
     def open_account(self):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-     
 class Restock(QDialog):
     restockConfirmed = pyqtSignal()     
     def __init__(self):
@@ -353,7 +364,7 @@ class AddExisting(QDialog):
                 VALUES (?, ?, ?, ?, ?)
             """, (inventory_id, description, brand, unit, amount))
             self.db_connection.commit()
-            self.accept()  # Close the dialog on success
+            self.accept()
 
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
@@ -497,6 +508,7 @@ class SalesWindow(QMainWindow):
         self.sales_forecast_window.ui.textBrowser.setText(forecast)
         self.sales_forecast_window.show()
         
+'''
 class ForecastWorker(QThread):
     # Signal to pass the generated forecast back to the main thread
     forecast_generated = pyqtSignal(str)
@@ -536,7 +548,7 @@ class ForecastWorker(QThread):
 
         except Exception as e:
             self.forecast_generated.emit(f"Error: {str(e)}")
-        
+'''
 class POSWindow(QMainWindow):
     def __init__(self):
         super(POSWindow, self).__init__()
@@ -749,9 +761,6 @@ class AccountWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
     
 # main
-inv_database()
-sales_database()
-ingredients_database()
 app = QApplication(sys.argv)
 login = Login()
 widget = QtWidgets.QStackedWidget()

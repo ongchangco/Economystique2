@@ -15,14 +15,14 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.NonModal)
-        Dialog.resize(400, 280)
+        Dialog.resize(400, 343)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         Dialog.setStyleSheet("background-color: #f4f4ec;")
         Dialog.setModal(False)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(0, 220, 401, 51))
+        self.buttonBox.setGeometry(QtCore.QRect(0, 280, 401, 51))
         self.buttonBox.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -45,7 +45,7 @@ class Ui_Dialog(object):
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 30, 111, 191))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 30, 111, 221))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.loParam = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.loParam.setContentsMargins(0, 0, 0, 0)
@@ -65,6 +65,9 @@ class Ui_Dialog(object):
         self.label_7 = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label_7.setObjectName("label_7")
         self.loParam.addWidget(self.label_7)
+        self.label_8 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_8.setObjectName("label_8")
+        self.loParam.addWidget(self.label_8)
         self.teInvID = QtWidgets.QTextEdit(Dialog)
         self.teInvID.setGeometry(QtCore.QRect(131, 31, 256, 31))
         self.teInvID.setStyleSheet("background: #ffffff")
@@ -95,6 +98,16 @@ class Ui_Dialog(object):
         self.teAmount.setFrameShape(QtWidgets.QFrame.Panel)
         self.teAmount.setTabChangesFocus(True)
         self.teAmount.setObjectName("teAmount")
+        self.teROP = QtWidgets.QTextEdit(Dialog)
+        self.teROP.setGeometry(QtCore.QRect(130, 220, 131, 31))
+        self.teROP.setStyleSheet("background: #ffffff")
+        self.teROP.setFrameShape(QtWidgets.QFrame.Panel)
+        self.teROP.setTabChangesFocus(True)
+        self.teROP.setObjectName("teROP")
+        self.lblROPUnit = QtWidgets.QLabel(Dialog)
+        self.lblROPUnit.setGeometry(QtCore.QRect(280, 220, 109, 31))
+        self.lblROPUnit.setText("")
+        self.lblROPUnit.setObjectName("lblROPUnit")
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept) # type: ignore
@@ -109,6 +122,7 @@ class Ui_Dialog(object):
         self.label_3.setText(_translate("Dialog", "Brand"))
         self.label_4.setText(_translate("Dialog", "Unit"))
         self.label_7.setText(_translate("Dialog", "Amount"))
+        self.label_8.setText(_translate("Dialog", "Reroder Point"))
         self.teInvID.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -130,6 +144,11 @@ class Ui_Dialog(object):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.teAmount.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.teROP.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"

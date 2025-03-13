@@ -8,7 +8,8 @@ def edit_database():
     cursor = connection.cursor()
 
     # Edit Cell
-    cursor.execute("UPDATE inventory SET rop = ? WHERE inventory_id = ?;",(5000,"IN001"))
+    # cursor.execute("UPDATE inventory SET rop = ? WHERE inventory_id = ?;",(5000,"IN001"))
+    
     # Create tables
     '''cursor.execute("""
     CREATE TABLE IF NOT EXISTS ingredients (

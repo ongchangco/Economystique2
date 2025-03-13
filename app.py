@@ -7,7 +7,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
-from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon
+from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from concurrent.futures import ThreadPoolExecutor
 
@@ -83,30 +83,58 @@ class Inventory(QMainWindow):
         db_path = os.path.join("db", "inventory_db.db")
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        # Fetch all items from the inventory table
-        cursor.execute("SELECT inventory_id, description, brand, unit, on_hand FROM inventory")
+
+        # Fetch all items from the inventory table INCLUDING rop
+        cursor.execute("""
+            SELECT inventory_id, description, brand, unit, on_hand, rop
+            FROM inventory
+        """)
         inventory_items = cursor.fetchall()
+
         # Set up the table
         self.ui.tabIngredientTable.setRowCount(len(inventory_items)) 
-        self.ui.tabIngredientTable.setColumnCount(5)
+        self.ui.tabIngredientTable.setColumnCount(5)  # Still 5 columns shown (excluding rop)
         self.ui.tabIngredientTable.verticalHeader().hide()
+
         # Set headers for the table
         headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
         self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
+
         header = self.ui.tabIngredientTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
         header.setSectionResizeMode(QHeaderView.Stretch)
+
         # Set Table to Read-Only
         self.ui.tabIngredientTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.tabIngredientTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+
         # Populate the table with the data
         for row, item in enumerate(inventory_items):
-            for col, value in enumerate(item):
+            inventory_id, description, brand, unit, on_hand, rop = item
+            
+            # Safe type conversion
+            on_hand = int(on_hand) if on_hand is not None else 0
+            rop = int(rop) if rop is not None else 0
+
+            # Prepare the row values (excluding rop from the table display)
+            row_values = [inventory_id, description, brand, unit, on_hand]
+
+            # Loop through each column and insert items
+            for col, value in enumerate(row_values):
                 table_item = QTableWidgetItem(str(value))
                 table_item.setTextAlignment(Qt.AlignCenter)
+
+                # Apply color if on_hand <= rop (we only need to do it once per row)
+                if on_hand <= rop:
+                    table_item.setForeground(QColor("red"))       # Font color red
+                    table_item.setBackground(QColor("#f4f4ec"))    # Background color yellow
+
                 self.ui.tabIngredientTable.setItem(row, col, table_item)
+
         # Adjust column widths to fit content
         self.ui.tabIngredientTable.resizeRowsToContents()
+
+        # Close database connection
         conn.close()
         
     def populate_products(self):

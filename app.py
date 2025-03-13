@@ -21,6 +21,7 @@ from inventory_ui import Ui_inventoryManagement
 from add_item_ui import Ui_Dialog
 from restock_ui import Ui_Restock
 from productRestock_ui import Ui_PrRestock
+from addCritical_ui import Ui_AddCritical
 from addExisting_ui import Ui_AddExisting
 from addPrExisting_ui import Ui_AddPrExisting
 from addPrNew_ui import Ui_addPrNew
@@ -71,6 +72,7 @@ class Inventory(QMainWindow):
         self.populate_ingredients()
         self.populate_products()
         self.ui.tabWidget.setCurrentIndex(0)
+        self.ui.tabIngredientTable.itemDoubleClicked.connect(self.restock_ROP)
         # Connect buttons
         self.ui.btnRestock.clicked.connect(self.restock)
         self.ui.btnAddProduct.clicked.connect(self.addProduct)
@@ -83,58 +85,44 @@ class Inventory(QMainWindow):
         db_path = os.path.join("db", "inventory_db.db")
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-
         # Fetch all items from the inventory table INCLUDING rop
         cursor.execute("""
             SELECT inventory_id, description, brand, unit, on_hand, rop
             FROM inventory
         """)
         inventory_items = cursor.fetchall()
-
         # Set up the table
         self.ui.tabIngredientTable.setRowCount(len(inventory_items)) 
         self.ui.tabIngredientTable.setColumnCount(5)  # Still 5 columns shown (excluding rop)
         self.ui.tabIngredientTable.verticalHeader().hide()
-
         # Set headers for the table
         headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
         self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
-
         header = self.ui.tabIngredientTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
         header.setSectionResizeMode(QHeaderView.Stretch)
-
         # Set Table to Read-Only
         self.ui.tabIngredientTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.tabIngredientTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-
         # Populate the table with the data
         for row, item in enumerate(inventory_items):
             inventory_id, description, brand, unit, on_hand, rop = item
-            
             # Safe type conversion
             on_hand = int(on_hand) if on_hand is not None else 0
             rop = int(rop) if rop is not None else 0
-
             # Prepare the row values (excluding rop from the table display)
             row_values = [inventory_id, description, brand, unit, on_hand]
-
             # Loop through each column and insert items
             for col, value in enumerate(row_values):
                 table_item = QTableWidgetItem(str(value))
                 table_item.setTextAlignment(Qt.AlignCenter)
-
-                # Apply color if on_hand <= rop (we only need to do it once per row)
+                # ROP Checker
                 if on_hand <= rop:
-                    table_item.setForeground(QColor("red"))       # Font color red
-                    table_item.setBackground(QColor("#f4f4ec"))    # Background color yellow
+                    table_item.setForeground(QColor("red"))
+                    table_item.setBackground(QColor("#f4f4ec"))
 
                 self.ui.tabIngredientTable.setItem(row, col, table_item)
-
-        # Adjust column widths to fit content
         self.ui.tabIngredientTable.resizeRowsToContents()
-
-        # Close database connection
         conn.close()
         
     def populate_products(self):
@@ -161,6 +149,30 @@ class Inventory(QMainWindow):
         self.ui.tabProductTable.resizeRowsToContents()
         conn.close()    
     
+    def restock_ROP(self, item):
+        row = item.row()
+        first_item = self.ui.tabIngredientTable.item(row, 0)
+
+        if first_item and first_item.foreground().color() == QColor("red"):
+            # Get inventory_id and description from the row
+            inventory_id_item = self.ui.tabIngredientTable.item(row, 0)
+            description_item = self.ui.tabIngredientTable.item(row, 1)
+            unit_item = self.ui.tabIngredientTable.item(row, 3)
+
+            inventory_id = inventory_id_item.text() if inventory_id_item else ""
+            description = description_item.text() if description_item else ""
+            unit = unit_item.text() if description_item else ""
+            
+            # Open the AddCritical dialog and pass inventory_id & description
+            conn = sqlite3.connect(os.path.join("db", "inventory_db.db"))
+            add_critical_window = AddCritical(conn, inventory_id, description, unit)
+            
+            # Connect the signal to refresh after restocking
+            add_critical_window.restockConfirmed.connect(self.populate_ingredients)
+
+            add_critical_window.exec_()
+            conn.close()
+    
     def restock(self):
         restock_window = Restock()
         restock_window.restockConfirmed.connect(self.populate_ingredients)
@@ -181,6 +193,62 @@ class Inventory(QMainWindow):
         account_window = AccountWindow()
         widget.addWidget(account_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
+class AddCritical(QDialog):
+    restockConfirmed = pyqtSignal()
+    def __init__(self, conn, inventory_id=None, description=None, unit=None):
+        super(AddCritical, self).__init__()
+        self.ui = Ui_AddCritical()
+        self.ui.setupUi(self)
+        self.db_connection = conn
+        self.inventory_id = inventory_id 
+        self.unit = unit
+        self.ui.lblCriticalItem.setText(f"{inventory_id} - {description}")
+        self.ui.lblAmount.setText(f"Amount to add (in {unit})")
+        # Connect Buttons
+        self.ui.buttonBox.accepted.connect(self.confirm)
+        self.ui.buttonBox.rejected.connect(self.close)
+        
+        
+    def confirm(self):
+        try:
+            amount_text = self.ui.teAmount.toPlainText()
+            # Validate amount is provided
+            if not amount_text.strip():
+                QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
+                return
+            # Convert amount to float
+            amount = float(amount_text)
+            cursor = self.db_connection.cursor()
+            # Fetch current on_hand
+            cursor.execute("""
+                SELECT on_hand FROM inventory WHERE inventory_id = ?
+            """, (self.inventory_id,))
+            result = cursor.fetchone()
+            if result is None:
+                QMessageBox.critical(self, "Error", "Item not found in inventory.")
+                return
+            current_on_hand = result[0] if result[0] is not None else 0
+            # Calculate new on_hand
+            new_on_hand = current_on_hand + amount
+            # Update the on_hand in inventory table
+            cursor.execute("""
+                UPDATE inventory
+                SET on_hand = ?
+                WHERE inventory_id = ?
+            """, (new_on_hand, self.inventory_id))
+            self.db_connection.commit()
+            QMessageBox.information(self, "Success", f"Stock updated! \nNew On Hand: {new_on_hand}")
+            # Emit the signal to refresh the inventory table
+            self.restockConfirmed.emit()
+
+            # Close the dialog
+            self.accept()
+
+        except ValueError:
+            QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"An error occurred: {e}")
+            
 class Restock(QDialog):
     restockConfirmed = pyqtSignal()     
     def __init__(self):
@@ -292,30 +360,24 @@ class Restock(QDialog):
         inv_path = os.path.join("db", "inventory_db.db")
         inv_conn = sqlite3.connect(inv_path)
         inv_cursor = inv_conn.cursor()
-        
         res_conn = self.connect_rsDB()
         res_cursor = res_conn.cursor()
-        
         # Fetch all entries from restock
         res_cursor.execute("SELECT * FROM restock")
         restock_entries = res_cursor.fetchall()
-
         for restock_entry in restock_entries:
-            inventory_id, description, brand, unit, amount = restock_entry
-
+            inventory_id, description, brand, unit, amount, rop = restock_entry
             # Check if inventory_id exists in inventory
             inv_cursor.execute("SELECT on_hand FROM inventory WHERE inventory_id = ?", (inventory_id,))
             existing_entry = inv_cursor.fetchone()
-
             if existing_entry:
                 # If exists, update on_hand quantity
                 new_on_hand = existing_entry[0] + amount
                 inv_cursor.execute("UPDATE inventory SET on_hand = ? WHERE inventory_id = ?", (new_on_hand, inventory_id))
             else:
                 # If not exists, insert new entry
-                inv_cursor.execute("INSERT INTO inventory (inventory_id, description, brand, unit, on_hand) VALUES (?, ?, ?, ?, ?)", 
-                            (inventory_id, description, brand, unit, amount))
-        
+                inv_cursor.execute("INSERT INTO inventory (inventory_id, description, brand, unit, on_hand, rop) VALUES (?, ?, ?, ?, ?, ?)", 
+                            (inventory_id, description, brand, unit, amount, rop))
         inv_conn.commit()
         inv_conn.close()
         # Empty Restock Database        
@@ -482,7 +544,7 @@ class AddExisting(QDialog):
         for item in self.inventory_items:
             inventory_id, description, brand, unit = item
             display_text = f"{inventory_id} - {description} ({brand})"
-            self.ui.cbItems.addItem(display_text, inventory_id)  # Store inventory_id as userData
+            self.ui.cbItems.addItem(display_text, inventory_id)
         inv_cursor.close()
         # Set initial unit label if there's at least one item
         if self.inventory_items:
@@ -586,6 +648,7 @@ class AddItem(QDialog):
             brand = self.ui.teBrand.toPlainText()
             unit = self.ui.teUnit.toPlainText()
             amount = float(self.ui.teAmount.toPlainText())
+            rop = float(self.ui.teROP.toPlainText())
 
             # Ensure Inventory ID is provided or unique
             if not inventory_id:
@@ -595,9 +658,9 @@ class AddItem(QDialog):
             # Insert into database
             cursor = self.db_connection.cursor()
             cursor.execute("""
-            INSERT INTO restock (inventory_id, description, brand, unit, amount)
-            VALUES (?, ?, ?, ?, ?)
-            """, (inventory_id, description, brand, unit, amount))
+            INSERT INTO restock (inventory_id, description, brand, unit, amount, rop)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """, (inventory_id, description, brand, unit, amount, rop))
             self.db_connection.commit()
             self.accept() 
             

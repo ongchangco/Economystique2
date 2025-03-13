@@ -3,12 +3,18 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "inventory_db.db")
+    connectionPath = os.path.join("db", "restock_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
-    # Edit Cell
+    # ADD COLUMN
+    # cursor.execute("ALTER TABLE restock ADD COLUMN rop FLOAT DEFAULT 0")
+    
+    # EDIT CELL
     # cursor.execute("UPDATE inventory SET rop = ? WHERE inventory_id = ?;",(5000,"IN001"))
+    
+    # DELETE
+    #cursor.execute("DELETE FROM inventory WHERE inventory_id = '321'")
     
     # Create tables
     '''cursor.execute("""
@@ -53,8 +59,4 @@ def edit_database():
     '''
     connection.commit()
     connection.close()
-# DELETE
-# cursor.execute("DELETE FROM inventory WHERE inventory_id = 'test'")
-
-
 edit_database()

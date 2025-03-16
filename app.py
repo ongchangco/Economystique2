@@ -14,6 +14,7 @@ from concurrent.futures import ThreadPoolExecutor
 #additional imports for each page
 from login_ui import Ui_Login
 from signIn_ui import Ui_signUp
+from dashboard_ui import Ui_Dashboard
 from salesForecast_ui import Ui_SalesForecast
 from account_ui import Ui_account
 from sales_ui import Ui_Sales
@@ -41,8 +42,8 @@ class Login(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
                 
     def loginfunction(self):
-        inventory = Inventory()
-        widget.addWidget(inventory)
+        dashboard = Dashboard()
+        widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
 class SignUp(QMainWindow):
@@ -60,10 +61,38 @@ class SignUp(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
         
     def signinfunction(self):
-        inventory = Inventory()
-        widget.addWidget(inventory)
+        dashboard = Dashboard()
+        widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
+class Dashboard(QMainWindow):
+    def __init__(self):
+        super(Dashboard, self).__init__()
+        self.ui = Ui_Dashboard()
+        self.ui.setupUi(self)
+        
+        # Connect Buttons
+        self.ui.btnInventory.clicked.connect(self.open_inventory)
+        self.ui.btnSales.clicked.connect(self.open_sales)
+        self.ui.btnPOS.clicked.connect(self.open_POS)
+        self.ui.btnAccount.clicked.connect(self.open_account)
+    def open_inventory(self):
+        inv_window = Inventory()
+        widget.addWidget(inv_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    def open_sales(self):
+        sales_window = SalesWindow()
+        widget.addWidget(sales_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    def open_POS(self):
+        POS_window = POSWindow()
+        widget.addWidget(POS_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    def open_account(self):
+        account_window = AccountWindow()
+        widget.addWidget(account_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+    
 class Inventory(QMainWindow):
     def __init__(self):
         super(Inventory, self).__init__()
@@ -74,12 +103,13 @@ class Inventory(QMainWindow):
         self.ui.tabWidget.setCurrentIndex(0)
         self.ui.tabIngredientTable.itemDoubleClicked.connect(self.restock_ROP)
         # Connect buttons
+        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
         self.ui.btnRestock.clicked.connect(self.restock)
         self.ui.btnAddProduct.clicked.connect(self.addProduct)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        
+    
     def populate_ingredients(self):
         # Get database connection
         db_path = os.path.join("db", "inventory_db.db")
@@ -181,6 +211,10 @@ class Inventory(QMainWindow):
         addProduct_window = PrRestock()
         addProduct_window.restockConfirmed.connect(self.populate_products)
         addProduct_window.exec_()
+    def open_dashboard(self):
+        dashboard_window = Dashboard()
+        widget.addWidget(dashboard_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -711,6 +745,7 @@ class SalesWindow(QMainWindow):
         self.load_sales_data()
 
         # Connect buttons
+        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
@@ -746,6 +781,10 @@ class SalesWindow(QMainWindow):
         self.ui.lblTotal.setText(f"{total:.2f}")
             
     # Button Functions  
+    def open_dashboard(self):
+        dashboard_window = Dashboard()
+        widget.addWidget(dashboard_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
     def open_inventory(self):
         inventory = Inventory()
         widget.addWidget(inventory)
@@ -859,10 +898,10 @@ class POSWindow(QMainWindow):
         self.update_total_label()
 
         # Connect buttons to functions
+        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnAccount.clicked.connect(self.open_account)
-        
         self.ui.btnClear.clicked.connect(self.clear_cart)
         self.ui.btnCheckout.clicked.connect(self.checkout)
         
@@ -1003,6 +1042,10 @@ class POSWindow(QMainWindow):
         self.update_total_label()
 
     # Button Functions
+    def open_dashboard(self):
+        dashboard_window = Dashboard()
+        widget.addWidget(dashboard_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
@@ -1020,21 +1063,20 @@ class AccountWindow(QMainWindow):
     def __init__(self):
         super(AccountWindow, self).__init__()
         self.ui = Ui_account()
-        self._setup_ui()
+        self.ui.setupUi(self)
         self.setWindowTitle("Account")
         
         # Connect buttons
+        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnLogOut.clicked.connect(self.open_login)
-    
-    def _setup_ui(self):
-        try:
-            self.ui.setupUi(self)
-        except RecursionError as e:
-            print("Recursion error detected during UI setup:", e)
 
+    def open_dashboard(self):
+        dashboard_window = Dashboard()
+        widget.addWidget(dashboard_window)
+        widget.setCurrentIndex(widget.currentIndex()+1)
     def open_inventory(self):
         inventory = Inventory()
         widget.addWidget(inventory)

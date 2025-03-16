@@ -47,15 +47,6 @@ class Ui_account(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.titleLabel_2 = QtWidgets.QLabel(self.frame)
-        self.titleLabel_2.setGeometry(QtCore.QRect(0, 0, 221, 41))
-        font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.titleLabel_2.setFont(font)
-        self.titleLabel_2.setStyleSheet("color: white;")
-        self.titleLabel_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.titleLabel_2.setObjectName("titleLabel_2")
         self.btnSales = QtWidgets.QPushButton(self.frame)
         self.btnSales.setGeometry(QtCore.QRect(570, 0, 93, 41))
         font = QtGui.QFont()
@@ -138,6 +129,30 @@ class Ui_account(object):
         self.btnAccount.setIcon(icon1)
         self.btnAccount.setIconSize(QtCore.QSize(40, 40))
         self.btnAccount.setObjectName("btnAccount")
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 221, 41))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(18)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDashboard.setIcon(icon2)
+        self.btnDashboard.setObjectName("btnDashboard")
         self.frame_3 = QtWidgets.QFrame(account)
         self.frame_3.setGeometry(QtCore.QRect(20, 160, 761, 351))
         self.frame_3.setStyleSheet("background: #365b6d")
@@ -238,10 +253,10 @@ class Ui_account(object):
         account.setWindowTitle(_translate("account", "EconoMystique"))
         self.btnLogOut.setText(_translate("account", "Log Out"))
         self.lblBusinessName_2.setText(_translate("account", "Account"))
-        self.titleLabel_2.setText(_translate("account", "EconoMystique"))
         self.btnSales.setText(_translate("account", "Sales"))
         self.btnInventory.setText(_translate("account", "Inventory"))
         self.btnPOS.setText(_translate("account", "POS"))
+        self.btnDashboard.setText(_translate("account", "EconoMystique"))
         self.lblBsnsType.setText(_translate("account", "<html><head/><body><p><span style=\" color:#ffffff;\">Business Type:</span></p></body></html>"))
         self.lblIndustry.setText(_translate("account", "<html><head/><body><p><span style=\" color:#ffffff;\">Industry:</span></p></body></html>"))
         self.lblLocation.setText(_translate("account", "<html><head/><body><p><span style=\" color:#ffffff;\">Location:</span></p></body></html>"))

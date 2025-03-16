@@ -27,15 +27,6 @@ class Ui_inventoryManagement(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-        self.titleLabel = QtWidgets.QLabel(self.frame)
-        self.titleLabel.setGeometry(QtCore.QRect(0, 0, 221, 41))
-        font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.titleLabel.setFont(font)
-        self.titleLabel.setStyleSheet("color: white;")
-        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.titleLabel.setObjectName("titleLabel")
         self.btnPOS = QtWidgets.QPushButton(self.frame)
         self.btnPOS.setGeometry(QtCore.QRect(660, 0, 93, 41))
         font = QtGui.QFont()
@@ -118,6 +109,30 @@ class Ui_inventoryManagement(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 221, 41))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(18)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDashboard.setIcon(icon2)
+        self.btnDashboard.setObjectName("btnDashboard")
         self.InventoryStatus = QtWidgets.QLabel(inventoryManagement)
         self.InventoryStatus.setGeometry(QtCore.QRect(9, 50, 781, 71))
         font = QtGui.QFont()
@@ -174,9 +189,9 @@ class Ui_inventoryManagement(object):
 "    border-style: inset;\n"
 "    background-color: #365b6d;\n"
 "}")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnRestock.setIcon(icon2)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnRestock.setIcon(icon3)
         self.btnRestock.setObjectName("btnRestock")
         self.tabWidget.addTab(self.tabIngredients, "")
         self.tabProducts = QtWidgets.QWidget()
@@ -215,7 +230,7 @@ class Ui_inventoryManagement(object):
 "    border-style: inset;\n"
 "    background-color: #365b6d;\n"
 "}")
-        self.btnAddProduct.setIcon(icon2)
+        self.btnAddProduct.setIcon(icon3)
         self.btnAddProduct.setObjectName("btnAddProduct")
         self.tabWidget.addTab(self.tabProducts, "")
 
@@ -226,10 +241,10 @@ class Ui_inventoryManagement(object):
     def retranslateUi(self, inventoryManagement):
         _translate = QtCore.QCoreApplication.translate
         inventoryManagement.setWindowTitle(_translate("inventoryManagement", "EconoMystique"))
-        self.titleLabel.setText(_translate("inventoryManagement", "EconoMystique"))
         self.btnPOS.setText(_translate("inventoryManagement", "POS"))
         self.btnSales.setText(_translate("inventoryManagement", "Sales"))
         self.btnInventory.setText(_translate("inventoryManagement", "Inventory"))
+        self.btnDashboard.setText(_translate("inventoryManagement", "EconoMystique"))
         self.InventoryStatus.setText(_translate("inventoryManagement", "Inventory Status"))
         self.btnRestock.setText(_translate("inventoryManagement", " Restock"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabIngredients), _translate("inventoryManagement", "Ingredients"))

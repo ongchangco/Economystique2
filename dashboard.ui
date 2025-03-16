@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Sales</class>
- <widget class="QWidget" name="Sales">
+ <class>Dashboard</class>
+ <widget class="QWidget" name="Dashboard">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
+    <width>799</width>
     <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>EconoMystique</string>
-  </property>
-  <property name="windowIcon">
-   <iconset>
-    <selectedon>../.designer/backup/img/econoLogo2.png</selectedon>
-   </iconset>
+   <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #f4f4ec;
+   <string notr="true">background-color: #f4f4ec;
 color: black;
 </string>
   </property>
@@ -41,78 +36,6 @@ color: black;
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="btnSales">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>0</y>
-      <width>93</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Sales</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnInventory">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>0</y>
-      <width>93</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Inventory</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
@@ -190,6 +113,78 @@ QPushButton:pressed {
      </size>
     </property>
    </widget>
+   <widget class="QPushButton" name="btnSales">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>0</y>
+      <width>93</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Sales</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnInventory">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>0</y>
+      <width>93</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Inventory</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="btnDashboard">
     <property name="geometry">
      <rect>
@@ -232,185 +227,102 @@ QPushButton:pressed {
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="SalesRecords">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>47</y>
-     <width>781</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Sans Serif Collection</family>
-     <pointsize>18</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Sales</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="productTable">
+  <widget class="QWidget" name="gpPerformance" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>131</y>
-     <width>781</width>
-     <height>331</height>
+     <y>160</y>
+     <width>501</width>
+     <height>431</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: #ffffff</string>
+    <string notr="true">background: white;</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::Panel</enum>
+  </widget>
+  <widget class="QListWidget" name="lsCritical">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>161</y>
+     <width>261</width>
+     <height>421</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background: white;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>500</y>
-     <width>81</width>
-     <height>61</height>
+     <x>534</x>
+     <y>125</y>
+     <width>251</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
+   <property name="lineWidth">
+    <number>1</number>
    </property>
    <property name="text">
-    <string>Total</string>
+    <string>Critical Items</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lblTotal">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>500</y>
-     <width>271</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: white;
-</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Sunken</enum>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnAssessment">
-   <property name="geometry">
-    <rect>
-     <x>460</x>
-     <y>510</y>
-     <width>161</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
-	background: #365b6d;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-	border-color: black;
-}
-QPushButton:hover {
-    background-color: #53786d;
-	border: 2px solid black;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-   </property>
-   <property name="text">
-    <string>See Assessment</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="forecastButton">
-   <property name="geometry">
-    <rect>
-     <x>630</x>
-     <y>510</y>
-     <width>161</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QPushButton{
-	background: #365b6d;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-	border-color: black;
-}
-QPushButton:hover {
-    background-color: #53786d;
-	border: 2px solid black;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-   </property>
-   <property name="text">
-    <string>Generate Forecast</string>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>img/econologo_transparent_cropped.png</normaloff>img/econologo_transparent_cropped.png</iconset>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>15</width>
-     <height>40</height>
-    </size>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>560</y>
-     <width>331</width>
-     <height>21</height>
+     <x>10</x>
+     <y>50</y>
+     <width>781</width>
+     <height>31</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
+   <property name="font">
+    <font>
+     <family>MS Sans Serif</family>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
    </property>
    <property name="text">
-    <string>Powered by: GPT Neo</string>
+    <string>Dashboard</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>501</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="text">
+    <string>This Month's Performance</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

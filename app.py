@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
-from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QThread
+from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QTimer
 from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from concurrent.futures import ThreadPoolExecutor
@@ -42,7 +42,7 @@ class Login(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
                 
     def loginfunction(self):
-        dashboard = Dashboard()
+        dashboard = Dashboard(widget)
         widget.addWidget(dashboard)
         widget.setCurrentIndex(widget.currentIndex()+1)
         
@@ -66,16 +66,65 @@ class SignUp(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex()+1)
 
 class Dashboard(QMainWindow):
-    def __init__(self):
+    def __init__(self, widget):
         super(Dashboard, self).__init__()
         self.ui = Ui_Dashboard()
         self.ui.setupUi(self)
+        self.widget = widget  # Save reference to the stacked widget
+        self.populate_crit_list()
         
         # Connect Buttons
         self.ui.btnInventory.clicked.connect(self.open_inventory)
         self.ui.btnSales.clicked.connect(self.open_sales)
         self.ui.btnPOS.clicked.connect(self.open_POS)
         self.ui.btnAccount.clicked.connect(self.open_account)
+        self.ui.lsCritical.itemDoubleClicked.connect(self.focus_crit_inv)
+        
+    def populate_crit_list(self):
+        # Get DB Connection
+        db_path = os.path.join("db", "inventory_db.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT inventory_id, description, on_hand, unit FROM inventory WHERE on_hand <= rop
+            """)
+        critItems = cursor.fetchall()
+        self.ui.lsCritical.clear()
+        # Loop through results and format each item
+        for inventory_id, description, on_hand, unit in critItems:
+            list_item_text = f"{inventory_id} - {description} @ {int(on_hand)} {unit}"
+            self.ui.lsCritical.addItem(list_item_text)
+        conn.close()
+        
+    def focus_crit_inv(self, item):
+        item_text = item.text()
+        inventory_id = item_text.split(' - ')[0]
+
+        inv_window = Inventory()
+
+        self.widget.addWidget(inv_window)
+        self.widget.setCurrentWidget(inv_window)
+
+        QTimer.singleShot(100, lambda: self.focus_on_inventory_id(inv_window, inventory_id))
+        self.close()
+        
+    def focus_on_inventory_id(self, inv_window, inventory_id):
+        table = inv_window.ui.tabIngredientTable
+        row_to_focus = -1
+
+        # Search for the inventory_id in the table
+        for row in range(table.rowCount()):
+            item = table.item(row, 0)  # Column 0 is inventory_id
+            if item and item.text() == inventory_id:
+                row_to_focus = row
+                break
+
+        if row_to_focus >= 0:
+            table.selectRow(row_to_focus)
+            table.scrollToItem(table.item(row_to_focus, 0), QtWidgets.QAbstractItemView.PositionAtCenter)
+            table.setFocus()
+    
     def open_inventory(self):
         inv_window = Inventory()
         widget.addWidget(inv_window)
@@ -212,7 +261,7 @@ class Inventory(QMainWindow):
         addProduct_window.restockConfirmed.connect(self.populate_products)
         addProduct_window.exec_()
     def open_dashboard(self):
-        dashboard_window = Dashboard()
+        dashboard_window = Dashboard(widget)
         widget.addWidget(dashboard_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     def open_sales(self):
@@ -782,7 +831,7 @@ class SalesWindow(QMainWindow):
             
     # Button Functions  
     def open_dashboard(self):
-        dashboard_window = Dashboard()
+        dashboard_window = Dashboard(widget)
         widget.addWidget(dashboard_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     def open_inventory(self):
@@ -1043,7 +1092,7 @@ class POSWindow(QMainWindow):
 
     # Button Functions
     def open_dashboard(self):
-        dashboard_window = Dashboard()
+        dashboard_window = Dashboard(widget)
         widget.addWidget(dashboard_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     def open_sales(self):
@@ -1074,24 +1123,21 @@ class AccountWindow(QMainWindow):
         self.ui.btnLogOut.clicked.connect(self.open_login)
 
     def open_dashboard(self):
-        dashboard_window = Dashboard()
+        dashboard_window = Dashboard(widget)
         widget.addWidget(dashboard_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
     def open_inventory(self):
         inventory = Inventory()
         widget.addWidget(inventory)
         widget.setCurrentIndex(widget.currentIndex()+1)
-
     def open_sales(self):
         sales_window = SalesWindow()
         widget.addWidget(sales_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-
     def open_POS(self):
         POS_window = POSWindow()
         widget.addWidget(POS_window)
         widget.setCurrentIndex(widget.currentIndex()+1)
-
     def open_login(self):
         account_login = Login()
         widget.addWidget(account_login)

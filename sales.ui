@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
-    <height>600</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@ color: black;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>1601</width>
      <height>41</height>
     </rect>
    </property>
@@ -44,7 +44,7 @@ color: black;
    <widget class="QPushButton" name="btnSales">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>1370</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -80,7 +80,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnInventory">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>1280</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -116,7 +116,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>1460</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -152,7 +152,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnAccount">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1550</x>
       <y>0</y>
       <width>51</width>
       <height>41</height>
@@ -237,7 +237,7 @@ QPushButton:pressed {
     <rect>
      <x>9</x>
      <y>47</y>
-     <width>781</width>
+     <width>1581</width>
      <height>51</height>
     </rect>
    </property>
@@ -257,16 +257,16 @@ QPushButton:pressed {
   <widget class="QTabWidget" name="QTabWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>100</y>
-     <width>781</width>
-     <height>491</height>
+     <width>1561</width>
+     <height>771</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Century Gothic</family>
-     <pointsize>10</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="currentIndex">
@@ -281,8 +281,8 @@ QPushButton:pressed {
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>781</width>
-       <height>341</height>
+       <width>1561</width>
+       <height>611</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -296,14 +296,14 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>360</y>
-       <width>271</width>
+       <y>650</y>
+       <width>301</width>
        <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="styleSheet">
@@ -327,14 +327,14 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>360</y>
+       <y>650</y>
        <width>81</width>
        <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="styleSheet">
@@ -350,11 +350,16 @@ QPushButton:pressed {
     <widget class="QPushButton" name="btnAssessment">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>370</y>
-       <width>161</width>
-       <height>41</height>
+       <x>920</x>
+       <y>650</y>
+       <width>291</width>
+       <height>71</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
@@ -381,11 +386,16 @@ QPushButton:pressed {
     <widget class="QPushButton" name="forecastButton">
      <property name="geometry">
       <rect>
-       <x>600</x>
-       <y>370</y>
-       <width>161</width>
-       <height>41</height>
+       <x>1240</x>
+       <y>650</y>
+       <width>291</width>
+       <height>71</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
@@ -424,30 +434,19 @@ QPushButton:pressed {
     <attribute name="title">
      <string>Monthly</string>
     </attribute>
-    <widget class="QTableWidget" name="productTable_Monthly">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>70</y>
-       <width>781</width>
-       <height>271</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: #ffffff</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Panel</enum>
-     </property>
-    </widget>
     <widget class="QComboBox" name="cbYear_2">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>10</y>
-       <width>211</width>
+       <x>140</x>
+       <y>30</y>
+       <width>231</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background: white;</string>
@@ -456,30 +455,95 @@ QPushButton:pressed {
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>71</width>
+       <x>30</x>
+       <y>30</y>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Century Gothic</family>
-       <pointsize>10</pointsize>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="text">
       <string>Month:</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>650</y>
+       <width>81</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Total</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnAssessment_2">
+     <property name="geometry">
+      <rect>
+       <x>920</x>
+       <y>650</y>
+       <width>291</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #365b6d;
+	color: white;
+	border-style: outset;
+	border-width: 2px;
+	border-radius:10px;
+	border-color: black;
+}
+QPushButton:hover {
+    background-color: #53786d;
+	border: 2px solid black;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}</string>
+     </property>
+     <property name="text">
+      <string>See Assessment</string>
+     </property>
+    </widget>
     <widget class="QPushButton" name="forecastButton_2">
      <property name="geometry">
       <rect>
-       <x>600</x>
-       <y>370</y>
-       <width>161</width>
-       <height>41</height>
+       <x>1240</x>
+       <y>650</y>
+       <width>291</width>
+       <height>71</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
@@ -517,14 +581,14 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>360</y>
-       <width>271</width>
+       <y>650</y>
+       <width>301</width>
        <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="styleSheet">
@@ -544,73 +608,13 @@ QPushButton:pressed {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnAssessment_2">
-     <property name="geometry">
-      <rect>
-       <x>430</x>
-       <y>370</y>
-       <width>161</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton{
-	background: #365b6d;
-	color: white;
-	border-style: outset;
-	border-width: 2px;
-	border-radius:10px;
-	border-color: black;
-}
-QPushButton:hover {
-    background-color: #53786d;
-	border: 2px solid black;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}</string>
-     </property>
-     <property name="text">
-      <string>See Assessment</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>360</y>
-       <width>81</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <property name="text">
-      <string>Total</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Yearly</string>
-    </attribute>
-    <widget class="QTableWidget" name="productTable_Yearly">
+    <widget class="QTableWidget" name="productTable_2">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>70</y>
-       <width>781</width>
-       <height>271</height>
+       <y>90</y>
+       <width>1561</width>
+       <height>521</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -620,46 +624,61 @@ QPushButton:pressed {
       <enum>QFrame::Panel</enum>
      </property>
     </widget>
-    <widget class="QComboBox" name="cbYear">
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Yearly</string>
+    </attribute>
+    <widget class="QComboBox" name="cbYear_3">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>10</y>
-       <width>211</width>
+       <x>140</x>
+       <y>30</y>
+       <width>231</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">background: white;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>51</width>
+       <x>30</x>
+       <y>30</y>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Century Gothic</family>
-       <pointsize>10</pointsize>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>Year :</string>
+      <string>Year:</string>
      </property>
     </widget>
     <widget class="QPushButton" name="forecastButton_3">
      <property name="geometry">
       <rect>
-       <x>600</x>
-       <y>370</y>
-       <width>161</width>
-       <height>41</height>
+       <x>1240</x>
+       <y>650</y>
+       <width>291</width>
+       <height>71</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
@@ -693,45 +712,35 @@ QPushButton:pressed {
       </size>
      </property>
     </widget>
-    <widget class="QLabel" name="lblTotal_3">
+    <widget class="QTableWidget" name="productTable_3">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>360</y>
-       <width>271</width>
-       <height>61</height>
+       <x>0</x>
+       <y>90</y>
+       <width>1561</width>
+       <height>521</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
      <property name="styleSheet">
-      <string notr="true">background: white;
-</string>
+      <string notr="true">background: #ffffff</string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <enum>QFrame::Panel</enum>
      </property>
     </widget>
     <widget class="QPushButton" name="btnAssessment_3">
      <property name="geometry">
       <rect>
-       <x>430</x>
-       <y>370</y>
-       <width>161</width>
-       <height>41</height>
+       <x>920</x>
+       <y>650</y>
+       <width>291</width>
+       <height>71</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
@@ -755,18 +764,49 @@ QPushButton:pressed {
       <string>See Assessment</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="lblTotal_3">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>650</y>
+       <width>301</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>360</y>
+       <y>650</y>
        <width>81</width>
        <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>12</pointsize>
+       <pointsize>14</pointsize>
       </font>
      </property>
      <property name="styleSheet">

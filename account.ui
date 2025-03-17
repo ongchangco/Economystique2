@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,42 +23,12 @@
 color: black;
 </string>
   </property>
-  <widget class="QPushButton" name="btnLogOut">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>520</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <underline>false</underline>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>PointingHandCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: white;
-background-color: red;
-
-</string>
-   </property>
-   <property name="text">
-    <string>Log Out</string>
-   </property>
-   <property name="flat">
-    <bool>false</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="lblBusinessName_2">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>781</width>
+     <width>1581</width>
      <height>51</height>
     </rect>
    </property>
@@ -80,7 +50,7 @@ background-color: red;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>1601</width>
      <height>41</height>
     </rect>
    </property>
@@ -96,7 +66,7 @@ background-color: red;
    <widget class="QPushButton" name="btnSales">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>1370</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -132,7 +102,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnInventory">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>1280</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -168,7 +138,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>1460</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -204,7 +174,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnAccount">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1550</x>
       <y>0</y>
       <width>51</width>
       <height>41</height>
@@ -290,8 +260,8 @@ QPushButton:pressed {
     <rect>
      <x>20</x>
      <y>160</y>
-     <width>761</width>
-     <height>351</height>
+     <width>1561</width>
+     <height>641</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -306,14 +276,18 @@ QPushButton:pressed {
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>220</y>
-      <width>311</width>
-      <height>111</height>
+      <x>90</x>
+      <y>390</y>
+      <width>461</width>
+      <height>161</height>
      </rect>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: #5b8da6;
+border-radius: 10px;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -324,16 +298,15 @@ QPushButton:pressed {
     <widget class="QLabel" name="lblBsnsType">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>91</width>
+       <x>10</x>
+       <y>10</y>
+       <width>131</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <weight>50</weight>
-       <bold>false</bold>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -346,16 +319,15 @@ QPushButton:pressed {
     <widget class="QLabel" name="lblIndustry">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>30</y>
-       <width>91</width>
+       <x>10</x>
+       <y>50</y>
+       <width>131</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <weight>50</weight>
-       <bold>false</bold>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -368,16 +340,15 @@ QPushButton:pressed {
     <widget class="QLabel" name="lblLocation">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>60</y>
-       <width>91</width>
+       <x>10</x>
+       <y>90</y>
+       <width>131</width>
        <height>51</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <weight>50</weight>
-       <bold>false</bold>
+       <pointsize>10</pointsize>
       </font>
      </property>
      <property name="text">
@@ -390,11 +361,16 @@ QPushButton:pressed {
     <widget class="QLabel" name="lblBsnsTypeVal">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>0</y>
-       <width>211</width>
+       <x>150</x>
+       <y>10</y>
+       <width>301</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Sole Propreitorship&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -406,11 +382,16 @@ QPushButton:pressed {
     <widget class="QLabel" name="lblIndVal">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>30</y>
-       <width>211</width>
+       <x>150</x>
+       <y>50</y>
+       <width>301</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Food (Pastries)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -422,11 +403,16 @@ QPushButton:pressed {
     <widget class="QLabel" name="lblLocVal">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>60</y>
-       <width>211</width>
+       <x>150</x>
+       <y>90</y>
+       <width>301</width>
        <height>51</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Del Rosario Bldg., Unit 2, Real Street, Magsaysay, Tagudin, Ilocos Sur&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -442,16 +428,16 @@ QPushButton:pressed {
    <widget class="QLabel" name="lblBusinessName">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>170</y>
-      <width>351</width>
+      <x>90</x>
+      <y>320</y>
+      <width>461</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Sans Serif Collection</family>
-      <pointsize>12</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="autoFillBackground">
@@ -470,10 +456,10 @@ QPushButton:pressed {
    <widget class="QLabel" name="imgBusinessLogo">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>10</y>
-      <width>141</width>
-      <height>151</height>
+      <x>180</x>
+      <y>20</y>
+      <width>281</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="text">
@@ -489,10 +475,10 @@ QPushButton:pressed {
    <widget class="QLabel" name="imgProfile">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>1120</x>
       <y>20</y>
-      <width>141</width>
-      <height>151</height>
+      <width>281</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="text">
@@ -508,14 +494,15 @@ QPushButton:pressed {
    <widget class="QLabel" name="lblRole">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>210</y>
+      <x>1150</x>
+      <y>370</y>
       <width>211</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <pointsize>10</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -530,8 +517,8 @@ QPushButton:pressed {
    <widget class="QLabel" name="lblUserName">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>170</y>
+      <x>1100</x>
+      <y>320</y>
       <width>321</width>
       <height>41</height>
      </rect>
@@ -539,7 +526,7 @@ QPushButton:pressed {
     <property name="font">
      <font>
       <family>Sans Serif Collection</family>
-      <pointsize>12</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="text">
@@ -550,10 +537,40 @@ QPushButton:pressed {
     </property>
    </widget>
   </widget>
+  <widget class="QPushButton" name="btnLogOut">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>820</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: white;
+background-color: red;
+
+</string>
+   </property>
+   <property name="text">
+    <string>Log Out</string>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+  </widget>
   <zorder>frame_3</zorder>
-  <zorder>btnLogOut</zorder>
   <zorder>lblBusinessName_2</zorder>
   <zorder>frame</zorder>
+  <zorder>btnLogOut</zorder>
  </widget>
  <resources/>
  <connections/>

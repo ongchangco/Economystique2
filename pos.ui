@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@ color: black;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>1601</width>
      <height>41</height>
     </rect>
    </property>
@@ -43,7 +43,7 @@ color: black;
    <widget class="QPushButton" name="btnSales">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>1370</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -79,7 +79,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnInventory">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>1280</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -115,7 +115,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>1460</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -151,7 +151,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnAccount">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1550</x>
       <y>0</y>
       <width>51</width>
       <height>41</height>
@@ -234,10 +234,10 @@ QPushButton:pressed {
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>50</y>
-     <width>471</width>
-     <height>531</height>
+     <width>1251</width>
+     <height>831</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
@@ -260,9 +260,15 @@ QPushButton:pressed {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C005
@@ -275,8 +281,8 @@ Red Velvet
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -301,9 +307,15 @@ Red Velvet
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C003
@@ -316,8 +328,8 @@ Caramel Cake
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -342,9 +354,15 @@ Caramel Cake
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C001
@@ -357,8 +375,8 @@ Chocolate Moist
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -383,9 +401,15 @@ Chocolate Moist
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C002
@@ -398,8 +422,8 @@ Yema Vanilla
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -424,9 +448,15 @@ Yema Vanilla
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C007
@@ -439,8 +469,8 @@ Strawberry Cake
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -465,9 +495,15 @@ Strawberry Cake
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C004
@@ -480,8 +516,8 @@ Ube Caramel
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -506,9 +542,15 @@ Ube Caramel
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C008
@@ -521,8 +563,8 @@ Biscoff Mocha
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -547,9 +589,15 @@ Biscoff Mocha
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C009
@@ -562,8 +610,8 @@ Bento Cake
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -588,9 +636,15 @@ Bento Cake
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C010
@@ -603,8 +657,8 @@ Cupcake
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -629,9 +683,15 @@ Cupcake
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>111</width>
-         <height>171</height>
+         <width>301</width>
+         <height>261</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Century Gothic</family>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="text">
         <string>C006
@@ -644,8 +704,8 @@ Pandan Cake
        </property>
        <property name="iconSize">
         <size>
-         <width>80</width>
-         <height>80</height>
+         <width>150</width>
+         <height>150</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -659,11 +719,16 @@ Pandan Cake
   <widget class="QPushButton" name="btnClear">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>400</y>
-     <width>93</width>
-     <height>28</height>
+     <x>1370</x>
+     <y>620</y>
+     <width>141</width>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -690,10 +755,10 @@ QPushButton:pressed {
   <widget class="QLabel" name="lblTotal">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>440</y>
-     <width>281</width>
-     <height>101</height>
+     <x>1290</x>
+     <y>730</y>
+     <width>291</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="font">
@@ -717,11 +782,16 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnCheckout">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>550</y>
+     <x>1300</x>
+     <y>827</y>
      <width>281</width>
-     <height>28</height>
+     <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -748,15 +818,15 @@ QPushButton:pressed {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>55</y>
-     <width>81</width>
+     <x>1290</x>
+     <y>70</y>
+     <width>291</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>16</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
@@ -771,11 +841,16 @@ QPushButton:pressed {
   <widget class="QListView" name="cartList">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>91</y>
-     <width>271</width>
-     <height>291</height>
+     <x>1290</x>
+     <y>116</y>
+     <width>291</width>
+     <height>491</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: #ffffff</string>

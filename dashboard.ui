@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>600</height>
+    <width>1600</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@ color: black;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>1601</width>
      <height>41</height>
     </rect>
    </property>
@@ -39,7 +39,7 @@ color: black;
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>1460</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -75,7 +75,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnAccount">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>1550</x>
       <y>0</y>
       <width>51</width>
       <height>41</height>
@@ -116,7 +116,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnSales">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>1370</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -152,7 +152,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnInventory">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>1280</x>
       <y>0</y>
       <width>93</width>
       <height>41</height>
@@ -230,10 +230,10 @@ QPushButton:pressed {
   <widget class="QWidget" name="gpPerformance" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>150</y>
-     <width>501</width>
-     <height>431</height>
+     <x>20</x>
+     <y>170</y>
+     <width>761</width>
+     <height>501</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -247,33 +247,41 @@ QPushButton:pressed {
   <widget class="QListWidget" name="lsCritical">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>151</y>
-     <width>261</width>
-     <height>431</height>
+     <x>800</x>
+     <y>170</y>
+     <width>351</width>
+     <height>501</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">QListWidget {
 	border: 1px solid black;
     border-radius: 10px;
-	background: white;
+	background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                            stop:0 rgb(248,235,235),
+                            stop:0.53 rgb(248,214,214),
+                            stop:1 rgb(247,234,234));
+}
+
+QListWidget::item:selected {
+    background-color: #ffcccc;
+    padding: 5px;
 }</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>534</x>
-     <y>110</y>
-     <width>251</width>
+     <x>800</x>
+     <y>130</y>
+     <width>351</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Century Gothic</family>
-     <pointsize>10</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="lineWidth">
@@ -291,7 +299,7 @@ QPushButton:pressed {
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>781</width>
+     <width>1581</width>
      <height>51</height>
     </rect>
    </property>
@@ -314,16 +322,16 @@ QPushButton:pressed {
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>110</y>
-     <width>501</width>
+     <x>20</x>
+     <y>130</y>
+     <width>761</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Century Gothic</family>
-     <pointsize>10</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="lineWidth">
@@ -334,6 +342,115 @@ QPushButton:pressed {
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>690</y>
+     <width>1141</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-radius: 10px;
+background: #365b6d;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>1121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;</string>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Product of the Month</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>40</y>
+      <width>191</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: white;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>1170</x>
+     <y>130</y>
+     <width>411</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="text">
+    <string>Available Products</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="lsCritical_2">
+   <property name="geometry">
+    <rect>
+     <x>1170</x>
+     <y>170</y>
+     <width>411</width>
+     <height>711</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QListWidget {
+	border: 1px solid black;
+    border-radius: 10px;
+	background: white;
+}</string>
    </property>
   </widget>
  </widget>

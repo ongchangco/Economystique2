@@ -231,33 +231,41 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>160</y>
+     <y>150</y>
      <width>501</width>
      <height>431</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: white;</string>
+    <string notr="true">QWidget {
+    border: 1px solid black;
+    border-radius: 10px;
+	background: white;
+}</string>
    </property>
   </widget>
   <widget class="QListWidget" name="lsCritical">
    <property name="geometry">
     <rect>
      <x>530</x>
-     <y>161</y>
+     <y>151</y>
      <width>261</width>
-     <height>421</height>
+     <height>431</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">Background: white;</string>
+    <string notr="true">QListWidget {
+	border: 1px solid black;
+    border-radius: 10px;
+	background: white;
+}</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>534</x>
-     <y>125</y>
+     <y>110</y>
      <width>251</width>
      <height>31</height>
     </rect>
@@ -284,7 +292,7 @@ QPushButton:pressed {
      <x>10</x>
      <y>50</y>
      <width>781</width>
-     <height>31</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -307,7 +315,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>120</y>
+     <y>110</y>
      <width>501</width>
      <height>31</height>
     </rect>

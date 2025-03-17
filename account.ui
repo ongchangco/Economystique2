@@ -56,15 +56,15 @@ background-color: red;
   <widget class="QLabel" name="lblBusinessName_2">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>70</y>
-     <width>221</width>
-     <height>71</height>
+     <x>10</x>
+     <y>50</y>
+     <width>781</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Sans Serif Collection</family>
+     <family>MS Sans Serif</family>
      <pointsize>18</pointsize>
     </font>
    </property>

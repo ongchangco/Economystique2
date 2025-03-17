@@ -237,12 +237,12 @@ QPushButton:pressed {
      <x>9</x>
      <y>50</y>
      <width>781</width>
-     <height>71</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Sans Serif Collection</family>
+     <family>MS Sans Serif</family>
      <pointsize>18</pointsize>
      <weight>50</weight>
      <bold>false</bold>

@@ -134,30 +134,31 @@ class Ui_Sales(object):
         self.btnDashboard.setIcon(icon2)
         self.btnDashboard.setObjectName("btnDashboard")
         self.SalesRecords = QtWidgets.QLabel(Sales)
-        self.SalesRecords.setGeometry(QtCore.QRect(9, 47, 781, 71))
+        self.SalesRecords.setGeometry(QtCore.QRect(9, 47, 781, 51))
         font = QtGui.QFont()
-        font.setFamily("Sans Serif Collection")
+        font.setFamily("MS Sans Serif")
         font.setPointSize(18)
         self.SalesRecords.setFont(font)
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
-        self.productTable = QtWidgets.QTableWidget(Sales)
-        self.productTable.setGeometry(QtCore.QRect(10, 131, 781, 331))
+        self.QTabWidget = QtWidgets.QTabWidget(Sales)
+        self.QTabWidget.setGeometry(QtCore.QRect(10, 100, 781, 491))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.QTabWidget.setFont(font)
+        self.QTabWidget.setObjectName("QTabWidget")
+        self.tabToday = QtWidgets.QWidget()
+        self.tabToday.setObjectName("tabToday")
+        self.productTable = QtWidgets.QTableWidget(self.tabToday)
+        self.productTable.setGeometry(QtCore.QRect(0, 0, 781, 341))
         self.productTable.setStyleSheet("background: #ffffff")
         self.productTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.productTable.setObjectName("productTable")
         self.productTable.setColumnCount(0)
         self.productTable.setRowCount(0)
-        self.label = QtWidgets.QLabel(Sales)
-        self.label.setGeometry(QtCore.QRect(10, 500, 81, 61))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.label.setFont(font)
-        self.label.setStyleSheet("")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.lblTotal = QtWidgets.QLabel(Sales)
-        self.lblTotal.setGeometry(QtCore.QRect(100, 500, 271, 61))
+        self.lblTotal = QtWidgets.QLabel(self.tabToday)
+        self.lblTotal.setGeometry(QtCore.QRect(110, 360, 271, 61))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.lblTotal.setFont(font)
@@ -168,8 +169,16 @@ class Ui_Sales(object):
         self.lblTotal.setText("")
         self.lblTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblTotal.setObjectName("lblTotal")
-        self.btnAssessment = QtWidgets.QPushButton(Sales)
-        self.btnAssessment.setGeometry(QtCore.QRect(460, 510, 161, 41))
+        self.label = QtWidgets.QLabel(self.tabToday)
+        self.label.setGeometry(QtCore.QRect(10, 360, 81, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label.setFont(font)
+        self.label.setStyleSheet("")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.btnAssessment = QtWidgets.QPushButton(self.tabToday)
+        self.btnAssessment.setGeometry(QtCore.QRect(430, 370, 161, 41))
         self.btnAssessment.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -187,8 +196,8 @@ class Ui_Sales(object):
 "    background-color: #365b6d;\n"
 "}")
         self.btnAssessment.setObjectName("btnAssessment")
-        self.forecastButton = QtWidgets.QPushButton(Sales)
-        self.forecastButton.setGeometry(QtCore.QRect(630, 510, 161, 41))
+        self.forecastButton = QtWidgets.QPushButton(self.tabToday)
+        self.forecastButton.setGeometry(QtCore.QRect(600, 370, 161, 41))
         self.forecastButton.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -208,13 +217,172 @@ class Ui_Sales(object):
         self.forecastButton.setIcon(icon2)
         self.forecastButton.setIconSize(QtCore.QSize(15, 40))
         self.forecastButton.setObjectName("forecastButton")
-        self.label_2 = QtWidgets.QLabel(Sales)
-        self.label_2.setGeometry(QtCore.QRect(460, 560, 331, 21))
-        self.label_2.setStyleSheet("")
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.QTabWidget.addTab(self.tabToday, "")
+        self.tabMonthly = QtWidgets.QWidget()
+        self.tabMonthly.setObjectName("tabMonthly")
+        self.productTable_Monthly = QtWidgets.QTableWidget(self.tabMonthly)
+        self.productTable_Monthly.setGeometry(QtCore.QRect(0, 70, 781, 271))
+        self.productTable_Monthly.setStyleSheet("background: #ffffff")
+        self.productTable_Monthly.setFrameShape(QtWidgets.QFrame.Panel)
+        self.productTable_Monthly.setObjectName("productTable_Monthly")
+        self.productTable_Monthly.setColumnCount(0)
+        self.productTable_Monthly.setRowCount(0)
+        self.cbYear_2 = QtWidgets.QComboBox(self.tabMonthly)
+        self.cbYear_2.setGeometry(QtCore.QRect(80, 10, 211, 31))
+        self.cbYear_2.setStyleSheet("background: white;")
+        self.cbYear_2.setObjectName("cbYear_2")
+        self.label_3 = QtWidgets.QLabel(self.tabMonthly)
+        self.label_3.setGeometry(QtCore.QRect(10, 10, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.forecastButton_2 = QtWidgets.QPushButton(self.tabMonthly)
+        self.forecastButton_2.setGeometry(QtCore.QRect(600, 370, 161, 41))
+        self.forecastButton_2.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.forecastButton_2.setIcon(icon2)
+        self.forecastButton_2.setIconSize(QtCore.QSize(15, 40))
+        self.forecastButton_2.setObjectName("forecastButton_2")
+        self.lblTotal_2 = QtWidgets.QLabel(self.tabMonthly)
+        self.lblTotal_2.setGeometry(QtCore.QRect(110, 360, 271, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lblTotal_2.setFont(font)
+        self.lblTotal_2.setStyleSheet("background: white;\n"
+"")
+        self.lblTotal_2.setFrameShape(QtWidgets.QFrame.Box)
+        self.lblTotal_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.lblTotal_2.setText("")
+        self.lblTotal_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblTotal_2.setObjectName("lblTotal_2")
+        self.btnAssessment_2 = QtWidgets.QPushButton(self.tabMonthly)
+        self.btnAssessment_2.setGeometry(QtCore.QRect(430, 370, 161, 41))
+        self.btnAssessment_2.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnAssessment_2.setObjectName("btnAssessment_2")
+        self.label_4 = QtWidgets.QLabel(self.tabMonthly)
+        self.label_4.setGeometry(QtCore.QRect(10, 360, 81, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_4.setFont(font)
+        self.label_4.setStyleSheet("")
+        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4.setObjectName("label_4")
+        self.QTabWidget.addTab(self.tabMonthly, "")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.productTable_Yearly = QtWidgets.QTableWidget(self.tab)
+        self.productTable_Yearly.setGeometry(QtCore.QRect(0, 70, 781, 271))
+        self.productTable_Yearly.setStyleSheet("background: #ffffff")
+        self.productTable_Yearly.setFrameShape(QtWidgets.QFrame.Panel)
+        self.productTable_Yearly.setObjectName("productTable_Yearly")
+        self.productTable_Yearly.setColumnCount(0)
+        self.productTable_Yearly.setRowCount(0)
+        self.cbYear = QtWidgets.QComboBox(self.tab)
+        self.cbYear.setGeometry(QtCore.QRect(80, 10, 211, 31))
+        self.cbYear.setStyleSheet("background: white;")
+        self.cbYear.setObjectName("cbYear")
+        self.label_2 = QtWidgets.QLabel(self.tab)
+        self.label_2.setGeometry(QtCore.QRect(10, 10, 51, 31))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        self.forecastButton_3 = QtWidgets.QPushButton(self.tab)
+        self.forecastButton_3.setGeometry(QtCore.QRect(600, 370, 161, 41))
+        self.forecastButton_3.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.forecastButton_3.setIcon(icon2)
+        self.forecastButton_3.setIconSize(QtCore.QSize(15, 40))
+        self.forecastButton_3.setObjectName("forecastButton_3")
+        self.lblTotal_3 = QtWidgets.QLabel(self.tab)
+        self.lblTotal_3.setGeometry(QtCore.QRect(110, 360, 271, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lblTotal_3.setFont(font)
+        self.lblTotal_3.setStyleSheet("background: white;\n"
+"")
+        self.lblTotal_3.setFrameShape(QtWidgets.QFrame.Box)
+        self.lblTotal_3.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.lblTotal_3.setText("")
+        self.lblTotal_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblTotal_3.setObjectName("lblTotal_3")
+        self.btnAssessment_3 = QtWidgets.QPushButton(self.tab)
+        self.btnAssessment_3.setGeometry(QtCore.QRect(430, 370, 161, 41))
+        self.btnAssessment_3.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnAssessment_3.setObjectName("btnAssessment_3")
+        self.label_5 = QtWidgets.QLabel(self.tab)
+        self.label_5.setGeometry(QtCore.QRect(10, 360, 81, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_5.setFont(font)
+        self.label_5.setStyleSheet("")
+        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_5.setObjectName("label_5")
+        self.QTabWidget.addTab(self.tab, "")
 
         self.retranslateUi(Sales)
+        self.QTabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Sales)
 
     def retranslateUi(self, Sales):
@@ -228,4 +396,14 @@ class Ui_Sales(object):
         self.label.setText(_translate("Sales", "Total"))
         self.btnAssessment.setText(_translate("Sales", "See Assessment"))
         self.forecastButton.setText(_translate("Sales", "Generate Forecast"))
-        self.label_2.setText(_translate("Sales", "Powered by: GPT Neo"))
+        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tabToday), _translate("Sales", "Today"))
+        self.label_3.setText(_translate("Sales", "Month:"))
+        self.forecastButton_2.setText(_translate("Sales", "Generate Forecast"))
+        self.btnAssessment_2.setText(_translate("Sales", "See Assessment"))
+        self.label_4.setText(_translate("Sales", "Total"))
+        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tabMonthly), _translate("Sales", "Monthly"))
+        self.label_2.setText(_translate("Sales", "Year :"))
+        self.forecastButton_3.setText(_translate("Sales", "Generate Forecast"))
+        self.btnAssessment_3.setText(_translate("Sales", "See Assessment"))
+        self.label_5.setText(_translate("Sales", "Total"))
+        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tab), _translate("Sales", "Yearly"))

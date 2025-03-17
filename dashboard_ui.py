@@ -131,15 +131,23 @@ class Ui_Dashboard(object):
         self.btnDashboard.setIcon(icon1)
         self.btnDashboard.setObjectName("btnDashboard")
         self.gpPerformance = QtWidgets.QWidget(Dashboard)
-        self.gpPerformance.setGeometry(QtCore.QRect(10, 160, 501, 431))
-        self.gpPerformance.setStyleSheet("background: white;")
+        self.gpPerformance.setGeometry(QtCore.QRect(10, 150, 501, 431))
+        self.gpPerformance.setStyleSheet("QWidget {\n"
+"    border: 1px solid black;\n"
+"    border-radius: 10px;\n"
+"    background: white;\n"
+"}")
         self.gpPerformance.setObjectName("gpPerformance")
         self.lsCritical = QtWidgets.QListWidget(Dashboard)
-        self.lsCritical.setGeometry(QtCore.QRect(530, 161, 261, 421))
-        self.lsCritical.setStyleSheet("Background: white;")
+        self.lsCritical.setGeometry(QtCore.QRect(530, 151, 261, 431))
+        self.lsCritical.setStyleSheet("QListWidget {\n"
+"    border: 1px solid black;\n"
+"    border-radius: 10px;\n"
+"    background: white;\n"
+"}")
         self.lsCritical.setObjectName("lsCritical")
         self.label = QtWidgets.QLabel(Dashboard)
-        self.label.setGeometry(QtCore.QRect(534, 125, 251, 31))
+        self.label.setGeometry(QtCore.QRect(534, 110, 251, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(10)
@@ -148,7 +156,7 @@ class Ui_Dashboard(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Dashboard)
-        self.label_2.setGeometry(QtCore.QRect(10, 50, 781, 31))
+        self.label_2.setGeometry(QtCore.QRect(10, 50, 781, 51))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(18)
@@ -157,7 +165,7 @@ class Ui_Dashboard(object):
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(Dashboard)
-        self.label_3.setGeometry(QtCore.QRect(10, 120, 501, 31))
+        self.label_3.setGeometry(QtCore.QRect(10, 110, 501, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(10)

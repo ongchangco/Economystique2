@@ -27,58 +27,149 @@ from addExisting_ui import Ui_AddExisting
 from addPrExisting_ui import Ui_AddPrExisting
 from addPrNew_ui import Ui_addPrNew
 from pos_ui import Ui_pos
-#import sqlite3
+
+class MainWindow(QMainWindow):
+    switch_to_login = pyqtSignal()
+    def __init__(self, icon_path):
+        super(MainWindow, self).__init__()
+        self.setWindowTitle("Economystique")
+        self.setWindowIcon(QIcon(icon_path))
+        self.setFixedSize(1600, 900)
+
+        # Create your stacked widget for Dashboard, Inventory, etc.
+        self.widget = QtWidgets.QStackedWidget()
+        self.setCentralWidget(self.widget)
+
+        # Initialize pages
+        self.dashboard = Dashboard()
+        self.inventory = Inventory(self.widget)
+        self.sales = SalesWindow(self.widget)
+        self.POS = POSWindow(self.widget)
+        self.account = AccountWindow(self.widget)
+
+        # Add widgets to stackedWidget
+        self.widget.addWidget(self.dashboard)
+        self.widget.addWidget(self.inventory)
+        self.widget.addWidget(self.sales)
+        self.widget.addWidget(self.POS)
+        self.widget.addWidget(self.account)
+
+        # Connect widget signals to handlers
+        self.dashboard.go_to_inventory.connect(self.show_inventory)
+        self.dashboard.go_to_sales.connect(self.show_sales)
+        self.dashboard.go_to_pos.connect(self.show_pos)
+        self.dashboard.go_to_account.connect(self.show_account)
+        self.dashboard.critical_item_selected.connect(self.focus_critical_item)
+        
+        self.inventory.go_to_dashboard.connect(self.show_dashboard)
+        self.inventory.go_to_sales.connect(self.show_sales)
+        self.inventory.go_to_pos.connect(self.show_pos)
+        self.inventory.go_to_account.connect(self.show_account)
+        
+        self.sales.go_to_inventory.connect(self.show_inventory)
+        self.sales.go_to_dashboard.connect(self.show_dashboard)
+        self.sales.go_to_pos.connect(self.show_pos)
+        self.sales.go_to_account.connect(self.show_account)
+        
+        self.POS.go_to_inventory.connect(self.show_inventory)
+        self.POS.go_to_sales.connect(self.show_sales)
+        self.POS.go_to_dashboard.connect(self.show_dashboard)
+        self.POS.go_to_account.connect(self.show_account)
+        
+        self.account.go_to_inventory.connect(self.show_inventory)
+        self.account.go_to_sales.connect(self.show_sales)
+        self.account.go_to_pos.connect(self.show_pos)
+        self.account.go_to_dashboard.connect(self.show_dashboard)
+        self.account.switch_to_login.connect(self.logout_to_login)
+
+        # Landing Page
+        self.widget.setCurrentWidget(self.dashboard)
+
+    def show_dashboard(self):
+        self.widget.setCurrentWidget(self.dashboard)
+    
+    def show_inventory(self):
+        self.widget.setCurrentWidget(self.inventory)
+
+    def show_sales(self):
+        self.widget.setCurrentWidget(self.sales)
+
+    def show_pos(self):
+        self.widget.setCurrentWidget(self.POS)
+
+    def show_account(self):
+        self.widget.setCurrentWidget(self.account)
+        
+    def focus_critical_item(self, inventory_id):
+        self.widget.setCurrentWidget(self.inventory)
+        self.inventory.focus_on_item(inventory_id)
+        
+    def logout_to_login(self):
+        self.switch_to_login.emit()
+        self.close()
 
 class Login(QMainWindow):
+    switch_to_signup = pyqtSignal()
+    switch_to_main = pyqtSignal()
+
     def __init__(self):
         super(Login, self).__init__()
+        self.setWindowTitle("Login")
+        self.setFixedSize(800, 600)
         self.ui = Ui_Login()
         self.ui.setupUi(self)
+
         self.ui.pushButton.clicked.connect(self.loginfunction)
-        
+        self.ui.signUpButton.clicked.connect(self.open_signUp)  # Example button name for SignUp
+
     def open_signUp(self):
-        sign_up = SignUp()
-        widget.addWidget(sign_up)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-                
+        self.switch_to_signup.emit()
+        self.close()
+
     def loginfunction(self):
-        dashboard = Dashboard(widget)
-        widget.addWidget(dashboard)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        self.switch_to_main.emit()
+        self.close()
         
 class SignUp(QMainWindow):
+    switch_to_login = pyqtSignal()
+    switch_to_main = pyqtSignal()
+
     def __init__(self):
         super(SignUp, self).__init__()
+        self.setWindowTitle("Sign Up")
+        self.setFixedSize(800, 600)
         self.ui = Ui_signUp()
         self.ui.setupUi(self)
-        
+
         self.ui.loginButton.clicked.connect(self.open_Login)
         self.ui.pushButton.clicked.connect(self.signinfunction)
-        
+
     def open_Login(self):
-        login = Login()
-        widget.addWidget(login)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-        
+        self.switch_to_login.emit()
+        self.close()
+
     def signinfunction(self):
-        dashboard = Dashboard()
-        widget.addWidget(dashboard)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        self.switch_to_main.emit()
+        self.close()
 
 class Dashboard(QMainWindow):
-    def __init__(self, widget):
+    go_to_inventory = pyqtSignal()
+    go_to_sales = pyqtSignal()
+    go_to_pos = pyqtSignal()
+    go_to_account = pyqtSignal()
+    critical_item_selected = pyqtSignal(str)
+    def __init__(self):
         super(Dashboard, self).__init__()
         self.ui = Ui_Dashboard()
         self.ui.setupUi(self)
-        self.widget = widget  # Save reference to the stacked widget
         self.populate_crit_list()
         
         # Connect Buttons
-        self.ui.btnInventory.clicked.connect(self.open_inventory)
-        self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnPOS.clicked.connect(self.open_POS)
-        self.ui.btnAccount.clicked.connect(self.open_account)
-        self.ui.lsCritical.itemDoubleClicked.connect(self.focus_crit_inv)
+        self.ui.btnInventory.clicked.connect(self.go_to_inventory.emit)
+        self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
+        self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
+        self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
+        self.ui.lsCritical.itemDoubleClicked.connect(self.on_critical_item_clicked)
         
     def populate_crit_list(self):
         # Get DB Connection
@@ -97,67 +188,32 @@ class Dashboard(QMainWindow):
             self.ui.lsCritical.addItem(list_item_text)
         conn.close()
         
-    def focus_crit_inv(self, item):
-        item_text = item.text()
-        inventory_id = item_text.split(' - ')[0]
-
-        inv_window = Inventory()
-
-        self.widget.addWidget(inv_window)
-        self.widget.setCurrentWidget(inv_window)
-
-        QTimer.singleShot(100, lambda: self.focus_on_inventory_id(inv_window, inventory_id))
-        self.close()
-        
-    def focus_on_inventory_id(self, inv_window, inventory_id):
-        table = inv_window.ui.tabIngredientTable
-        row_to_focus = -1
-
-        # Search for the inventory_id in the table
-        for row in range(table.rowCount()):
-            item = table.item(row, 0)  # Column 0 is inventory_id
-            if item and item.text() == inventory_id:
-                row_to_focus = row
-                break
-
-        if row_to_focus >= 0:
-            table.selectRow(row_to_focus)
-            table.scrollToItem(table.item(row_to_focus, 0), QtWidgets.QAbstractItemView.PositionAtCenter)
-            table.setFocus()
-    
-    def open_inventory(self):
-        inv_window = Inventory()
-        widget.addWidget(inv_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_sales(self):
-        sales_window = SalesWindow()
-        widget.addWidget(sales_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_POS(self):
-        POS_window = POSWindow()
-        widget.addWidget(POS_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_account(self):
-        account_window = AccountWindow()
-        widget.addWidget(account_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+    def on_critical_item_clicked(self, item):
+        inventory_id = item.text().split(' - ')[0]
+        # You can emit a different signal with data if you want:
+        self.critical_item_selected.emit(inventory_id)
     
 class Inventory(QMainWindow):
-    def __init__(self):
+    go_to_dashboard = pyqtSignal()
+    go_to_sales = pyqtSignal()
+    go_to_pos = pyqtSignal()
+    go_to_account = pyqtSignal()
+    def __init__(self, widget=None):
         super(Inventory, self).__init__()
         self.ui = Ui_inventoryManagement()
         self.ui.setupUi(self)
+        self.widget = widget
         self.populate_ingredients()
         self.populate_products()
         self.ui.tabWidget.setCurrentIndex(0)
         self.ui.tabIngredientTable.itemDoubleClicked.connect(self.restock_ROP)
         # Connect buttons
-        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
         self.ui.btnRestock.clicked.connect(self.restock)
         self.ui.btnAddProduct.clicked.connect(self.addProduct)
-        self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnPOS.clicked.connect(self.open_POS)
-        self.ui.btnAccount.clicked.connect(self.open_account)
+        self.ui.btnDashboard.clicked.connect(self.go_to_dashboard.emit)
+        self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
+        self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
+        self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
     
     def populate_ingredients(self):
         # Get database connection
@@ -228,6 +284,21 @@ class Inventory(QMainWindow):
         self.ui.tabProductTable.resizeRowsToContents()
         conn.close()    
     
+    def focus_on_item(self, inventory_id):
+        table = self.ui.tabIngredientTable
+        row_to_focus = -1
+
+        for row in range(table.rowCount()):
+            item = table.item(row, 0)  # Column 0 = inventory_id
+            if item and item.text() == inventory_id:
+                row_to_focus = row
+                break
+
+        if row_to_focus >= 0:
+            table.selectRow(row_to_focus)
+            table.scrollToItem(table.item(row_to_focus, 0), QtWidgets.QAbstractItemView.PositionAtCenter)
+            table.setFocus()
+    
     def restock_ROP(self, item):
         row = item.row()
         first_item = self.ui.tabIngredientTable.item(row, 0)
@@ -256,26 +327,12 @@ class Inventory(QMainWindow):
         restock_window = Restock()
         restock_window.restockConfirmed.connect(self.populate_ingredients)
         restock_window.exec_()
+        
     def addProduct(self):
         addProduct_window = PrRestock()
         addProduct_window.restockConfirmed.connect(self.populate_products)
         addProduct_window.exec_()
-    def open_dashboard(self):
-        dashboard_window = Dashboard(widget)
-        widget.addWidget(dashboard_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_sales(self):
-        sales_window = SalesWindow()
-        widget.addWidget(sales_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_POS(self):
-        POS_window = POSWindow()
-        widget.addWidget(POS_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_account(self):
-        account_window = AccountWindow()
-        widget.addWidget(account_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        
 class AddCritical(QDialog):
     restockConfirmed = pyqtSignal()
     def __init__(self, conn, inventory_id=None, description=None, unit=None):
@@ -786,18 +843,22 @@ class AddPrNew(QDialog):
         pass
     
 class SalesWindow(QMainWindow):
-    def __init__(self):
+    go_to_dashboard = pyqtSignal()
+    go_to_inventory = pyqtSignal()
+    go_to_pos = pyqtSignal()
+    go_to_account = pyqtSignal()
+    def __init__(self, widget=None):
         super(SalesWindow, self).__init__()
         self.ui = Ui_Sales()
         self.ui.setupUi(self)
-       
+        self.widget = widget
         self.load_sales_data()
 
         # Connect buttons
-        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
-        self.ui.btnInventory.clicked.connect(self.open_inventory)
-        self.ui.btnPOS.clicked.connect(self.open_POS)
-        self.ui.btnAccount.clicked.connect(self.open_account)
+        self.ui.btnDashboard.clicked.connect(self.go_to_dashboard)
+        self.ui.btnInventory.clicked.connect(self.go_to_inventory)
+        self.ui.btnPOS.clicked.connect(self.go_to_pos)
+        self.ui.btnAccount.clicked.connect(self.go_to_account)
         
     def load_sales_data(self):
         sales_path = os.path.join("db", "sales_db.db")
@@ -810,7 +871,7 @@ class SalesWindow(QMainWindow):
         # Set up the table
         self.ui.productTable.setRowCount(len(products)) 
         self.ui.productTable.setColumnCount(4)
-
+        self.ui.productTable.verticalHeader().hide()
         # Set headers for the table
         headers = ["Product ID", "Product Name", "Price", "Quantity Sold"]
         self.ui.productTable.setHorizontalHeaderLabels(headers)
@@ -829,23 +890,6 @@ class SalesWindow(QMainWindow):
         total = sum(item[2] * item[3] for item in products)
         self.ui.lblTotal.setText(f"{total:.2f}")
             
-    # Button Functions  
-    def open_dashboard(self):
-        dashboard_window = Dashboard(widget)
-        widget.addWidget(dashboard_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_inventory(self):
-        inventory = Inventory()
-        widget.addWidget(inventory)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_POS(self):
-        POS_window = POSWindow()
-        widget.addWidget(POS_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_account(self):
-        account_window = AccountWindow()
-        widget.addWidget(account_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
     def generate_sales_forecast(self):
         # Use a separate thread for the forecast generation
         self.executor.submit(self.generate_forecast)
@@ -933,11 +977,16 @@ class ForecastWorker(QThread):
             self.forecast_generated.emit(f"Error: {str(e)}")
 '''
 class POSWindow(QMainWindow):
-    def __init__(self):
+    go_to_dashboard = pyqtSignal()
+    go_to_sales = pyqtSignal()
+    go_to_inventory = pyqtSignal()
+    go_to_account = pyqtSignal()
+    def __init__(self, widget=None):
         super(POSWindow, self).__init__()
         self.ui = Ui_pos()
         self.ui.setupUi(self)
         self.setWindowTitle("POS")
+        self.widget = widget
 
         # Create a model for the QListView
         self.cart_model = QStandardItemModel()
@@ -947,10 +996,10 @@ class POSWindow(QMainWindow):
         self.update_total_label()
 
         # Connect buttons to functions
-        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
-        self.ui.btnInventory.clicked.connect(self.open_inventory)
-        self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnAccount.clicked.connect(self.open_account)
+        self.ui.btnDashboard.clicked.connect(self.go_to_dashboard)
+        self.ui.btnInventory.clicked.connect(self.go_to_inventory)
+        self.ui.btnSales.clicked.connect(self.go_to_sales)
+        self.ui.btnAccount.clicked.connect(self.go_to_account)
         self.ui.btnClear.clicked.connect(self.clear_cart)
         self.ui.btnCheckout.clicked.connect(self.checkout)
         
@@ -1089,73 +1138,69 @@ class POSWindow(QMainWindow):
         self.clear_cart()
         self.total_price = 0.0
         self.update_total_label()
-
-    # Button Functions
-    def open_dashboard(self):
-        dashboard_window = Dashboard(widget)
-        widget.addWidget(dashboard_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_sales(self):
-        sales_window = SalesWindow()
-        widget.addWidget(sales_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_account(self):
-        account_window = AccountWindow()
-        widget.addWidget(account_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_inventory(self):
-        inventory_window = Inventory()
-        widget.addWidget(inventory_window)
-        widget.setCurrentIndex(widget.currentIndex() + 1)
     
 class AccountWindow(QMainWindow):
-    def __init__(self):
+    go_to_dashboard = pyqtSignal()
+    go_to_sales = pyqtSignal()
+    go_to_pos = pyqtSignal()
+    go_to_inventory = pyqtSignal()
+    switch_to_login = pyqtSignal()
+    def __init__(self, widget=None):
         super(AccountWindow, self).__init__()
         self.ui = Ui_account()
         self.ui.setupUi(self)
         self.setWindowTitle("Account")
+        self.widget = widget
         
         # Connect buttons
-        self.ui.btnDashboard.clicked.connect(self.open_dashboard)
-        self.ui.btnInventory.clicked.connect(self.open_inventory)
-        self.ui.btnSales.clicked.connect(self.open_sales)
-        self.ui.btnPOS.clicked.connect(self.open_POS)
-        self.ui.btnLogOut.clicked.connect(self.open_login)
+        self.ui.btnDashboard.clicked.connect(self.go_to_dashboard)
+        self.ui.btnInventory.clicked.connect(self.go_to_inventory)
+        self.ui.btnSales.clicked.connect(self.go_to_sales)
+        self.ui.btnPOS.clicked.connect(self.go_to_pos)
+        self.ui.btnLogOut.clicked.connect(self.switch_to_login)
 
-    def open_dashboard(self):
-        dashboard_window = Dashboard(widget)
-        widget.addWidget(dashboard_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_inventory(self):
-        inventory = Inventory()
-        widget.addWidget(inventory)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_sales(self):
-        sales_window = SalesWindow()
-        widget.addWidget(sales_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_POS(self):
-        POS_window = POSWindow()
-        widget.addWidget(POS_window)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    def open_login(self):
-        account_login = Login()
-        widget.addWidget(account_login)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-    
-# main
-app = QApplication(sys.argv)
-login = Login()
-widget = QtWidgets.QStackedWidget()
-widget.addWidget(login)
-widget.setFixedHeight(600)
-widget.setFixedWidth(800)
-windowIconPath = os.path.join(os.path.dirname(__file__), "img", "econologo_bkgd.png")
-widget.setWindowIcon(QIcon(windowIconPath))
-widget.setWindowTitle("Economystique")
-widget.show()
-widget.closeEvent = lambda event: app.quit()
-try:
-    sys.exit(app.exec_())
-except:
-    print("Exiting")
+# MAIN APP CONTROLLER
+class AppController:
+    def __init__(self):
+        self.basedir = os.path.dirname(os.path.abspath(__file__))
+        self.icon_path = os.path.join(self.basedir, "img", "econologo_transparent_cropped.png")
+
+        self.login_window = Login()
+        self.signup_window = None
+        self.main_window = None
+
+        # Connect signals
+        self.login_window.switch_to_signup.connect(self.show_signup)
+        self.login_window.switch_to_main.connect(self.show_main)
+
+        # Start the app
+        self.login_window.show()
+
+    def show_signup(self):
+        self.signup_window = SignUp()
+        self.signup_window.switch_to_login.connect(self.show_login)
+        self.signup_window.switch_to_main.connect(self.show_main)
+        self.signup_window.show()
+
+    def show_login(self):
+        self.login_window = Login()
+        self.login_window.switch_to_signup.connect(self.show_signup)
+        self.login_window.switch_to_main.connect(self.show_main)
+        self.login_window.show()
+
+    def show_main(self):
+        self.main_window = MainWindow(self.icon_path)
+        self.main_window.switch_to_login.connect(self.show_login)
+        self.main_window.show()
+        self.login_window.close()
+
+# Main
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+
+    controller = AppController()
+
+    try:
+        sys.exit(app.exec_())
+    except Exception as e:
+        print(f"Exiting: {e}")

@@ -266,7 +266,7 @@ QPushButton:pressed {
    <property name="font">
     <font>
      <family>Century Gothic</family>
-     <pointsize>14</pointsize>
+     <pointsize>20</pointsize>
     </font>
    </property>
    <property name="currentIndex">
@@ -280,9 +280,9 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>90</y>
        <width>1561</width>
-       <height>611</height>
+       <height>521</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -296,7 +296,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>650</y>
+       <y>640</y>
        <width>301</width>
        <height>61</height>
       </rect>
@@ -327,7 +327,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>650</y>
+       <y>640</y>
        <width>81</width>
        <height>61</height>
       </rect>
@@ -351,7 +351,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>920</x>
-       <y>650</y>
+       <y>630</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -387,7 +387,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>1240</x>
-       <y>650</y>
+       <y>630</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -434,10 +434,10 @@ QPushButton:pressed {
     <attribute name="title">
      <string>Monthly</string>
     </attribute>
-    <widget class="QComboBox" name="cbYear_2">
+    <widget class="QComboBox" name="cbMonth">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>160</x>
        <y>30</y>
        <width>231</width>
        <height>31</height>
@@ -457,14 +457,14 @@ QPushButton:pressed {
       <rect>
        <x>30</x>
        <y>30</y>
-       <width>91</width>
+       <width>111</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Century Gothic</family>
-       <pointsize>12</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
@@ -475,7 +475,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>650</y>
+       <y>640</y>
        <width>81</width>
        <height>61</height>
       </rect>
@@ -499,7 +499,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>920</x>
-       <y>650</y>
+       <y>630</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -535,7 +535,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>1240</x>
-       <y>650</y>
+       <y>630</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -577,11 +577,11 @@ QPushButton:pressed {
       </size>
      </property>
     </widget>
-    <widget class="QLabel" name="lblTotal_2">
+    <widget class="QLabel" name="lblMTotal">
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>650</y>
+       <y>640</y>
        <width>301</width>
        <height>61</height>
       </rect>
@@ -608,7 +608,7 @@ QPushButton:pressed {
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QTableWidget" name="productTable_2">
+    <widget class="QTableWidget" name="mProductTable">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -629,10 +629,10 @@ QPushButton:pressed {
     <attribute name="title">
      <string>Yearly</string>
     </attribute>
-    <widget class="QComboBox" name="cbYear_3">
+    <widget class="QComboBox" name="cbYear">
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>160</x>
        <y>30</y>
        <width>231</width>
        <height>31</height>
@@ -652,14 +652,14 @@ QPushButton:pressed {
       <rect>
        <x>30</x>
        <y>30</y>
-       <width>91</width>
+       <width>111</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Century Gothic</family>
-       <pointsize>12</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
@@ -670,7 +670,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>1240</x>
-       <y>650</y>
+       <y>630</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -712,7 +712,7 @@ QPushButton:pressed {
       </size>
      </property>
     </widget>
-    <widget class="QTableWidget" name="productTable_3">
+    <widget class="QTableWidget" name="yProductTable">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -732,7 +732,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>920</x>
-       <y>650</y>
+       <y>630</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -764,11 +764,11 @@ QPushButton:pressed {
       <string>See Assessment</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lblTotal_3">
+    <widget class="QLabel" name="lblYTotal">
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>650</y>
+       <y>640</y>
        <width>301</width>
        <height>61</height>
       </rect>
@@ -799,7 +799,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>650</y>
+       <y>640</y>
        <width>81</width>
        <height>61</height>
       </rect>

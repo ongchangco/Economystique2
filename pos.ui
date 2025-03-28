@@ -236,7 +236,7 @@ QPushButton:pressed {
     <rect>
      <x>20</x>
      <y>50</y>
-     <width>1251</width>
+     <width>1111</width>
      <height>831</height>
     </rect>
    </property>
@@ -247,7 +247,7 @@ QPushButton:pressed {
     <item row="1" column="0">
      <widget class="QFrame" name="frame_6">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -260,7 +260,7 @@ QPushButton:pressed {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>301</width>
+         <width>261</width>
          <height>261</height>
         </rect>
        </property>
@@ -269,6 +269,9 @@ QPushButton:pressed {
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C005
@@ -294,7 +297,7 @@ Red Velvet
     <item row="0" column="2">
      <widget class="QFrame" name="frame_4">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -305,10 +308,10 @@ Red Velvet
       <widget class="QToolButton" name="btnC003">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>301</width>
-         <height>261</height>
+         <x>-20</x>
+         <y>10</y>
+         <width>281</width>
+         <height>251</height>
         </rect>
        </property>
        <property name="font">
@@ -316,6 +319,9 @@ Red Velvet
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C003
@@ -341,7 +347,7 @@ Caramel Cake
     <item row="0" column="0">
      <widget class="QFrame" name="frame_2">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::Panel</enum>
@@ -352,10 +358,10 @@ Caramel Cake
       <widget class="QToolButton" name="btnC001">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>301</width>
-         <height>261</height>
+         <x>10</x>
+         <y>10</y>
+         <width>251</width>
+         <height>251</height>
         </rect>
        </property>
        <property name="font">
@@ -363,6 +369,9 @@ Caramel Cake
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C001
@@ -388,7 +397,7 @@ Chocolate Moist
     <item row="0" column="1">
      <widget class="QFrame" name="frame_3">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -400,9 +409,9 @@ Chocolate Moist
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
-         <width>301</width>
-         <height>261</height>
+         <y>10</y>
+         <width>261</width>
+         <height>251</height>
         </rect>
        </property>
        <property name="font">
@@ -410,6 +419,9 @@ Chocolate Moist
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C002
@@ -435,7 +447,7 @@ Yema Vanilla
     <item row="1" column="2">
      <widget class="QFrame" name="frame_8">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -448,7 +460,7 @@ Yema Vanilla
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>301</width>
+         <width>261</width>
          <height>261</height>
         </rect>
        </property>
@@ -457,6 +469,9 @@ Yema Vanilla
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C007
@@ -482,7 +497,7 @@ Strawberry Cake
     <item row="0" column="3">
      <widget class="QFrame" name="frame_5">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -494,9 +509,9 @@ Strawberry Cake
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
-         <width>301</width>
-         <height>261</height>
+         <y>10</y>
+         <width>261</width>
+         <height>251</height>
         </rect>
        </property>
        <property name="font">
@@ -504,6 +519,9 @@ Strawberry Cake
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C004
@@ -529,7 +547,7 @@ Ube Caramel
     <item row="1" column="3">
      <widget class="QFrame" name="frame_9">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -542,7 +560,7 @@ Ube Caramel
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>301</width>
+         <width>261</width>
          <height>261</height>
         </rect>
        </property>
@@ -551,6 +569,9 @@ Ube Caramel
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C008
@@ -576,7 +597,7 @@ Biscoff Mocha
     <item row="2" column="0">
      <widget class="QFrame" name="frame_10">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -589,7 +610,7 @@ Biscoff Mocha
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>301</width>
+         <width>261</width>
          <height>261</height>
         </rect>
        </property>
@@ -598,6 +619,9 @@ Biscoff Mocha
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C009
@@ -623,7 +647,7 @@ Bento Cake
     <item row="2" column="1">
      <widget class="QFrame" name="frame_11">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -636,7 +660,7 @@ Bento Cake
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>301</width>
+         <width>261</width>
          <height>261</height>
         </rect>
        </property>
@@ -645,6 +669,9 @@ Bento Cake
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C010
@@ -670,7 +697,7 @@ Cupcake
     <item row="1" column="1">
      <widget class="QFrame" name="frame_7">
       <property name="styleSheet">
-       <string notr="true">background-color: white;</string>
+       <string notr="true">background-color: transparent;</string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -683,7 +710,7 @@ Cupcake
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>301</width>
+         <width>261</width>
          <height>261</height>
         </rect>
        </property>
@@ -692,6 +719,9 @@ Cupcake
          <family>Century Gothic</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: white;</string>
        </property>
        <property name="text">
         <string>C006
@@ -719,7 +749,7 @@ Pandan Cake
   <widget class="QPushButton" name="btnClear">
    <property name="geometry">
     <rect>
-     <x>1370</x>
+     <x>1310</x>
      <y>620</y>
      <width>141</width>
      <height>41</height>
@@ -755,9 +785,9 @@ QPushButton:pressed {
   <widget class="QLabel" name="lblTotal">
    <property name="geometry">
     <rect>
-     <x>1290</x>
+     <x>1180</x>
      <y>730</y>
-     <width>291</width>
+     <width>401</width>
      <height>81</height>
     </rect>
    </property>
@@ -782,7 +812,7 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnCheckout">
    <property name="geometry">
     <rect>
-     <x>1300</x>
+     <x>1240</x>
      <y>827</y>
      <width>281</width>
      <height>51</height>
@@ -818,9 +848,9 @@ QPushButton:pressed {
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>1290</x>
+     <x>1180</x>
      <y>70</y>
-     <width>291</width>
+     <width>401</width>
      <height>31</height>
     </rect>
    </property>
@@ -841,9 +871,9 @@ QPushButton:pressed {
   <widget class="QListView" name="cartList">
    <property name="geometry">
     <rect>
-     <x>1290</x>
+     <x>1180</x>
      <y>116</y>
-     <width>291</width>
+     <width>401</width>
      <height>491</height>
     </rect>
    </property>

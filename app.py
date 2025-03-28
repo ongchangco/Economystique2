@@ -163,7 +163,7 @@ class Dashboard(QMainWindow):
         self.ui = Ui_Dashboard()
         self.ui.setupUi(self)
         self.populate_crit_list()
-        
+        self.populate_product_list()
         # Connect Buttons
         self.ui.btnInventory.clicked.connect(self.go_to_inventory.emit)
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
@@ -187,12 +187,25 @@ class Dashboard(QMainWindow):
             list_item_text = f"{inventory_id} - {description} @ {int(on_hand)} {unit}"
             self.ui.lsCritical.addItem(list_item_text)
         conn.close()
-        
     def on_critical_item_clicked(self, item):
         inventory_id = item.text().split(' - ')[0]
         # You can emit a different signal with data if you want:
         self.critical_item_selected.emit(inventory_id)
-    
+    def populate_product_list(self):
+        # Get DB Connection
+        db_path = os.path.join("db", "product_db.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT product_id, product_name, on_hand FROM products_on_hand""")
+        avProducts = cursor.fetchall()
+        self.ui.lsProduct.clear()
+        # Loop through results and format each item
+        for product_id, product_name, on_hand in avProducts:
+            list_item_text = f"{product_id} - {product_name} @ {on_hand} pcs"
+            self.ui.lsProduct.addItem(list_item_text)
+        conn.close()
+        
 class Inventory(QMainWindow):
     go_to_dashboard = pyqtSignal()
     go_to_sales = pyqtSignal()
@@ -214,7 +227,6 @@ class Inventory(QMainWindow):
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
         self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
         self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
-    
     def populate_ingredients(self):
         # Get database connection
         db_path = os.path.join("db", "inventory_db.db")
@@ -331,6 +343,7 @@ class Inventory(QMainWindow):
     def addProduct(self):
         addProduct_window = PrRestock()
         addProduct_window.restockConfirmed.connect(self.populate_products)
+        addProduct_window.restockConfirmed.connect(self.populate_ingredients)
         addProduct_window.exec_()
         
 class AddCritical(QDialog):
@@ -625,10 +638,18 @@ class PrRestock(QDialog):
         pr_path = os.path.join("db", "product_db.db")
         pr_conn = sqlite3.connect(pr_path)
         pr_cursor = pr_conn.cursor()
-        
+
         res_conn = self.connect_rsDB()
         res_cursor = res_conn.cursor()
-        
+
+        inv_path = os.path.join("db", "inventory_db.db")
+        inv_conn = sqlite3.connect(inv_path)
+        inv_cursor = inv_conn.cursor()
+
+        ing_path = os.path.join("db", "ingredients_db.db")
+        ing_conn = sqlite3.connect(ing_path)
+        ing_cursor = ing_conn.cursor()
+
         # Fetch all entries from restock
         res_cursor.execute("SELECT * FROM restock_product")
         restock_entries = res_cursor.fetchall()
@@ -636,28 +657,50 @@ class PrRestock(QDialog):
         for restock_entry in restock_entries:
             product_id, product_name, amount, exp_date = restock_entry
 
-            # Check if product_id exists in products_on_hand
-            # hayy pagod na ako (-_-)
+            # Update or insert into products_on_hand
             pr_cursor.execute("SELECT on_hand FROM products_on_hand WHERE product_id = ?", (product_id,))
             existing_entry = pr_cursor.fetchone()
 
             if existing_entry:
-                # If exists, update on_hand quantity
                 new_on_hand = existing_entry[0] + amount
                 pr_cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?", (new_on_hand, product_id))
+                pr_cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?", (exp_date, product_id))
             else:
-                # If not exists, insert new entry
                 pr_cursor.execute("INSERT INTO products_on_hand (product_id, product_name, on_hand, exp_date) VALUES (?, ?, ?, ?)", 
                             (product_id, product_name, amount, exp_date))
-        
+
+            # Subtract ingredients from inventory
+            ing_cursor.execute(f"SELECT inventory_id, {product_id} FROM ingredients WHERE {product_id} IS NOT NULL")
+            ingredient_list = ing_cursor.fetchall()
+
+            for inventory_id, required_amount_per_unit in ingredient_list:
+                if required_amount_per_unit is not None:
+                    total_required = required_amount_per_unit * amount
+                    inv_cursor.execute("SELECT on_hand FROM inventory WHERE inventory_id = ?", (inventory_id,))
+                    inventory_entry = inv_cursor.fetchone()
+
+                    if inventory_entry and inventory_entry[0] >= total_required:
+                        new_inventory = inventory_entry[0] - total_required
+                        inv_cursor.execute("UPDATE inventory SET on_hand = ? WHERE inventory_id = ?", (new_inventory, inventory_id))
+                    else:
+                        QMessageBox.warning(self, "Stock Warning", f"Not enough stock for ingredient {inventory_id}")
+
+        # Commit changes
         pr_conn.commit()
+        res_conn.commit()
+        inv_conn.commit()
+        ing_conn.commit()
+
+        # Close connections
         pr_conn.close()
-        # Empty Restock Database        
+        inv_conn.close()
+        ing_conn.close()
+
+        # Clear restock table
         res_cursor.execute("DELETE FROM restock_product")
         res_conn.commit()
         res_conn.close()
         
-        # Emit signal before closing
         self.restockConfirmed.emit()
         self.close()
         QMessageBox.information(self, "Success", "Item(s) added successfully.")
@@ -736,13 +779,13 @@ class AddPrExisting(QDialog):
         pr_conn = sqlite3.connect(pr_path)
         pr_cursor = pr_conn.cursor()
         # Fetch product_id, product_name
-        pr_cursor.execute("SELECT product_id, product_name, exp_date FROM products_on_hand")
+        pr_cursor.execute("SELECT product_id, product_name FROM products_on_hand")
         self.product_items = pr_cursor.fetchall()
         # Clear existing items in the combo box
         self.ui.cbProducts.clear()
         # Populate the combo box with formatted entries
         for item in self.product_items:
-            product_id, product_name, exp_date = item
+            product_id, product_name = item
             display_text = f"{product_id} - {product_name}"
             self.ui.cbProducts.addItem(display_text, product_id)
         pr_cursor.close()
@@ -753,18 +796,19 @@ class AddPrExisting(QDialog):
                 QMessageBox.warning(self, "Selection Error", "Please select an item.")
                 return
             # Retrieve selected item details
-            product_id, product_name, exp_date = self.product_items[index]
+            product_id, product_name = self.product_items[index]
             amount_text = self.ui.teAmount.toPlainText()
             if not amount_text.strip():
                 QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
                 return
             amount = int(amount_text)
+            newExpDate = self.ui.teExpDate.toPlainText()
             # Insert into the restock database
             cursor = self.db_connection.cursor()
             cursor.execute("""
                 INSERT INTO restock_product (product_id, product_name, amount, exp_date)
                 VALUES (?, ?, ?, ?)
-            """, (product_id, product_name, amount, exp_date))
+            """, (product_id, product_name, amount, newExpDate))
             self.db_connection.commit()
             self.accept()
         except ValueError:
@@ -815,11 +859,12 @@ class AddPrNew(QDialog):
         self.ui.setupUi(self)
         self.db_connection = conn
         self.populate_combobox()
+        self.populate_table()
         # Connect buttons
         self.ui.btnCancel.clicked.connect(self.close)
-    #sakit ng shoulders    
-    def populate_ingredients(self):
-        pass
+        self.ui.btnAdd.clicked.connect(self.add)
+        self.ui.btnConfirm.clicked.connect(self.confirm)
+        self.ui.btnRemove.clicked.connect(self.remove)
     def populate_combobox(self):
         inv_path = os.path.join("db", "inventory_db.db")
         inv_conn = sqlite3.connect(inv_path)
@@ -835,12 +880,194 @@ class AddPrNew(QDialog):
             display_text = f"{inventory_id} - {description} (in {unit})"
             self.ui.cbItems.addItem(display_text, inventory_id)  # Store inventory_id as userData
         inv_cursor.close()
+    def populate_table(self):
+        data_path = os.path.join("db", "prrestock_db.db")
+        data_conn = sqlite3.connect(data_path)
+        data_cursor = data_conn.cursor()
+        # Fetch inventory_id, description, and amount
+        data_cursor.execute("""
+            SELECT inventory_id, description, amount
+            FROM new_product_data
+        """)
+        prData = data_cursor.fetchall()
+        # Set up the table
+        self.ui.tabPrIngredients.setRowCount(len(prData)) 
+        self.ui.tabPrIngredients.setColumnCount(3)
+        self.ui.tabPrIngredients.verticalHeader().hide()
+        # Set headers for the table
+        headers = ["Inventory ID", "Description", "Amount"]
+        self.ui.tabPrIngredients.setHorizontalHeaderLabels(headers)
+        header = self.ui.tabPrIngredients.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        # Set Table to Read-Only
+        self.ui.tabPrIngredients.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tabPrIngredients.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        # Populate the table with the data
+        for row, item in enumerate(prData):
+            inventory_id, description, amount = item
+            row_values = [inventory_id, description, amount]
+            # Loop through each column and insert items
+            for col, value in enumerate(row_values):
+                table_item = QTableWidgetItem(str(value))
+                table_item.setTextAlignment(Qt.AlignCenter)
+
+                self.ui.tabPrIngredients.setItem(row, col, table_item)
+        self.ui.tabPrIngredients.resizeRowsToContents()
+        data_cursor.close()
     def add(self):
-        pass
+        inventory_id = self.ui.cbItems.currentData()  # Get selected inventory_id
+        amount = self.ui.leAmount.text().strip()  # Get entered amount
+
+        if not inventory_id or not amount:
+            QMessageBox.warning(self, "Input Error", "Please select an ingredient and enter an amount.")
+            return
+
+        try:
+            amount = float(amount)  # Ensure valid numeric input
+        except ValueError:
+            QMessageBox.warning(self, "Input Error", "Amount must be a number.")
+            return
+
+        # Fetch the description from inventory
+        description = next((desc for inv_id, desc, _ in self.inventory_items if inv_id == inventory_id), None)
+
+        if not description:
+            QMessageBox.warning(self, "Database Error", "Failed to fetch ingredient description.")
+            return
+
+        # Insert into prrestock_db.db
+        prrestock_path = os.path.join("db", "prrestock_db.db")
+        pr_conn = sqlite3.connect(prrestock_path)
+        pr_cursor = pr_conn.cursor()
+
+        try:
+            pr_cursor.execute(
+                "INSERT INTO new_product_data (inventory_id, description, amount) VALUES (?, ?, ?)",
+                (inventory_id, description, amount)
+            )
+            pr_conn.commit()
+            self.populate_table()
+        except sqlite3.IntegrityError:
+            QMessageBox.warning(self, "Error", "This ingredient is already added.")
+        finally:
+            pr_cursor.close()
+            pr_conn.close()
     def remove(self):
-        pass
+        # Get selected items
+        selected_items = self.ui.tabPrIngredients.selectedItems()
+        if not selected_items:
+            QMessageBox.warning(self, "Selection Error", "No item selected. Please select an ingredient to delete.")
+            return
+
+        # Identify unique rows from selected cells
+        rows_to_delete = sorted(set(item.row() for item in selected_items), reverse=True)
+
+        # Connect to the database
+        prrestock_path = os.path.join("db", "prrestock_db.db")
+        pr_conn = sqlite3.connect(prrestock_path)
+        pr_cursor = pr_conn.cursor()
+
+        try:
+            for row in rows_to_delete:
+                # Retrieve the inventory_id from the first column
+                inventory_item = self.ui.tabPrIngredients.item(row, 0) 
+                if inventory_item:
+                    inventory_id = inventory_item.text()
+
+                    # Delete the item from the database
+                    pr_cursor.execute("DELETE FROM new_product_data WHERE inventory_id = ?", (inventory_id,))
+
+                    # Remove the row from the table widget
+                    self.ui.tabPrIngredients.removeRow(row)
+                else:
+                    QMessageBox.warning(self, "Missing Data", f"Could not find Inventory ID for row {row + 1}.")
+
+            # Commit changes to the database
+            pr_conn.commit()
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
+        finally:
+            pr_conn.close()
+
+        self.populate_table()
     def confirm(self):
-        pass
+        prrestock_path = os.path.join("db", "prrestock_db.db")
+        product_path = os.path.join("db", "product_db.db")
+        ingredients_path = os.path.join("db", "ingredients_db.db")
+
+        product_id = self.ui.lePrID.text().strip()
+        product_name = self.ui.lePrName.text().strip()
+
+        if not product_id or not product_name:
+            QMessageBox.warning(self, "Input Error", "Please enter a Product ID and Product Name.")
+            return
+
+        pr_conn = sqlite3.connect(prrestock_path)
+        pr_cursor = pr_conn.cursor()
+        
+        product_conn = sqlite3.connect(product_path)
+        product_cursor = product_conn.cursor()
+
+        ingredients_conn = sqlite3.connect(ingredients_path)
+        ingredients_cursor = ingredients_conn.cursor()
+
+        try:
+            product_cursor.execute("""
+                INSERT INTO products_on_hand (product_id, product_name, on_hand, exp_date) 
+                VALUES (?, ?, 0, 'N/A')
+            """, (product_id, product_name))
+            product_conn.commit()
+
+            pr_cursor.execute("SELECT inventory_id, description, amount FROM new_product_data")
+            new_ingredients = pr_cursor.fetchall()
+
+            if not new_ingredients:
+                QMessageBox.warning(self, "Data Error", "You have new ingredients for the new product!")
+                return
+
+            ingredients_cursor.execute("PRAGMA table_info(ingredients)")
+            existing_columns = [col[1] for col in ingredients_cursor.fetchall()] 
+            
+            if product_id not in existing_columns:
+                ingredients_cursor.execute(f"ALTER TABLE ingredients ADD COLUMN '{product_id}' REAL DEFAULT 0")
+                ingredients_conn.commit()
+
+            for inventory_id, description, amount in new_ingredients:
+                # Check if inventory_id exists in ingredients database
+                ingredients_cursor.execute("SELECT inventory_id FROM ingredients WHERE inventory_id = ?", (inventory_id,))
+                existing_ingredient = ingredients_cursor.fetchone()
+
+                if existing_ingredient:
+                    # Update existing ingredient with new amount
+                    ingredients_cursor.execute(f"UPDATE ingredients SET '{product_id}' = ? WHERE inventory_id = ?", (amount, inventory_id))
+                else:
+                    # Insert new ingredient, setting all other product columns to 0
+                    other_columns = ", ".join([f"'{col}'" for col in existing_columns if col != "inventory_id" and col != "description"])
+                    default_values = ", ".join(["0"] * (len(existing_columns) - 2))  # Excluding inventory_id & description
+                    
+                    ingredients_cursor.execute(f"""
+                        INSERT INTO ingredients (inventory_id, description, {other_columns}, '{product_id}') 
+                        VALUES (?, ?, {default_values}, ?)
+                    """, (inventory_id, description, amount))
+            
+            ingredients_conn.commit()
+
+            pr_cursor.execute("DELETE FROM new_product_data")
+            pr_conn.commit()
+
+            QMessageBox.information(self, "Success", "Product and ingredients updated successfully!")
+            self.close()
+
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Failed to confirm: {e}")
+        finally:
+            pr_cursor.close()
+            pr_conn.close()
+            product_cursor.close()
+            product_conn.close()
+            ingredients_cursor.close()
+            ingredients_conn.close()
     
 class SalesWindow(QMainWindow):
     go_to_dashboard = pyqtSignal()

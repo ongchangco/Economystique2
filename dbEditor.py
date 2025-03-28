@@ -3,7 +3,7 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "inventory_db.db")
+    connectionPath = os.path.join("db", "prrestock_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
@@ -18,22 +18,13 @@ def edit_database():
     
     # Create tables
     '''cursor.execute("""
-    CREATE TABLE IF NOT EXISTS ingredients (
+    CREATE TABLE IF NOT EXISTS new_product_data (
         inventory_id TEXT PRIMARY KEY,
         description TEXT NOT NULL,
-        C001 FLOAT NOT NULL,
-        C002 FLOAT NOT NULL,
-        C003 FLOAT NOT NULL,
-        C004 FLOAT NOT NULL,
-        C005 FLOAT NOT NULL,
-        C006 FLOAT NOT NULL,
-        C007 FLOAT NOT NULL,
-        C008 FLOAT NOT NULL,
-        C009 FLOAT NOT NULL,
-        C010 FLOAT NOT NULL
+        amount FLOAT NOT NULL
     )
-    """)
-    '''
+    """)'''
+    
     
     # Add Data
     '''

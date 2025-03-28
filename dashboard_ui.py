@@ -138,22 +138,6 @@ class Ui_Dashboard(object):
 "    background: white;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
-        self.lsCritical = QtWidgets.QListWidget(Dashboard)
-        self.lsCritical.setGeometry(QtCore.QRect(800, 170, 351, 501))
-        self.lsCritical.setStyleSheet("QListWidget {\n"
-"    border: 1px solid black;\n"
-"    border-radius: 10px;\n"
-"    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
-"                            stop:0 rgb(248,235,235),\n"
-"                            stop:0.53 rgb(248,214,214),\n"
-"                            stop:1 rgb(247,234,234));\n"
-"}\n"
-"\n"
-"QListWidget::item:selected {\n"
-"    background-color: #ffcccc;\n"
-"    padding: 5px;\n"
-"}")
-        self.lsCritical.setObjectName("lsCritical")
         self.label = QtWidgets.QLabel(Dashboard)
         self.label.setGeometry(QtCore.QRect(800, 130, 351, 31))
         font = QtGui.QFont()
@@ -213,14 +197,32 @@ class Ui_Dashboard(object):
         self.label_5.setLineWidth(1)
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
-        self.lsCritical_2 = QtWidgets.QListWidget(Dashboard)
-        self.lsCritical_2.setGeometry(QtCore.QRect(1170, 170, 411, 711))
-        self.lsCritical_2.setStyleSheet("QListWidget {\n"
+        self.lsProduct = QtWidgets.QListWidget(Dashboard)
+        self.lsProduct.setGeometry(QtCore.QRect(1170, 170, 411, 711))
+        self.lsProduct.setStyleSheet("QListWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
 "    background: white;\n"
 "}")
-        self.lsCritical_2.setObjectName("lsCritical_2")
+        self.lsProduct.setObjectName("lsProduct")
+        self.frame_4 = QtWidgets.QFrame(Dashboard)
+        self.frame_4.setGeometry(QtCore.QRect(800, 170, 351, 501))
+        self.frame_4.setStyleSheet("QFrame{\n"
+"    border: 1px solid black;\n"
+"    border-radius: 10px;\n"
+"    background: white;\n"
+"}\n"
+"")
+        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_4.setObjectName("frame_4")
+        self.lsCritical = QtWidgets.QListWidget(self.frame_4)
+        self.lsCritical.setGeometry(QtCore.QRect(10, 10, 331, 481))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.lsCritical.setFont(font)
+        self.lsCritical.setStyleSheet("border: 0px;")
+        self.lsCritical.setObjectName("lsCritical")
 
         self.retranslateUi(Dashboard)
         QtCore.QMetaObject.connectSlotsByName(Dashboard)

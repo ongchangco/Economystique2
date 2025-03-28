@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dashboard(object):
     def setupUi(self, Dashboard):
         Dashboard.setObjectName("Dashboard")
-        Dashboard.resize(1600, 900)
+        Dashboard.resize(1600, 888)
         Dashboard.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
@@ -131,7 +131,7 @@ class Ui_Dashboard(object):
         self.btnDashboard.setIcon(icon1)
         self.btnDashboard.setObjectName("btnDashboard")
         self.gpPerformance = QtWidgets.QWidget(Dashboard)
-        self.gpPerformance.setGeometry(QtCore.QRect(20, 170, 761, 501))
+        self.gpPerformance.setGeometry(QtCore.QRect(20, 170, 761, 471))
         self.gpPerformance.setStyleSheet("QWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
@@ -166,7 +166,7 @@ class Ui_Dashboard(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.frame_2 = QtWidgets.QFrame(Dashboard)
-        self.frame_2.setGeometry(QtCore.QRect(10, 690, 1141, 191))
+        self.frame_2.setGeometry(QtCore.QRect(10, 750, 1141, 131))
         self.frame_2.setStyleSheet("border-radius: 10px;\n"
 "background: #365b6d;")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -182,12 +182,15 @@ class Ui_Dashboard(object):
         self.label_4.setLineWidth(1)
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
-        self.frame_3 = QtWidgets.QFrame(self.frame_2)
-        self.frame_3.setGeometry(QtCore.QRect(40, 40, 191, 121))
-        self.frame_3.setStyleSheet("background: white;")
-        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_3.setObjectName("frame_3")
+        self.lblBestProduct = QtWidgets.QLabel(self.frame_2)
+        self.lblBestProduct.setGeometry(QtCore.QRect(20, 60, 1091, 51))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.lblBestProduct.setFont(font)
+        self.lblBestProduct.setStyleSheet("color: white;")
+        self.lblBestProduct.setText("")
+        self.lblBestProduct.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBestProduct.setObjectName("lblBestProduct")
         self.label_5 = QtWidgets.QLabel(Dashboard)
         self.label_5.setGeometry(QtCore.QRect(1170, 130, 411, 31))
         font = QtGui.QFont()
@@ -206,7 +209,7 @@ class Ui_Dashboard(object):
 "}")
         self.lsProduct.setObjectName("lsProduct")
         self.frame_4 = QtWidgets.QFrame(Dashboard)
-        self.frame_4.setGeometry(QtCore.QRect(800, 170, 351, 501))
+        self.frame_4.setGeometry(QtCore.QRect(800, 170, 351, 561))
         self.frame_4.setStyleSheet("QFrame{\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
@@ -217,12 +220,37 @@ class Ui_Dashboard(object):
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
         self.lsCritical = QtWidgets.QListWidget(self.frame_4)
-        self.lsCritical.setGeometry(QtCore.QRect(10, 10, 331, 481))
+        self.lsCritical.setGeometry(QtCore.QRect(10, 10, 331, 541))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.lsCritical.setFont(font)
         self.lsCritical.setStyleSheet("border: 0px;")
         self.lsCritical.setObjectName("lsCritical")
+        self.frame_5 = QtWidgets.QFrame(Dashboard)
+        self.frame_5.setGeometry(QtCore.QRect(20, 660, 761, 71))
+        self.frame_5.setStyleSheet("QFrame{border: 1px solid black;\n"
+"border-radius: 10px;\n"
+"background: white;}\n"
+"")
+        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_5.setObjectName("frame_5")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame_5)
+        self.gridLayout.setContentsMargins(5, 1, 1, 1)
+        self.gridLayout.setObjectName("gridLayout")
+        self.lblPerformance = QtWidgets.QLabel(self.frame_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lblPerformance.sizePolicy().hasHeightForWidth())
+        self.lblPerformance.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.lblPerformance.setFont(font)
+        self.lblPerformance.setStyleSheet("border: 0px;")
+        self.lblPerformance.setText("")
+        self.lblPerformance.setObjectName("lblPerformance")
+        self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
 
         self.retranslateUi(Dashboard)
         QtCore.QMetaObject.connectSlotsByName(Dashboard)

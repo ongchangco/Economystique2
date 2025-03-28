@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QListWidgetItem, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QPushButton, QDialog, QFileDialog, QInputDialog, QListView, QTabWidget,QVBoxLayout, QLabel, QWidget, QTableView, QTableWidget, QTableWidgetItem
-from PyQt5.QtCore import Qt, QStringListModel, pyqtSignal, QMetaObject, QTimer, QThread
-from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QIcon, QColor
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QWidget
+from PyQt5.QtCore import Qt, pyqtSignal, QThread
+from PyQt5.QtGui import  QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
-from concurrent.futures import ThreadPoolExecutor
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 #additional imports for each page
 from login_ui import Ui_Login
@@ -27,7 +27,7 @@ from addExisting_ui import Ui_AddExisting
 from addPrExisting_ui import Ui_AddPrExisting
 from addPrNew_ui import Ui_addPrNew
 from pos_ui import Ui_pos
-
+from sales_utils import fetch_sales_data
 class MainWindow(QMainWindow):
     switch_to_login = pyqtSignal()
     def __init__(self, icon_path):
@@ -165,6 +165,12 @@ class Dashboard(QMainWindow):
         self.ui.setupUi(self)
         self.populate_crit_list()
         self.populate_product_list()
+        # Matplotlib Canvas for Sales Graph
+        self.sales_canvas = FigureCanvas(plt.figure())
+        layout = QVBoxLayout()
+        layout.addWidget(self.sales_canvas)
+        self.ui.gpPerformance.setLayout(layout)
+        self.display_sales_performance()
         # Connect Buttons
         self.ui.btnInventory.clicked.connect(self.go_to_inventory.emit)
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
@@ -206,6 +212,81 @@ class Dashboard(QMainWindow):
             list_item_text = f"{product_id} - {product_name} @ {on_hand} pcs"
             self.ui.lsProduct.addItem(list_item_text)
         conn.close()
+    # AAAAAAAAAAIIIIIIIIIIIIIIIIIIII
+    def display_sales_performance(self):
+        """ Fetch sales data and display it as a linear graph """
+        sales_data = fetch_sales_data()  # Fetch fresh data
+        self.plot_sales_graph(sales_data)  # Update graph
+        performance_message = self.compare_sales_performance(sales_data)  # AI-generated message
+        self.ui.lblPerformance.setText(performance_message)  # Update performance label
+        self.display_best_selling_product()  # Update best-selling product label
+        
+    def plot_sales_graph(self, sales_data):
+        """ Plot a linear sales graph using Matplotlib """
+        self.sales_canvas.figure.clf()  # Clear figure to remove old data
+
+        # Extract fresh data
+        x_values = list(range(len(sales_data)))
+        y_values = sales_data["TotalSales"].tolist()
+
+        # Create new plot
+        ax = self.sales_canvas.figure.add_subplot(111)
+        ax.plot(x_values, y_values, marker="o", linestyle="-", color="b", label="Total Sales")
+        ax.set_xlabel("Month")
+        ax.set_ylabel("Total Sales")
+        ax.set_title("Sales Performance Over Time")
+        ax.grid(True)
+        ax.legend()
+
+        # Explicitly trigger re-rendering
+        self.sales_canvas.figure.tight_layout()  # Ensure proper layout
+        self.sales_canvas.draw_idle()  # This ensures it redraws properly
+
+
+    def compare_sales_performance(self, sales_data):
+        """ Compare this month's sales to December and generate a performance message. """
+        this_month_sales = sales_data[sales_data["Month"] == "this_month"]["TotalSales"].values
+        this_month_value = this_month_sales[0] if len(this_month_sales) > 0 else 0
+
+        # Get December sales safely
+        december_sales = sales_data[sales_data["Month"] == "december"]["TotalSales"].values
+        december_value = december_sales[0] if len(december_sales) > 0 else 0
+
+        # Calculate percentage change
+        if december_value > 0:
+            change_percentage = ((this_month_value - december_value) / december_value) * 100
+        else:
+            change_percentage = 100 if this_month_value > 0 else 0  # If no Dec data, assume 100% increase or no change
+
+        # Generate message
+        if change_percentage > 0:
+            message = f"This month's sales improved by {change_percentage:.2f}% compared last month."
+        elif change_percentage < 0:
+            message = f"This month's sales declined by {abs(change_percentage):.2f}% compared last month."
+        else:
+            message = "Sales remained the same compared to December."
+
+        return message
+    def display_best_selling_product(self):
+        """Fetch the product with the highest total sales value (price * quantity_sold) from this_month."""
+        db_path = os.path.join("db", "sales_db.db")  # Adjust the path if needed
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT product_name, price * quantity_sold AS total_value 
+            FROM this_month 
+            ORDER BY total_value DESC 
+            LIMIT 1
+        """)
+        result = cursor.fetchone()
+        conn.close()
+
+        if result:
+            product_name, total_value = result
+            self.ui.lblBestProduct.setText(f"The top product: {product_name} with ₱{total_value:.2f} in sales!")
+        else:
+            self.ui.lblBestProduct.setText("No sales data for this month yet.")
 class Inventory(QMainWindow):
     go_to_dashboard = pyqtSignal()
     go_to_sales = pyqtSignal()
@@ -1269,40 +1350,25 @@ class SalesWindow(QMainWindow):
         self.sales_forecast_window.ui.textBrowser.setText(forecast)
         self.sales_forecast_window.show()
 class ForecastWorker(QThread):
-    # Signal to pass the generated forecast back to the main thread
     forecast_generated = pyqtSignal(str)
 
-    def __init__(self, sales_prompt, file_map_2):
+    def __init__(self, sales_prompt):
         super().__init__()
         self.sales_prompt = sales_prompt
-        self.file_map_2 = file_map_2
 
     def run(self):
         try:
-            # Load tokenizer and model
             tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
             model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B")
-
-            # Move model to GPU if available
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             model.to(device)
 
-            # Tokenize the input
-            inputs = tokenizer(self.sales_prompt, return_tensors="pt", truncation=True, max_length=512, padding=False)
+            inputs = tokenizer(self.sales_prompt, return_tensors="pt", truncation=True, max_length=512)
             inputs = {key: value.to(device) for key, value in inputs.items()}
 
-            # Generate forecast
-            outputs = model.generate(
-                inputs["input_ids"],
-                attention_mask=inputs.get("attention_mask", None),
-                max_new_tokens=50,
-                num_beams=1,  # Greedy search for faster decoding
-                pad_token_id=tokenizer.eos_token_id
-            )
-
+            outputs = model.generate(inputs["input_ids"], max_new_tokens=50, num_beams=1, pad_token_id=tokenizer.eos_token_id)
             forecast = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-            # Emit the forecast using the signal
             self.forecast_generated.emit(forecast)
 
         except Exception as e:

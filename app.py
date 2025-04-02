@@ -1158,7 +1158,7 @@ class SalesWindow(QMainWindow):
                                   "June","July","August","September","October",
                                   "November","December"])
         self.ui.cbMonth.setCurrentIndex(0)
-        self.ui.cbYear.addItems(["2024"])
+        self.ui.cbYear.addItems(["2025","2024","2023"])
         self.ui.cbYear.setCurrentIndex(0)
         self.ui.cbYear.setCurrentIndex(0)
         self.load_sales_data()
@@ -1172,46 +1172,27 @@ class SalesWindow(QMainWindow):
         self.ui.btnPOS.clicked.connect(self.go_to_pos)
         self.ui.btnAccount.clicked.connect(self.go_to_account)
     def load_yearly_data(self):
-        year_table = "y2024"  # Yearly summary table
-        sales_path = os.path.join("db", "sales_db.db")
+        selected_year = self.ui.cbYear.currentText()  # Get selected year
+        db_name = f"sales_{selected_year}.db"  # Construct database filename
+        year_table = "year_total"  # Yearly summary table
+        
+        sales_path = os.path.join("db", db_name)
+        
+        if not os.path.exists(sales_path):
+            print(f"Database {db_name} not found.")  # Debug message
+            self.ui.yProductTable.setRowCount(0)  # Clear table
+            self.ui.lblYTotal.setText("0.00")  # Reset total
+            return  # Exit function if DB is missing
+        
         sales_conn = sqlite3.connect(sales_path)
         sales_cursor = sales_conn.cursor()
 
         try:
-            # Dictionary to store aggregated sales per product_id
-            product_sales = {}
-
-            # Iterate through each month's table and aggregate data
-            for month in ["january", "february", "march", "april", "may", "june", 
-                        "july", "august", "september", "october", "november", "december"]:
-                sales_cursor.execute(f"SELECT product_id, product_name, price, quantity_sold FROM {month}")
-                for product_id, product_name, price, quantity_sold in sales_cursor.fetchall():
-                    if product_id in product_sales:
-                        product_sales[product_id]['quantity_sold'] += quantity_sold
-                    else:
-                        product_sales[product_id] = {
-                            'product_name': product_name,
-                            'price': price,
-                            'quantity_sold': quantity_sold
-                        }
-
-            # Clear previous yearly data
-            sales_cursor.execute(f"DELETE FROM {year_table}")
-
-            # Insert aggregated data into y2024
-            for product_id, data in product_sales.items():
-                sales_cursor.execute(
-                    f"INSERT INTO {year_table} (product_id, product_name, price, quantity_sold) VALUES (?, ?, ?, ?)",
-                    (product_id, data['product_name'], data['price'], data['quantity_sold'])
-                )
-
-            # Commit changes
-            sales_conn.commit()
-
-            # Fetch & display the aggregated data in yProductTable
+            # Fetch yearly data
             sales_cursor.execute(f"SELECT product_id, product_name, price, quantity_sold FROM {year_table}")
             products = sales_cursor.fetchall()
 
+            # Set up the table
             self.ui.yProductTable.setRowCount(len(products))
             self.ui.yProductTable.setColumnCount(4)
             self.ui.yProductTable.verticalHeader().hide()
@@ -1233,8 +1214,11 @@ class SalesWindow(QMainWindow):
             total = sum(item[2] * item[3] for item in products)  # price * quantity_sold
             self.ui.lblYTotal.setText(f"{total:,.2f}")  # Add thousands separator
 
-        except sqlite3.Error as e:
+        except sqlite3.OperationalError as e:
             print(f"Error loading yearly data: {e}")
+            self.ui.yProductTable.setRowCount(0)  # Clear table if query fails
+            self.ui.lblYTotal.setText("0.00")  # Reset total
+
         finally:
             sales_conn.close()
     def load_monthly_data(self):

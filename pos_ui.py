@@ -21,120 +21,8 @@ class Ui_pos(object):
         pos.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"
 "")
-        self.frame = QtWidgets.QFrame(pos)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 41))
-        self.frame.setStyleSheet("background: #365b6d;")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.btnSales = QtWidgets.QPushButton(self.frame)
-        self.btnSales.setGeometry(QtCore.QRect(1370, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnSales.setFont(font)
-        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSales.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnSales.setObjectName("btnSales")
-        self.btnInventory = QtWidgets.QPushButton(self.frame)
-        self.btnInventory.setGeometry(QtCore.QRect(1280, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnInventory.setFont(font)
-        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnInventory.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnInventory.setObjectName("btnInventory")
-        self.btnPOS = QtWidgets.QPushButton(self.frame)
-        self.btnPOS.setGeometry(QtCore.QRect(1460, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnPOS.setFont(font)
-        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnPOS.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnPOS.setObjectName("btnPOS")
-        self.btnAccount = QtWidgets.QPushButton(self.frame)
-        self.btnAccount.setGeometry(QtCore.QRect(1550, 0, 51, 41))
-        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAccount.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnAccount.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon1)
-        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
-        self.btnAccount.setObjectName("btnAccount")
-        self.btnDashboard = QtWidgets.QPushButton(self.frame)
-        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 221, 41))
-        font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.btnDashboard.setFont(font)
-        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnDashboard.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnDashboard.setIcon(icon2)
-        self.btnDashboard.setObjectName("btnDashboard")
         self.gridLayoutWidget = QtWidgets.QWidget(pos)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 50, 1111, 831))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 70, 1111, 811))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -146,15 +34,15 @@ class Ui_pos(object):
         self.frame_6.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_6.setObjectName("frame_6")
         self.btnC005 = QtWidgets.QToolButton(self.frame_6)
-        self.btnC005.setGeometry(QtCore.QRect(0, 0, 261, 261))
+        self.btnC005.setGeometry(QtCore.QRect(0, 0, 261, 251))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC005.setFont(font)
         self.btnC005.setStyleSheet("background: white;")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C005.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC005.setIcon(icon3)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C005.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC005.setIcon(icon1)
         self.btnC005.setIconSize(QtCore.QSize(150, 150))
         self.btnC005.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC005.setObjectName("btnC005")
@@ -165,15 +53,15 @@ class Ui_pos(object):
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
         self.btnC003 = QtWidgets.QToolButton(self.frame_4)
-        self.btnC003.setGeometry(QtCore.QRect(-20, 10, 281, 251))
+        self.btnC003.setGeometry(QtCore.QRect(-20, 10, 281, 241))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC003.setFont(font)
         self.btnC003.setStyleSheet("background: white;")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C003.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC003.setIcon(icon4)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C003.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC003.setIcon(icon2)
         self.btnC003.setIconSize(QtCore.QSize(150, 150))
         self.btnC003.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC003.setObjectName("btnC003")
@@ -184,15 +72,15 @@ class Ui_pos(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.btnC001 = QtWidgets.QToolButton(self.frame_2)
-        self.btnC001.setGeometry(QtCore.QRect(10, 10, 251, 251))
+        self.btnC001.setGeometry(QtCore.QRect(10, 10, 251, 241))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC001.setFont(font)
         self.btnC001.setStyleSheet("background: white;")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C001.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC001.setIcon(icon5)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C001.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC001.setIcon(icon3)
         self.btnC001.setIconSize(QtCore.QSize(150, 150))
         self.btnC001.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC001.setObjectName("btnC001")
@@ -203,15 +91,15 @@ class Ui_pos(object):
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.btnC002 = QtWidgets.QToolButton(self.frame_3)
-        self.btnC002.setGeometry(QtCore.QRect(0, 10, 261, 251))
+        self.btnC002.setGeometry(QtCore.QRect(0, 10, 261, 241))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC002.setFont(font)
         self.btnC002.setStyleSheet("background: white;")
-        icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C002.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC002.setIcon(icon6)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C002.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC002.setIcon(icon4)
         self.btnC002.setIconSize(QtCore.QSize(150, 150))
         self.btnC002.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC002.setObjectName("btnC002")
@@ -222,15 +110,15 @@ class Ui_pos(object):
         self.frame_8.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_8.setObjectName("frame_8")
         self.btnC007 = QtWidgets.QToolButton(self.frame_8)
-        self.btnC007.setGeometry(QtCore.QRect(0, 0, 261, 261))
+        self.btnC007.setGeometry(QtCore.QRect(0, 0, 261, 251))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC007.setFont(font)
         self.btnC007.setStyleSheet("background: white;")
-        icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C007.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC007.setIcon(icon7)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C007.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC007.setIcon(icon5)
         self.btnC007.setIconSize(QtCore.QSize(150, 150))
         self.btnC007.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC007.setObjectName("btnC007")
@@ -241,15 +129,15 @@ class Ui_pos(object):
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
         self.btnC004 = QtWidgets.QToolButton(self.frame_5)
-        self.btnC004.setGeometry(QtCore.QRect(0, 10, 261, 251))
+        self.btnC004.setGeometry(QtCore.QRect(0, 10, 261, 241))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC004.setFont(font)
         self.btnC004.setStyleSheet("background: white;")
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C004.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC004.setIcon(icon8)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C004.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC004.setIcon(icon6)
         self.btnC004.setIconSize(QtCore.QSize(150, 150))
         self.btnC004.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC004.setObjectName("btnC004")
@@ -260,15 +148,15 @@ class Ui_pos(object):
         self.frame_9.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_9.setObjectName("frame_9")
         self.btnC008 = QtWidgets.QToolButton(self.frame_9)
-        self.btnC008.setGeometry(QtCore.QRect(0, 0, 261, 261))
+        self.btnC008.setGeometry(QtCore.QRect(0, 0, 261, 251))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC008.setFont(font)
         self.btnC008.setStyleSheet("background: white;")
-        icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C008.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC008.setIcon(icon9)
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C008.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC008.setIcon(icon7)
         self.btnC008.setIconSize(QtCore.QSize(150, 150))
         self.btnC008.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC008.setObjectName("btnC008")
@@ -279,15 +167,15 @@ class Ui_pos(object):
         self.frame_10.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_10.setObjectName("frame_10")
         self.btnC009 = QtWidgets.QToolButton(self.frame_10)
-        self.btnC009.setGeometry(QtCore.QRect(0, 0, 261, 261))
+        self.btnC009.setGeometry(QtCore.QRect(0, 0, 261, 251))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC009.setFont(font)
         self.btnC009.setStyleSheet("background: white;")
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C009.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC009.setIcon(icon10)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C009.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC009.setIcon(icon8)
         self.btnC009.setIconSize(QtCore.QSize(150, 150))
         self.btnC009.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC009.setObjectName("btnC009")
@@ -298,15 +186,15 @@ class Ui_pos(object):
         self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_11.setObjectName("frame_11")
         self.btnC010 = QtWidgets.QToolButton(self.frame_11)
-        self.btnC010.setGeometry(QtCore.QRect(0, 0, 261, 261))
+        self.btnC010.setGeometry(QtCore.QRect(0, 0, 261, 251))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC010.setFont(font)
         self.btnC010.setStyleSheet("background: white;")
-        icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C010.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC010.setIcon(icon11)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C010.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC010.setIcon(icon9)
         self.btnC010.setIconSize(QtCore.QSize(150, 150))
         self.btnC010.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC010.setObjectName("btnC010")
@@ -317,15 +205,15 @@ class Ui_pos(object):
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_7.setObjectName("frame_7")
         self.btnC006 = QtWidgets.QToolButton(self.frame_7)
-        self.btnC006.setGeometry(QtCore.QRect(0, 0, 261, 261))
+        self.btnC006.setGeometry(QtCore.QRect(0, 0, 261, 251))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
         self.btnC006.setFont(font)
         self.btnC006.setStyleSheet("background: white;")
-        icon12 = QtGui.QIcon()
-        icon12.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C006.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnC006.setIcon(icon12)
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/C006.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnC006.setIcon(icon10)
         self.btnC006.setIconSize(QtCore.QSize(150, 150))
         self.btnC006.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
         self.btnC006.setObjectName("btnC006")
@@ -401,6 +289,119 @@ class Ui_pos(object):
         self.cartList.setStyleSheet("background: #ffffff")
         self.cartList.setFrameShape(QtWidgets.QFrame.Panel)
         self.cartList.setObjectName("cartList")
+        self.frame = QtWidgets.QFrame(pos)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 61))
+        self.frame.setStyleSheet("background: #365b6d;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(1312, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(1202, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(1422, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnPOS.setObjectName("btnPOS")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(1530, 0, 71, 61))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon11)
+        self.btnAccount.setIconSize(QtCore.QSize(50, 50))
+        self.btnAccount.setObjectName("btnAccount")
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 291, 61))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(22)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        icon12 = QtGui.QIcon()
+        icon12.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDashboard.setIcon(icon12)
+        self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
+        self.btnDashboard.setObjectName("btnDashboard")
 
         self.retranslateUi(pos)
         QtCore.QMetaObject.connectSlotsByName(pos)
@@ -408,10 +409,6 @@ class Ui_pos(object):
     def retranslateUi(self, pos):
         _translate = QtCore.QCoreApplication.translate
         pos.setWindowTitle(_translate("pos", "EconoMystique"))
-        self.btnSales.setText(_translate("pos", "Sales"))
-        self.btnInventory.setText(_translate("pos", "Inventory"))
-        self.btnPOS.setText(_translate("pos", "POS"))
-        self.btnDashboard.setText(_translate("pos", "EconoMystique"))
         self.btnC005.setText(_translate("pos", "C005\n"
 "Red Velvet\n"
 "₱850"))
@@ -445,3 +442,7 @@ class Ui_pos(object):
         self.btnClear.setText(_translate("pos", "Clear"))
         self.btnCheckout.setText(_translate("pos", "Checkout"))
         self.label.setText(_translate("pos", "Cart"))
+        self.btnSales.setText(_translate("pos", "Sales"))
+        self.btnInventory.setText(_translate("pos", "Inventory"))
+        self.btnPOS.setText(_translate("pos", "POS"))
+        self.btnDashboard.setText(_translate("pos", "EconoMystique"))

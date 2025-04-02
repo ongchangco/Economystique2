@@ -27,7 +27,7 @@ color: black;
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>50</y>
+     <y>70</y>
      <width>1581</width>
      <height>51</height>
     </rect>
@@ -35,7 +35,7 @@ color: black;
    <property name="font">
     <font>
      <family>MS Sans Serif</family>
-     <pointsize>18</pointsize>
+     <pointsize>22</pointsize>
     </font>
    </property>
    <property name="text">
@@ -51,7 +51,7 @@ color: black;
      <x>0</x>
      <y>0</y>
      <width>1601</width>
-     <height>41</height>
+     <height>61</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -66,15 +66,15 @@ color: black;
    <widget class="QPushButton" name="btnSales">
     <property name="geometry">
      <rect>
-      <x>1370</x>
+      <x>1312</x>
       <y>0</y>
-      <width>93</width>
-      <height>41</height>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="cursor">
@@ -102,15 +102,15 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnInventory">
     <property name="geometry">
      <rect>
-      <x>1280</x>
+      <x>1202</x>
       <y>0</y>
-      <width>93</width>
-      <height>41</height>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="cursor">
@@ -138,15 +138,15 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
-      <x>1460</x>
+      <x>1422</x>
       <y>0</y>
-      <width>93</width>
-      <height>41</height>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="cursor">
@@ -174,10 +174,10 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnAccount">
     <property name="geometry">
      <rect>
-      <x>1550</x>
+      <x>1530</x>
       <y>0</y>
-      <width>51</width>
-      <height>41</height>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="cursor">
@@ -208,8 +208,8 @@ QPushButton:pressed {
     </property>
     <property name="iconSize">
      <size>
-      <width>40</width>
-      <height>40</height>
+      <width>50</width>
+      <height>50</height>
      </size>
     </property>
    </widget>
@@ -218,14 +218,14 @@ QPushButton:pressed {
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>221</width>
-      <height>41</height>
+      <width>291</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Cambria</family>
-      <pointsize>18</pointsize>
+      <pointsize>22</pointsize>
      </font>
     </property>
     <property name="cursor">
@@ -252,6 +252,12 @@ QPushButton:pressed {
     <property name="icon">
      <iconset>
       <normaloff>img/econologo_transparent_cropped.png</normaloff>img/econologo_transparent_cropped.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
   </widget>
@@ -475,10 +481,10 @@ border-radius: 10px;</string>
    <widget class="QLabel" name="imgProfile">
     <property name="geometry">
      <rect>
-      <x>1120</x>
-      <y>20</y>
-      <width>281</width>
-      <height>271</height>
+      <x>1130</x>
+      <y>30</y>
+      <width>261</width>
+      <height>251</height>
      </rect>
     </property>
     <property name="text">

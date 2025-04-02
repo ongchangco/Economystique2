@@ -3,7 +3,7 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "sales_2025.db")
+    connectionPath = os.path.join("db", "product_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
@@ -24,10 +24,13 @@ def edit_database():
     '''
     
     # DELETE ENTRY
-    #cursor.execute("DELETE FROM inventory WHERE inventory_id = '321'")
+    #cursor.execute("DELETE FROM products_on_hand WHERE product_id = '123'")
     
     # DELETE TABLE
     #cursor.execute(f"DROP TABLE IF EXISTS january")
+    
+    # EDIT TABLE NAME
+    #cursor.execute("ALTER TABLE this_month RENAME TO apr")
     
     # CREATE TABLE
     '''cursor.execute("""

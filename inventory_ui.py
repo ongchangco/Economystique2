@@ -21,123 +21,11 @@ class Ui_inventoryManagement(object):
         inventoryManagement.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
-        self.frame = QtWidgets.QFrame(inventoryManagement)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 41))
-        self.frame.setStyleSheet("background: #365b6d;")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.btnPOS = QtWidgets.QPushButton(self.frame)
-        self.btnPOS.setGeometry(QtCore.QRect(1460, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnPOS.setFont(font)
-        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnPOS.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnPOS.setObjectName("btnPOS")
-        self.btnAccount = QtWidgets.QPushButton(self.frame)
-        self.btnAccount.setGeometry(QtCore.QRect(1550, 0, 51, 41))
-        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAccount.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnAccount.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon1)
-        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
-        self.btnAccount.setObjectName("btnAccount")
-        self.btnSales = QtWidgets.QPushButton(self.frame)
-        self.btnSales.setGeometry(QtCore.QRect(1370, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnSales.setFont(font)
-        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSales.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnSales.setObjectName("btnSales")
-        self.btnInventory = QtWidgets.QPushButton(self.frame)
-        self.btnInventory.setGeometry(QtCore.QRect(1280, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnInventory.setFont(font)
-        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnInventory.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnInventory.setObjectName("btnInventory")
-        self.btnDashboard = QtWidgets.QPushButton(self.frame)
-        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 221, 41))
-        font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.btnDashboard.setFont(font)
-        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnDashboard.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnDashboard.setIcon(icon2)
-        self.btnDashboard.setObjectName("btnDashboard")
         self.InventoryStatus = QtWidgets.QLabel(inventoryManagement)
-        self.InventoryStatus.setGeometry(QtCore.QRect(9, 50, 1581, 51))
+        self.InventoryStatus.setGeometry(QtCore.QRect(9, 70, 1581, 51))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
-        font.setPointSize(18)
+        font.setPointSize(22)
         font.setBold(False)
         font.setWeight(50)
         self.InventoryStatus.setFont(font)
@@ -145,10 +33,10 @@ class Ui_inventoryManagement(object):
         self.InventoryStatus.setAlignment(QtCore.Qt.AlignCenter)
         self.InventoryStatus.setObjectName("InventoryStatus")
         self.tabWidget = QtWidgets.QTabWidget(inventoryManagement)
-        self.tabWidget.setGeometry(QtCore.QRect(20, 100, 1561, 781))
+        self.tabWidget.setGeometry(QtCore.QRect(20, 130, 1561, 751))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
-        font.setPointSize(14)
+        font.setPointSize(20)
         font.setBold(False)
         font.setWeight(50)
         self.tabWidget.setFont(font)
@@ -156,20 +44,23 @@ class Ui_inventoryManagement(object):
         self.tabIngredients = QtWidgets.QWidget()
         self.tabIngredients.setObjectName("tabIngredients")
         self.tabIngredientTable = QtWidgets.QTableWidget(self.tabIngredients)
-        self.tabIngredientTable.setGeometry(QtCore.QRect(0, 0, 1561, 621))
+        self.tabIngredientTable.setGeometry(QtCore.QRect(0, 0, 1561, 601))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabIngredientTable.sizePolicy().hasHeightForWidth())
         self.tabIngredientTable.setSizePolicy(sizePolicy)
         self.tabIngredientTable.setMaximumSize(QtCore.QSize(1920, 1080))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.tabIngredientTable.setFont(font)
         self.tabIngredientTable.setStyleSheet("background: #ffffff")
         self.tabIngredientTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabIngredientTable.setObjectName("tabIngredientTable")
         self.tabIngredientTable.setColumnCount(0)
         self.tabIngredientTable.setRowCount(0)
         self.btnRestock = QtWidgets.QPushButton(self.tabIngredients)
-        self.btnRestock.setGeometry(QtCore.QRect(720, 680, 121, 41))
+        self.btnRestock.setGeometry(QtCore.QRect(710, 620, 141, 61))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.btnRestock.setFont(font)
@@ -189,28 +80,31 @@ class Ui_inventoryManagement(object):
 "    border-style: inset;\n"
 "    background-color: #365b6d;\n"
 "}")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnRestock.setIcon(icon3)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnRestock.setIcon(icon1)
         self.btnRestock.setObjectName("btnRestock")
         self.tabWidget.addTab(self.tabIngredients, "")
         self.tabProducts = QtWidgets.QWidget()
         self.tabProducts.setObjectName("tabProducts")
         self.tabProductTable = QtWidgets.QTableWidget(self.tabProducts)
-        self.tabProductTable.setGeometry(QtCore.QRect(0, 0, 1561, 621))
+        self.tabProductTable.setGeometry(QtCore.QRect(0, 0, 1561, 601))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabProductTable.sizePolicy().hasHeightForWidth())
         self.tabProductTable.setSizePolicy(sizePolicy)
         self.tabProductTable.setMaximumSize(QtCore.QSize(1920, 1080))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.tabProductTable.setFont(font)
         self.tabProductTable.setStyleSheet("background: #ffffff")
         self.tabProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabProductTable.setObjectName("tabProductTable")
         self.tabProductTable.setColumnCount(0)
         self.tabProductTable.setRowCount(0)
         self.btnAddProduct = QtWidgets.QPushButton(self.tabProducts)
-        self.btnAddProduct.setGeometry(QtCore.QRect(710, 680, 141, 41))
+        self.btnAddProduct.setGeometry(QtCore.QRect(710, 620, 141, 61))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.btnAddProduct.setFont(font)
@@ -230,23 +124,136 @@ class Ui_inventoryManagement(object):
 "    border-style: inset;\n"
 "    background-color: #365b6d;\n"
 "}")
-        self.btnAddProduct.setIcon(icon3)
+        self.btnAddProduct.setIcon(icon1)
         self.btnAddProduct.setObjectName("btnAddProduct")
         self.tabWidget.addTab(self.tabProducts, "")
+        self.frame = QtWidgets.QFrame(inventoryManagement)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 61))
+        self.frame.setStyleSheet("background: #365b6d;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(1312, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(1202, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(1422, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnPOS.setObjectName("btnPOS")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(1530, 0, 71, 61))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon2)
+        self.btnAccount.setIconSize(QtCore.QSize(50, 50))
+        self.btnAccount.setObjectName("btnAccount")
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 291, 61))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(22)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDashboard.setIcon(icon3)
+        self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
+        self.btnDashboard.setObjectName("btnDashboard")
 
         self.retranslateUi(inventoryManagement)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(inventoryManagement)
 
     def retranslateUi(self, inventoryManagement):
         _translate = QtCore.QCoreApplication.translate
         inventoryManagement.setWindowTitle(_translate("inventoryManagement", "EconoMystique"))
-        self.btnPOS.setText(_translate("inventoryManagement", "POS"))
-        self.btnSales.setText(_translate("inventoryManagement", "Sales"))
-        self.btnInventory.setText(_translate("inventoryManagement", "Inventory"))
-        self.btnDashboard.setText(_translate("inventoryManagement", "EconoMystique"))
         self.InventoryStatus.setText(_translate("inventoryManagement", "Inventory Status"))
         self.btnRestock.setText(_translate("inventoryManagement", " Restock"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabIngredients), _translate("inventoryManagement", "Ingredients"))
         self.btnAddProduct.setText(_translate("inventoryManagement", "Add Product"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabProducts), _translate("inventoryManagement", "Products"))
+        self.btnSales.setText(_translate("inventoryManagement", "Sales"))
+        self.btnInventory.setText(_translate("inventoryManagement", "Inventory"))
+        self.btnPOS.setText(_translate("inventoryManagement", "POS"))
+        self.btnDashboard.setText(_translate("inventoryManagement", "EconoMystique"))

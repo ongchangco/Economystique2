@@ -14,43 +14,59 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SalesForecast(object):
     def setupUi(self, SalesForecast):
         SalesForecast.setObjectName("SalesForecast")
-        SalesForecast.resize(800, 600)
+        SalesForecast.resize(1600, 900)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         SalesForecast.setWindowIcon(icon)
-        SalesForecast.setStyleSheet("background: #f4f4ec;\n"
+        SalesForecast.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
-        self.centralwidget = QtWidgets.QWidget(SalesForecast)
-        self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget_3 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(20, 120, 371, 341))
-        self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_3)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.graphWidget = QtWidgets.QWidget(self.verticalLayoutWidget_3)
-        self.graphWidget.setObjectName("graphWidget")
-        self.verticalLayout_3.addWidget(self.graphWidget)
-        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(0, 0, 801, 41))
-        self.frame_2.setStyleSheet("background: #365b6d;")
+        self.SalesRecords = QtWidgets.QLabel(SalesForecast)
+        self.SalesRecords.setGeometry(QtCore.QRect(9, 70, 1581, 51))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(22)
+        self.SalesRecords.setFont(font)
+        self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
+        self.SalesRecords.setObjectName("SalesRecords")
+        self.gpPerformance = QtWidgets.QWidget(SalesForecast)
+        self.gpPerformance.setGeometry(QtCore.QRect(20, 230, 981, 471))
+        self.gpPerformance.setStyleSheet("QWidget {\n"
+"    border: 1px solid black;\n"
+"    border-radius: 10px;\n"
+"    background: white;\n"
+"}")
+        self.gpPerformance.setObjectName("gpPerformance")
+        self.frame_2 = QtWidgets.QFrame(SalesForecast)
+        self.frame_2.setGeometry(QtCore.QRect(20, 720, 981, 151))
+        self.frame_2.setStyleSheet("QFrame {\n"
+"    border: 1px solid black;\n"
+"    border-radius: 10px;\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"}")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.titleLabel_2 = QtWidgets.QLabel(self.frame_2)
-        self.titleLabel_2.setGeometry(QtCore.QRect(0, 0, 221, 41))
+        self.lblComment = QtWidgets.QLabel(self.frame_2)
+        self.lblComment.setGeometry(QtCore.QRect(10, 20, 961, 111))
         font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.titleLabel_2.setFont(font)
-        self.titleLabel_2.setStyleSheet("color: white;")
-        self.titleLabel_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.titleLabel_2.setObjectName("titleLabel_2")
-        self.btnSales = QtWidgets.QPushButton(self.frame_2)
-        self.btnSales.setGeometry(QtCore.QRect(570, 0, 93, 41))
+        font.setPointSize(12)
+        self.lblComment.setFont(font)
+        self.lblComment.setStyleSheet("border: 0px;")
+        self.lblComment.setText("")
+        self.lblComment.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblComment.setObjectName("lblComment")
+        self.frame = QtWidgets.QFrame(SalesForecast)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 61))
+        self.frame.setStyleSheet("background: #365b6d;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(1312, 0, 111, 61))
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(12)
         self.btnSales.setFont(font)
         self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSales.setStyleSheet("QPushButton {\n"
@@ -67,10 +83,10 @@ class Ui_SalesForecast(object):
 "}\n"
 "")
         self.btnSales.setObjectName("btnSales")
-        self.btnInventory = QtWidgets.QPushButton(self.frame_2)
-        self.btnInventory.setGeometry(QtCore.QRect(480, 0, 93, 41))
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(1202, 0, 111, 61))
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(12)
         self.btnInventory.setFont(font)
         self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnInventory.setStyleSheet("QPushButton {\n"
@@ -87,10 +103,10 @@ class Ui_SalesForecast(object):
 "}\n"
 "")
         self.btnInventory.setObjectName("btnInventory")
-        self.btnPOS = QtWidgets.QPushButton(self.frame_2)
-        self.btnPOS.setGeometry(QtCore.QRect(660, 0, 93, 41))
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(1422, 0, 111, 61))
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setPointSize(12)
         self.btnPOS.setFont(font)
         self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnPOS.setStyleSheet("QPushButton {\n"
@@ -107,8 +123,8 @@ class Ui_SalesForecast(object):
 "}\n"
 "")
         self.btnPOS.setObjectName("btnPOS")
-        self.btnAccount = QtWidgets.QPushButton(self.frame_2)
-        self.btnAccount.setGeometry(QtCore.QRect(750, 0, 51, 41))
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(1530, 0, 71, 61))
         self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnAccount.setStyleSheet("QPushButton {\n"
 "    background-color: #365b6d;\n"
@@ -127,29 +143,56 @@ class Ui_SalesForecast(object):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         self.btnAccount.setIcon(icon1)
-        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
+        self.btnAccount.setIconSize(QtCore.QSize(50, 50))
         self.btnAccount.setObjectName("btnAccount")
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(410, 120, 371, 341))
-        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.textBrowser = QtWidgets.QTextBrowser(self.verticalLayoutWidget_2)
-        self.textBrowser.setObjectName("textBrowser")
-        self.verticalLayout_2.addWidget(self.textBrowser)
-        SalesForecast.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(SalesForecast)
-        self.statusbar.setObjectName("statusbar")
-        SalesForecast.setStatusBar(self.statusbar)
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 291, 61))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(22)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDashboard.setIcon(icon2)
+        self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
+        self.btnDashboard.setObjectName("btnDashboard")
+        self.label = QtWidgets.QLabel(SalesForecast)
+        self.label.setGeometry(QtCore.QRect(40, 170, 111, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.cbProduct = QtWidgets.QComboBox(SalesForecast)
+        self.cbProduct.setGeometry(QtCore.QRect(170, 170, 371, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.cbProduct.setFont(font)
+        self.cbProduct.setStyleSheet("background: white;")
+        self.cbProduct.setObjectName("cbProduct")
 
         self.retranslateUi(SalesForecast)
         QtCore.QMetaObject.connectSlotsByName(SalesForecast)
 
     def retranslateUi(self, SalesForecast):
         _translate = QtCore.QCoreApplication.translate
-        SalesForecast.setWindowTitle(_translate("SalesForecast", "EconoMystique"))
-        self.titleLabel_2.setText(_translate("SalesForecast", "EconoMystique"))
+        SalesForecast.setWindowTitle(_translate("SalesForecast", "Sales Forecast"))
+        self.SalesRecords.setText(_translate("SalesForecast", "Sales Forecast"))
         self.btnSales.setText(_translate("SalesForecast", "Sales"))
         self.btnInventory.setText(_translate("SalesForecast", "Inventory"))
         self.btnPOS.setText(_translate("SalesForecast", "POS"))
+        self.btnDashboard.setText(_translate("SalesForecast", "EconoMystique"))
+        self.label.setText(_translate("SalesForecast", "Product:"))

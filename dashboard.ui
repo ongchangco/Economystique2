@@ -18,222 +18,13 @@
 color: black;
 </string>
   </property>
-  <widget class="QFrame" name="frame">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1601</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: #365b6d;</string>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <widget class="QPushButton" name="btnPOS">
-    <property name="geometry">
-     <rect>
-      <x>1460</x>
-      <y>0</y>
-      <width>93</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>POS</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnAccount">
-    <property name="geometry">
-     <rect>
-      <x>1550</x>
-      <y>0</y>
-      <width>51</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>img/pfBtn.png</normaloff>img/pfBtn.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>40</width>
-      <height>40</height>
-     </size>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnSales">
-    <property name="geometry">
-     <rect>
-      <x>1370</x>
-      <y>0</y>
-      <width>93</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Sales</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnInventory">
-    <property name="geometry">
-     <rect>
-      <x>1280</x>
-      <y>0</y>
-      <width>93</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>Inventory</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnDashboard">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>221</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Cambria</family>
-      <pointsize>18</pointsize>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-    background-color: #365b6d;
-    color: white;
-    border-radius: 50px;
-}
-QPushButton:hover {
-    background-color: #5b8ca4;
-}
-QPushButton:pressed {
-    border-style: inset;
-    background-color: #365b6d;
-}
-</string>
-    </property>
-    <property name="text">
-     <string>EconoMystique</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>img/econologo_transparent_cropped.png</normaloff>img/econologo_transparent_cropped.png</iconset>
-    </property>
-   </widget>
-  </widget>
   <widget class="QWidget" name="gpPerformance" native="true">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>170</y>
+     <y>190</y>
      <width>761</width>
-     <height>471</height>
+     <height>451</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -248,7 +39,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>800</x>
-     <y>130</y>
+     <y>150</y>
      <width>351</width>
      <height>31</height>
     </rect>
@@ -273,7 +64,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>50</y>
+     <y>70</y>
      <width>1581</width>
      <height>51</height>
     </rect>
@@ -281,7 +72,7 @@ QPushButton:pressed {
    <property name="font">
     <font>
      <family>MS Sans Serif</family>
-     <pointsize>18</pointsize>
+     <pointsize>22</pointsize>
     </font>
    </property>
    <property name="lineWidth">
@@ -298,7 +89,7 @@ QPushButton:pressed {
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>150</y>
      <width>761</width>
      <height>31</height>
     </rect>
@@ -395,7 +186,7 @@ background: #365b6d;</string>
    <property name="geometry">
     <rect>
      <x>1170</x>
-     <y>130</y>
+     <y>150</y>
      <width>411</width>
      <height>31</height>
     </rect>
@@ -420,10 +211,15 @@ background: #365b6d;</string>
    <property name="geometry">
     <rect>
      <x>1170</x>
-     <y>170</y>
+     <y>190</y>
      <width>411</width>
-     <height>711</height>
+     <height>691</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QListWidget {
@@ -437,9 +233,9 @@ background: #365b6d;</string>
    <property name="geometry">
     <rect>
      <x>800</x>
-     <y>170</y>
+     <y>190</y>
      <width>351</width>
-     <height>561</height>
+     <height>541</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -462,12 +258,12 @@ background: #365b6d;</string>
       <x>10</x>
       <y>10</y>
       <width>331</width>
-      <height>541</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -498,7 +294,7 @@ background: white;}
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
-     <number>5</number>
+     <number>10</number>
     </property>
     <property name="topMargin">
      <number>1</number>
@@ -531,6 +327,222 @@ background: white;}
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1601</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #365b6d;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QPushButton" name="btnSales">
+    <property name="geometry">
+     <rect>
+      <x>1312</x>
+      <y>0</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Sales</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnInventory">
+    <property name="geometry">
+     <rect>
+      <x>1202</x>
+      <y>0</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Inventory</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnPOS">
+    <property name="geometry">
+     <rect>
+      <x>1422</x>
+      <y>0</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>POS</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnAccount">
+    <property name="geometry">
+     <rect>
+      <x>1530</x>
+      <y>0</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <selectedon>img/pfBtn.png</selectedon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnDashboard">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>291</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cambria</family>
+      <pointsize>22</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #365b6d;
+    color: white;
+    border-radius: 50px;
+}
+QPushButton:hover {
+    background-color: #5b8ca4;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>EconoMystique</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/econologo_transparent_cropped.png</normaloff>img/econologo_transparent_cropped.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

@@ -18,120 +18,8 @@ class Ui_Dashboard(object):
         Dashboard.setStyleSheet("background-color: #f4f4ec;\n"
 "color: black;\n"
 "")
-        self.frame = QtWidgets.QFrame(Dashboard)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 41))
-        self.frame.setStyleSheet("background: #365b6d;")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.btnPOS = QtWidgets.QPushButton(self.frame)
-        self.btnPOS.setGeometry(QtCore.QRect(1460, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnPOS.setFont(font)
-        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnPOS.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnPOS.setObjectName("btnPOS")
-        self.btnAccount = QtWidgets.QPushButton(self.frame)
-        self.btnAccount.setGeometry(QtCore.QRect(1550, 0, 51, 41))
-        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAccount.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnAccount.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon)
-        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
-        self.btnAccount.setObjectName("btnAccount")
-        self.btnSales = QtWidgets.QPushButton(self.frame)
-        self.btnSales.setGeometry(QtCore.QRect(1370, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnSales.setFont(font)
-        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSales.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnSales.setObjectName("btnSales")
-        self.btnInventory = QtWidgets.QPushButton(self.frame)
-        self.btnInventory.setGeometry(QtCore.QRect(1280, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnInventory.setFont(font)
-        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnInventory.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnInventory.setObjectName("btnInventory")
-        self.btnDashboard = QtWidgets.QPushButton(self.frame)
-        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 221, 41))
-        font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.btnDashboard.setFont(font)
-        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnDashboard.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnDashboard.setIcon(icon1)
-        self.btnDashboard.setObjectName("btnDashboard")
         self.gpPerformance = QtWidgets.QWidget(Dashboard)
-        self.gpPerformance.setGeometry(QtCore.QRect(20, 170, 761, 471))
+        self.gpPerformance.setGeometry(QtCore.QRect(20, 190, 761, 451))
         self.gpPerformance.setStyleSheet("QWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
@@ -139,7 +27,7 @@ class Ui_Dashboard(object):
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
         self.label = QtWidgets.QLabel(Dashboard)
-        self.label.setGeometry(QtCore.QRect(800, 130, 351, 31))
+        self.label.setGeometry(QtCore.QRect(800, 150, 351, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(14)
@@ -148,16 +36,16 @@ class Ui_Dashboard(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Dashboard)
-        self.label_2.setGeometry(QtCore.QRect(10, 50, 1581, 51))
+        self.label_2.setGeometry(QtCore.QRect(10, 70, 1581, 51))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
-        font.setPointSize(18)
+        font.setPointSize(22)
         self.label_2.setFont(font)
         self.label_2.setLineWidth(1)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(Dashboard)
-        self.label_3.setGeometry(QtCore.QRect(20, 130, 761, 31))
+        self.label_3.setGeometry(QtCore.QRect(20, 150, 761, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(14)
@@ -192,7 +80,7 @@ class Ui_Dashboard(object):
         self.lblBestProduct.setAlignment(QtCore.Qt.AlignCenter)
         self.lblBestProduct.setObjectName("lblBestProduct")
         self.label_5 = QtWidgets.QLabel(Dashboard)
-        self.label_5.setGeometry(QtCore.QRect(1170, 130, 411, 31))
+        self.label_5.setGeometry(QtCore.QRect(1170, 150, 411, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(14)
@@ -201,7 +89,10 @@ class Ui_Dashboard(object):
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
         self.lsProduct = QtWidgets.QListWidget(Dashboard)
-        self.lsProduct.setGeometry(QtCore.QRect(1170, 170, 411, 711))
+        self.lsProduct.setGeometry(QtCore.QRect(1170, 190, 411, 691))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.lsProduct.setFont(font)
         self.lsProduct.setStyleSheet("QListWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
@@ -209,7 +100,7 @@ class Ui_Dashboard(object):
 "}")
         self.lsProduct.setObjectName("lsProduct")
         self.frame_4 = QtWidgets.QFrame(Dashboard)
-        self.frame_4.setGeometry(QtCore.QRect(800, 170, 351, 561))
+        self.frame_4.setGeometry(QtCore.QRect(800, 190, 351, 541))
         self.frame_4.setStyleSheet("QFrame{\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
@@ -220,9 +111,9 @@ class Ui_Dashboard(object):
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
         self.lsCritical = QtWidgets.QListWidget(self.frame_4)
-        self.lsCritical.setGeometry(QtCore.QRect(10, 10, 331, 541))
+        self.lsCritical.setGeometry(QtCore.QRect(10, 10, 331, 521))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(12)
         self.lsCritical.setFont(font)
         self.lsCritical.setStyleSheet("border: 0px;")
         self.lsCritical.setObjectName("lsCritical")
@@ -236,7 +127,7 @@ class Ui_Dashboard(object):
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
         self.gridLayout = QtWidgets.QGridLayout(self.frame_5)
-        self.gridLayout.setContentsMargins(5, 1, 1, 1)
+        self.gridLayout.setContentsMargins(10, 1, 1, 1)
         self.gridLayout.setObjectName("gridLayout")
         self.lblPerformance = QtWidgets.QLabel(self.frame_5)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -251,6 +142,119 @@ class Ui_Dashboard(object):
         self.lblPerformance.setText("")
         self.lblPerformance.setObjectName("lblPerformance")
         self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
+        self.frame = QtWidgets.QFrame(Dashboard)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 61))
+        self.frame.setStyleSheet("background: #365b6d;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(1312, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(1202, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(1422, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnPOS.setObjectName("btnPOS")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(1530, 0, 71, 61))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon)
+        self.btnAccount.setIconSize(QtCore.QSize(50, 50))
+        self.btnAccount.setObjectName("btnAccount")
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 291, 61))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(22)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnDashboard.setIcon(icon1)
+        self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
+        self.btnDashboard.setObjectName("btnDashboard")
 
         self.retranslateUi(Dashboard)
         QtCore.QMetaObject.connectSlotsByName(Dashboard)
@@ -258,12 +262,12 @@ class Ui_Dashboard(object):
     def retranslateUi(self, Dashboard):
         _translate = QtCore.QCoreApplication.translate
         Dashboard.setWindowTitle(_translate("Dashboard", "Form"))
-        self.btnPOS.setText(_translate("Dashboard", "POS"))
-        self.btnSales.setText(_translate("Dashboard", "Sales"))
-        self.btnInventory.setText(_translate("Dashboard", "Inventory"))
-        self.btnDashboard.setText(_translate("Dashboard", "EconoMystique"))
         self.label.setText(_translate("Dashboard", "Critical Items"))
         self.label_2.setText(_translate("Dashboard", "Dashboard"))
         self.label_3.setText(_translate("Dashboard", "This Month\'s Performance"))
         self.label_4.setText(_translate("Dashboard", "Product of the Month"))
         self.label_5.setText(_translate("Dashboard", "Available Products"))
+        self.btnSales.setText(_translate("Dashboard", "Sales"))
+        self.btnInventory.setText(_translate("Dashboard", "Inventory"))
+        self.btnPOS.setText(_translate("Dashboard", "POS"))
+        self.btnDashboard.setText(_translate("Dashboard", "EconoMystique"))

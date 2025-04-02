@@ -21,144 +21,37 @@ class Ui_Sales(object):
         Sales.setStyleSheet("background: #f4f4ec;\n"
 "color: black;\n"
 "")
-        self.frame = QtWidgets.QFrame(Sales)
-        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 41))
-        self.frame.setStyleSheet("background: #365b6d;")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.btnSales = QtWidgets.QPushButton(self.frame)
-        self.btnSales.setGeometry(QtCore.QRect(1370, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnSales.setFont(font)
-        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnSales.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnSales.setObjectName("btnSales")
-        self.btnInventory = QtWidgets.QPushButton(self.frame)
-        self.btnInventory.setGeometry(QtCore.QRect(1280, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnInventory.setFont(font)
-        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnInventory.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnInventory.setObjectName("btnInventory")
-        self.btnPOS = QtWidgets.QPushButton(self.frame)
-        self.btnPOS.setGeometry(QtCore.QRect(1460, 0, 93, 41))
-        font = QtGui.QFont()
-        font.setPointSize(9)
-        self.btnPOS.setFont(font)
-        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnPOS.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnPOS.setObjectName("btnPOS")
-        self.btnAccount = QtWidgets.QPushButton(self.frame)
-        self.btnAccount.setGeometry(QtCore.QRect(1550, 0, 51, 41))
-        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnAccount.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        self.btnAccount.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnAccount.setIcon(icon1)
-        self.btnAccount.setIconSize(QtCore.QSize(40, 40))
-        self.btnAccount.setObjectName("btnAccount")
-        self.btnDashboard = QtWidgets.QPushButton(self.frame)
-        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 221, 41))
-        font = QtGui.QFont()
-        font.setFamily("Cambria")
-        font.setPointSize(18)
-        self.btnDashboard.setFont(font)
-        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnDashboard.setStyleSheet("QPushButton {\n"
-"    background-color: #365b6d;\n"
-"    color: white;\n"
-"    border-radius: 50px;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #5b8ca4;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}\n"
-"")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btnDashboard.setIcon(icon2)
-        self.btnDashboard.setObjectName("btnDashboard")
         self.SalesRecords = QtWidgets.QLabel(Sales)
-        self.SalesRecords.setGeometry(QtCore.QRect(9, 47, 1581, 51))
+        self.SalesRecords.setGeometry(QtCore.QRect(9, 70, 1581, 51))
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
-        font.setPointSize(18)
+        font.setPointSize(22)
         self.SalesRecords.setFont(font)
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
         self.QTabWidget = QtWidgets.QTabWidget(Sales)
-        self.QTabWidget.setGeometry(QtCore.QRect(20, 100, 1561, 771))
+        self.QTabWidget.setGeometry(QtCore.QRect(20, 120, 1561, 751))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(20)
         self.QTabWidget.setFont(font)
+        self.QTabWidget.setTabPosition(QtWidgets.QTabWidget.North)
+        self.QTabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.QTabWidget.setObjectName("QTabWidget")
         self.tabToday = QtWidgets.QWidget()
         self.tabToday.setObjectName("tabToday")
         self.productTable = QtWidgets.QTableWidget(self.tabToday)
-        self.productTable.setGeometry(QtCore.QRect(0, 90, 1561, 521))
+        self.productTable.setGeometry(QtCore.QRect(0, 90, 1561, 501))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.productTable.setFont(font)
         self.productTable.setStyleSheet("background: #ffffff")
         self.productTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.productTable.setObjectName("productTable")
         self.productTable.setColumnCount(0)
         self.productTable.setRowCount(0)
         self.lblTotal = QtWidgets.QLabel(self.tabToday)
-        self.lblTotal.setGeometry(QtCore.QRect(110, 640, 301, 61))
+        self.lblTotal.setGeometry(QtCore.QRect(620, 620, 301, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.lblTotal.setFont(font)
@@ -170,19 +63,19 @@ class Ui_Sales(object):
         self.lblTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblTotal.setObjectName("lblTotal")
         self.label = QtWidgets.QLabel(self.tabToday)
-        self.label.setGeometry(QtCore.QRect(10, 640, 81, 61))
+        self.label.setGeometry(QtCore.QRect(520, 620, 81, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label.setFont(font)
         self.label.setStyleSheet("")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
-        self.btnAssessment = QtWidgets.QPushButton(self.tabToday)
-        self.btnAssessment.setGeometry(QtCore.QRect(920, 630, 291, 71))
+        self.btnForecast = QtWidgets.QPushButton(self.tabToday)
+        self.btnForecast.setGeometry(QtCore.QRect(1110, 610, 291, 71))
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.btnAssessment.setFont(font)
-        self.btnAssessment.setStyleSheet("QPushButton{\n"
+        self.btnForecast.setFont(font)
+        self.btnForecast.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
 "    border-style: outset;\n"
@@ -198,31 +91,11 @@ class Ui_Sales(object):
 "    border-style: inset;\n"
 "    background-color: #365b6d;\n"
 "}")
-        self.btnAssessment.setObjectName("btnAssessment")
-        self.forecastButton = QtWidgets.QPushButton(self.tabToday)
-        self.forecastButton.setGeometry(QtCore.QRect(1240, 630, 291, 71))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.forecastButton.setFont(font)
-        self.forecastButton.setStyleSheet("QPushButton{\n"
-"    background: #365b6d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"    border-color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #53786d;\n"
-"    border: 2px solid black;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.forecastButton.setIcon(icon2)
-        self.forecastButton.setIconSize(QtCore.QSize(15, 40))
-        self.forecastButton.setObjectName("forecastButton")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_transparent_cropped.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnForecast.setIcon(icon1)
+        self.btnForecast.setIconSize(QtCore.QSize(15, 40))
+        self.btnForecast.setObjectName("btnForecast")
         self.QTabWidget.addTab(self.tabToday, "")
         self.tabMonthly = QtWidgets.QWidget()
         self.tabMonthly.setObjectName("tabMonthly")
@@ -241,63 +114,17 @@ class Ui_Sales(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.tabMonthly)
-        self.label_4.setGeometry(QtCore.QRect(10, 640, 81, 61))
+        self.label_4.setGeometry(QtCore.QRect(520, 620, 81, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("")
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
-        self.btnAssessment_2 = QtWidgets.QPushButton(self.tabMonthly)
-        self.btnAssessment_2.setGeometry(QtCore.QRect(920, 630, 291, 71))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.btnAssessment_2.setFont(font)
-        self.btnAssessment_2.setStyleSheet("QPushButton{\n"
-"    background: #365b6d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"    border-color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #53786d;\n"
-"    border: 2px solid black;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.btnAssessment_2.setObjectName("btnAssessment_2")
-        self.forecastButton_2 = QtWidgets.QPushButton(self.tabMonthly)
-        self.forecastButton_2.setGeometry(QtCore.QRect(1240, 630, 291, 71))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.forecastButton_2.setFont(font)
-        self.forecastButton_2.setStyleSheet("QPushButton{\n"
-"    background: #365b6d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"    border-color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #53786d;\n"
-"    border: 2px solid black;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.forecastButton_2.setIcon(icon2)
-        self.forecastButton_2.setIconSize(QtCore.QSize(15, 40))
-        self.forecastButton_2.setObjectName("forecastButton_2")
         self.lblMTotal = QtWidgets.QLabel(self.tabMonthly)
-        self.lblMTotal.setGeometry(QtCore.QRect(110, 640, 301, 61))
+        self.lblMTotal.setGeometry(QtCore.QRect(620, 620, 301, 61))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(16)
         self.lblMTotal.setFont(font)
         self.lblMTotal.setStyleSheet("background: white;\n"
 "")
@@ -307,84 +134,58 @@ class Ui_Sales(object):
         self.lblMTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblMTotal.setObjectName("lblMTotal")
         self.mProductTable = QtWidgets.QTableWidget(self.tabMonthly)
-        self.mProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 521))
+        self.mProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 501))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.mProductTable.setFont(font)
         self.mProductTable.setStyleSheet("background: #ffffff")
         self.mProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.mProductTable.setObjectName("mProductTable")
         self.mProductTable.setColumnCount(0)
         self.mProductTable.setRowCount(0)
+        self.cbMYear = QtWidgets.QComboBox(self.tabMonthly)
+        self.cbMYear.setGeometry(QtCore.QRect(670, 30, 231, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.cbMYear.setFont(font)
+        self.cbMYear.setStyleSheet("background: white;")
+        self.cbMYear.setObjectName("cbMYear")
+        self.label_7 = QtWidgets.QLabel(self.tabMonthly)
+        self.label_7.setGeometry(QtCore.QRect(540, 30, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(16)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
         self.QTabWidget.addTab(self.tabMonthly, "")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.cbYear = QtWidgets.QComboBox(self.tab)
-        self.cbYear.setGeometry(QtCore.QRect(160, 30, 231, 31))
+        self.cbYear.setGeometry(QtCore.QRect(670, 30, 231, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.cbYear.setFont(font)
         self.cbYear.setStyleSheet("background: white;")
         self.cbYear.setObjectName("cbYear")
         self.label_5 = QtWidgets.QLabel(self.tab)
-        self.label_5.setGeometry(QtCore.QRect(30, 30, 111, 31))
+        self.label_5.setGeometry(QtCore.QRect(540, 30, 111, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(16)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
-        self.forecastButton_3 = QtWidgets.QPushButton(self.tab)
-        self.forecastButton_3.setGeometry(QtCore.QRect(1240, 630, 291, 71))
+        self.yProductTable = QtWidgets.QTableWidget(self.tab)
+        self.yProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 501))
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.forecastButton_3.setFont(font)
-        self.forecastButton_3.setStyleSheet("QPushButton{\n"
-"    background: #365b6d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"    border-color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #53786d;\n"
-"    border: 2px solid black;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.forecastButton_3.setIcon(icon2)
-        self.forecastButton_3.setIconSize(QtCore.QSize(15, 40))
-        self.forecastButton_3.setObjectName("forecastButton_3")
-        self.yProductTable = QtWidgets.QTableWidget(self.tab)
-        self.yProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 521))
+        self.yProductTable.setFont(font)
         self.yProductTable.setStyleSheet("background: #ffffff")
         self.yProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.yProductTable.setObjectName("yProductTable")
         self.yProductTable.setColumnCount(0)
         self.yProductTable.setRowCount(0)
-        self.btnAssessment_3 = QtWidgets.QPushButton(self.tab)
-        self.btnAssessment_3.setGeometry(QtCore.QRect(920, 630, 291, 71))
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.btnAssessment_3.setFont(font)
-        self.btnAssessment_3.setStyleSheet("QPushButton{\n"
-"    background: #365b6d;\n"
-"    color: white;\n"
-"    border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:10px;\n"
-"    border-color: black;\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: #53786d;\n"
-"    border: 2px solid black;\n"
-"}\n"
-"QPushButton:pressed {\n"
-"    border-style: inset;\n"
-"    background-color: #365b6d;\n"
-"}")
-        self.btnAssessment_3.setObjectName("btnAssessment_3")
         self.lblYTotal = QtWidgets.QLabel(self.tab)
-        self.lblYTotal.setGeometry(QtCore.QRect(110, 640, 301, 61))
+        self.lblYTotal.setGeometry(QtCore.QRect(620, 620, 301, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.lblYTotal.setFont(font)
@@ -396,7 +197,7 @@ class Ui_Sales(object):
         self.lblYTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblYTotal.setObjectName("lblYTotal")
         self.label_6 = QtWidgets.QLabel(self.tab)
-        self.label_6.setGeometry(QtCore.QRect(10, 640, 81, 61))
+        self.label_6.setGeometry(QtCore.QRect(520, 620, 81, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_6.setFont(font)
@@ -404,6 +205,117 @@ class Ui_Sales(object):
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
         self.QTabWidget.addTab(self.tab, "")
+        self.frame = QtWidgets.QFrame(Sales)
+        self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 61))
+        self.frame.setStyleSheet("background: #365b6d;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.btnSales = QtWidgets.QPushButton(self.frame)
+        self.btnSales.setGeometry(QtCore.QRect(1312, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnSales.setFont(font)
+        self.btnSales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnSales.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnSales.setObjectName("btnSales")
+        self.btnInventory = QtWidgets.QPushButton(self.frame)
+        self.btnInventory.setGeometry(QtCore.QRect(1202, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnInventory.setFont(font)
+        self.btnInventory.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnInventory.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnInventory.setObjectName("btnInventory")
+        self.btnPOS = QtWidgets.QPushButton(self.frame)
+        self.btnPOS.setGeometry(QtCore.QRect(1422, 0, 111, 61))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.btnPOS.setFont(font)
+        self.btnPOS.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnPOS.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnPOS.setObjectName("btnPOS")
+        self.btnAccount = QtWidgets.QPushButton(self.frame)
+        self.btnAccount.setGeometry(QtCore.QRect(1530, 0, 71, 61))
+        self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnAccount.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnAccount.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/pfBtn.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
+        self.btnAccount.setIcon(icon2)
+        self.btnAccount.setIconSize(QtCore.QSize(50, 50))
+        self.btnAccount.setObjectName("btnAccount")
+        self.btnDashboard = QtWidgets.QPushButton(self.frame)
+        self.btnDashboard.setGeometry(QtCore.QRect(0, 0, 291, 61))
+        font = QtGui.QFont()
+        font.setFamily("Cambria")
+        font.setPointSize(22)
+        self.btnDashboard.setFont(font)
+        self.btnDashboard.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnDashboard.setStyleSheet("QPushButton {\n"
+"    background-color: #365b6d;\n"
+"    color: white;\n"
+"    border-radius: 50px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}\n"
+"")
+        self.btnDashboard.setIcon(icon1)
+        self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
+        self.btnDashboard.setObjectName("btnDashboard")
 
         self.retranslateUi(Sales)
         self.QTabWidget.setCurrentIndex(0)
@@ -412,22 +324,18 @@ class Ui_Sales(object):
     def retranslateUi(self, Sales):
         _translate = QtCore.QCoreApplication.translate
         Sales.setWindowTitle(_translate("Sales", "EconoMystique"))
+        self.SalesRecords.setText(_translate("Sales", "Sales"))
+        self.label.setText(_translate("Sales", "Total"))
+        self.btnForecast.setText(_translate("Sales", "Generate Forecast"))
+        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tabToday), _translate("Sales", "Today"))
+        self.label_3.setText(_translate("Sales", "Month:"))
+        self.label_4.setText(_translate("Sales", "Total"))
+        self.label_7.setText(_translate("Sales", "Year:"))
+        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tabMonthly), _translate("Sales", "Monthly"))
+        self.label_5.setText(_translate("Sales", "Year:"))
+        self.label_6.setText(_translate("Sales", "Total"))
+        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tab), _translate("Sales", "Yearly"))
         self.btnSales.setText(_translate("Sales", "Sales"))
         self.btnInventory.setText(_translate("Sales", "Inventory"))
         self.btnPOS.setText(_translate("Sales", "POS"))
         self.btnDashboard.setText(_translate("Sales", "EconoMystique"))
-        self.SalesRecords.setText(_translate("Sales", "Sales"))
-        self.label.setText(_translate("Sales", "Total"))
-        self.btnAssessment.setText(_translate("Sales", "See Assessment"))
-        self.forecastButton.setText(_translate("Sales", "Generate Forecast"))
-        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tabToday), _translate("Sales", "Today"))
-        self.label_3.setText(_translate("Sales", "Month:"))
-        self.label_4.setText(_translate("Sales", "Total"))
-        self.btnAssessment_2.setText(_translate("Sales", "See Assessment"))
-        self.forecastButton_2.setText(_translate("Sales", "Generate Forecast"))
-        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tabMonthly), _translate("Sales", "Monthly"))
-        self.label_5.setText(_translate("Sales", "Year:"))
-        self.forecastButton_3.setText(_translate("Sales", "Generate Forecast"))
-        self.btnAssessment_3.setText(_translate("Sales", "See Assessment"))
-        self.label_6.setText(_translate("Sales", "Total"))
-        self.QTabWidget.setTabText(self.QTabWidget.indexOf(self.tab), _translate("Sales", "Yearly"))

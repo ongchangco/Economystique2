@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QWidget
@@ -44,6 +45,7 @@ class MainWindow(QMainWindow):
         self.dashboard = Dashboard()
         self.inventory = Inventory(self.widget)
         self.sales = SalesWindow(self.widget)
+        self.salesForecast = SalesForecastWindow(self.widget)
         self.POS = POSWindow(self.widget)
         self.account = AccountWindow(self.widget)
 
@@ -55,6 +57,7 @@ class MainWindow(QMainWindow):
         self.widget.addWidget(self.dashboard)
         self.widget.addWidget(self.inventory)
         self.widget.addWidget(self.sales)
+        self.widget.addWidget(self.salesForecast)
         self.widget.addWidget(self.POS)
         self.widget.addWidget(self.account)
 
@@ -74,6 +77,12 @@ class MainWindow(QMainWindow):
         self.sales.go_to_dashboard.connect(self.show_dashboard)
         self.sales.go_to_pos.connect(self.show_pos)
         self.sales.go_to_account.connect(self.show_account)
+        self.sales.go_to_salesForecast.connect(self.show_salesForecast)
+        
+        self.salesForecast.go_to_inventory.connect(self.show_inventory)
+        self.salesForecast.go_to_sales.connect(self.show_sales)
+        self.salesForecast.go_to_pos.connect(self.show_pos)
+        self.salesForecast.go_to_account.connect(self.show_account)
         
         self.POS.go_to_inventory.connect(self.show_inventory)
         self.POS.go_to_sales.connect(self.show_sales)
@@ -97,6 +106,9 @@ class MainWindow(QMainWindow):
 
     def show_sales(self):
         self.widget.setCurrentWidget(self.sales)
+        
+    def show_salesForecast(self):
+        self.widget.setCurrentWidget(self.salesForecast)
 
     def show_pos(self):
         self.widget.setCurrentWidget(self.POS)
@@ -327,7 +339,7 @@ class Inventory(QMainWindow):
         headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
         self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabIngredientTable.horizontalHeader()
-        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
         header.setSectionResizeMode(QHeaderView.Stretch)
         # Set Table to Read-Only
         self.ui.tabIngredientTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -365,7 +377,7 @@ class Inventory(QMainWindow):
         headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date"]
         self.ui.tabProductTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabProductTable.horizontalHeader()
-        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
         header.setSectionResizeMode(QHeaderView.Stretch)
         self.ui.tabProductTable.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.tabProductTable.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
@@ -1149,6 +1161,7 @@ class SalesWindow(QMainWindow):
     go_to_inventory = pyqtSignal()
     go_to_pos = pyqtSignal()
     go_to_account = pyqtSignal()
+    go_to_salesForecast = pyqtSignal()
     def __init__(self, widget=None):
         super(SalesWindow, self).__init__()
         self.ui = Ui_Sales()
@@ -1158,19 +1171,63 @@ class SalesWindow(QMainWindow):
                                   "June","July","August","September","October",
                                   "November","December"])
         self.ui.cbMonth.setCurrentIndex(0)
+        self.ui.cbMYear.addItems(["2025","2024","2023"])
         self.ui.cbYear.addItems(["2025","2024","2023"])
-        self.ui.cbYear.setCurrentIndex(0)
         self.ui.cbYear.setCurrentIndex(0)
         self.load_sales_data()
         self.load_monthly_data()
         self.load_yearly_data()
         # Connect buttons
         self.ui.cbMonth.currentIndexChanged.connect(self.load_monthly_data)
+        self.ui.cbMYear.currentIndexChanged.connect(self.update_month_selection)
         self.ui.cbYear.currentIndexChanged.connect(self.load_yearly_data)
         self.ui.btnDashboard.clicked.connect(self.go_to_dashboard)
         self.ui.btnInventory.clicked.connect(self.go_to_inventory)
         self.ui.btnPOS.clicked.connect(self.go_to_pos)
         self.ui.btnAccount.clicked.connect(self.go_to_account)
+        self.ui.btnForecast.clicked.connect(self.go_to_salesForecast)
+        
+    def update_month_selection(self):
+        selected_year = self.ui.cbMYear.currentText()
+        db_name = f"sales_{selected_year}.db"
+        sales_path = os.path.join("db", db_name)
+
+        if not os.path.exists(sales_path):
+            print(f"Database {db_name} not found.")  # Debug message
+            self.ui.cbMonth.clear()
+            return
+
+        sales_conn = sqlite3.connect(sales_path)
+        sales_cursor = sales_conn.cursor()
+
+        try:
+            # Fetch the list of tables in the selected year's database
+            sales_cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            tables = {row[0] for row in sales_cursor.fetchall()}  # Convert to set for easy lookup
+
+            # Month mappings (database table names vs. UI names)
+            month_map = {
+                "jan": "January", "feb": "February", "mar": "March", "apr": "April",
+                "may": "May", "jun": "June", "jul": "July", "aug": "August",
+                "sep": "September", "oct": "October", "nov": "November", "dec": "December"
+            }
+
+            # Filter available months based on existing tables
+            available_months = [month_map[m] for m in month_map if m in tables]
+
+            # Update cbMonth with available months
+            self.ui.cbMonth.clear()
+            self.ui.cbMonth.addItems(available_months)
+            self.ui.cbMonth.setCurrentIndex(0)  # Reset to first available month
+
+            # Load data for the first available month
+            self.load_monthly_data()
+
+        except sqlite3.Error as e:
+            print(f"Error checking tables: {e}")
+
+        finally:
+            sales_conn.close()
     def load_yearly_data(self):
         selected_year = self.ui.cbYear.currentText()  # Get selected year
         db_name = f"sales_{selected_year}.db"  # Construct database filename
@@ -1179,10 +1236,10 @@ class SalesWindow(QMainWindow):
         sales_path = os.path.join("db", db_name)
         
         if not os.path.exists(sales_path):
-            print(f"Database {db_name} not found.")  # Debug message
-            self.ui.yProductTable.setRowCount(0)  # Clear table
-            self.ui.lblYTotal.setText("0.00")  # Reset total
-            return  # Exit function if DB is missing
+            print(f"Database {db_name} not found.")
+            self.ui.yProductTable.setRowCount(0)
+            self.ui.lblYTotal.setText("0.00")
+            return  
         
         sales_conn = sqlite3.connect(sales_path)
         sales_cursor = sales_conn.cursor()
@@ -1200,7 +1257,7 @@ class SalesWindow(QMainWindow):
             headers = ["Product ID", "Product Name", "Price", "Quantity Sold"]
             self.ui.yProductTable.setHorizontalHeaderLabels(headers)
             header = self.ui.yProductTable.horizontalHeader()
-            header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+            header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
             header.setSectionResizeMode(QHeaderView.Stretch)
 
             # Populate the table
@@ -1222,13 +1279,21 @@ class SalesWindow(QMainWindow):
         finally:
             sales_conn.close()
     def load_monthly_data(self):
-        selected_month = self.ui.cbMonth.currentText().lower()  # Convert to lowercase
-        sales_path = os.path.join("db", "sales_db.db")
+        selected_month = self.ui.cbMonth.currentText().lower()[:3]  # Convert to short form (e.g., "January" → "jan")
+        selected_year = self.ui.cbMYear.currentText()
+        db_name = f"sales_{selected_year}.db"
+        sales_path = os.path.join("db", db_name)
+
+        if not os.path.exists(sales_path):
+            print(f"Database {db_name} not found.")  # Debug message
+            self.ui.mProductTable.setRowCount(0)  # Clear table
+            self.ui.lblMTotal.setText("0.00")  # Reset total
+            return
+
         sales_conn = sqlite3.connect(sales_path)
         sales_cursor = sales_conn.cursor()
 
         try:
-            # Fetch data from the selected month's table
             query = f"SELECT product_id, product_name, price, quantity_sold FROM {selected_month}"
             sales_cursor.execute(query)
             products = sales_cursor.fetchall()
@@ -1241,7 +1306,7 @@ class SalesWindow(QMainWindow):
             headers = ["Product ID", "Product Name", "Price", "Quantity Sold"]
             self.ui.mProductTable.setHorizontalHeaderLabels(headers)
             header = self.ui.mProductTable.horizontalHeader()
-            header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+            header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
             header.setSectionResizeMode(QHeaderView.Stretch)
 
             # Populate the table
@@ -1255,8 +1320,11 @@ class SalesWindow(QMainWindow):
             total = sum(item[2] * item[3] for item in products)
             self.ui.lblMTotal.setText(f"{total:,.2f}")
 
-        except sqlite3.Error as e:
+        except sqlite3.OperationalError as e:
             print(f"Error loading data: {e}")
+            self.ui.mProductTable.setRowCount(0)  # Clear table if query fails
+            self.ui.lblMTotal.setText("0.00")  # Reset total
+
         finally:
             sales_conn.close()
     def load_sales_data(self):
@@ -1275,7 +1343,7 @@ class SalesWindow(QMainWindow):
         headers = ["Product ID", "Product Name", "Price", "Quantity Sold"]
         self.ui.productTable.setHorizontalHeaderLabels(headers)
         header = self.ui.productTable.horizontalHeader()
-        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
         header.setSectionResizeMode(QHeaderView.Stretch)
 
         # Populate the table with the data
@@ -1288,51 +1356,172 @@ class SalesWindow(QMainWindow):
         # Compute & Display Total Sales
         total = sum(item[2] * item[3] for item in products)
         self.ui.lblTotal.setText(f"{total:.2f}")
-            
-    def generate_sales_forecast(self):
-        # Use a separate thread for the forecast generation
-        self.executor.submit(self.generate_forecast)
-    
-    def generate_forecast(self):
-        """Generate the sales forecast in a background thread."""
-        try:
-            # Read data from the Excel files
-            sales_data = []
-            for file_path in self.file_map_2.values():
-                df = pd.read_excel(file_path)
-                sales_data.append(df)
-
-            # Combine sales data into a single DataFrame
-            combined_data = pd.concat(sales_data, ignore_index=True)
-
-            # Prepare data for GPT-Neo
-            sales_prompt = self.prepare_sales_prompt(combined_data)
-
-            # Create and start the worker thread for forecast generation
-            self.forecast_worker = ForecastWorker(sales_prompt, self.file_map_2)
-            self.forecast_worker.forecast_generated.connect(self.open_forecast)
-            self.forecast_worker.start()
-
-        except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to generate sales forecast:\n{str(e)}")
-
-    def prepare_sales_prompt(self, data):
-        # Summarize data into a plain text format for GPT-Neo
-        summary = "Sales data for the past months:\n"
-        for _, row in data.iterrows():
-            summary += f"{row.to_dict()}\n"
-        summary += "\nPredict the sales for the next month based on this data:"
-        return summary
+class SalesForecastWindow(QMainWindow):
+    go_to_dashboard = pyqtSignal()
+    go_to_sales = pyqtSignal()
+    go_to_pos = pyqtSignal()
+    go_to_inventory = pyqtSignal()
+    go_to_account = pyqtSignal()
+    def __init__(self, widget=None):
+        super(SalesForecastWindow, self).__init__()
+        self.ui = Ui_SalesForecast()
+        self.ui.setupUi(self)
+        self.setWindowTitle("Sales Forecast")
+        self.widget = widget
+        self.populate_products()
         
-    def open_forecast(self, forecast):
-        from salesForecast import SalesForecastWindow
+        # Connect buttons to functions
+        self.ui.btnDashboard.clicked.connect(self.go_to_dashboard)
+        self.ui.btnInventory.clicked.connect(self.go_to_inventory)
+        self.ui.btnSales.clicked.connect(self.go_to_sales)
+        self.ui.btnPOS.clicked.connect(self.go_to_pos)
+        self.ui.btnAccount.clicked.connect(self.go_to_account)
+        self.ui.cbProduct.currentIndexChanged.connect(self.update_forecast)
+    
+    def populate_products(self):
+        db_path = os.path.join("db", "product_db.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT product_id, product_name FROM products_on_hand")
+        products = cursor.fetchall()
+        
+        self.ui.cbProduct.clear()
+        for product in products:
+            self.ui.cbProduct.addItem(f"{product[0]} - {product[1]}")
+
+        conn.close()
+        
+    def get_sales_data(self, product_id):
+        months = ["jan", "feb", "mar"]
+        sales_2025_path = os.path.join("db", "sales_2025.db")
+        
+        sales_data = []
+        if not os.path.exists(sales_2025_path):
+            print("sales_2025.db not found.")
+            return sales_data
+
+        conn = sqlite3.connect(sales_2025_path)
+        cursor = conn.cursor()
+
+        for month in months:
+            try:
+                cursor.execute(f"SELECT quantity_sold FROM {month} WHERE product_id = ?", (product_id,))
+                result = cursor.fetchone()
+                sales_data.append(result[0] if result else 0)
+            except sqlite3.OperationalError:
+                sales_data.append(0)
+
+        conn.close()
+        return sales_data
+    
+    def forecast_sales(self, product_id):
+        sales_2023_path = os.path.join("db", "sales_2023.db")
+        sales_2024_path = os.path.join("db", "sales_2024.db")
+        
+        past_april_sales = []
+        
+        for db_path in [sales_2023_path, sales_2024_path]:
+            if not os.path.exists(db_path):
+                continue
+
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+
+            try:
+                cursor.execute("SELECT quantity_sold FROM apr WHERE product_id = ?", (product_id,))
+                result = cursor.fetchone()
+                if result:
+                    past_april_sales.append(result[0])
+            except sqlite3.OperationalError:
+                pass
+
+            conn.close()
+
+        if not past_april_sales:
+            return None  # No forecast if no historical data
+
+        # Use GPT Neo for forecasting
+        forecasted_value = self.use_gpt_neo_forecast(past_april_sales)
+        return forecasted_value
+    
+    def use_gpt_neo_forecast(self, past_data):
+        from statsmodels.tsa.holtwinters import Holt
+        import numpy as np
+
+        if len(past_data) < 2 or all(x == past_data[0] for x in past_data):
+            return past_data[-1] if past_data else 0  # Avoid division errors
+
+        data = np.array(past_data, dtype=float)
+
+        model = Holt(data).fit()
+        forecasted_value = model.forecast(1)[0]
+        return round(forecasted_value)
+    
+    def generate_comment(self, forecast):
         if forecast is None:
-            QMessageBox.warning(self, "Warning", "No forecast data available to display.")
+            return "No historical data available to forecast."
+
+        if forecast > max(self.past_sales):
+            return "Sales are expected to increase in April!"
+        elif forecast < min(self.past_sales):
+            return "A decrease in sales is expected next month."
+        else:
+            return "Sales are predicted to remain stable in April."
+        
+    def plot_forecast(self, past_sales, forecasted_value):
+        # Ensure gpPerformance has a layout
+        if self.ui.gpPerformance.layout() is None:
+           
+            self.ui.gpPerformance.setLayout(QVBoxLayout())
+
+        layout = self.ui.gpPerformance.layout()
+
+        # Remove old plots
+        while layout.count() > 0:
+            item = layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+
+        # Create a new figure
+        fig, ax = plt.subplots(figsize=(6, 4))
+
+        # X-axis labels (January, February, March, and Forecasted April)
+        months = ["Jan", "Feb", "Mar", "Apr"]
+        values = past_sales + [forecasted_value]
+
+        # Plot historical data in blue
+        ax.plot(months[:-1], past_sales, marker="o", linestyle="-", color="blue", label="Past Sales")
+
+        # Connect the last real data point to the forecasted point with a red line
+        ax.plot(months[-2:], values[-2:], marker="o", linestyle="-", color="red", label="Forecasted April")
+
+        # Labels and title
+        ax.set_xlabel("Month")
+        ax.set_ylabel("Quantity Sold")
+        ax.set_title("Sales Forecast for April")
+        ax.legend()
+
+        # Embed the plot into the QWidget
+        canvas = FigureCanvas(fig)
+        layout.addWidget(canvas)
+        
+    def update_forecast(self):
+        selected_product = self.ui.cbProduct.currentText()
+        if not selected_product:
             return
 
-        self.sales_forecast_window = SalesForecastWindow()
-        self.sales_forecast_window.ui.textBrowser.setText(forecast)
-        self.sales_forecast_window.show()
+        product_id = selected_product.split(" - ")[0]  # Extract product_id
+
+        # Fetch past sales data
+        self.past_sales = self.get_sales_data(product_id)
+        forecasted_value = self.forecast_sales(product_id)
+
+        # Update Graph
+        self.plot_forecast(self.past_sales, forecasted_value)
+
+        # Update lblComment
+        self.ui.lblComment.setText(self.generate_comment(forecasted_value))
 class ForecastWorker(QThread):
     forecast_generated = pyqtSignal(str)
 

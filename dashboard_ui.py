@@ -23,7 +23,7 @@ class Ui_Dashboard(object):
         self.gpPerformance.setStyleSheet("QWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
-"    background: white;\n"
+"    background: #8acced;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
         self.label = QtWidgets.QLabel(Dashboard)

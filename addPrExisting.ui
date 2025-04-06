@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>215</height>
+    <width>600</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,24 +23,37 @@
   <widget class="QComboBox" name="cbProducts">
    <property name="geometry">
     <rect>
-     <x>122</x>
+     <x>192</x>
      <y>31</y>
-     <width>261</width>
-     <height>31</height>
+     <width>381</width>
+     <height>45</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background: white;</string>
+    <string notr="true">background: white;
+</string>
    </property>
   </widget>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>160</y>
-     <width>341</width>
-     <height>41</height>
+     <x>20</x>
+     <y>220</y>
+     <width>561</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -51,6 +64,9 @@
 	border-radius:10px;
 	border-color: black;
 	padding: 5px;
+	height: 25px;
+	width: 100px;
+	font-size: 16px;
 }
 QPushButton:hover {
     background-color: #53786d;
@@ -76,84 +92,101 @@ QPushButton:pressed {
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>91</width>
-     <height>111</height>
+     <width>161</width>
+     <height>171</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <family>Century Gothic</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Product to Add</string>
+       <string>Product</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <family>Century Gothic</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
       <property name="text">
-       <string>Amount</string>
+       <string>Quantity</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <family>Century Gothic</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Expiry Date</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QTextEdit" name="teAmount">
+  <widget class="QLineEdit" name="teAmount">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>70</y>
-     <width>261</width>
-     <height>31</height>
+     <x>190</x>
+     <y>91</y>
+     <width>381</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: #ffffff</string>
+    <string notr="true">background: white;
+border: 1px solid black;
+border-radius: 5px;</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::Panel</enum>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
-   <property name="tabChangesFocus">
-    <bool>true</bool>
-   </property>
-   <property name="html">
-    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   <property name="placeholderText">
+    <string>Enter a number...</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="teExpDate">
+  <widget class="QLineEdit" name="teExpDate">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>110</y>
-     <width>261</width>
-     <height>31</height>
+     <x>190</x>
+     <y>150</y>
+     <width>381</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: #ffffff</string>
+    <string notr="true">background: white;
+border: 1px solid black;
+border-radius: 5px;</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::Panel</enum>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
-   <property name="tabChangesFocus">
-    <bool>true</bool>
-   </property>
-   <property name="html">
-    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   <property name="placeholderText">
+    <string>dd/mm/yy</string>
    </property>
   </widget>
  </widget>

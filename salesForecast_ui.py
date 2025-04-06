@@ -30,15 +30,15 @@ class Ui_SalesForecast(object):
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
         self.gpPerformance = QtWidgets.QWidget(SalesForecast)
-        self.gpPerformance.setGeometry(QtCore.QRect(20, 230, 981, 471))
+        self.gpPerformance.setGeometry(QtCore.QRect(20, 230, 1561, 471))
         self.gpPerformance.setStyleSheet("QWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
-"    background: white;\n"
+"    background: #8acced;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
         self.frame_2 = QtWidgets.QFrame(SalesForecast)
-        self.frame_2.setGeometry(QtCore.QRect(20, 720, 981, 151))
+        self.frame_2.setGeometry(QtCore.QRect(20, 720, 1561, 151))
         self.frame_2.setStyleSheet("QFrame {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
@@ -49,9 +49,9 @@ class Ui_SalesForecast(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.lblComment = QtWidgets.QLabel(self.frame_2)
-        self.lblComment.setGeometry(QtCore.QRect(10, 20, 961, 111))
+        self.lblComment.setGeometry(QtCore.QRect(10, 20, 1531, 111))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(18)
         self.lblComment.setFont(font)
         self.lblComment.setStyleSheet("border: 0px;")
         self.lblComment.setText("")
@@ -177,7 +177,7 @@ class Ui_SalesForecast(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.cbProduct = QtWidgets.QComboBox(SalesForecast)
-        self.cbProduct.setGeometry(QtCore.QRect(170, 170, 371, 31))
+        self.cbProduct.setGeometry(QtCore.QRect(170, 160, 371, 51))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.cbProduct.setFont(font)

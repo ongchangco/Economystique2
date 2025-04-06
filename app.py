@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QToolTip, QComboBox, QPushButton, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
 from PyQt5.QtCore import Qt, pyqtSignal, QThread
-from PyQt5.QtGui import  QStandardItemModel, QStandardItem, QIcon, QColor
+from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
@@ -29,6 +29,7 @@ from addPrExisting_ui import Ui_AddPrExisting
 from addPrNew_ui import Ui_addPrNew
 from pos_ui import Ui_pos
 from sales_utils import fetch_sales_data
+
 class MainWindow(QMainWindow):
     switch_to_login = pyqtSignal()
     def __init__(self, icon_path):
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow):
         self.sales.go_to_account.connect(self.show_account)
         self.sales.go_to_salesForecast.connect(self.show_salesForecast)
         
+        self.salesForecast.go_to_dashboard.connect(self.show_dashboard)
         self.salesForecast.go_to_inventory.connect(self.show_inventory)
         self.salesForecast.go_to_sales.connect(self.show_sales)
         self.salesForecast.go_to_pos.connect(self.show_pos)
@@ -863,6 +865,51 @@ class AddPrExisting(QDialog):
         self.populate_combobox()
         self.ui.buttonBox.accepted.connect(self.confirm)
         self.ui.buttonBox.rejected.connect(self.reject)
+        self.ui.teAmount.textChanged.connect(self.validate_input)
+        self.apply_shadow_effects()
+        # Set validator for the amount input field (teAmount)
+        int_validator = QIntValidator(1, 2147483647)  # Min, Max
+        self.ui.teAmount.setValidator(int_validator)
+    
+    # GUI
+    def apply_shadow_effects(self):
+        # Add shadow effect to all QLineEdit, QPushButton, QComboBox
+        for entity in self.findChildren(QLineEdit):
+            self.add_shadow_effect(entity)
+        for entity in self.findChildren(QPushButton):
+            self.add_shadow_effect(entity)
+        for entity in self.findChildren(QComboBox):
+            self.add_shadow_effect(entity)
+    
+    def add_shadow_effect(self, entity):
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(5)
+        shadow.setOffset(1, 1)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        entity.setGraphicsEffect(shadow)
+        
+    def validate_input(self):
+        # Get the input from lineEdit (teAmount)
+        input_text = self.ui.teAmount.text().strip()
+
+        # Create a validator to validate the input
+        validator = self.ui.teAmount.validator()
+        
+        # Validate the input using the QDoubleValidator
+        state, _, _ = validator.validate(input_text, 0)
+
+        # Check if the input is valid
+        if state != QValidator.Acceptable:
+            # Display tooltip and visual feedback for invalid input
+            QToolTip.showText(self.ui.teAmount.mapToGlobal(self.ui.teAmount.rect().bottomLeft()),
+                          "Please enter a positive whole number",
+                          self.ui.teAmount)
+            self.ui.teAmount.setStyleSheet("border: 1px solid red; border-radius: 5px; background: white;")
+        else:
+            # Clear the tooltip and reset the style if input is valid
+            self.ui.teAmount.setToolTip("")
+            self.ui.teAmount.setStyleSheet("border: 1px solid black; border-radius: 5px; background: white;")
+            QToolTip.hideText()
     def populate_combobox(self):
         pr_path = os.path.join("db", "product_db.db")
         pr_conn = sqlite3.connect(pr_path)
@@ -886,12 +933,12 @@ class AddPrExisting(QDialog):
                 return
             # Retrieve selected item details
             product_id, product_name = self.product_items[index]
-            amount_text = self.ui.teAmount.toPlainText()
+            amount_text = self.ui.teAmount.text()
             if not amount_text.strip():
                 QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
                 return
             amount = int(amount_text)
-            newExpDate = self.ui.teExpDate.toPlainText()
+            newExpDate = self.ui.teExpDate.text()
             # Insert into the restock database
             cursor = self.db_connection.cursor()
             cursor.execute("""
@@ -1369,6 +1416,7 @@ class SalesForecastWindow(QMainWindow):
         self.setWindowTitle("Sales Forecast")
         self.widget = widget
         self.populate_products()
+        self.update_forecast()
         
         # Connect buttons to functions
         self.ui.btnDashboard.clicked.connect(self.go_to_dashboard)
@@ -1393,26 +1441,39 @@ class SalesForecastWindow(QMainWindow):
         conn.close()
         
     def get_sales_data(self, product_id):
-        months = ["jan", "feb", "mar"]
-        sales_2025_path = os.path.join("db", "sales_2025.db")
+        months_2024 = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+        months_2025 = ["jan", "feb", "mar"]
         
         sales_data = []
-        if not os.path.exists(sales_2025_path):
-            print("sales_2025.db not found.")
-            return sales_data
+        
+        sales_2024_path = os.path.join("db", "sales_2024.db")
+        if os.path.exists(sales_2024_path):
+            conn = sqlite3.connect(sales_2024_path)
+            cursor = conn.cursor()
 
-        conn = sqlite3.connect(sales_2025_path)
-        cursor = conn.cursor()
-
-        for month in months:
-            try:
+            for month in months_2024:
                 cursor.execute(f"SELECT quantity_sold FROM {month} WHERE product_id = ?", (product_id,))
                 result = cursor.fetchone()
                 sales_data.append(result[0] if result else 0)
-            except sqlite3.OperationalError:
-                sales_data.append(0)
 
-        conn.close()
+            conn.close()
+        else:
+            print("sales_2024.db not found.")
+        
+        sales_2025_path = os.path.join("db", "sales_2025.db")
+        if os.path.exists(sales_2025_path):
+            conn = sqlite3.connect(sales_2025_path)
+            cursor = conn.cursor()
+
+            for month in months_2025:
+                cursor.execute(f"SELECT quantity_sold FROM {month} WHERE product_id = ?", (product_id,))
+                result = cursor.fetchone()
+                sales_data.append(result[0] if result else 0)
+
+            conn.close()
+        else:
+            print("sales_2025.db not found.")
+        
         return sales_data
     
     def forecast_sales(self, product_id):
@@ -1439,14 +1500,16 @@ class SalesForecastWindow(QMainWindow):
             conn.close()
 
         if not past_april_sales:
-            return None  # No forecast if no historical data
+            return None
 
-        # Use GPT Neo for forecasting
         forecasted_value = self.use_gpt_neo_forecast(past_april_sales)
         return forecasted_value
     
     def use_gpt_neo_forecast(self, past_data):
         from statsmodels.tsa.holtwinters import Holt
+        from statsmodels.tsa import seasonal
+        from statsmodels.tsa import exponential_smoothing
+        
         import numpy as np
 
         if len(past_data) < 2 or all(x == past_data[0] for x in past_data):
@@ -1462,17 +1525,26 @@ class SalesForecastWindow(QMainWindow):
         if forecast is None:
             return "No historical data available to forecast."
 
-        if forecast > max(self.past_sales):
-            return "Sales are expected to increase in April!"
-        elif forecast < min(self.past_sales):
-            return "A decrease in sales is expected next month."
+        # Get the March sales (the last value in past_sales list)
+        march_sales = self.past_sales[-1] if len(self.past_sales) > 0 else 0
+
+        # Calculate the percentage change from March sales to forecasted sales
+        if march_sales > 0:  # Avoid division by zero
+            change_percentage = ((forecast - march_sales) / march_sales) * 100
         else:
-            return "Sales are predicted to remain stable in April."
+            change_percentage = 0  # No change if March sales were 0
+
+        # Generate comment based on the change
+        if forecast > march_sales:
+            return f"Sales are expected to <span style='color: #7ff58d;'>INCREASE</span> in April by {round(change_percentage, 2)}% compared to last month."
+        elif forecast < march_sales:
+            return f"Sales are expected to <span style='color: #f5737c;'>DECREASE</span> in April by {round(abs(change_percentage), 2)}% compared to last month."
+        else:
+            return "Sales are predicted to remain stable in April compared to last month."
         
     def plot_forecast(self, past_sales, forecasted_value):
         # Ensure gpPerformance has a layout
         if self.ui.gpPerformance.layout() is None:
-           
             self.ui.gpPerformance.setLayout(QVBoxLayout())
 
         layout = self.ui.gpPerformance.layout()
@@ -1486,20 +1558,24 @@ class SalesForecastWindow(QMainWindow):
         # Create a new figure
         fig, ax = plt.subplots(figsize=(6, 4))
 
-        # X-axis labels (January, February, March, and Forecasted April)
-        months = ["Jan", "Feb", "Mar", "Apr"]
+        months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr (Forecast)"]
+
+        # Combine past sales data with forecasted value for April 2025
         values = past_sales + [forecasted_value]
 
-        # Plot historical data in blue
-        ax.plot(months[:-1], past_sales, marker="o", linestyle="-", color="blue", label="Past Sales")
+        # Plot historical data (Apr-Dec 2024 and Jan-Mar 2025)
+        ax.plot(months[:-1], values[:-1], marker="o", linestyle="-", color="blue", label="Past Sales")
 
-        # Connect the last real data point to the forecasted point with a red line
-        ax.plot(months[-2:], values[-2:], marker="o", linestyle="-", color="red", label="Forecasted April")
+        # Highlight the forecasted value for April 2025 (this should be the last point)
+        ax.plot(months[-1], forecasted_value, marker="o", color="red", markersize=8, label="Forecasted Value")
+
+        # Connect the forecasted point to the last point (March 2025)
+        ax.plot([months[-2], months[-1]], [values[-2], forecasted_value], linestyle="--", color="red")
 
         # Labels and title
         ax.set_xlabel("Month")
         ax.set_ylabel("Quantity Sold")
-        ax.set_title("Sales Forecast for April")
+        ax.set_title("Sales Forecast for April 2025")
         ax.legend()
 
         # Embed the plot into the QWidget
@@ -1730,7 +1806,6 @@ class AccountWindow(QMainWindow):
         self.ui.btnSales.clicked.connect(self.go_to_sales)
         self.ui.btnPOS.clicked.connect(self.go_to_pos)
         self.ui.btnLogOut.clicked.connect(self.switch_to_login)
-# MAIN APP CONTROLLER
 class AppController:
     def __init__(self):
         self.basedir = os.path.dirname(os.path.abspath(__file__))
@@ -1764,8 +1839,6 @@ class AppController:
         self.main_window.switch_to_login.connect(self.show_login)
         self.main_window.show()
         self.login_window.close()
-
-# Main
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 

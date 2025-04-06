@@ -508,7 +508,15 @@ class Restock(QDialog):
         self.ui.btnRemove.clicked.connect(self.removeItem)
         self.ui.btnConfirm.clicked.connect(self.confirmItems)
         self.ui.btnCancel.clicked.connect(self.close)
-    
+        self.add_shadow_effect()
+    # GUI
+    def add_shadow_effect(self):
+        for entity in self.findChildren(QPushButton):
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(5)
+            shadow.setOffset(1, 1)
+            shadow.setColor(QColor(0, 0, 0, 160))
+            entity.setGraphicsEffect(shadow)
     def connect_rsDB(self):
         db_path = os.path.join("db", "restock_db.db")
         return sqlite3.connect(db_path)
@@ -524,12 +532,13 @@ class Restock(QDialog):
         # Set up the table
         self.ui.tabRestockTable.setRowCount(len(restock_items)) 
         self.ui.tabRestockTable.setColumnCount(5)
-
+        self.ui.tabRestockTable.verticalHeader().hide()
+        
         # Set headers for the table
         headers = ["Inventory ID", "Description", "Brand", "Unit", "Amount"]
         self.ui.tabRestockTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabRestockTable.horizontalHeader()
-        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
         header.setSectionResizeMode(QHeaderView.Stretch)
 
         # Populate the table with the data
@@ -593,7 +602,6 @@ class Restock(QDialog):
 
             # Commit changes to the database
             conn.commit()
-            QMessageBox.information(self, "Success", "Selected item(s) removed successfully.")
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
         finally:
@@ -648,7 +656,15 @@ class PrRestock(QDialog):
         self.ui.btnRemove.clicked.connect(self.removeProduct)
         self.ui.btnConfirm.clicked.connect(self.confirmProducts)
         self.ui.btnCancel.clicked.connect(self.close)
-    
+        self.add_shadow_effect()
+    # GUI
+    def add_shadow_effect(self):
+        for entity in self.findChildren(QPushButton):
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(5)
+            shadow.setOffset(1, 1)
+            shadow.setColor(QColor(0, 0, 0, 160))
+            entity.setGraphicsEffect(shadow)
     def connect_rsDB(self):
         db_path = os.path.join("db", "prrestock_db.db")
         return sqlite3.connect(db_path)
@@ -665,7 +681,7 @@ class PrRestock(QDialog):
         headers = ["Product ID", "Product Name", "Amount", "Expiration Date"]
         self.ui.tabPrRestockTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabPrRestockTable.horizontalHeader()
-        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; }")
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
         header.setSectionResizeMode(QHeaderView.Stretch)
         for row, item in enumerate(restock_products):
             for col, value in enumerate(item):
@@ -806,6 +822,42 @@ class AddExisting(QDialog):
         self.populate_combobox()
         self.ui.cbItems.currentIndexChanged.connect(self.update_unit_label)
         self.ui.buttonBox.accepted.connect(self.confirm)
+        self.ui.teAmount.textChanged.connect(self.validate_input)
+        self.apply_shadow_effects()
+        # Set validator for input field
+        float_validator = QDoubleValidator(0.01, 1e308, 5)  # Min, Max, Decimal Number
+        self.ui.teAmount.setValidator(float_validator)
+    
+    # GUI
+    def apply_shadow_effects(self):
+        for entity in self.findChildren(QLineEdit):
+            self.add_shadow_effect(entity)
+        for entity in self.findChildren(QPushButton):
+            self.add_shadow_effect(entity)
+    
+    def add_shadow_effect(self, entity):
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(5)
+        shadow.setOffset(1, 1)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        entity.setGraphicsEffect(shadow)
+        
+    def validate_input(self):
+        input_text = self.ui.teAmount.text().strip()
+        validator = self.ui.teAmount.validator()
+        state, _, _ = validator.validate(input_text, 0)
+
+        # Check if the input is valid
+        if state != QValidator.Acceptable:
+            QToolTip.showText(self.ui.teAmount.mapToGlobal(self.ui.teAmount.rect().bottomLeft()),
+                          "Please enter a positive number",
+                          self.ui.teAmount)
+            self.ui.teAmount.setStyleSheet("border: 1px solid red; border-radius: 5px; background: white;")
+        else:
+            self.ui.teAmount.setToolTip("")
+            self.ui.teAmount.setStyleSheet("border: 1px solid black; border-radius: 5px; background: white;")
+            QToolTip.hideText()
+            
     def populate_combobox(self):
         inv_path = os.path.join("db", "inventory_db.db")
         inv_conn = sqlite3.connect(inv_path)
@@ -839,7 +891,7 @@ class AddExisting(QDialog):
                 return
             # Retrieve selected item details
             inventory_id, description, brand, unit = self.inventory_items[index]
-            amount_text = self.ui.teAmount.toPlainText()
+            amount_text = self.ui.teAmount.text()
             if not amount_text.strip():
                 QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
                 return
@@ -873,12 +925,9 @@ class AddPrExisting(QDialog):
     
     # GUI
     def apply_shadow_effects(self):
-        # Add shadow effect to all QLineEdit, QPushButton, QComboBox
         for entity in self.findChildren(QLineEdit):
             self.add_shadow_effect(entity)
         for entity in self.findChildren(QPushButton):
-            self.add_shadow_effect(entity)
-        for entity in self.findChildren(QComboBox):
             self.add_shadow_effect(entity)
     
     def add_shadow_effect(self, entity):
@@ -889,27 +938,21 @@ class AddPrExisting(QDialog):
         entity.setGraphicsEffect(shadow)
         
     def validate_input(self):
-        # Get the input from lineEdit (teAmount)
         input_text = self.ui.teAmount.text().strip()
-
-        # Create a validator to validate the input
         validator = self.ui.teAmount.validator()
-        
-        # Validate the input using the QDoubleValidator
         state, _, _ = validator.validate(input_text, 0)
 
         # Check if the input is valid
         if state != QValidator.Acceptable:
-            # Display tooltip and visual feedback for invalid input
             QToolTip.showText(self.ui.teAmount.mapToGlobal(self.ui.teAmount.rect().bottomLeft()),
-                          "Please enter a positive whole number",
+                          "Please enter a positive, whole number",
                           self.ui.teAmount)
             self.ui.teAmount.setStyleSheet("border: 1px solid red; border-radius: 5px; background: white;")
         else:
-            # Clear the tooltip and reset the style if input is valid
             self.ui.teAmount.setToolTip("")
             self.ui.teAmount.setStyleSheet("border: 1px solid black; border-radius: 5px; background: white;")
             QToolTip.hideText()
+            
     def populate_combobox(self):
         pr_path = os.path.join("db", "product_db.db")
         pr_conn = sqlite3.connect(pr_path)
@@ -959,15 +1002,66 @@ class AddItem(QDialog):
         self.db_connection = conn
         # Connect buttons
         self.ui.buttonBox.accepted.connect(self.confirm)
+        self.ui.teAmount.textChanged.connect(self.validate_amount)
+        self.ui.teROP.textChanged.connect(self.validate_rop)
+        self.apply_shadow_effects()
+        # Set validator for input fields
+        self.ui.teAmount.setValidator(QDoubleValidator(0.00001,1e308, 5))
+        self.ui.teROP.setValidator(QDoubleValidator(0,1e308, 5))
+    
+    # GUI
+    def apply_shadow_effects(self):
+        for entity in self.findChildren(QLineEdit):
+            self.add_shadow_effect(entity)
+        for entity in self.findChildren(QPushButton):
+            self.add_shadow_effect(entity)
+    
+    def add_shadow_effect(self, entity):
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(5)
+        shadow.setOffset(1, 1)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        entity.setGraphicsEffect(shadow)
         
+    def validate_amount(self):
+        input_text = self.ui.teAmount.text().strip()
+        validator = self.ui.teAmount.validator()
+        state, _, _ = validator.validate(input_text, 0)
+
+        # Check if the input is valid
+        if state != QValidator.Acceptable:
+            QToolTip.showText(self.ui.teAmount.mapToGlobal(self.ui.teAmount.rect().bottomLeft()),
+                          "Please enter a positive number, your initial qauntity to add",
+                          self.ui.teAmount)
+            self.ui.teAmount.setStyleSheet("border: 1px solid red; border-radius: 5px; background: white;")
+        else:
+            self.ui.teAmount.setToolTip("")
+            self.ui.teAmount.setStyleSheet("border: 1px solid black; border-radius: 5px; background: white;")
+            QToolTip.hideText()
+        
+    def validate_rop(self):
+        input_text = self.ui.teROP.text().strip()
+        validator = self.ui.teROP.validator()
+        state, _, _ = validator.validate(input_text, 0)
+
+        # Check if the input is valid
+        if state != QValidator.Acceptable:
+            QToolTip.showText(self.ui.teROP.mapToGlobal(self.ui.teROP.rect().bottomLeft()),
+                          "Please enter a positive number, the amount the item is considered \"Critical\"",
+                          self.ui.teROP)
+            self.ui.teROP.setStyleSheet("border: 1px solid red; border-radius: 5px; background: white;")
+        else:
+            self.ui.teROP.setToolTip("")
+            self.ui.teROP.setStyleSheet("border: 1px solid black; border-radius: 5px; background: white;")
+            QToolTip.hideText()
     def confirm(self):
         try:
-            inventory_id = self.ui.teInvID.toPlainText()
-            description = self.ui.teDescription.toPlainText()
-            brand = self.ui.teBrand.toPlainText()
-            unit = self.ui.teUnit.toPlainText()
-            amount = float(self.ui.teAmount.toPlainText())
-            rop = float(self.ui.teROP.toPlainText())
+            inventory_id = self.ui.teInvID.text()
+            description = self.ui.teDescription.text()
+            brand = self.ui.teBrand.text()
+            unit = self.ui.teUnit.text()
+            amount = float(self.ui.teAmount.text())
+            rop = float(self.ui.teROP.text())
 
             # Ensure Inventory ID is provided or unique
             if not inventory_id:

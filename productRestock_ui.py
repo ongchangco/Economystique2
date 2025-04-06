@@ -14,33 +14,37 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_PrRestock(object):
     def setupUi(self, PrRestock):
         PrRestock.setObjectName("PrRestock")
-        PrRestock.resize(667, 397)
+        PrRestock.resize(1000, 600)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PrRestock.setWindowIcon(icon)
         PrRestock.setStyleSheet("background-color: #f4f4ec;")
         self.lblTitle = QtWidgets.QLabel(PrRestock)
-        self.lblTitle.setGeometry(QtCore.QRect(10, 10, 651, 61))
+        self.lblTitle.setGeometry(QtCore.QRect(20, 10, 961, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.lblTitle.setFont(font)
         self.lblTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.lblTitle.setObjectName("lblTitle")
         self.tabPrRestockTable = QtWidgets.QTableWidget(PrRestock)
-        self.tabPrRestockTable.setGeometry(QtCore.QRect(10, 80, 491, 251))
+        self.tabPrRestockTable.setGeometry(QtCore.QRect(10, 80, 751, 421))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabPrRestockTable.sizePolicy().hasHeightForWidth())
         self.tabPrRestockTable.setSizePolicy(sizePolicy)
-        self.tabPrRestockTable.setMaximumSize(QtCore.QSize(771, 351))
+        self.tabPrRestockTable.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.tabPrRestockTable.setStyleSheet("background: #ffffff")
         self.tabPrRestockTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabPrRestockTable.setObjectName("tabPrRestockTable")
         self.tabPrRestockTable.setColumnCount(0)
         self.tabPrRestockTable.setRowCount(0)
         self.btnAdd = QtWidgets.QPushButton(PrRestock)
-        self.btnAdd.setGeometry(QtCore.QRect(510, 120, 141, 51))
+        self.btnAdd.setGeometry(QtCore.QRect(780, 180, 200, 50))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnAdd.setFont(font)
         self.btnAdd.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -59,7 +63,11 @@ class Ui_PrRestock(object):
 "}")
         self.btnAdd.setObjectName("btnAdd")
         self.btnAddNew = QtWidgets.QPushButton(PrRestock)
-        self.btnAddNew.setGeometry(QtCore.QRect(510, 190, 141, 51))
+        self.btnAddNew.setGeometry(QtCore.QRect(780, 270, 200, 50))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnAddNew.setFont(font)
         self.btnAddNew.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -78,7 +86,11 @@ class Ui_PrRestock(object):
 "}")
         self.btnAddNew.setObjectName("btnAddNew")
         self.btnCancel = QtWidgets.QPushButton(PrRestock)
-        self.btnCancel.setGeometry(QtCore.QRect(350, 350, 121, 31))
+        self.btnCancel.setGeometry(QtCore.QRect(500, 530, 125, 35))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnCancel.setFont(font)
         self.btnCancel.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -97,7 +109,11 @@ class Ui_PrRestock(object):
 "}")
         self.btnCancel.setObjectName("btnCancel")
         self.btnConfirm = QtWidgets.QPushButton(PrRestock)
-        self.btnConfirm.setGeometry(QtCore.QRect(200, 350, 121, 31))
+        self.btnConfirm.setGeometry(QtCore.QRect(350, 530, 125, 35))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnConfirm.setFont(font)
         self.btnConfirm.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -116,7 +132,11 @@ class Ui_PrRestock(object):
 "}")
         self.btnConfirm.setObjectName("btnConfirm")
         self.btnRemove = QtWidgets.QPushButton(PrRestock)
-        self.btnRemove.setGeometry(QtCore.QRect(510, 260, 141, 51))
+        self.btnRemove.setGeometry(QtCore.QRect(780, 360, 200, 50))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnRemove.setFont(font)
         self.btnRemove.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"

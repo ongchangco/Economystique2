@@ -15,14 +15,14 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.NonModal)
-        Dialog.resize(400, 319)
+        Dialog.resize(600, 475)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
         Dialog.setStyleSheet("background-color: #f4f4ec;")
         Dialog.setModal(False)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(0, 260, 401, 51))
+        self.buttonBox.setGeometry(QtCore.QRect(10, 400, 581, 51))
         self.buttonBox.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -31,6 +31,9 @@ class Ui_Dialog(object):
 "    border-radius:10px;\n"
 "    border-color: black;\n"
 "    padding: 5px;\n"
+"    height: 25px;\n"
+"    width: 100px;\n"
+"    font-size: 16px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #53786d;\n"
@@ -45,64 +48,94 @@ class Ui_Dialog(object):
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 30, 111, 221))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 30, 132, 351))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.loParam = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.loParam.setContentsMargins(0, 0, 0, 0)
         self.loParam.setObjectName("loParam")
         self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label.setFont(font)
         self.label.setObjectName("label")
         self.loParam.addWidget(self.label)
         self.label_2 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.loParam.addWidget(self.label_2)
         self.label_3 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.loParam.addWidget(self.label_3)
         self.label_4 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
         self.loParam.addWidget(self.label_4)
         self.label_7 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.loParam.addWidget(self.label_7)
         self.label_8 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
         self.loParam.addWidget(self.label_8)
-        self.teInvID = QtWidgets.QTextEdit(Dialog)
-        self.teInvID.setGeometry(QtCore.QRect(131, 31, 251, 31))
-        self.teInvID.setStyleSheet("background: #ffffff")
-        self.teInvID.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teInvID.setTabChangesFocus(True)
+        self.teInvID = QtWidgets.QLineEdit(Dialog)
+        self.teInvID.setGeometry(QtCore.QRect(150, 30, 421, 41))
+        self.teInvID.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teInvID.setAlignment(QtCore.Qt.AlignCenter)
         self.teInvID.setObjectName("teInvID")
-        self.teDescription = QtWidgets.QTextEdit(Dialog)
-        self.teDescription.setGeometry(QtCore.QRect(131, 69, 251, 31))
-        self.teDescription.setStyleSheet("background: #ffffff")
-        self.teDescription.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teDescription.setTabChangesFocus(True)
+        self.teDescription = QtWidgets.QLineEdit(Dialog)
+        self.teDescription.setGeometry(QtCore.QRect(150, 90, 421, 41))
+        self.teDescription.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teDescription.setAlignment(QtCore.Qt.AlignCenter)
         self.teDescription.setObjectName("teDescription")
-        self.teBrand = QtWidgets.QTextEdit(Dialog)
-        self.teBrand.setGeometry(QtCore.QRect(131, 107, 251, 31))
-        self.teBrand.setStyleSheet("background: #ffffff")
-        self.teBrand.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teBrand.setTabChangesFocus(True)
+        self.teBrand = QtWidgets.QLineEdit(Dialog)
+        self.teBrand.setGeometry(QtCore.QRect(150, 150, 421, 41))
+        self.teBrand.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teBrand.setAlignment(QtCore.Qt.AlignCenter)
         self.teBrand.setObjectName("teBrand")
-        self.teUnit = QtWidgets.QTextEdit(Dialog)
-        self.teUnit.setGeometry(QtCore.QRect(131, 145, 251, 31))
-        self.teUnit.setStyleSheet("background: #ffffff")
-        self.teUnit.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teUnit.setTabChangesFocus(True)
+        self.teUnit = QtWidgets.QLineEdit(Dialog)
+        self.teUnit.setGeometry(QtCore.QRect(150, 210, 421, 41))
+        self.teUnit.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teUnit.setAlignment(QtCore.Qt.AlignCenter)
         self.teUnit.setObjectName("teUnit")
-        self.teAmount = QtWidgets.QTextEdit(Dialog)
-        self.teAmount.setGeometry(QtCore.QRect(131, 183, 251, 31))
-        self.teAmount.setStyleSheet("background: #ffffff")
-        self.teAmount.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teAmount.setTabChangesFocus(True)
+        self.teAmount = QtWidgets.QLineEdit(Dialog)
+        self.teAmount.setGeometry(QtCore.QRect(150, 270, 421, 41))
+        self.teAmount.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teAmount.setAlignment(QtCore.Qt.AlignCenter)
         self.teAmount.setObjectName("teAmount")
-        self.teROP = QtWidgets.QTextEdit(Dialog)
-        self.teROP.setGeometry(QtCore.QRect(130, 220, 251, 31))
-        self.teROP.setStyleSheet("background: #ffffff")
-        self.teROP.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teROP.setTabChangesFocus(True)
+        self.teROP = QtWidgets.QLineEdit(Dialog)
+        self.teROP.setGeometry(QtCore.QRect(150, 330, 421, 41))
+        self.teROP.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teROP.setAlignment(QtCore.Qt.AlignCenter)
         self.teROP.setObjectName("teROP")
 
         self.retranslateUi(Dialog)
@@ -117,35 +150,11 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Description"))
         self.label_3.setText(_translate("Dialog", "Brand"))
         self.label_4.setText(_translate("Dialog", "Unit"))
-        self.label_7.setText(_translate("Dialog", "Amount"))
-        self.label_8.setText(_translate("Dialog", "Reroder Point"))
-        self.teInvID.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teDescription.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teBrand.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teUnit.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teAmount.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.teROP.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.label_7.setText(_translate("Dialog", "Quantity"))
+        self.label_8.setText(_translate("Dialog", "Reoder Point"))
+        self.teInvID.setPlaceholderText(_translate("Dialog", "Enter Item Inventory ID..."))
+        self.teDescription.setPlaceholderText(_translate("Dialog", "Enter item description..."))
+        self.teBrand.setPlaceholderText(_translate("Dialog", "Enter item brand..."))
+        self.teUnit.setPlaceholderText(_translate("Dialog", "e.g. Kg, mL, etc..."))
+        self.teAmount.setPlaceholderText(_translate("Dialog", "Enter positive number..."))
+        self.teROP.setPlaceholderText(_translate("Dialog", "Enter positive number..."))

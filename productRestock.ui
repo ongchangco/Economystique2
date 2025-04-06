@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>667</width>
-    <height>397</height>
+    <width>1000</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,9 +23,9 @@
   <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>10</y>
-     <width>651</width>
+     <width>961</width>
      <height>61</height>
     </rect>
    </property>
@@ -46,8 +46,8 @@
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>491</width>
-     <height>251</height>
+     <width>751</width>
+     <height>421</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -58,8 +58,8 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>771</width>
-     <height>351</height>
+     <width>16777215</width>
+     <height>16777215</height>
     </size>
    </property>
    <property name="styleSheet">
@@ -72,11 +72,17 @@
   <widget class="QPushButton" name="btnAdd">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>120</y>
-     <width>141</width>
-     <height>51</height>
+     <x>780</x>
+     <y>180</y>
+     <width>200</width>
+     <height>50</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -103,11 +109,17 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnAddNew">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>190</y>
-     <width>141</width>
-     <height>51</height>
+     <x>780</x>
+     <y>270</y>
+     <width>200</width>
+     <height>50</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -134,11 +146,17 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnCancel">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>350</y>
-     <width>121</width>
-     <height>31</height>
+     <x>500</x>
+     <y>530</y>
+     <width>125</width>
+     <height>35</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -165,11 +183,17 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnConfirm">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>350</y>
-     <width>121</width>
-     <height>31</height>
+     <x>350</x>
+     <y>530</y>
+     <width>125</width>
+     <height>35</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{
@@ -196,11 +220,17 @@ QPushButton:pressed {
   <widget class="QPushButton" name="btnRemove">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>260</y>
-     <width>141</width>
-     <height>51</height>
+     <x>780</x>
+     <y>360</y>
+     <width>200</width>
+     <height>50</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton{

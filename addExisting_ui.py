@@ -14,13 +14,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_AddExisting(object):
     def setupUi(self, AddExisting):
         AddExisting.setObjectName("AddExisting")
-        AddExisting.resize(400, 183)
+        AddExisting.resize(600, 300)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         AddExisting.setWindowIcon(icon)
         AddExisting.setStyleSheet("background-color: #f4f4ec;")
         self.buttonBox = QtWidgets.QDialogButtonBox(AddExisting)
-        self.buttonBox.setGeometry(QtCore.QRect(30, 140, 341, 32))
+        self.buttonBox.setGeometry(QtCore.QRect(10, 220, 571, 61))
         self.buttonBox.setStyleSheet("QPushButton{\n"
 "    background: #365b6d;\n"
 "    color: white;\n"
@@ -29,6 +29,9 @@ class Ui_AddExisting(object):
 "    border-radius:10px;\n"
 "    border-color: black;\n"
 "    padding: 5px;\n"
+"    height: 25px;\n"
+"    width: 100px;\n"
+"    font-size: 16px;\n"
 "}\n"
 "QPushButton:hover {\n"
 "    background-color: #53786d;\n"
@@ -43,32 +46,51 @@ class Ui_AddExisting(object):
         self.buttonBox.setCenterButtons(True)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayoutWidget = QtWidgets.QWidget(AddExisting)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 30, 81, 81))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 30, 131, 111))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.label_2 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.label_2.setFont(font)
+        self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
-        self.teAmount = QtWidgets.QTextEdit(AddExisting)
-        self.teAmount.setGeometry(QtCore.QRect(100, 80, 171, 31))
-        self.teAmount.setStyleSheet("background: #ffffff")
-        self.teAmount.setFrameShape(QtWidgets.QFrame.Panel)
-        self.teAmount.setTabChangesFocus(True)
-        self.teAmount.setObjectName("teAmount")
         self.cbItems = QtWidgets.QComboBox(AddExisting)
-        self.cbItems.setGeometry(QtCore.QRect(102, 31, 281, 31))
+        self.cbItems.setGeometry(QtCore.QRect(148, 31, 421, 41))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.cbItems.setFont(font)
         self.cbItems.setStyleSheet("background: white;")
         self.cbItems.setObjectName("cbItems")
         self.lblUnit = QtWidgets.QLabel(AddExisting)
-        self.lblUnit.setGeometry(QtCore.QRect(284, 75, 101, 41))
+        self.lblUnit.setGeometry(QtCore.QRect(150, 140, 421, 41))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.lblUnit.setFont(font)
         self.lblUnit.setText("")
-        self.lblUnit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.lblUnit.setAlignment(QtCore.Qt.AlignCenter)
         self.lblUnit.setObjectName("lblUnit")
+        self.teAmount = QtWidgets.QLineEdit(AddExisting)
+        self.teAmount.setGeometry(QtCore.QRect(150, 90, 421, 41))
+        self.teAmount.setStyleSheet("background: white;\n"
+"border: 1px solid black;\n"
+"border-radius: 5px;")
+        self.teAmount.setAlignment(QtCore.Qt.AlignCenter)
+        self.teAmount.setObjectName("teAmount")
 
         self.retranslateUi(AddExisting)
         self.buttonBox.accepted.connect(AddExisting.accept) # type: ignore
@@ -78,10 +100,6 @@ class Ui_AddExisting(object):
     def retranslateUi(self, AddExisting):
         _translate = QtCore.QCoreApplication.translate
         AddExisting.setWindowTitle(_translate("AddExisting", "Add Existing Item"))
-        self.label.setText(_translate("AddExisting", "Item to Add"))
-        self.label_2.setText(_translate("AddExisting", "Amount"))
-        self.teAmount.setHtml(_translate("AddExisting", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.label.setText(_translate("AddExisting", "Item"))
+        self.label_2.setText(_translate("AddExisting", "Quantity"))
+        self.teAmount.setPlaceholderText(_translate("AddExisting", "Enter a number..."))

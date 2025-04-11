@@ -141,9 +141,9 @@ class Ui_Comparison(object):
         self.gpPerformance = QtWidgets.QWidget(Comparison)
         self.gpPerformance.setGeometry(QtCore.QRect(20, 270, 1261, 611))
         self.gpPerformance.setStyleSheet("QWidget {\n"
-"    border: 1px solid black;\n"
+"    border: 1px solid white;\n"
 "    border-radius: 10px;\n"
-"    background-color: #f4f4ec;\n"
+"    background-color: transparent;\n"
 "    padding: 0px;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
@@ -230,9 +230,10 @@ class Ui_Comparison(object):
         self.lsGraphs.setStyleSheet("#lsGraphs {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
-"    background-color: #f4f4ec;\n"
+"    background-color: rgba(255,255,255,164);\n"
 "    padding: 3px;\n"
 "}")
+        self.lsGraphs.setViewMode(QtWidgets.QListView.ListMode)
         self.lsGraphs.setObjectName("lsGraphs")
 
         self.retranslateUi(Comparison)

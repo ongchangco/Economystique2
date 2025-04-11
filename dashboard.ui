@@ -27,9 +27,9 @@
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget {
-    border: 1px solid black;
+	border: 1px solid white;
     border-radius: 10px;
-	background-color: #f4f4ec;
+	background-color: transparent;
 	padding: 0px;
 }</string>
    </property>

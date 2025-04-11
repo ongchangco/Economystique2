@@ -19,9 +19,9 @@ class Ui_Dashboard(object):
         self.gpPerformance = QtWidgets.QWidget(Dashboard)
         self.gpPerformance.setGeometry(QtCore.QRect(20, 190, 1211, 541))
         self.gpPerformance.setStyleSheet("QWidget {\n"
-"    border: 1px solid black;\n"
+"    border: 1px solid white;\n"
 "    border-radius: 10px;\n"
-"    background-color: #f4f4ec;\n"
+"    background-color: transparent;\n"
 "    padding: 0px;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")

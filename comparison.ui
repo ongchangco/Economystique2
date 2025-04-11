@@ -268,9 +268,9 @@ QPushButton:pressed {
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget {
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 10px;
-	background-color: #f4f4ec;
+	background-color: transparent;
 	padding: 0px;
 }</string>
    </property>
@@ -442,9 +442,12 @@ QPushButton:pressed {
     <string notr="true">#lsGraphs {
     border: 1px solid black;
     border-radius: 10px;
-	background-color: #f4f4ec;
+	background-color: rgba(255,255,255,164);
 	padding: 3px;
 }</string>
+   </property>
+   <property name="viewMode">
+    <enum>QListView::ListMode</enum>
    </property>
   </widget>
  </widget>

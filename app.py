@@ -224,7 +224,7 @@ class Dashboard(QMainWindow):
     def plot_sales_graph(self, sales_data):
         """ Plot a linear sales graph using Matplotlib """
         self.sales_canvas.figure.clear()
-        self.sales_canvas.figure.patch.set_facecolor('#f4f4ec')
+        
         
         # Extract fresh data
         x_values = list(range(len(sales_data)))
@@ -235,6 +235,8 @@ class Dashboard(QMainWindow):
 
         # Create new plot
         ax = self.sales_canvas.figure.add_subplot(111)
+        self.sales_canvas.figure.patch.set_facecolor((1,1,1,0.75))
+        ax.set_facecolor((1,1,1,0))
         ax.plot(x_values, y_values, marker="o", linestyle="-", color="b", label="Total Sales")
         ax.set_ylabel("Total Sales")
         ax.grid(True)
@@ -318,7 +320,9 @@ class ComPerformance(QMainWindow):
         # Create a model for the QListView
         self.graph_model = QStringListModel()
         self.ui.lsGraphs.setModel(self.graph_model)  # Set model to QListView
-            
+        self.ui.lsGraphs.setTextElideMode(Qt.ElideNone)  # Prevent ellipsis from cutting text
+        self.ui.lsGraphs.setStyleSheet("QListView { text-align: center; }")
+        
         self.ui.btnAdd.clicked.connect(self.add_to_graph)
         self.ui.btnClrGraph.clicked.connect(self.clear_graph)
         self.ui.btnDashboard.clicked.connect(self.go_to_dashboard.emit)
@@ -416,11 +420,25 @@ class ComPerformance(QMainWindow):
 
         # Clear and redraw all bars
         self.ax.clear()
+        self.fig.patch.set_facecolor((1, 1, 1, 0.75))
+        self.ax.set_facecolor((1, 1, 1, 0))
         labels = [label for label, _, _ in self.graph_data]
         values = [value for _, value, _ in self.graph_data]
         colors = [color for _, _, color in self.graph_data]
         self.ax.bar(labels, values, color=colors)
 
+        # Add the value labels inside each bar
+        bars = self.ax.bar(labels, values, color=colors)
+        for bar, value in zip(bars, values):
+            height = bar.get_height()
+            self.ax.text(
+                bar.get_x() + bar.get_width() / 2,  # X position: center of the bar
+                height / 2,                         # Y position: middle of the bar
+                f'{value:,.2f}',                     # Format the value
+                ha='center', va='center',          # Center align horizontally and vertically
+                color='black', fontsize=12         # Style
+            )
+        
         self.ax.set_xlabel("Month")
         self.ax.set_ylabel("Total Sales")
         self.ax.set_title("Monthly Sales Comparison")
@@ -452,7 +470,17 @@ class ComPerformance(QMainWindow):
         values = [value for _, value, _ in self.graph_data]
         colors = [color for _, _, color in self.graph_data]
         self.ax.bar(labels, values, color=colors)
-
+        # Add the value labels inside each bar
+        bars = self.ax.bar(labels, values, color=colors)
+        for bar, value in zip(bars, values):
+            height = bar.get_height()
+            self.ax.text(
+                bar.get_x() + bar.get_width() / 2,  # X position: center of the bar
+                height / 2,                         # Y position: middle of the bar
+                f'{value:,.2f}',                     # Format the value
+                ha='center', va='center',          # Center align horizontally and vertically
+                color='black', fontsize=12         # Style
+            )
         # Reapply labels and title after clearing
         self.ax.set_xlabel("Month")
         self.ax.set_ylabel("Total Sales")
@@ -1248,7 +1276,6 @@ class DecWastage(QDialog):
             QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Database Error", f"Error: {e}")
-        
 class AddPrExisting(QDialog):     
     def __init__(self, conn): 
         super(AddPrExisting, self).__init__()

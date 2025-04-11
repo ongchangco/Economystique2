@@ -18,15 +18,14 @@ class Ui_account(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Selected, QtGui.QIcon.On)
         account.setWindowIcon(icon)
-        account.setStyleSheet("background-color: #f4f4ec;\n"
-"color: black;\n"
-"")
+        account.setStyleSheet("color: black;")
         self.lblBusinessName_2 = QtWidgets.QLabel(account)
         self.lblBusinessName_2.setGeometry(QtCore.QRect(10, 70, 1581, 51))
         font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
+        font.setFamily("Cambria")
         font.setPointSize(22)
         self.lblBusinessName_2.setFont(font)
+        self.lblBusinessName_2.setStyleSheet("color: black;")
         self.lblBusinessName_2.setAlignment(QtCore.Qt.AlignCenter)
         self.lblBusinessName_2.setObjectName("lblBusinessName_2")
         self.frame = QtWidgets.QFrame(account)
@@ -144,15 +143,20 @@ class Ui_account(object):
         self.btnDashboard.setObjectName("btnDashboard")
         self.frame_3 = QtWidgets.QFrame(account)
         self.frame_3.setGeometry(QtCore.QRect(20, 160, 1561, 641))
-        self.frame_3.setStyleSheet("background: #365b6d")
+        self.frame_3.setStyleSheet("#frame_3{\n"
+"    border-radius: 5px;\n"
+"    background: rgba(0,0,0,128);\n"
+"}")
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.frame_2 = QtWidgets.QFrame(self.frame_3)
         self.frame_2.setGeometry(QtCore.QRect(90, 390, 461, 161))
         self.frame_2.setAutoFillBackground(False)
-        self.frame_2.setStyleSheet("background: #5b8da6;\n"
-"border-radius: 10px;")
+        self.frame_2.setStyleSheet("#frame_2{\n"
+"    background: rgba(0,0,0,150);\n"
+"    border-radius: 10px;\n"
+"}")
         self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame_2.setObjectName("frame_2")

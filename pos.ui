@@ -18,9 +18,7 @@
     <normaloff>img/econoLogo2.png</normaloff>img/econoLogo2.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #f4f4ec;
-color: black;
-</string>
+   <string notr="true">color: black;</string>
   </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
@@ -647,10 +645,14 @@ QPushButton:pressed {
    </property>
    <property name="font">
     <font>
+     <family>Cambria</family>
      <pointsize>16</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
    </property>
    <property name="text">
     <string>Cart</string>

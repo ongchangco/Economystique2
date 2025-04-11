@@ -18,9 +18,7 @@ class Ui_pos(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econoLogo2.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         pos.setWindowIcon(icon)
-        pos.setStyleSheet("background: #f4f4ec;\n"
-"color: black;\n"
-"")
+        pos.setStyleSheet("color: black;")
         self.gridLayoutWidget = QtWidgets.QWidget(pos)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 70, 1111, 811))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
@@ -275,10 +273,12 @@ class Ui_pos(object):
         self.label = QtWidgets.QLabel(pos)
         self.label.setGeometry(QtCore.QRect(1180, 70, 401, 31))
         font = QtGui.QFont()
+        font.setFamily("Cambria")
         font.setPointSize(16)
         font.setBold(False)
         font.setWeight(50)
         self.label.setFont(font)
+        self.label.setStyleSheet("color: black;")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.cartList = QtWidgets.QListView(pos)

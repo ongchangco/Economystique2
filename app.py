@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QToolTip, QComboBox, QPushButton, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
-from PyQt5.QtCore import Qt, pyqtSignal, QThread
+from PyQt5.QtWidgets import QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
+from PyQt5.QtCore import Qt, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex
 from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -28,6 +28,10 @@ from addExisting_ui import Ui_AddExisting
 from addPrExisting_ui import Ui_AddPrExisting
 from addPrNew_ui import Ui_addPrNew
 from pos_ui import Ui_pos
+from critical_ui import Ui_criticalItems
+from comparison_ui import Ui_Comparison
+from addingWarning_ui import Ui_stockWarning
+from wastage_ui import Ui_decWastage
 from sales_utils import fetch_sales_data
 
 class MainWindow(QMainWindow):
@@ -37,7 +41,13 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Economystique")
         self.setWindowIcon(QIcon(icon_path))
         self.setFixedSize(1600, 900)
-
+        self.setStyleSheet("""
+            QMainWindow {
+                background-image: url(img/main_background_dark.png);
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        """)
         # Create your stacked widget for Dashboard, Inventory, etc.
         self.widget = QtWidgets.QStackedWidget()
         self.setCentralWidget(self.widget)
@@ -49,6 +59,8 @@ class MainWindow(QMainWindow):
         self.salesForecast = SalesForecastWindow(self.widget)
         self.POS = POSWindow(self.widget)
         self.account = AccountWindow(self.widget)
+        self.critical = CriticalWindow(self.widget)
+        self.compare = ComPerformance(self.widget)
 
         # Update Listeners
         self.POS.inventory_update.connect(self.inventory.populate_products)
@@ -61,13 +73,22 @@ class MainWindow(QMainWindow):
         self.widget.addWidget(self.salesForecast)
         self.widget.addWidget(self.POS)
         self.widget.addWidget(self.account)
+        self.widget.addWidget(self.compare)
 
         # Connect widget signals to handlers
         self.dashboard.go_to_inventory.connect(self.show_inventory)
         self.dashboard.go_to_sales.connect(self.show_sales)
         self.dashboard.go_to_pos.connect(self.show_pos)
         self.dashboard.go_to_account.connect(self.show_account)
+        self.dashboard.go_to_compare.connect(self.show_compare)
         self.dashboard.critical_item_selected.connect(self.focus_critical_item)
+        self.critical.critical_item_selected.connect(self.focus_critical_item)
+        
+        self.compare.go_to_dashboard.connect(self.show_dashboard)
+        self.compare.go_to_inventory.connect(self.show_inventory)
+        self.compare.go_to_sales.connect(self.show_sales)
+        self.compare.go_to_pos.connect(self.show_pos)
+        self.compare.go_to_account.connect(self.show_account)
         
         self.inventory.go_to_dashboard.connect(self.show_dashboard)
         self.inventory.go_to_sales.connect(self.show_sales)
@@ -102,26 +123,21 @@ class MainWindow(QMainWindow):
 
     def show_dashboard(self):
         self.widget.setCurrentWidget(self.dashboard)
-    
+    def show_compare(self):
+        self.widget.setCurrentWidget(self.compare)
     def show_inventory(self):
         self.widget.setCurrentWidget(self.inventory)
-
     def show_sales(self):
         self.widget.setCurrentWidget(self.sales)
-        
     def show_salesForecast(self):
         self.widget.setCurrentWidget(self.salesForecast)
-
     def show_pos(self):
         self.widget.setCurrentWidget(self.POS)
-
     def show_account(self):
         self.widget.setCurrentWidget(self.account)
-        
-    def focus_critical_item(self, inventory_id):
+    def focus_critical_item(self, description):
         self.widget.setCurrentWidget(self.inventory)
-        self.inventory.focus_on_item(inventory_id)
-        
+        self.inventory.focus_on_item(description)
     def logout_to_login(self):
         self.switch_to_login.emit()
         self.close()
@@ -172,13 +188,13 @@ class Dashboard(QMainWindow):
     go_to_sales = pyqtSignal()
     go_to_pos = pyqtSignal()
     go_to_account = pyqtSignal()
+    go_to_compare = pyqtSignal()
     critical_item_selected = pyqtSignal(str)
     def __init__(self):
         super(Dashboard, self).__init__()
         self.ui = Ui_Dashboard()
         self.ui.setupUi(self)
-        self.populate_crit_list()
-        self.populate_product_list()
+        
         # Matplotlib Canvas for Sales Graph
         self.sales_canvas = FigureCanvas(plt.figure())
         layout = QVBoxLayout()
@@ -190,106 +206,83 @@ class Dashboard(QMainWindow):
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
         self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
         self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
-        self.ui.lsCritical.itemDoubleClicked.connect(self.on_critical_item_clicked)
-        
-    def populate_crit_list(self):
-        # Get DB Connection
-        db_path = os.path.join("db", "inventory_db.db")
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        
-        cursor.execute("""
-            SELECT inventory_id, description, on_hand, unit FROM inventory WHERE on_hand <= rop
-            """)
-        critItems = cursor.fetchall()
-        self.ui.lsCritical.clear()
-        # Loop through results and format each item
-        for inventory_id, description, on_hand, unit in critItems:
-            list_item_text = f"{inventory_id} - {description} @ {int(on_hand)} {unit}"
-            self.ui.lsCritical.addItem(list_item_text)
-        conn.close()
-    def on_critical_item_clicked(self, item):
-        inventory_id = item.text().split(' - ')[0]
-        # You can emit a different signal with data if you want:
-        self.critical_item_selected.emit(inventory_id)
-    def populate_product_list(self):
-        # Get DB Connection
-        db_path = os.path.join("db", "product_db.db")
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute("""
-            SELECT product_id, product_name, on_hand FROM products_on_hand""")
-        avProducts = cursor.fetchall()
-        self.ui.lsProduct.clear()
-        # Loop through results and format each item
-        for product_id, product_name, on_hand in avProducts:
-            list_item_text = f"{product_id} - {product_name} @ {on_hand} pcs"
-            self.ui.lsProduct.addItem(list_item_text)
-        conn.close()
+        self.ui.btnCritical.clicked.connect(self.go_to_critical)
+        self.ui.btnCompare.clicked.connect(self.go_to_compare.emit)
+    def go_to_critical(self):
+        crit_window = CriticalWindow()
+        crit_window.critical_item_selected.connect(self.critical_item_selected.emit)
+        crit_window.exec_()
     # AAAAAAAAAAIIIIIIIIIIIIIIIIIIII
     def display_sales_performance(self):
         """ Fetch sales data and display it as a linear graph """
-        sales_data = fetch_sales_data()  # Fetch fresh data
-        self.plot_sales_graph(sales_data)  # Update graph
-        performance_message = self.compare_sales_performance(sales_data)  # AI-generated message
-        self.ui.lblPerformance.setText(performance_message)  # Update performance label
-        self.display_best_selling_product()  # Update best-selling product label
+        sales_data = fetch_sales_data()  
+        self.plot_sales_graph(sales_data)  
+        performance_message = self.compare_sales_performance(sales_data) 
+        self.ui.lblPerformance.setText(performance_message)  
+        self.display_best_selling_product() 
         
     def plot_sales_graph(self, sales_data):
         """ Plot a linear sales graph using Matplotlib """
-        self.sales_canvas.figure.clf()  # Clear figure to remove old data
-
+        self.sales_canvas.figure.clear()
+        self.sales_canvas.figure.patch.set_facecolor('#f4f4ec')
+        
         # Extract fresh data
         x_values = list(range(len(sales_data)))
         y_values = sales_data["TotalSales"].tolist()
 
+        # Define the month labels
+        months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr"]
+
         # Create new plot
         ax = self.sales_canvas.figure.add_subplot(111)
         ax.plot(x_values, y_values, marker="o", linestyle="-", color="b", label="Total Sales")
-        ax.set_xlabel("Month")
         ax.set_ylabel("Total Sales")
-        ax.set_title("Sales Performance Over Time")
         ax.grid(True)
         ax.legend()
 
-        # Explicitly trigger re-rendering
-        self.sales_canvas.figure.tight_layout()  # Ensure proper layout
-        self.sales_canvas.draw_idle()  # This ensures it redraws properly
+        ax.set_xticks(range(len(months)))
+        ax.set_xticklabels(months)
 
+        # Explicitly trigger re-rendering
+        self.sales_canvas.figure.tight_layout()  
+        self.sales_canvas.draw()
 
     def compare_sales_performance(self, sales_data):
-        """ Compare this month's sales to December and generate a performance message. """
-        this_month_sales = sales_data[sales_data["Month"] == "this_month"]["TotalSales"].values
-        this_month_value = this_month_sales[0] if len(this_month_sales) > 0 else 0
+        months = list(sales_data["Month"])
 
-        # Get December sales safely
-        december_sales = sales_data[sales_data["Month"] == "december"]["TotalSales"].values
-        december_value = december_sales[0] if len(december_sales) > 0 else 0
+        if len(months) >= 2:
+            last_month_key = months[-1]  
+            second_last_month_key = months[-2]  
+            
+            # Fetch the sales data for these months, and ensure they are treated as float values
+            last_month_sales = float(sales_data[sales_data["Month"] == last_month_key]["TotalSales"].iloc[0])
+            second_last_month_sales = float(sales_data[sales_data["Month"] == second_last_month_key]["TotalSales"].iloc[0])
 
-        # Calculate percentage change
-        if december_value > 0:
-            change_percentage = ((this_month_value - december_value) / december_value) * 100
+            # Calculate percentage change
+            if second_last_month_sales > 0:
+                change_percentage = ((last_month_sales - second_last_month_sales) / second_last_month_sales) * 100
+            else:
+                change_percentage = 100 if last_month_sales > 0 else 0 
+
+            # Generate message
+            if change_percentage > 0:
+                message = f"This month's sales <span style='color: #7ff58d;'>improved</span> by {change_percentage:.2f}% compared to last month."
+            elif change_percentage < 0:
+                message = f"This month's sales <span style='color: #f5737c;'>declined</span> by {abs(change_percentage):.2f}% compared to last month."
+            else:
+                message = "Sales remained the same compared to the previous month."
+
+            return message
         else:
-            change_percentage = 100 if this_month_value > 0 else 0  # If no Dec data, assume 100% increase or no change
-
-        # Generate message
-        if change_percentage > 0:
-            message = f"This month's sales improved by {change_percentage:.2f}% compared last month."
-        elif change_percentage < 0:
-            message = f"This month's sales declined by {abs(change_percentage):.2f}% compared last month."
-        else:
-            message = "Sales remained the same compared to December."
-
-        return message
+            return "Insufficient data to compare sales."
     def display_best_selling_product(self):
-        """Fetch the product with the highest total sales value (price * quantity_sold) from this_month."""
-        db_path = os.path.join("db", "sales_db.db")  # Adjust the path if needed
+        db_path = os.path.join("db", "sales_2025.db")  # Adjust the path if needed
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
         cursor.execute("""
             SELECT product_name, price * quantity_sold AS total_value 
-            FROM this_month 
+            FROM apr 
             ORDER BY total_value DESC 
             LIMIT 1
         """)
@@ -298,9 +291,248 @@ class Dashboard(QMainWindow):
 
         if result:
             product_name, total_value = result
-            self.ui.lblBestProduct.setText(f"The top product: {product_name} with ₱{total_value:.2f} in sales!")
+            self.ui.lblBestProduct.setText(f"{product_name} - with  <span style='color: #7ff58d;'>{total_value:,.2f}</span> in sales!")
         else:
             self.ui.lblBestProduct.setText("No sales data for this month yet.")
+class ComPerformance(QMainWindow):
+    go_to_inventory = pyqtSignal()
+    go_to_sales = pyqtSignal()
+    go_to_pos = pyqtSignal()
+    go_to_account = pyqtSignal()
+    go_to_dashboard = pyqtSignal()
+    def __init__(self, widget=None):
+        super(ComPerformance, self).__init__()
+        self.ui = Ui_Comparison()
+        self.ui.setupUi(self)
+        self.widget = widget
+        
+        self.ui.cbMonth.addItems(["January","February","March","April","May",
+                                  "June","July","August","September","October",
+                                  "November","December"])
+        self.ui.cbYear.addItems(["2025","2024","2023"])
+        
+        # Set a layout to the gpPerformance widget if it doesn't have one
+        if self.ui.gpPerformance.layout() is None:
+            self.ui.gpPerformance.setLayout(QVBoxLayout())
+            
+        # Create a model for the QListView
+        self.graph_model = QStringListModel()
+        self.ui.lsGraphs.setModel(self.graph_model)  # Set model to QListView
+            
+        self.ui.btnAdd.clicked.connect(self.add_to_graph)
+        self.ui.btnClrGraph.clicked.connect(self.clear_graph)
+        self.ui.btnDashboard.clicked.connect(self.go_to_dashboard.emit)
+        self.ui.btnInventory.clicked.connect(self.go_to_inventory.emit)
+        self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
+        self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
+        self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
+        self.ui.lsGraphs.doubleClicked.connect(self.remove_from_graph)
+        
+        self.colors = ['#d0dcfc', '#fff4cc', '#e0d4ec', '#e0ecd4', '#f8cccc']
+        self.color_index = 0
+        self.graph_data = []
+        self.graph_labels = []
+        
+    def add_to_graph(self):
+        """Add a new bar to the graph with the selected color"""
+        # Get the selected month and year
+        selected_month = self.ui.cbMonth.currentText()
+        selected_year = self.ui.cbYear.currentText()
+        label = f"{selected_year} {selected_month}"
+
+        # Prevent invalid 2025 month selection (only Jan to Apr are valid)
+        if selected_year == "2025":
+            valid_months_2025 = ["January", "February", "March", "April"]
+            if selected_month not in valid_months_2025:
+                QMessageBox.warning(self, "Invalid Selection",
+                                    f"Sales data for {selected_month} 2025 is not available.")
+                return
+        
+        # Compute total sales for the selected month
+        total_sales = self.get_total_sales(selected_year, selected_month)
+
+        # Check if the entry already exists in the graph
+        if label in self.graph_labels:
+            # If it exists, show a popup
+            QMessageBox.warning(self, "Duplicate Entry", f"{label} is already in the graph!")
+            return
+
+        # Add label to the list (so we can check for duplicates later)
+        self.graph_labels.append(label)
+
+        # Update the QListView with the new entry
+        self.graph_model.setStringList(self.graph_labels)
+
+        # Add the data to the graph
+        self.update_graph(label, total_sales)
+
+        
+        
+    def calculate_total_sales(self, database, month_table):
+        """Calculate total sales for the given month in the database"""
+        try:
+            conn = sqlite3.connect(database)
+            cursor = conn.cursor()
+            
+            # Query to calculate total sales for the selected month
+            query = f"SELECT SUM(price * quantity_sold) FROM {month_table}"
+            cursor.execute(query)
+            result = cursor.fetchone()
+            
+            conn.close()
+            
+            # Return the total sales value
+            return result[0] if result[0] else 0  # If no sales, return 0
+        except sqlite3.Error as e:
+            QMessageBox.warning(self, "Database Error", f"Error querying the database: {e}")
+            return None
+    def get_total_sales(self, year, month):
+        """Calculate the total sales for a specific year and month"""
+        conn = sqlite3.connect(f"db/sales_{year}.db")
+        cursor = conn.cursor()
+
+        # Convert month to the corresponding table name
+        month_table = month.lower()[:3]  # e.g. 'jan', 'feb', etc.
+
+        cursor.execute(f"SELECT SUM(price * quantity_sold) FROM {month_table}")
+        result = cursor.fetchone()
+        total_sales = result[0] if result[0] else 0
+
+        conn.close()
+        return total_sales
+    def update_graph(self, label, total_sales):
+        if not hasattr(self, 'fig') or self.fig is None:
+            self.fig, self.ax = plt.subplots()
+            self.canvas = FigureCanvas(self.fig)
+            self.ui.gpPerformance.layout().addWidget(self.canvas)
+            self.ax.set_xlabel("Month")
+            self.ax.set_ylabel("Total Sales")
+            self.ax.set_title("Monthly Sales Comparison")
+
+        current_color = self.colors[self.color_index % len(self.colors)]
+        self.color_index += 1
+
+        self.graph_data.append((label, total_sales, current_color))
+
+        # Clear and redraw all bars
+        self.ax.clear()
+        labels = [label for label, _, _ in self.graph_data]
+        values = [value for _, value, _ in self.graph_data]
+        colors = [color for _, _, color in self.graph_data]
+        self.ax.bar(labels, values, color=colors)
+
+        self.ax.set_xlabel("Month")
+        self.ax.set_ylabel("Total Sales")
+        self.ax.set_title("Monthly Sales Comparison")
+        self.canvas.draw()
+
+    def remove_from_graph(self, index: QModelIndex):
+        """Remove the selected entry from the graph and QListView"""
+        label = index.data()  # Get the label of the double-clicked entry
+        
+        # Check if label exists in graph_labels
+        if label not in self.graph_labels:
+            return
+        
+        # Remove the label from graph_labels and the model
+        self.graph_labels.remove(label)
+        self.graph_model.setStringList(self.graph_labels)  # Update the model
+
+        # Remove the corresponding data from graph_data
+        self.graph_data = [data for data in self.graph_data if data[0] != label]
+        
+        # Redraw the graph without the removed time period
+        self.redraw_graph()
+    def redraw_graph(self):
+        """Redraw the graph after removing an entry"""
+        # Clear the existing graph
+        self.ax.clear()
+
+        labels = [label for label, _, _ in self.graph_data]
+        values = [value for _, value, _ in self.graph_data]
+        colors = [color for _, _, color in self.graph_data]
+        self.ax.bar(labels, values, color=colors)
+
+        # Reapply labels and title after clearing
+        self.ax.set_xlabel("Month")
+        self.ax.set_ylabel("Total Sales")
+        self.ax.set_title("Monthly Sales Comparison")
+
+        # Update the canvas
+        self.canvas.draw()
+    def clear_graph(self):
+        """Clear the graph and the list view"""
+        # Clear the graph
+        if hasattr(self, 'ax'):  # Check if the graph exists
+            self.ax.clear()
+            self.canvas.draw()  # Redraw to reflect changes
+        
+        # Clear the graph data and labels
+        self.graph_data.clear()
+        self.graph_labels.clear()
+
+        # Clear the model for lsGraphs
+        self.graph_model.setStringList([])
+class CriticalWindow(QDialog):     
+    critical_item_selected = pyqtSignal(str)
+    def __init__(self, widget=None): 
+        super(CriticalWindow, self).__init__()
+        self.ui = Ui_criticalItems()
+        self.ui.setupUi(self)
+        self.populate_crit_table()
+        self.ui.btnClose.clicked.connect(self.close)
+        self.ui.tabCritical.itemDoubleClicked.connect(self.on_critical_item_clicked)
+        
+    def populate_crit_table(self):
+        # Get DB Connection
+        db_path = os.path.join("db", "inventory_db.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("""
+            SELECT description, unit, on_hand FROM inventory WHERE on_hand <= rop
+            """)
+        critItems = cursor.fetchall()
+        self.ui.tabCritical.clear()
+        
+        # Set up the table
+        self.ui.tabCritical.setRowCount(len(critItems)) 
+        self.ui.tabCritical.setColumnCount(3)
+        self.ui.tabCritical.verticalHeader().hide()
+        
+        # Set headers for the table
+        headers = ["Critical Items", "Unit", "On Hand"]
+        self.ui.tabCritical.setHorizontalHeaderLabels(headers)
+        header = self.ui.tabCritical.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.tabCritical.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # Populate the table with the data
+        for row, item in enumerate(critItems):
+            description, unit, on_hand = item
+
+            desc_item = QTableWidgetItem(str(description))
+            desc_item.setTextAlignment(Qt.AlignCenter)
+
+            unit_item = QTableWidgetItem(str(unit))
+            unit_item.setTextAlignment(Qt.AlignCenter)
+
+            on_hand_item = QTableWidgetItem(str(on_hand))
+            on_hand_item.setTextAlignment(Qt.AlignCenter)
+
+            self.ui.tabCritical.setItem(row, 0, desc_item)
+            self.ui.tabCritical.setItem(row, 1, unit_item)
+            self.ui.tabCritical.setItem(row, 2, on_hand_item)    
+                 
+        self.ui.tabCritical.resizeRowsToContents()
+        conn.close()
+    def on_critical_item_clicked(self, item):
+        row = item.row()
+        description_item = self.ui.tabCritical.item(row, 0)
+        if description_item:
+            description = description_item.text()
+            self.critical_item_selected.emit(description)
+            self.close()  # Close the CriticalWindow
 class Inventory(QMainWindow):
     go_to_dashboard = pyqtSignal()
     go_to_sales = pyqtSignal()
@@ -317,11 +549,13 @@ class Inventory(QMainWindow):
         self.ui.tabIngredientTable.itemDoubleClicked.connect(self.restock_ROP)
         # Connect buttons
         self.ui.btnRestock.clicked.connect(self.restock)
+        self.ui.btnWastage.clicked.connect(self.declare_wastage)
         self.ui.btnAddProduct.clicked.connect(self.addProduct)
         self.ui.btnDashboard.clicked.connect(self.go_to_dashboard.emit)
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
         self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
         self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
+    
     def populate_ingredients(self):
         # Get database connection
         db_path = os.path.join("db", "inventory_db.db")
@@ -391,20 +625,22 @@ class Inventory(QMainWindow):
         self.ui.tabProductTable.resizeRowsToContents()
         conn.close()    
     
-    def focus_on_item(self, inventory_id):
+    def focus_on_item(self, description):
         table = self.ui.tabIngredientTable
-        row_to_focus = -1
 
+        # Clear any previous selection
+        table.clearSelection()
+
+        # Loop through all rows in the table
         for row in range(table.rowCount()):
-            item = table.item(row, 0)  # Column 0 = inventory_id
-            if item and item.text() == inventory_id:
-                row_to_focus = row
+            item = table.item(row, 1)
+            
+            if item and item.text() == description:
+                table.selectRow(row)
+                table.setStyleSheet("QTableWidget::item:selected { background-color: #087cd4; color: white; }")
+                
+                table.scrollToItem(item, QAbstractItemView.PositionAtCenter)
                 break
-
-        if row_to_focus >= 0:
-            table.selectRow(row_to_focus)
-            table.scrollToItem(table.item(row_to_focus, 0), QtWidgets.QAbstractItemView.PositionAtCenter)
-            table.setFocus()
     
     def restock_ROP(self, item):
         row = item.row()
@@ -434,6 +670,11 @@ class Inventory(QMainWindow):
         restock_window = Restock()
         restock_window.restockConfirmed.connect(self.populate_ingredients)
         restock_window.exec_()
+        
+    def declare_wastage(self):
+        wastage_window = DecWastage()
+        wastage_window.restockConfirmed.connect(self.populate_ingredients)
+        wastage_window.exec_()
         
     def addProduct(self):
         addProduct_window = PrRestock()
@@ -724,7 +965,7 @@ class PrRestock(QDialog):
                 # Retrieve the product_id from the first column
                 product_item = self.ui.tabPrRestockTable.item(row, 0) 
                 if product_item:
-                    product_id = product_item()
+                    product_id = product_item.text()
 
                     # Delete the item from the database
                     cursor.execute("DELETE FROM restock_product WHERE product_id = ?", (product_id,))
@@ -908,6 +1149,106 @@ class AddExisting(QDialog):
             QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
         except sqlite3.IntegrityError as e:
             QMessageBox.critical(self, "Database Error", f"Failed to add item: {e}")
+class DecWastage(QDialog):   
+    restockConfirmed = pyqtSignal()    
+    def __init__(self): 
+        super(DecWastage, self).__init__()
+        self.ui = Ui_decWastage()
+        self.ui.setupUi(self)
+        self.db_connection = sqlite3.connect(os.path.join("db", "inventory_db.db"))
+        self.populate_combobox()
+        self.ui.cbItems.currentIndexChanged.connect(self.update_unit_label)
+        self.ui.buttonBox.accepted.connect(self.confirm)
+        self.ui.teAmount.textChanged.connect(self.validate_input)
+        self.apply_shadow_effects()
+
+        float_validator = QDoubleValidator(0.01, 1e308, 5)
+        self.ui.teAmount.setValidator(float_validator)
+
+    def apply_shadow_effects(self):
+        for entity in self.findChildren(QLineEdit):
+            self.add_shadow_effect(entity)
+        for entity in self.findChildren(QPushButton):
+            self.add_shadow_effect(entity)
+
+    def add_shadow_effect(self, entity):
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(5)
+        shadow.setOffset(1, 1)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        entity.setGraphicsEffect(shadow)
+
+    def validate_input(self):
+        input_text = self.ui.teAmount.text().strip()
+        validator = self.ui.teAmount.validator()
+        state, _, _ = validator.validate(input_text, 0)
+
+        if state != QValidator.Acceptable:
+            QToolTip.showText(self.ui.teAmount.mapToGlobal(self.ui.teAmount.rect().bottomLeft()),
+                              "Please enter a positive number",
+                              self.ui.teAmount)
+            self.ui.teAmount.setStyleSheet("border: 1px solid red; border-radius: 5px; background: white;")
+        else:
+            self.ui.teAmount.setToolTip("")
+            self.ui.teAmount.setStyleSheet("border: 1px solid black; border-radius: 5px; background: white;")
+            QToolTip.hideText()
+
+    def populate_combobox(self):
+        cursor = self.db_connection.cursor()
+        cursor.execute("SELECT inventory_id, description, brand, unit, on_hand FROM inventory")
+        self.inventory_items = cursor.fetchall()
+        self.ui.cbItems.clear()
+        for item in self.inventory_items:
+            inventory_id, description, brand, _, _ = item
+            display_text = f"{inventory_id} - {description} ({brand})"
+            self.ui.cbItems.addItem(display_text, inventory_id)
+        cursor.close()
+        if self.inventory_items:
+            self.update_unit_label()
+
+    def update_unit_label(self):
+        index = self.ui.cbItems.currentIndex()
+        if index >= 0:
+            unit = self.inventory_items[index][3]
+            self.ui.lblUnit.setText(f"(in {unit})")
+        else:
+            self.ui.lblUnit.setText("Unit: N/A")
+
+    def confirm(self):
+        try:
+            index = self.ui.cbItems.currentIndex()
+            if index < 0:
+                QMessageBox.warning(self, "Selection Error", "Please select an item.")
+                return
+
+            inventory_id, description, brand, unit, on_hand = self.inventory_items[index]
+            amount_text = self.ui.teAmount.text()
+            if not amount_text.strip():
+                QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
+                return
+
+            amount = float(amount_text)
+            if amount > on_hand:
+                QMessageBox.critical(self, "Insufficient Stock", f"Cannot declare {amount} — only {on_hand} on hand.")
+                return
+
+            cursor = self.db_connection.cursor()
+            cursor.execute("""
+                UPDATE inventory
+                SET on_hand = on_hand - ?
+                WHERE inventory_id = ?
+            """, (amount, inventory_id))
+
+            self.db_connection.commit()
+            self.restockConfirmed.emit()
+            QMessageBox.information(self, "Wastage Declared", f"{amount} {unit} of {description} has been subtracted.")
+            self.accept()
+
+        except ValueError:
+            QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
+        except sqlite3.Error as e:
+            QMessageBox.critical(self, "Database Error", f"Error: {e}")
+        
 class AddPrExisting(QDialog):     
     def __init__(self, conn): 
         super(AddPrExisting, self).__init__()
@@ -974,7 +1315,7 @@ class AddPrExisting(QDialog):
             if index < 0:
                 QMessageBox.warning(self, "Selection Error", "Please select an item.")
                 return
-            # Retrieve selected item details
+
             product_id, product_name = self.product_items[index]
             amount_text = self.ui.teAmount.text()
             if not amount_text.strip():
@@ -982,7 +1323,43 @@ class AddPrExisting(QDialog):
                 return
             amount = int(amount_text)
             newExpDate = self.ui.teExpDate.text()
-            # Insert into the restock database
+
+            # Get ingredients required for this product
+            ingredients_path = os.path.join("db", "ingredients_db.db")
+            inventory_path = os.path.join("db", "inventory_db.db")
+            ing_conn = sqlite3.connect(ingredients_path)
+            inv_conn = sqlite3.connect(inventory_path)
+
+            ing_cursor = ing_conn.cursor()
+            inv_cursor = inv_conn.cursor()
+
+            ing_cursor.execute("SELECT inventory_id, description, [{}] FROM ingredients WHERE [{}] > 0".format(product_id, product_id))
+            ingredients_needed = ing_cursor.fetchall()
+
+            insufficient = []
+            critical_after = []
+
+            for inv_id, name, needed_per_unit in ingredients_needed:
+                total_needed = needed_per_unit * amount
+                inv_cursor.execute("SELECT on_hand, rop FROM inventory WHERE inventory_id = ?", (inv_id,))
+                row = inv_cursor.fetchone()
+                if not row:
+                    continue
+                on_hand, rop = row
+
+                if on_hand < total_needed:
+                    insufficient.append((inv_id, name, on_hand, total_needed))
+                elif (on_hand - total_needed) <= rop:
+                    critical_after.append((inv_id, name, on_hand, rop, on_hand - total_needed))
+
+            if insufficient:
+                self.show_stock_warning("The above items are insufficient to produce {} units of {}".format(amount, product_name), insufficient, is_insufficient=True)
+                return
+            elif critical_after:
+                self.show_stock_warning("The above items will reach critical point after your production", critical_after, is_insufficient=False)
+                return
+
+            # If no issues, proceed
             cursor = self.db_connection.cursor()
             cursor.execute("""
                 INSERT INTO restock_product (product_id, product_name, amount, exp_date)
@@ -990,10 +1367,84 @@ class AddPrExisting(QDialog):
             """, (product_id, product_name, amount, newExpDate))
             self.db_connection.commit()
             self.accept()
+
         except ValueError:
             QMessageBox.critical(self, "Input Error", "Please enter a valid numerical amount.")
         except sqlite3.IntegrityError as e:
             QMessageBox.critical(self, "Database Error", f"Failed to add item: {e}")
+            
+    def show_stock_warning(self, message, items, is_insufficient=True):
+        warning_type = "insufficient" if is_insufficient else "critical"
+        dialog = StockWarning(warning_type)
+        dialog.ui.lblWarning.setText(message)
+        dialog.proceed_with_production.connect(self.confirm_add_to_prrestock)
+
+        tab = dialog.ui.tabItems
+        tab.setRowCount(len(items))
+        tab.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tab.verticalHeader().hide()
+        if is_insufficient:
+            headers = ["Inventory ID", "Name", "On Hand", "Needed"]
+            tab.setColumnCount(4)
+        else:
+            headers = ["Inventory ID", "Name", "On Hand", "ROP", "Post Production"]
+            tab.setColumnCount(5)
+
+        tab.setHorizontalHeaderLabels(headers)
+        header = tab.horizontalHeader()
+        header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold; }")
+        header.setSectionResizeMode(QHeaderView.Stretch)
+
+        for row, item in enumerate(items):
+            for col, value in enumerate(item):
+                cell = QTableWidgetItem(str(value))
+                cell.setTextAlignment(Qt.AlignCenter)
+                tab.setItem(row, col, cell)
+
+            # Color highlighting
+            if is_insufficient:
+                for col in range(len(item)):
+                    tab.item(row, col).setBackground(QColor("#ffcccc"))  # light red
+            else:
+                for col in range(len(item)):
+                    tab.item(row, col).setBackground(QColor("#fff2cc"))  # light yellow
+
+        tab.resizeRowsToContents()
+        dialog.exec()
+        
+    def confirm_add_to_prrestock(self):
+        try:
+            index = self.ui.cbProducts.currentIndex()
+            if index < 0:
+                return
+            product_id, product_name = self.product_items[index]
+            amount = int(self.ui.teAmount.text())
+            newExpDate = self.ui.teExpDate.text()
+
+            cursor = self.db_connection.cursor()
+            cursor.execute("""
+                INSERT INTO restock_product (product_id, product_name, amount, exp_date)
+                VALUES (?, ?, ?, ?)
+            """, (product_id, product_name, amount, newExpDate))
+            self.db_connection.commit()
+            self.accept()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to add to restock: {e}")
+class StockWarning(QDialog):     
+    proceed_with_production = pyqtSignal()
+    def __init__(self, warning_type):
+        super(StockWarning, self).__init__()
+        self.ui = Ui_stockWarning()
+        self.ui.setupUi(self)
+        self.warning_type = warning_type  # "insufficient" or "critical"
+
+        self.ui.btnClose.clicked.connect(self.reject)
+        self.ui.btnAccept.clicked.connect(self.handle_accept)
+
+    def handle_accept(self):
+        if self.warning_type == "critical":
+            self.proceed_with_production.emit()
+        self.accept()
 class AddItem(QDialog):     
     def __init__(self, conn):
         super(AddItem, self).__init__()

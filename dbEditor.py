@@ -3,7 +3,7 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "product_db.db")
+    connectionPath = os.path.join("db", "sales_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
@@ -11,20 +11,20 @@ def edit_database():
     # cursor.execute("ALTER TABLE restock ADD COLUMN rop FLOAT DEFAULT 0")
     
     # EDIT CELL
-    '''cursor.execute("UPDATE nov SET quantity_sold = ? WHERE product_id = ?;",(19,"C007"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(12,"C002"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(6,"C003"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(7,"C004"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(21,"C005"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(8,"C006"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(16,"C006"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(12,"C008"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(25,"C009"))
-    cursor.execute("UPDATE this_month SET quantity_sold = ? WHERE product_id = ?;",(38,"C010"))
-    '''
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C001"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C002"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C003"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C004"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C005"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C006"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C007"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C008"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C009"))
+    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C010"))
+    
     
     # DELETE ENTRY
-    #cursor.execute("DELETE FROM products_on_hand WHERE product_id = '123'")
+    #cursor.execute("DELETE FROM products_on_hand WHERE product_id = 'C011'")
     
     # DELETE TABLE
     #cursor.execute(f"DROP TABLE IF EXISTS january")

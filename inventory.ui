@@ -18,9 +18,7 @@
     <normaloff>img/econologo.png</normaloff>img/econologo.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #f4f4ec;
-color: black;
-</string>
+   <string notr="true">color: black;</string>
   </property>
   <widget class="QLabel" name="InventoryStatus">
    <property name="geometry">
@@ -33,14 +31,14 @@ color: black;
    </property>
    <property name="font">
     <font>
-     <family>MS Sans Serif</family>
+     <family>Cambria</family>
      <pointsize>22</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: transparent;</string>
+    <string notr="true">color: black;</string>
    </property>
    <property name="text">
     <string>Inventory Status</string>
@@ -66,10 +64,16 @@ color: black;
      <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="currentIndex">
     <number>0</number>
    </property>
    <widget class="QWidget" name="tabIngredients">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <attribute name="title">
      <string>Ingredients</string>
     </attribute>
@@ -100,7 +104,7 @@ color: black;
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #ffffff</string>
+      <string notr="true"/>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>
@@ -109,9 +113,9 @@ color: black;
     <widget class="QPushButton" name="btnRestock">
      <property name="geometry">
       <rect>
-       <x>710</x>
+       <x>580</x>
        <y>620</y>
-       <width>141</width>
+       <width>181</width>
        <height>61</height>
       </rect>
      </property>
@@ -146,8 +150,47 @@ QPushButton:pressed {
        <normaloff>img/restock_white.png</normaloff>img/restock_white.png</iconset>
      </property>
     </widget>
+    <widget class="QPushButton" name="btnWastage">
+     <property name="geometry">
+      <rect>
+       <x>780</x>
+       <y>620</y>
+       <width>181</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: #9c272e;
+	color: white;
+	border-style: outset;
+	border-width: 2px;
+	border-radius:10px;
+	border-color: black;
+}
+QPushButton:hover {
+    background-color: #f7525d;
+	border: 2px solid black;
+}
+QPushButton:pressed {
+    border-style: inset;
+    background-color: #365b6d;
+}</string>
+     </property>
+     <property name="text">
+      <string>Declare Wastage</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tabProducts">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <attribute name="title">
      <string>Products</string>
     </attribute>
@@ -178,7 +221,7 @@ QPushButton:pressed {
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #ffffff</string>
+      <string notr="true"/>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>

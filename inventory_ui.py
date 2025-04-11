@@ -18,18 +18,16 @@ class Ui_inventoryManagement(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         inventoryManagement.setWindowIcon(icon)
-        inventoryManagement.setStyleSheet("background-color: #f4f4ec;\n"
-"color: black;\n"
-"")
+        inventoryManagement.setStyleSheet("color: black;")
         self.InventoryStatus = QtWidgets.QLabel(inventoryManagement)
         self.InventoryStatus.setGeometry(QtCore.QRect(9, 70, 1581, 51))
         font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
+        font.setFamily("Cambria")
         font.setPointSize(22)
         font.setBold(False)
         font.setWeight(50)
         self.InventoryStatus.setFont(font)
-        self.InventoryStatus.setStyleSheet("background-color: transparent;")
+        self.InventoryStatus.setStyleSheet("color: black;")
         self.InventoryStatus.setAlignment(QtCore.Qt.AlignCenter)
         self.InventoryStatus.setObjectName("InventoryStatus")
         self.tabWidget = QtWidgets.QTabWidget(inventoryManagement)
@@ -40,8 +38,10 @@ class Ui_inventoryManagement(object):
         font.setBold(False)
         font.setWeight(50)
         self.tabWidget.setFont(font)
+        self.tabWidget.setStyleSheet("")
         self.tabWidget.setObjectName("tabWidget")
         self.tabIngredients = QtWidgets.QWidget()
+        self.tabIngredients.setStyleSheet("")
         self.tabIngredients.setObjectName("tabIngredients")
         self.tabIngredientTable = QtWidgets.QTableWidget(self.tabIngredients)
         self.tabIngredientTable.setGeometry(QtCore.QRect(0, 0, 1561, 601))
@@ -54,13 +54,13 @@ class Ui_inventoryManagement(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.tabIngredientTable.setFont(font)
-        self.tabIngredientTable.setStyleSheet("background: #ffffff")
+        self.tabIngredientTable.setStyleSheet("")
         self.tabIngredientTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabIngredientTable.setObjectName("tabIngredientTable")
         self.tabIngredientTable.setColumnCount(0)
         self.tabIngredientTable.setRowCount(0)
         self.btnRestock = QtWidgets.QPushButton(self.tabIngredients)
-        self.btnRestock.setGeometry(QtCore.QRect(710, 620, 141, 61))
+        self.btnRestock.setGeometry(QtCore.QRect(580, 620, 181, 61))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.btnRestock.setFont(font)
@@ -84,8 +84,31 @@ class Ui_inventoryManagement(object):
         icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/restock_white.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btnRestock.setIcon(icon1)
         self.btnRestock.setObjectName("btnRestock")
+        self.btnWastage = QtWidgets.QPushButton(self.tabIngredients)
+        self.btnWastage.setGeometry(QtCore.QRect(780, 620, 181, 61))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.btnWastage.setFont(font)
+        self.btnWastage.setStyleSheet("QPushButton{\n"
+"    background: #9c272e;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #f7525d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnWastage.setObjectName("btnWastage")
         self.tabWidget.addTab(self.tabIngredients, "")
         self.tabProducts = QtWidgets.QWidget()
+        self.tabProducts.setStyleSheet("")
         self.tabProducts.setObjectName("tabProducts")
         self.tabProductTable = QtWidgets.QTableWidget(self.tabProducts)
         self.tabProductTable.setGeometry(QtCore.QRect(0, 0, 1561, 601))
@@ -98,7 +121,7 @@ class Ui_inventoryManagement(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.tabProductTable.setFont(font)
-        self.tabProductTable.setStyleSheet("background: #ffffff")
+        self.tabProductTable.setStyleSheet("")
         self.tabProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabProductTable.setObjectName("tabProductTable")
         self.tabProductTable.setColumnCount(0)
@@ -250,6 +273,7 @@ class Ui_inventoryManagement(object):
         inventoryManagement.setWindowTitle(_translate("inventoryManagement", "EconoMystique"))
         self.InventoryStatus.setText(_translate("inventoryManagement", "Inventory Status"))
         self.btnRestock.setText(_translate("inventoryManagement", " Restock"))
+        self.btnWastage.setText(_translate("inventoryManagement", "Declare Wastage"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabIngredients), _translate("inventoryManagement", "Ingredients"))
         self.btnAddProduct.setText(_translate("inventoryManagement", "Add Product"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabProducts), _translate("inventoryManagement", "Products"))

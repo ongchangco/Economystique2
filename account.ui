@@ -19,9 +19,7 @@
    </iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #f4f4ec;
-color: black;
-</string>
+   <string notr="true">color: black;</string>
   </property>
   <widget class="QLabel" name="lblBusinessName_2">
    <property name="geometry">
@@ -34,9 +32,12 @@ color: black;
    </property>
    <property name="font">
     <font>
-     <family>MS Sans Serif</family>
+     <family>Cambria</family>
      <pointsize>22</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
    </property>
    <property name="text">
     <string>Account</string>
@@ -271,7 +272,10 @@ QPushButton:pressed {
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: #365b6d</string>
+    <string notr="true">#frame_3{
+	border-radius: 5px;
+	background: rgba(0,0,0,128);
+}</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -292,8 +296,10 @@ QPushButton:pressed {
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background: #5b8da6;
-border-radius: 10px;</string>
+     <string notr="true">#frame_2{
+	background: rgba(0,0,0,150);
+	border-radius: 10px;
+}</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>

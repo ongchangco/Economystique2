@@ -18,15 +18,15 @@ class Ui_SalesForecast(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/econologo_bkgd 200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         SalesForecast.setWindowIcon(icon)
-        SalesForecast.setStyleSheet("background-color: #f4f4ec;\n"
-"color: black;\n"
+        SalesForecast.setStyleSheet("color: black;\n"
 "")
         self.SalesRecords = QtWidgets.QLabel(SalesForecast)
         self.SalesRecords.setGeometry(QtCore.QRect(9, 70, 1581, 51))
         font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
+        font.setFamily("Cambria")
         font.setPointSize(22)
         self.SalesRecords.setFont(font)
+        self.SalesRecords.setStyleSheet("color: white;")
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
         self.gpPerformance = QtWidgets.QWidget(SalesForecast)

@@ -14,134 +14,64 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dashboard(object):
     def setupUi(self, Dashboard):
         Dashboard.setObjectName("Dashboard")
-        Dashboard.resize(1600, 888)
-        Dashboard.setStyleSheet("background-color: #f4f4ec;\n"
-"color: black;\n"
-"")
+        Dashboard.resize(1600, 900)
+        Dashboard.setStyleSheet("color: black;")
         self.gpPerformance = QtWidgets.QWidget(Dashboard)
-        self.gpPerformance.setGeometry(QtCore.QRect(20, 190, 761, 451))
+        self.gpPerformance.setGeometry(QtCore.QRect(20, 190, 1211, 541))
         self.gpPerformance.setStyleSheet("QWidget {\n"
 "    border: 1px solid black;\n"
 "    border-radius: 10px;\n"
-"    background: #8acced;\n"
+"    background-color: #f4f4ec;\n"
+"    padding: 0px;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
-        self.label = QtWidgets.QLabel(Dashboard)
-        self.label.setGeometry(QtCore.QRect(800, 150, 351, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(14)
-        self.label.setFont(font)
-        self.label.setLineWidth(1)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Dashboard)
         self.label_2.setGeometry(QtCore.QRect(10, 70, 1581, 51))
         font = QtGui.QFont()
-        font.setFamily("MS Sans Serif")
+        font.setFamily("Cambria")
         font.setPointSize(22)
         self.label_2.setFont(font)
+        self.label_2.setStyleSheet("background: transparent;\n"
+"color: black;")
         self.label_2.setLineWidth(1)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(Dashboard)
-        self.label_3.setGeometry(QtCore.QRect(20, 150, 761, 31))
+        self.label_3.setGeometry(QtCore.QRect(20, 150, 1211, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(14)
         self.label_3.setFont(font)
+        self.label_3.setStyleSheet("background: transparent;\n"
+"color: black;")
         self.label_3.setLineWidth(1)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.frame_2 = QtWidgets.QFrame(Dashboard)
-        self.frame_2.setGeometry(QtCore.QRect(10, 750, 1141, 131))
-        self.frame_2.setStyleSheet("border-radius: 10px;\n"
-"background: #365b6d;")
+        self.frame_2.setGeometry(QtCore.QRect(1250, 190, 331, 541))
+        self.frame_2.setStyleSheet("QFrame{\n"
+"    border-radius: 10px;\n"
+"    background: rgba(0,0,0,128);\n"
+"}\n"
+"")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.label_4 = QtWidgets.QLabel(self.frame_2)
-        self.label_4.setGeometry(QtCore.QRect(10, 10, 1121, 31))
+        self.lblBestProduct = QtWidgets.QLabel(self.frame_2)
+        self.lblBestProduct.setGeometry(QtCore.QRect(10, 60, 311, 461))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
-        font.setPointSize(14)
-        self.label_4.setFont(font)
-        self.label_4.setStyleSheet("color: white;")
-        self.label_4.setLineWidth(1)
-        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_4.setObjectName("label_4")
-        self.lblBestProduct = QtWidgets.QLabel(self.frame_2)
-        self.lblBestProduct.setGeometry(QtCore.QRect(20, 60, 1091, 51))
-        font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(22)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
         self.lblBestProduct.setFont(font)
-        self.lblBestProduct.setStyleSheet("color: white;")
+        self.lblBestProduct.setStyleSheet("background: transparent;\n"
+"color: white;")
         self.lblBestProduct.setText("")
         self.lblBestProduct.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBestProduct.setWordWrap(True)
         self.lblBestProduct.setObjectName("lblBestProduct")
-        self.label_5 = QtWidgets.QLabel(Dashboard)
-        self.label_5.setGeometry(QtCore.QRect(1170, 150, 411, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(14)
-        self.label_5.setFont(font)
-        self.label_5.setLineWidth(1)
-        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_5.setObjectName("label_5")
-        self.lsProduct = QtWidgets.QListWidget(Dashboard)
-        self.lsProduct.setGeometry(QtCore.QRect(1170, 190, 411, 691))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.lsProduct.setFont(font)
-        self.lsProduct.setStyleSheet("QListWidget {\n"
-"    border: 1px solid black;\n"
-"    border-radius: 10px;\n"
-"    background: white;\n"
-"}")
-        self.lsProduct.setObjectName("lsProduct")
-        self.frame_4 = QtWidgets.QFrame(Dashboard)
-        self.frame_4.setGeometry(QtCore.QRect(800, 190, 351, 541))
-        self.frame_4.setStyleSheet("QFrame{\n"
-"    border: 1px solid black;\n"
-"    border-radius: 10px;\n"
-"    background: white;\n"
-"}\n"
-"")
-        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_4.setObjectName("frame_4")
-        self.lsCritical = QtWidgets.QListWidget(self.frame_4)
-        self.lsCritical.setGeometry(QtCore.QRect(10, 10, 331, 521))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.lsCritical.setFont(font)
-        self.lsCritical.setStyleSheet("border: 0px;")
-        self.lsCritical.setObjectName("lsCritical")
-        self.frame_5 = QtWidgets.QFrame(Dashboard)
-        self.frame_5.setGeometry(QtCore.QRect(20, 660, 761, 71))
-        self.frame_5.setStyleSheet("QFrame{border: 1px solid black;\n"
-"border-radius: 10px;\n"
-"background: white;}\n"
-"")
-        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_5.setObjectName("frame_5")
-        self.gridLayout = QtWidgets.QGridLayout(self.frame_5)
-        self.gridLayout.setContentsMargins(10, 1, 1, 1)
-        self.gridLayout.setObjectName("gridLayout")
-        self.lblPerformance = QtWidgets.QLabel(self.frame_5)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lblPerformance.sizePolicy().hasHeightForWidth())
-        self.lblPerformance.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.lblPerformance.setFont(font)
-        self.lblPerformance.setStyleSheet("border: 0px;")
-        self.lblPerformance.setText("")
-        self.lblPerformance.setObjectName("lblPerformance")
-        self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
         self.frame = QtWidgets.QFrame(Dashboard)
         self.frame.setGeometry(QtCore.QRect(0, 0, 1601, 61))
         self.frame.setStyleSheet("background: #365b6d;")
@@ -255,6 +185,96 @@ class Ui_Dashboard(object):
         self.btnDashboard.setIcon(icon1)
         self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
         self.btnDashboard.setObjectName("btnDashboard")
+        self.btnCritical = QtWidgets.QPushButton(Dashboard)
+        self.btnCritical.setGeometry(QtCore.QRect(1340, 760, 171, 51))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnCritical.setFont(font)
+        self.btnCritical.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnCritical.setObjectName("btnCritical")
+        self.btnCompare = QtWidgets.QPushButton(Dashboard)
+        self.btnCompare.setGeometry(QtCore.QRect(1340, 820, 171, 51))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnCompare.setFont(font)
+        self.btnCompare.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnCompare.setObjectName("btnCompare")
+        self.frame_5 = QtWidgets.QFrame(Dashboard)
+        self.frame_5.setGeometry(QtCore.QRect(20, 750, 1211, 121))
+        self.frame_5.setStyleSheet("QFrame{\n"
+"    border-radius: 10px;\n"
+"    background: rgba(0,0,0,128);\n"
+"}\n"
+"")
+        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_5.setObjectName("frame_5")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame_5)
+        self.gridLayout.setContentsMargins(1, 1, 1, 1)
+        self.gridLayout.setObjectName("gridLayout")
+        self.lblPerformance = QtWidgets.QLabel(self.frame_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lblPerformance.sizePolicy().hasHeightForWidth())
+        self.lblPerformance.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(22)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.lblPerformance.setFont(font)
+        self.lblPerformance.setStyleSheet("background: transparent;\n"
+"color: white;")
+        self.lblPerformance.setText("")
+        self.lblPerformance.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblPerformance.setWordWrap(True)
+        self.lblPerformance.setObjectName("lblPerformance")
+        self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
+        self.label_4 = QtWidgets.QLabel(Dashboard)
+        self.label_4.setGeometry(QtCore.QRect(1260, 150, 311, 31))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(14)
+        self.label_4.setFont(font)
+        self.label_4.setStyleSheet("background: transparent;\n"
+"color: black;")
+        self.label_4.setLineWidth(1)
+        self.label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_4.setObjectName("label_4")
 
         self.retranslateUi(Dashboard)
         QtCore.QMetaObject.connectSlotsByName(Dashboard)
@@ -262,12 +282,12 @@ class Ui_Dashboard(object):
     def retranslateUi(self, Dashboard):
         _translate = QtCore.QCoreApplication.translate
         Dashboard.setWindowTitle(_translate("Dashboard", "Form"))
-        self.label.setText(_translate("Dashboard", "Critical Items"))
         self.label_2.setText(_translate("Dashboard", "Dashboard"))
         self.label_3.setText(_translate("Dashboard", "This Month\'s Performance"))
-        self.label_4.setText(_translate("Dashboard", "Product of the Month"))
-        self.label_5.setText(_translate("Dashboard", "Available Products"))
         self.btnSales.setText(_translate("Dashboard", "Sales"))
         self.btnInventory.setText(_translate("Dashboard", "Inventory"))
         self.btnPOS.setText(_translate("Dashboard", "POS"))
         self.btnDashboard.setText(_translate("Dashboard", "EconoMystique"))
+        self.btnCritical.setText(_translate("Dashboard", "Critical Items"))
+        self.btnCompare.setText(_translate("Dashboard", "Compare"))
+        self.label_4.setText(_translate("Dashboard", "Product of the Month"))

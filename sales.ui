@@ -19,9 +19,7 @@
    </iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: #f4f4ec;
-color: black;
-</string>
+   <string notr="true">color: black;</string>
   </property>
   <widget class="QLabel" name="SalesRecords">
    <property name="geometry">
@@ -34,9 +32,12 @@ color: black;
    </property>
    <property name="font">
     <font>
-     <family>MS Sans Serif</family>
+     <family>Cambria</family>
      <pointsize>22</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: black;</string>
    </property>
    <property name="text">
     <string>Sales</string>
@@ -49,9 +50,9 @@ color: black;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>120</y>
+     <y>130</y>
      <width>1561</width>
-     <height>751</height>
+     <height>741</height>
     </rect>
    </property>
    <property name="font">

@@ -3,7 +3,7 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "sales_db.db")
+    connectionPath = os.path.join("db", "sales_2022.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
@@ -11,18 +11,18 @@ def edit_database():
     # cursor.execute("ALTER TABLE restock ADD COLUMN rop FLOAT DEFAULT 0")
     
     # EDIT CELL
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C001"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C002"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C003"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C004"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C005"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C006"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C007"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C008"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C009"))
-    cursor.execute("UPDATE sales SET quantity_sold = ? WHERE product_id = ?;",(0,"C010"))
-    
-    
+    '''cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(12,"C001"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C002"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(14,"C003"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(7,"C004"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C005"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C006"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C007"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(7,"C008"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(35,"C009"))
+    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(22,"C010"))'''
+
+
     # DELETE ENTRY
     #cursor.execute("DELETE FROM products_on_hand WHERE product_id = 'C011'")
     
@@ -33,33 +33,32 @@ def edit_database():
     #cursor.execute("ALTER TABLE this_month RENAME TO apr")
     
     # CREATE TABLE
-    '''cursor.execute("""
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS year_total (
         product_id TEXT PRIMARY KEY,
         product_name TEXT NOT NULL,
         price FLOAT NOT NULL,
         quantity_sold int NOT NULL
     )
-    """)'''
+    """)
     
     
     # ADD DATA
-    
-    '''data = [("C001", "Chocolate Moist Cake", "850", 2),
-            ("C002", "Yema Vanilla Cake", "760", 0),
-            ("C003", "Caramel Cake", "820", 0),
-            ("C004", "Ube Caramel Cake", "750", 1),
-            ("C005", "Red Velvet Cake", "850", 5),
-            ("C006", "Pandan Cake", "760", 0),
-            ("C007", "Strawberry Cake", "780", 1),
-            ("C008", "Biscoff Mocha Cake", "900", 0),
-            ("C009", "Bento Cake", "370", 8),
-            ("C010", "Cupcake", "40", 13),
+    '''data = [("C001", "Chocolate Moist Cake", "850", 20),
+            ("C002", "Yema Vanilla Cake", "760", 15),
+            ("C003", "Caramel Cake", "820", 21),
+            ("C004", "Ube Caramel Cake", "750", 19),
+            ("C005", "Red Velvet Cake", "850", 21),
+            ("C006", "Pandan Cake", "760", 17),
+            ("C007", "Strawberry Cake", "780", 23),
+            ("C008", "Biscoff Mocha Cake", "900", 20),
+            ("C009", "Bento Cake", "370", 51),
+            ("C010", "Cupcake", "40", 95),
             
     ]
     
     cursor.executemany("""
-    INSERT OR IGNORE INTO year_total (product_id, product_name, price, quantity_sold)
+    INSERT OR IGNORE INTO dec (product_id, product_name, price, quantity_sold)
     VALUES (?, ?, ?, ?)
     """, data)'''
     
@@ -77,8 +76,6 @@ def edit_database():
             SELECT * FROM feb
             UNION ALL
             SELECT * FROM mar
-            UNION ALL
-            SELECT * FROM this_month
             UNION ALL
             SELECT * FROM may
             UNION ALL

@@ -23,10 +23,10 @@
   <widget class="QLabel" name="InventoryStatus">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>70</y>
-     <width>1581</width>
-     <height>51</height>
+     <x>650</x>
+     <y>30</y>
+     <width>311</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -38,13 +38,22 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: black;</string>
+    <string notr="true">border: 0px solid white;
+background: #365b6d;
+color: white;
+border-radius: 25px;</string>
    </property>
    <property name="text">
     <string>Inventory Status</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+   <property name="margin">
+    <number>0</number>
    </property>
   </widget>
   <widget class="QTabWidget" name="tabWidget">
@@ -65,10 +74,33 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QTabWidget::pane {
+    border: 1px solid white;
+	border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+	background-color: rgba(255,255,255,164);
+}
+QTabBar::tab {
+    background: #365b6d;
+    border: 1px solid white;
+    padding: 8px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    min-width: 100px;
+	color: white;
+}
+
+QTabBar::tab:selected {
+    background: #53786d;
+}
+
+QTabBar::tab:hover {
+    background: #53786d;
+}</string>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tabIngredients">
     <property name="styleSheet">
@@ -104,7 +136,22 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>
@@ -221,7 +268,22 @@ QPushButton:pressed {
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true"/>
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>

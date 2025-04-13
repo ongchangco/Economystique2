@@ -20,15 +20,19 @@ class Ui_inventoryManagement(object):
         inventoryManagement.setWindowIcon(icon)
         inventoryManagement.setStyleSheet("color: black;")
         self.InventoryStatus = QtWidgets.QLabel(inventoryManagement)
-        self.InventoryStatus.setGeometry(QtCore.QRect(9, 70, 1581, 51))
+        self.InventoryStatus.setGeometry(QtCore.QRect(650, 30, 311, 91))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setPointSize(22)
         font.setBold(False)
         font.setWeight(50)
         self.InventoryStatus.setFont(font)
-        self.InventoryStatus.setStyleSheet("color: black;")
+        self.InventoryStatus.setStyleSheet("border: 0px solid white;\n"
+"background: #365b6d;\n"
+"color: white;\n"
+"border-radius: 25px;")
         self.InventoryStatus.setAlignment(QtCore.Qt.AlignCenter)
+        self.InventoryStatus.setWordWrap(True)
         self.InventoryStatus.setObjectName("InventoryStatus")
         self.tabWidget = QtWidgets.QTabWidget(inventoryManagement)
         self.tabWidget.setGeometry(QtCore.QRect(20, 130, 1561, 751))
@@ -38,7 +42,30 @@ class Ui_inventoryManagement(object):
         font.setBold(False)
         font.setWeight(50)
         self.tabWidget.setFont(font)
-        self.tabWidget.setStyleSheet("")
+        self.tabWidget.setStyleSheet("QTabWidget::pane {\n"
+"    border: 1px solid white;\n"
+"    border-top-right-radius: 10px;\n"
+"    border-bottom-left-radius: 10px;\n"
+"    border-bottom-right-radius: 10px;\n"
+"    background-color: rgba(255,255,255,164);\n"
+"}\n"
+"QTabBar::tab {\n"
+"    background: #365b6d;\n"
+"    border: 1px solid white;\n"
+"    padding: 8px;\n"
+"    border-top-left-radius: 10px;\n"
+"    border-top-right-radius: 10px;\n"
+"    min-width: 100px;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #53786d;\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
+"    background: #53786d;\n"
+"}")
         self.tabWidget.setObjectName("tabWidget")
         self.tabIngredients = QtWidgets.QWidget()
         self.tabIngredients.setStyleSheet("")
@@ -54,7 +81,22 @@ class Ui_inventoryManagement(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.tabIngredientTable.setFont(font)
-        self.tabIngredientTable.setStyleSheet("")
+        self.tabIngredientTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.tabIngredientTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabIngredientTable.setObjectName("tabIngredientTable")
         self.tabIngredientTable.setColumnCount(0)
@@ -121,7 +163,22 @@ class Ui_inventoryManagement(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.tabProductTable.setFont(font)
-        self.tabProductTable.setStyleSheet("")
+        self.tabProductTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.tabProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.tabProductTable.setObjectName("tabProductTable")
         self.tabProductTable.setColumnCount(0)
@@ -265,7 +322,7 @@ class Ui_inventoryManagement(object):
         self.btnDashboard.setObjectName("btnDashboard")
 
         self.retranslateUi(inventoryManagement)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(inventoryManagement)
 
     def retranslateUi(self, inventoryManagement):

@@ -37,10 +37,10 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>70</y>
-     <width>1581</width>
-     <height>51</height>
+     <x>650</x>
+     <y>30</y>
+     <width>311</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -50,8 +50,10 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background: transparent;
-color: black;</string>
+    <string notr="true">border: 0px solid white;
+background: #365b6d;
+color: white;
+border-radius: 25px;</string>
    </property>
    <property name="lineWidth">
     <number>1</number>
@@ -80,7 +82,7 @@ color: black;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">background: transparent;
-color: black;</string>
+color: white;</string>
    </property>
    <property name="lineWidth">
     <number>1</number>
@@ -118,9 +120,9 @@ color: black;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>80</y>
       <width>311</width>
-      <height>461</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="font">
@@ -144,6 +146,37 @@ color: white;</string>
     </property>
     <property name="wordWrap">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>311</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Century Gothic</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+color: white;</string>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="text">
+     <string>Product of the Month</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
@@ -505,35 +538,6 @@ color: white;</string>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>1260</x>
-     <y>150</y>
-     <width>311</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Century Gothic</family>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: transparent;
-color: black;</string>
-   </property>
-   <property name="lineWidth">
-    <number>1</number>
-   </property>
-   <property name="text">
-    <string>Product of the Month</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
   </widget>
  </widget>
  <resources/>

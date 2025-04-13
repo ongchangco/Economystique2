@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
+from PyQt5.QtWidgets import QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
 from PyQt5.QtCore import Qt, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex
 from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
@@ -43,7 +43,7 @@ class MainWindow(QMainWindow):
         self.setFixedSize(1600, 900)
         self.setStyleSheet("""
             QMainWindow {
-                background-image: url(img/main_background_dark.png);
+                background-image: url(img/3_lighter.png);
                 background-repeat: no-repeat;
                 background-position: center;
             }
@@ -225,7 +225,6 @@ class Dashboard(QMainWindow):
         """ Plot a linear sales graph using Matplotlib """
         self.sales_canvas.figure.clear()
         
-        
         # Extract fresh data
         x_values = list(range(len(sales_data)))
         y_values = sales_data["TotalSales"].tolist()
@@ -238,6 +237,7 @@ class Dashboard(QMainWindow):
         self.sales_canvas.figure.patch.set_facecolor((1,1,1,0.75))
         ax.set_facecolor((1,1,1,0))
         ax.plot(x_values, y_values, marker="o", linestyle="-", color="b", label="Total Sales")
+        
         ax.set_ylabel("Total Sales")
         ax.grid(True)
         ax.legend()
@@ -246,7 +246,11 @@ class Dashboard(QMainWindow):
         ax.set_xticklabels(months)
 
         # Explicitly trigger re-rendering
-        self.sales_canvas.figure.tight_layout()  
+        self.sales_canvas.figure.tight_layout()
+        # Add labels to each point
+        for i, value in enumerate(y_values):
+            ax.text(i, value + (max(y_values) * 0.01), f"{value:,.0f}", 
+                    ha='center', va='bottom', fontsize=9)
         self.sales_canvas.draw()
 
     def compare_sales_performance(self, sales_data):
@@ -311,18 +315,21 @@ class ComPerformance(QMainWindow):
         self.ui.cbMonth.addItems(["January","February","March","April","May",
                                   "June","July","August","September","October",
                                   "November","December"])
-        self.ui.cbYear.addItems(["2025","2024","2023"])
-        
+        self.ui.cbYear.addItems(["2025","2024","2023", "2022"])
+        self.ui.cbYYear.addItems(["2025","2024","2023", "2022"])
+        # Set up the Tables
+        self.setupGraphTables()
         # Set a layout to the gpPerformance widget if it doesn't have one
         if self.ui.gpPerformance.layout() is None:
             self.ui.gpPerformance.setLayout(QVBoxLayout())
-            
-        # Create a model for the QListView
-        self.graph_model = QStringListModel()
-        self.ui.lsGraphs.setModel(self.graph_model)  # Set model to QListView
-        self.ui.lsGraphs.setTextElideMode(Qt.ElideNone)  # Prevent ellipsis from cutting text
-        self.ui.lsGraphs.setStyleSheet("QListView { text-align: center; }")
-        
+        if self.ui.gpYPerformance.layout() is None:
+            self.ui.gpYPerformance.setLayout(QVBoxLayout())
+
+        self.years_plotted = []
+        self.yearly_data = []
+
+        self.ui.btnYAdd.clicked.connect(self.add_year_to_graph)
+        self.ui.btnYClrGraph.clicked.connect(self.clear_year_graph)
         self.ui.btnAdd.clicked.connect(self.add_to_graph)
         self.ui.btnClrGraph.clicked.connect(self.clear_graph)
         self.ui.btnDashboard.clicked.connect(self.go_to_dashboard.emit)
@@ -330,19 +337,78 @@ class ComPerformance(QMainWindow):
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
         self.ui.btnPOS.clicked.connect(self.go_to_pos.emit)
         self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
-        self.ui.lsGraphs.doubleClicked.connect(self.remove_from_graph)
         
-        self.colors = ['#d0dcfc', '#fff4cc', '#e0d4ec', '#e0ecd4', '#f8cccc']
+        self.colors = ['#a8c4f4', '#b8d4ac', '#b8a4d4', '#f09c9c', '#ffe49c']
         self.color_index = 0
         self.graph_data = []
         self.graph_labels = []
+        
+    def setupGraphTables(self):
+        for table, header_text in [(self.ui.monthTable, "Months"), (self.ui.yearTable, "Years")]:
+            table.setColumnCount(1)
+            table.setHorizontalHeaderLabels([header_text])
+            table.setRowCount(0)
+            table.verticalHeader().hide()
+            table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+            table.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+
+            header = table.horizontalHeader()
+            header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
+            header.setSectionResizeMode(QHeaderView.Stretch)
+
+            # Center content by default
+            table.setStyleSheet("QTableWidget::item { text-align: center; }")
+
+            # Connect double-click signal
+            if table == self.ui.monthTable:
+                table.itemDoubleClicked.connect(self.removeMonthGraph)
+            else:
+                table.itemDoubleClicked.connect(self.removeYearGraph)
+                
+    def addToMonthTable(self, month: str, year: int):
+        # Use the new format: "2025 January"
+        row_position = self.ui.monthTable.rowCount()
+        self.ui.monthTable.insertRow(row_position)
+        item = QTableWidgetItem(f"{year} {month}")  # Updated format
+        item.setTextAlignment(Qt.AlignCenter)
+        self.ui.monthTable.setItem(row_position, 0, item)
+
+    def addToYearTable(self, year: int):
+        text = str(year)
+        if not self._isDuplicate(self.ui.yearTable, text):
+            row = self.ui.yearTable.rowCount()
+            self.ui.yearTable.insertRow(row)
+            item = QTableWidgetItem(text)
+            item.setTextAlignment(Qt.AlignCenter)
+            self.ui.yearTable.setItem(row, 0, item)
+    
+    def _isDuplicate(self, table: QTableWidget, text: str) -> bool:
+        for row in range(table.rowCount()):
+            if table.item(row, 0).text() == text:
+                return True
+        return False
+    def removeMonthGraph(self, item: QTableWidgetItem):
+        month_year = item.text()  # Format: "2025 January"
+        row = item.row()
+        self.ui.monthTable.removeRow(row)
+
+        # Directly use the month_year text without parsing
+        self.remove_from_graph(month_year)
+
+    def removeYearGraph(self, item: QTableWidgetItem):
+        year = item.text()  # Just the year, e.g., "2023"
+        row = item.row()
+        self.ui.yearTable.removeRow(row)
+
+        # Call your graph removal logic here
+        self.remove_year_from_graph(year)
         
     def add_to_graph(self):
         """Add a new bar to the graph with the selected color"""
         # Get the selected month and year
         selected_month = self.ui.cbMonth.currentText()
         selected_year = self.ui.cbYear.currentText()
-        label = f"{selected_year} {selected_month}"
+        label = f"{selected_year} {selected_month}"  # New format: "2025 January"
 
         # Prevent invalid 2025 month selection (only Jan to Apr are valid)
         if selected_year == "2025":
@@ -364,13 +430,10 @@ class ComPerformance(QMainWindow):
         # Add label to the list (so we can check for duplicates later)
         self.graph_labels.append(label)
 
-        # Update the QListView with the new entry
-        self.graph_model.setStringList(self.graph_labels)
-
+        # Update the QTable with the new entry
+        self.addToMonthTable(selected_month, selected_year)
         # Add the data to the graph
         self.update_graph(label, total_sales)
-
-        
         
     def calculate_total_sales(self, database, month_table):
         """Calculate total sales for the given month in the database"""
@@ -407,6 +470,7 @@ class ComPerformance(QMainWindow):
     def update_graph(self, label, total_sales):
         if not hasattr(self, 'fig') or self.fig is None:
             self.fig, self.ax = plt.subplots()
+            self.fig.tight_layout()
             self.canvas = FigureCanvas(self.fig)
             self.ui.gpPerformance.layout().addWidget(self.canvas)
             self.ax.set_xlabel("Month")
@@ -420,7 +484,7 @@ class ComPerformance(QMainWindow):
 
         # Clear and redraw all bars
         self.ax.clear()
-        self.fig.patch.set_facecolor((1, 1, 1, 0.75))
+        self.fig.patch.set_facecolor((1, 1, 1, 0))
         self.ax.set_facecolor((1, 1, 1, 0))
         labels = [label for label, _, _ in self.graph_data]
         values = [value for _, value, _ in self.graph_data]
@@ -444,34 +508,30 @@ class ComPerformance(QMainWindow):
         self.ax.set_title("Monthly Sales Comparison")
         self.canvas.draw()
 
-    def remove_from_graph(self, index: QModelIndex):
-        """Remove the selected entry from the graph and QListView"""
-        label = index.data()  # Get the label of the double-clicked entry
-        
-        # Check if label exists in graph_labels
-        if label not in self.graph_labels:
-            return
-        
-        # Remove the label from graph_labels and the model
-        self.graph_labels.remove(label)
-        self.graph_model.setStringList(self.graph_labels)  # Update the model
-
-        # Remove the corresponding data from graph_data
-        self.graph_data = [data for data in self.graph_data if data[0] != label]
-        
-        # Redraw the graph without the removed time period
-        self.redraw_graph()
+    def remove_from_graph(self, month_year: str):
+        index_to_remove = None
+        for i, (label, _, _) in enumerate(self.graph_data):
+            if label == month_year:  # Match the exact format "2025 January"
+                index_to_remove = i
+                break
+        if index_to_remove is not None:
+            # Remove the data from graph
+            self.graph_data.pop(index_to_remove)
+            self.graph_labels.remove(month_year)
+            self.redraw_graph()  # Redraw the graph
+        else:
+            print(f"No graph found for: {month_year}")
     def redraw_graph(self):
         """Redraw the graph after removing an entry"""
-        # Clear the existing graph
-        self.ax.clear()
+        self.ax.clear()  # Clear existing graph
 
+        # Redraw bars for remaining data
         labels = [label for label, _, _ in self.graph_data]
         values = [value for _, value, _ in self.graph_data]
         colors = [color for _, _, color in self.graph_data]
-        self.ax.bar(labels, values, color=colors)
-        # Add the value labels inside each bar
         bars = self.ax.bar(labels, values, color=colors)
+
+        # Add the value labels inside each bar
         for bar, value in zip(bars, values):
             height = bar.get_height()
             self.ax.text(
@@ -481,26 +541,98 @@ class ComPerformance(QMainWindow):
                 ha='center', va='center',          # Center align horizontally and vertically
                 color='black', fontsize=12         # Style
             )
-        # Reapply labels and title after clearing
+
         self.ax.set_xlabel("Month")
         self.ax.set_ylabel("Total Sales")
         self.ax.set_title("Monthly Sales Comparison")
-
-        # Update the canvas
         self.canvas.draw()
     def clear_graph(self):
         """Clear the graph and the list view"""
-        # Clear the graph
-        if hasattr(self, 'ax'):  # Check if the graph exists
+        if hasattr(self, 'ax'):
             self.ax.clear()
-            self.canvas.draw()  # Redraw to reflect changes
-        
-        # Clear the graph data and labels
+            self.canvas.draw()
+
         self.graph_data.clear()
         self.graph_labels.clear()
 
-        # Clear the model for lsGraphs
-        self.graph_model.setStringList([])
+        # Clear the table
+        self.ui.monthTable.setRowCount(0)
+        
+    def add_year_to_graph(self):
+        year = self.ui.cbYYear.currentText()
+        if year in self.years_plotted:
+            QMessageBox.warning(self, "Duplicate Year", f"{year} is already added to the graph!")
+            return
+        db_path = f"db/sales_{year}.db"
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+
+        valid_months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+                        'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+        sales = []
+        available_months = []
+        for short_month in valid_months:
+            try:
+                cursor.execute(f"SELECT SUM(price * quantity_sold) FROM {short_month}")
+                result = cursor.fetchone()
+                total = result[0] if result[0] else 0
+                sales.append(total)
+                available_months.append(short_month.capitalize())  # 'Jan', 'Feb', etc.
+            except sqlite3.OperationalError:
+                # This table doesn't exist (e.g., only jan to apr in 2025)
+                break
+        conn.close()
+        # Store both year and data
+        self.years_plotted.append(year)
+        self.addToYearTable(year)
+        self.yearly_data.append((year, sales, available_months))
+        self.update_year_graph()
+        
+    def update_year_graph(self):
+        if not hasattr(self, 'y_fig') or self.y_fig is None:
+            self.y_fig, self.y_ax = plt.subplots()
+            self.y_fig.tight_layout()
+            self.y_canvas = FigureCanvas(self.y_fig)
+            self.ui.gpYPerformance.layout().addWidget(self.y_canvas)
+            self.y_ax.set_title("Yearly Sales Comparison")
+            self.y_ax.set_xlabel("Month")
+            self.y_ax.set_ylabel("Total Sales")
+
+        self.y_ax.clear()
+        self.y_fig.patch.set_facecolor((1, 1, 1, 0))
+        self.y_ax.set_facecolor((1, 1, 1, 0.75))
+        
+        for i, (year, sales, months) in enumerate(self.yearly_data):
+            color = self.colors[i % len(self.colors)]
+            self.y_ax.plot(months, sales, label=year, marker='o', color=color)
+            for x, y in zip(months, sales):
+                self.y_ax.text(x, y, f'{y:,.0f}', ha='center', va='bottom', fontsize=8)
+
+        self.y_ax.set_title("Yearly Sales Comparison")
+        self.y_ax.set_xlabel("Month")
+        self.y_ax.set_ylabel("Total Sales")
+        self.y_ax.legend()
+        self.y_canvas.draw()
+        
+    def remove_year_from_graph(self, year: str):
+        # Loop through yearly data and remove corresponding year data
+        if year in self.years_plotted:
+            index = self.years_plotted.index(year)
+            self.years_plotted.pop(index)
+            self.yearly_data.pop(index)
+            self.update_year_graph()  # Redraw the year graph
+        else:
+            print(f"No year found in the graph: {year}")
+        
+    def clear_year_graph(self):
+        if hasattr(self, 'y_ax'):
+            self.y_ax.clear()  # Clear the year graph
+            self.y_canvas.draw()
+
+        # Clear the yearTable
+        self.ui.yearTable.setRowCount(0)
+        self.years_plotted.clear()
+        self.yearly_data.clear()
 class CriticalWindow(QDialog):     
     critical_item_selected = pyqtSignal(str)
     def __init__(self, widget=None): 
@@ -1790,8 +1922,8 @@ class SalesWindow(QMainWindow):
                                   "June","July","August","September","October",
                                   "November","December"])
         self.ui.cbMonth.setCurrentIndex(0)
-        self.ui.cbMYear.addItems(["2025","2024","2023"])
-        self.ui.cbYear.addItems(["2025","2024","2023"])
+        self.ui.cbMYear.addItems(["2025","2024","2023","2022"])
+        self.ui.cbYear.addItems(["2025","2024","2023", "2022"])
         self.ui.cbYear.setCurrentIndex(0)
         self.load_sales_data()
         self.load_monthly_data()
@@ -2049,12 +2181,13 @@ class SalesForecastWindow(QMainWindow):
         return sales_data
     
     def forecast_sales(self, product_id):
+        sales_2022_path = os.path.join("db", "sales_2022.db")
         sales_2023_path = os.path.join("db", "sales_2023.db")
         sales_2024_path = os.path.join("db", "sales_2024.db")
         
         past_april_sales = []
         
-        for db_path in [sales_2023_path, sales_2024_path]:
+        for db_path in [sales_2022_path,sales_2023_path, sales_2024_path]:
             if not os.path.exists(db_path):
                 continue
 
@@ -2079,9 +2212,9 @@ class SalesForecastWindow(QMainWindow):
     
     def use_gpt_neo_forecast(self, past_data):
         from statsmodels.tsa.holtwinters import Holt
-        from statsmodels.tsa import seasonal
+        from statsmodels.tsa import arima_model
         from statsmodels.tsa import exponential_smoothing
-        
+        from statsmodels.tsa import vector_ar
         import numpy as np
 
         if len(past_data) < 2 or all(x == past_data[0] for x in past_data):
@@ -2097,22 +2230,22 @@ class SalesForecastWindow(QMainWindow):
         if forecast is None:
             return "No historical data available to forecast."
 
-        # Get the March sales (the last value in past_sales list)
-        march_sales = self.past_sales[-1] if len(self.past_sales) > 0 else 0
+        # Get the April sales (the last value in past_sales list)
+        april_sales = self.past_sales[-1] if len(self.past_sales) > 0 else 0
 
         # Calculate the percentage change from March sales to forecasted sales
-        if march_sales > 0:  # Avoid division by zero
-            change_percentage = ((forecast - march_sales) / march_sales) * 100
+        if april_sales > 0:  # Avoid division by zero
+            change_percentage = ((forecast - april_sales) / april_sales) * 100
         else:
-            change_percentage = 0  # No change if March sales were 0
+            change_percentage = 0  # No change if April sales were 0
 
         # Generate comment based on the change
-        if forecast > march_sales:
-            return f"Sales are expected to <span style='color: #7ff58d;'>INCREASE</span> in April by {round(change_percentage, 2)}% compared to last month."
-        elif forecast < march_sales:
-            return f"Sales are expected to <span style='color: #f5737c;'>DECREASE</span> in April by {round(abs(change_percentage), 2)}% compared to last month."
+        if forecast > april_sales:
+            return f"Sales are expected to <span style='color: #7ff58d;'>INCREASE</span> in April by <span style='color: #7ff58d;'>{round(change_percentage, 2)}%</span>."
+        elif forecast < april_sales:
+            return f"Sales are expected to <span style='color: #f5737c;'>DECREASE</span> in April by <span style='color: #f5737c;'>{round(abs(change_percentage), 2)}%</span>."
         else:
-            return "Sales are predicted to remain stable in April compared to last month."
+            return "Sales are predicted to remain stable in April."
         
     def plot_forecast(self, past_sales, forecasted_value):
         # Ensure gpPerformance has a layout
@@ -2129,7 +2262,7 @@ class SalesForecastWindow(QMainWindow):
 
         # Create a new figure
         fig, ax = plt.subplots(figsize=(6, 4))
-
+        fig.patch.set_facecolor((1, 1, 1, 0.75))
         months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr (Forecast)"]
 
         # Combine past sales data with forecasted value for April 2025
@@ -2143,11 +2276,22 @@ class SalesForecastWindow(QMainWindow):
 
         # Connect the forecasted point to the last point (March 2025)
         ax.plot([months[-2], months[-1]], [values[-2], forecasted_value], linestyle="--", color="red")
+        # Add labels to each past sales point
+        for i, value in enumerate(values[:-1]):
+            ax.text(i + 0.1, value + -2, f"{value:.0f}", ha='center', va='bottom', fontsize=9)
+
+        # Add label to the forecasted point
+        ax.text(len(values) - 0.8, forecasted_value, f"{forecasted_value:.0f}", 
+                ha='center', va='bottom', fontsize=9, color='red')
+
+        # Show grid lines
+        ax.grid(True)
 
         # Labels and title
         ax.set_xlabel("Month")
         ax.set_ylabel("Quantity Sold")
         ax.set_title("Sales Forecast for April 2025")
+        ax.set_facecolor((1, 1, 1, 0))
         ax.legend()
 
         # Embed the plot into the QWidget

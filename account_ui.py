@@ -20,12 +20,15 @@ class Ui_account(object):
         account.setWindowIcon(icon)
         account.setStyleSheet("color: black;")
         self.lblBusinessName_2 = QtWidgets.QLabel(account)
-        self.lblBusinessName_2.setGeometry(QtCore.QRect(10, 70, 1581, 51))
+        self.lblBusinessName_2.setGeometry(QtCore.QRect(650, 30, 311, 91))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setPointSize(22)
         self.lblBusinessName_2.setFont(font)
-        self.lblBusinessName_2.setStyleSheet("color: black;")
+        self.lblBusinessName_2.setStyleSheet("border: 0px solid white;\n"
+"background: #365b6d;\n"
+"color: white;\n"
+"border-radius: 25px;")
         self.lblBusinessName_2.setAlignment(QtCore.Qt.AlignCenter)
         self.lblBusinessName_2.setObjectName("lblBusinessName_2")
         self.frame = QtWidgets.QFrame(account)

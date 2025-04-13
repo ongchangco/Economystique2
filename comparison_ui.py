@@ -129,17 +129,53 @@ class Ui_Comparison(object):
         self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
         self.btnDashboard.setObjectName("btnDashboard")
         self.label_2 = QtWidgets.QLabel(Comparison)
-        self.label_2.setGeometry(QtCore.QRect(10, 70, 1581, 51))
+        self.label_2.setGeometry(QtCore.QRect(610, 30, 391, 91))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setPointSize(22)
         self.label_2.setFont(font)
-        self.label_2.setStyleSheet("color: black;")
+        self.label_2.setStyleSheet("border: 0px solid white;\n"
+"background: #365b6d;\n"
+"color: white;\n"
+"border-radius: 25px;")
         self.label_2.setLineWidth(1)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
-        self.gpPerformance = QtWidgets.QWidget(Comparison)
-        self.gpPerformance.setGeometry(QtCore.QRect(20, 270, 1261, 611))
+        self.tabWidget = QtWidgets.QTabWidget(Comparison)
+        self.tabWidget.setGeometry(QtCore.QRect(20, 130, 1561, 751))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(18)
+        self.tabWidget.setFont(font)
+        self.tabWidget.setStyleSheet("QTabWidget::pane {\n"
+"    border: 1px solid white;\n"
+"    border-top-right-radius: 10px;\n"
+"    border-bottom-left-radius: 10px;\n"
+"    border-bottom-right-radius: 10px;\n"
+"    background-color: rgba(255,255,255,164);\n"
+"}\n"
+"QTabBar::tab {\n"
+"    background: #365b6d;\n"
+"    border: 1px solid white;\n"
+"    padding: 8px;\n"
+"    border-top-left-radius: 10px;\n"
+"    border-top-right-radius: 10px;\n"
+"    min-width: 100px;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #53786d;\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
+"    background: #53786d;\n"
+"}")
+        self.tabWidget.setObjectName("tabWidget")
+        self.tabMonths = QtWidgets.QWidget()
+        self.tabMonths.setObjectName("tabMonths")
+        self.gpPerformance = QtWidgets.QWidget(self.tabMonths)
+        self.gpPerformance.setGeometry(QtCore.QRect(20, 120, 1221, 561))
         self.gpPerformance.setStyleSheet("QWidget {\n"
 "    border: 1px solid white;\n"
 "    border-radius: 10px;\n"
@@ -147,36 +183,8 @@ class Ui_Comparison(object):
 "    padding: 0px;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
-        self.cbMonth = QtWidgets.QComboBox(Comparison)
-        self.cbMonth.setGeometry(QtCore.QRect(150, 170, 231, 31))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.cbMonth.setFont(font)
-        self.cbMonth.setStyleSheet("background: white;")
-        self.cbMonth.setObjectName("cbMonth")
-        self.label_7 = QtWidgets.QLabel(Comparison)
-        self.label_7.setGeometry(QtCore.QRect(20, 220, 111, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(16)
-        self.label_7.setFont(font)
-        self.label_7.setObjectName("label_7")
-        self.label_3 = QtWidgets.QLabel(Comparison)
-        self.label_3.setGeometry(QtCore.QRect(20, 170, 111, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(16)
-        self.label_3.setFont(font)
-        self.label_3.setObjectName("label_3")
-        self.cbYear = QtWidgets.QComboBox(Comparison)
-        self.cbYear.setGeometry(QtCore.QRect(150, 220, 231, 31))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.cbYear.setFont(font)
-        self.cbYear.setStyleSheet("background: white;")
-        self.cbYear.setObjectName("cbYear")
-        self.btnAdd = QtWidgets.QPushButton(Comparison)
-        self.btnAdd.setGeometry(QtCore.QRect(410, 180, 211, 61))
+        self.btnAdd = QtWidgets.QPushButton(self.tabMonths)
+        self.btnAdd.setGeometry(QtCore.QRect(400, 30, 211, 61))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(10)
@@ -198,8 +206,36 @@ class Ui_Comparison(object):
 "    background-color: #365b6d;\n"
 "}")
         self.btnAdd.setObjectName("btnAdd")
-        self.btnClrGraph = QtWidgets.QPushButton(Comparison)
-        self.btnClrGraph.setGeometry(QtCore.QRect(1330, 800, 221, 61))
+        self.cbMonth = QtWidgets.QComboBox(self.tabMonths)
+        self.cbMonth.setGeometry(QtCore.QRect(140, 20, 231, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.cbMonth.setFont(font)
+        self.cbMonth.setStyleSheet("background: white;")
+        self.cbMonth.setObjectName("cbMonth")
+        self.label_3 = QtWidgets.QLabel(self.tabMonths)
+        self.label_3.setGeometry(QtCore.QRect(10, 20, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(16)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.label_7 = QtWidgets.QLabel(self.tabMonths)
+        self.label_7.setGeometry(QtCore.QRect(10, 70, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(16)
+        self.label_7.setFont(font)
+        self.label_7.setObjectName("label_7")
+        self.cbYear = QtWidgets.QComboBox(self.tabMonths)
+        self.cbYear.setGeometry(QtCore.QRect(140, 70, 231, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.cbYear.setFont(font)
+        self.cbYear.setStyleSheet("background: white;")
+        self.cbYear.setObjectName("cbYear")
+        self.btnClrGraph = QtWidgets.QPushButton(self.tabMonths)
+        self.btnClrGraph.setGeometry(QtCore.QRect(1290, 610, 221, 61))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(10)
@@ -221,22 +257,92 @@ class Ui_Comparison(object):
 "    background-color: #365b6d;\n"
 "}")
         self.btnClrGraph.setObjectName("btnClrGraph")
-        self.lsGraphs = QtWidgets.QListView(Comparison)
-        self.lsGraphs.setGeometry(QtCore.QRect(1300, 270, 281, 511))
+        self.monthTable = QtWidgets.QTableWidget(self.tabMonths)
+        self.monthTable.setGeometry(QtCore.QRect(1260, 120, 281, 461))
+        self.monthTable.setObjectName("monthTable")
+        self.monthTable.setColumnCount(0)
+        self.monthTable.setRowCount(0)
+        self.tabWidget.addTab(self.tabMonths, "")
+        self.tabYears = QtWidgets.QWidget()
+        self.tabYears.setObjectName("tabYears")
+        self.gpYPerformance = QtWidgets.QWidget(self.tabYears)
+        self.gpYPerformance.setGeometry(QtCore.QRect(20, 120, 1221, 561))
+        self.gpYPerformance.setStyleSheet("QWidget {\n"
+"    border: 1px solid white;\n"
+"    border-radius: 10px;\n"
+"    background-color: transparent;\n"
+"    padding: 0px;\n"
+"}")
+        self.gpYPerformance.setObjectName("gpYPerformance")
+        self.label_8 = QtWidgets.QLabel(self.tabYears)
+        self.label_8.setGeometry(QtCore.QRect(10, 40, 111, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
-        font.setPointSize(18)
-        self.lsGraphs.setFont(font)
-        self.lsGraphs.setStyleSheet("#lsGraphs {\n"
-"    border: 1px solid black;\n"
-"    border-radius: 10px;\n"
-"    background-color: rgba(255,255,255,164);\n"
-"    padding: 3px;\n"
+        font.setPointSize(16)
+        self.label_8.setFont(font)
+        self.label_8.setObjectName("label_8")
+        self.btnYClrGraph = QtWidgets.QPushButton(self.tabYears)
+        self.btnYClrGraph.setGeometry(QtCore.QRect(1290, 610, 221, 61))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnYClrGraph.setFont(font)
+        self.btnYClrGraph.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
 "}")
-        self.lsGraphs.setViewMode(QtWidgets.QListView.ListMode)
-        self.lsGraphs.setObjectName("lsGraphs")
+        self.btnYClrGraph.setObjectName("btnYClrGraph")
+        self.cbYYear = QtWidgets.QComboBox(self.tabYears)
+        self.cbYYear.setGeometry(QtCore.QRect(140, 40, 231, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.cbYYear.setFont(font)
+        self.cbYYear.setStyleSheet("background: white;")
+        self.cbYYear.setObjectName("cbYYear")
+        self.btnYAdd = QtWidgets.QPushButton(self.tabYears)
+        self.btnYAdd.setGeometry(QtCore.QRect(400, 30, 211, 61))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.btnYAdd.setFont(font)
+        self.btnYAdd.setStyleSheet("QPushButton{\n"
+"    background: #365b6d;\n"
+"    color: white;\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius:10px;\n"
+"    border-color: black;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #53786d;\n"
+"    border: 2px solid black;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    border-style: inset;\n"
+"    background-color: #365b6d;\n"
+"}")
+        self.btnYAdd.setObjectName("btnYAdd")
+        self.yearTable = QtWidgets.QTableWidget(self.tabYears)
+        self.yearTable.setGeometry(QtCore.QRect(1260, 120, 281, 461))
+        self.yearTable.setObjectName("yearTable")
+        self.yearTable.setColumnCount(0)
+        self.yearTable.setRowCount(0)
+        self.tabWidget.addTab(self.tabYears, "")
 
         self.retranslateUi(Comparison)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Comparison)
 
     def retranslateUi(self, Comparison):
@@ -247,7 +353,12 @@ class Ui_Comparison(object):
         self.btnPOS.setText(_translate("Comparison", "POS"))
         self.btnDashboard.setText(_translate("Comparison", "EconoMystique"))
         self.label_2.setText(_translate("Comparison", "Compare Performance"))
-        self.label_7.setText(_translate("Comparison", "Year:"))
-        self.label_3.setText(_translate("Comparison", "Month:"))
         self.btnAdd.setText(_translate("Comparison", "Add to Graph"))
+        self.label_3.setText(_translate("Comparison", "Month:"))
+        self.label_7.setText(_translate("Comparison", "Year:"))
         self.btnClrGraph.setText(_translate("Comparison", "Clear Graph"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabMonths), _translate("Comparison", "Months"))
+        self.label_8.setText(_translate("Comparison", "Year:"))
+        self.btnYClrGraph.setText(_translate("Comparison", "Clear Graph"))
+        self.btnYAdd.setText(_translate("Comparison", "Add to Graph"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabYears), _translate("Comparison", "Years"))

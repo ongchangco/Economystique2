@@ -21,20 +21,23 @@ class Ui_SalesForecast(object):
         SalesForecast.setStyleSheet("color: black;\n"
 "")
         self.SalesRecords = QtWidgets.QLabel(SalesForecast)
-        self.SalesRecords.setGeometry(QtCore.QRect(9, 70, 1581, 51))
+        self.SalesRecords.setGeometry(QtCore.QRect(650, 30, 311, 91))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setPointSize(22)
         self.SalesRecords.setFont(font)
-        self.SalesRecords.setStyleSheet("color: white;")
+        self.SalesRecords.setStyleSheet("border: 0px solid white;\n"
+"background: #365b6d;\n"
+"color: white;\n"
+"border-radius: 25px;")
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
         self.gpPerformance = QtWidgets.QWidget(SalesForecast)
         self.gpPerformance.setGeometry(QtCore.QRect(20, 230, 1561, 471))
         self.gpPerformance.setStyleSheet("QWidget {\n"
-"    border: 1px solid black;\n"
+"    border: 1px solid white;\n"
 "    border-radius: 10px;\n"
-"    background: #8acced;\n"
+"    background: transparent;\n"
 "}")
         self.gpPerformance.setObjectName("gpPerformance")
         self.frame_2 = QtWidgets.QFrame(SalesForecast)

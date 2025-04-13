@@ -20,12 +20,15 @@ class Ui_Sales(object):
         Sales.setWindowIcon(icon)
         Sales.setStyleSheet("color: black;")
         self.SalesRecords = QtWidgets.QLabel(Sales)
-        self.SalesRecords.setGeometry(QtCore.QRect(9, 70, 1581, 51))
+        self.SalesRecords.setGeometry(QtCore.QRect(650, 30, 311, 91))
         font = QtGui.QFont()
         font.setFamily("Cambria")
         font.setPointSize(22)
         self.SalesRecords.setFont(font)
-        self.SalesRecords.setStyleSheet("color: black;")
+        self.SalesRecords.setStyleSheet("border: 0px solid white;\n"
+"background: #365b6d;\n"
+"color: white;\n"
+"border-radius: 25px;")
         self.SalesRecords.setAlignment(QtCore.Qt.AlignCenter)
         self.SalesRecords.setObjectName("SalesRecords")
         self.QTabWidget = QtWidgets.QTabWidget(Sales)
@@ -34,23 +37,63 @@ class Ui_Sales(object):
         font.setFamily("Century Gothic")
         font.setPointSize(20)
         self.QTabWidget.setFont(font)
+        self.QTabWidget.setStyleSheet("QTabWidget::pane {\n"
+"    border: 1px solid white;\n"
+"    border-top-right-radius: 10px;\n"
+"    border-bottom-left-radius: 10px;\n"
+"    border-bottom-right-radius: 10px;\n"
+"    background-color: rgba(255,255,255,164);\n"
+"}\n"
+"QTabBar::tab {\n"
+"    background: #365b6d;\n"
+"    border: 1px solid white;\n"
+"    padding: 8px;\n"
+"    border-top-left-radius: 10px;\n"
+"    border-top-right-radius: 10px;\n"
+"    min-width: 100px;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #53786d;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QTabBar::tab:hover {\n"
+"    background: #53786d;\n"
+"}")
         self.QTabWidget.setTabPosition(QtWidgets.QTabWidget.North)
         self.QTabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.QTabWidget.setObjectName("QTabWidget")
         self.tabToday = QtWidgets.QWidget()
         self.tabToday.setObjectName("tabToday")
         self.productTable = QtWidgets.QTableWidget(self.tabToday)
-        self.productTable.setGeometry(QtCore.QRect(0, 90, 1561, 501))
+        self.productTable.setGeometry(QtCore.QRect(0, 90, 1561, 481))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.productTable.setFont(font)
-        self.productTable.setStyleSheet("background: #ffffff")
+        self.productTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.productTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.productTable.setObjectName("productTable")
         self.productTable.setColumnCount(0)
         self.productTable.setRowCount(0)
         self.lblTotal = QtWidgets.QLabel(self.tabToday)
-        self.lblTotal.setGeometry(QtCore.QRect(620, 620, 301, 61))
+        self.lblTotal.setGeometry(QtCore.QRect(620, 600, 301, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.lblTotal.setFont(font)
@@ -62,7 +105,7 @@ class Ui_Sales(object):
         self.lblTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblTotal.setObjectName("lblTotal")
         self.label = QtWidgets.QLabel(self.tabToday)
-        self.label.setGeometry(QtCore.QRect(520, 620, 81, 61))
+        self.label.setGeometry(QtCore.QRect(520, 600, 81, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label.setFont(font)
@@ -70,7 +113,7 @@ class Ui_Sales(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.btnForecast = QtWidgets.QPushButton(self.tabToday)
-        self.btnForecast.setGeometry(QtCore.QRect(1110, 610, 291, 71))
+        self.btnForecast.setGeometry(QtCore.QRect(1110, 590, 291, 71))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.btnForecast.setFont(font)
@@ -113,7 +156,7 @@ class Ui_Sales(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.tabMonthly)
-        self.label_4.setGeometry(QtCore.QRect(520, 620, 81, 61))
+        self.label_4.setGeometry(QtCore.QRect(520, 600, 81, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_4.setFont(font)
@@ -121,7 +164,7 @@ class Ui_Sales(object):
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.label_4.setObjectName("label_4")
         self.lblMTotal = QtWidgets.QLabel(self.tabMonthly)
-        self.lblMTotal.setGeometry(QtCore.QRect(620, 620, 301, 61))
+        self.lblMTotal.setGeometry(QtCore.QRect(620, 600, 301, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.lblMTotal.setFont(font)
@@ -133,11 +176,26 @@ class Ui_Sales(object):
         self.lblMTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblMTotal.setObjectName("lblMTotal")
         self.mProductTable = QtWidgets.QTableWidget(self.tabMonthly)
-        self.mProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 501))
+        self.mProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 481))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.mProductTable.setFont(font)
-        self.mProductTable.setStyleSheet("background: #ffffff")
+        self.mProductTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.mProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.mProductTable.setObjectName("mProductTable")
         self.mProductTable.setColumnCount(0)
@@ -174,17 +232,32 @@ class Ui_Sales(object):
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.yProductTable = QtWidgets.QTableWidget(self.tab)
-        self.yProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 501))
+        self.yProductTable.setGeometry(QtCore.QRect(0, 90, 1561, 481))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.yProductTable.setFont(font)
-        self.yProductTable.setStyleSheet("background: #ffffff")
+        self.yProductTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.yProductTable.setFrameShape(QtWidgets.QFrame.Panel)
         self.yProductTable.setObjectName("yProductTable")
         self.yProductTable.setColumnCount(0)
         self.yProductTable.setRowCount(0)
         self.lblYTotal = QtWidgets.QLabel(self.tab)
-        self.lblYTotal.setGeometry(QtCore.QRect(620, 620, 301, 61))
+        self.lblYTotal.setGeometry(QtCore.QRect(620, 600, 301, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.lblYTotal.setFont(font)
@@ -196,7 +269,7 @@ class Ui_Sales(object):
         self.lblYTotal.setAlignment(QtCore.Qt.AlignCenter)
         self.lblYTotal.setObjectName("lblYTotal")
         self.label_6 = QtWidgets.QLabel(self.tab)
-        self.label_6.setGeometry(QtCore.QRect(520, 620, 81, 61))
+        self.label_6.setGeometry(QtCore.QRect(520, 600, 81, 61))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label_6.setFont(font)

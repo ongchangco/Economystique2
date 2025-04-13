@@ -24,10 +24,10 @@
   <widget class="QLabel" name="SalesRecords">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>70</y>
-     <width>1581</width>
-     <height>51</height>
+     <x>650</x>
+     <y>30</y>
+     <width>311</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
@@ -37,7 +37,10 @@
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: black;</string>
+    <string notr="true">border: 0px solid white;
+background: #365b6d;
+color: white;
+border-radius: 25px;</string>
    </property>
    <property name="text">
     <string>Sales</string>
@@ -61,6 +64,33 @@
      <pointsize>20</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QTabWidget::pane {
+    border: 1px solid white;
+	border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+	background-color: rgba(255,255,255,164);
+}
+QTabBar::tab {
+    background: #365b6d;
+    border: 1px solid white;
+    padding: 8px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    min-width: 100px;
+	color: white;
+}
+
+QTabBar::tab:selected {
+    background: #53786d;
+    color: white;
+}
+
+QTabBar::tab:hover {
+    background: #53786d;
+}</string>
+   </property>
    <property name="tabPosition">
     <enum>QTabWidget::North</enum>
    </property>
@@ -80,7 +110,7 @@
        <x>0</x>
        <y>90</y>
        <width>1561</width>
-       <height>501</height>
+       <height>481</height>
       </rect>
      </property>
      <property name="font">
@@ -89,7 +119,22 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #ffffff</string>
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>
@@ -99,7 +144,7 @@
      <property name="geometry">
       <rect>
        <x>620</x>
-       <y>620</y>
+       <y>600</y>
        <width>301</width>
        <height>61</height>
       </rect>
@@ -130,7 +175,7 @@
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>620</y>
+       <y>600</y>
        <width>81</width>
        <height>61</height>
       </rect>
@@ -154,7 +199,7 @@
      <property name="geometry">
       <rect>
        <x>1110</x>
-       <y>610</y>
+       <y>590</y>
        <width>291</width>
        <height>71</height>
       </rect>
@@ -242,7 +287,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>620</y>
+       <y>600</y>
        <width>81</width>
        <height>61</height>
       </rect>
@@ -266,7 +311,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>620</x>
-       <y>620</y>
+       <y>600</y>
        <width>301</width>
        <height>61</height>
       </rect>
@@ -299,7 +344,7 @@ QPushButton:pressed {
        <x>0</x>
        <y>90</y>
        <width>1561</width>
-       <height>501</height>
+       <height>481</height>
       </rect>
      </property>
      <property name="font">
@@ -308,7 +353,22 @@ QPushButton:pressed {
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #ffffff</string>
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>
@@ -399,7 +459,7 @@ QPushButton:pressed {
        <x>0</x>
        <y>90</y>
        <width>1561</width>
-       <height>501</height>
+       <height>481</height>
       </rect>
      </property>
      <property name="font">
@@ -408,7 +468,22 @@ QPushButton:pressed {
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #ffffff</string>
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Panel</enum>
@@ -418,7 +493,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>620</x>
-       <y>620</y>
+       <y>600</y>
        <width>301</width>
        <height>61</height>
       </rect>
@@ -449,7 +524,7 @@ QPushButton:pressed {
      <property name="geometry">
       <rect>
        <x>520</x>
-       <y>620</y>
+       <y>600</y>
        <width>81</width>
        <height>61</height>
       </rect>

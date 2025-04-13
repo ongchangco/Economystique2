@@ -90,18 +90,27 @@ class Ui_AddPrExisting(object):
         self.verticalLayout_2.addWidget(self.label)
         self.teAmount = QtWidgets.QLineEdit(AddPrExisting)
         self.teAmount.setGeometry(QtCore.QRect(150, 91, 421, 41))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.teAmount.setFont(font)
         self.teAmount.setStyleSheet("background: white;\n"
 "border: 1px solid black;\n"
 "border-radius: 5px;")
         self.teAmount.setAlignment(QtCore.Qt.AlignCenter)
         self.teAmount.setObjectName("teAmount")
-        self.teExpDate = QtWidgets.QLineEdit(AddPrExisting)
-        self.teExpDate.setGeometry(QtCore.QRect(150, 150, 421, 41))
-        self.teExpDate.setStyleSheet("background: white;\n"
+        self.deExpDate = QtWidgets.QDateEdit(AddPrExisting)
+        self.deExpDate.setGeometry(QtCore.QRect(150, 150, 421, 51))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.deExpDate.setFont(font)
+        self.deExpDate.setStyleSheet("background: white;\n"
 "border: 1px solid black;\n"
 "border-radius: 5px;")
-        self.teExpDate.setAlignment(QtCore.Qt.AlignCenter)
-        self.teExpDate.setObjectName("teExpDate")
+        self.deExpDate.setAlignment(QtCore.Qt.AlignCenter)
+        self.deExpDate.setCalendarPopup(True)
+        self.deExpDate.setObjectName("deExpDate")
 
         self.retranslateUi(AddPrExisting)
         QtCore.QMetaObject.connectSlotsByName(AddPrExisting)
@@ -113,4 +122,3 @@ class Ui_AddPrExisting(object):
         self.label_4.setText(_translate("AddPrExisting", "Quantity"))
         self.label.setText(_translate("AddPrExisting", "Expiry Date"))
         self.teAmount.setPlaceholderText(_translate("AddPrExisting", "Enter a number..."))
-        self.teExpDate.setPlaceholderText(_translate("AddPrExisting", "dd/mm/yy"))

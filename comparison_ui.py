@@ -259,6 +259,26 @@ class Ui_Comparison(object):
         self.btnClrGraph.setObjectName("btnClrGraph")
         self.monthTable = QtWidgets.QTableWidget(self.tabMonths)
         self.monthTable.setGeometry(QtCore.QRect(1260, 120, 281, 461))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.monthTable.setFont(font)
+        self.monthTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.monthTable.setObjectName("monthTable")
         self.monthTable.setColumnCount(0)
         self.monthTable.setRowCount(0)
@@ -336,6 +356,26 @@ class Ui_Comparison(object):
         self.btnYAdd.setObjectName("btnYAdd")
         self.yearTable = QtWidgets.QTableWidget(self.tabYears)
         self.yearTable.setGeometry(QtCore.QRect(1260, 120, 281, 461))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(12)
+        self.yearTable.setFont(font)
+        self.yearTable.setStyleSheet("QTableWidget {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"        selection-background-color: #087cd4;\n"
+"        selection-color: white;\n"
+"        border: none;\n"
+"    }\n"
+"    QHeaderView::section {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"    QTableWidget::item {\n"
+"        background-color: rgba(255, 255, 255, 50);\n"
+"    }\n"
+"QTableWidget::item:selected { \n"
+"        background-color: #087cd4;\n"
+"        color: white;\n"
+"    }")
         self.yearTable.setObjectName("yearTable")
         self.yearTable.setColumnCount(0)
         self.yearTable.setRowCount(0)

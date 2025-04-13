@@ -156,6 +156,12 @@ QPushButton:pressed {
      <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background: white;
 border: 1px solid black;
@@ -168,14 +174,20 @@ border-radius: 5px;</string>
     <string>Enter a number...</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="teExpDate">
+  <widget class="QDateEdit" name="deExpDate">
    <property name="geometry">
     <rect>
      <x>150</x>
      <y>150</y>
      <width>421</width>
-     <height>41</height>
+     <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Century Gothic</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: white;
@@ -185,8 +197,8 @@ border-radius: 5px;</string>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
-   <property name="placeholderText">
-    <string>dd/mm/yy</string>
+   <property name="calendarPopup">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

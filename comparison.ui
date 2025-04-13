@@ -279,8 +279,8 @@ border-radius: 25px;</string>
     <string notr="true">QTabWidget::pane {
     border: 1px solid white;
 	border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 	background-color: rgba(255,255,255,164);
 }
 QTabBar::tab {
@@ -483,6 +483,30 @@ QPushButton:pressed {
        <height>461</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <family>Century Gothic</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="tabYears">
@@ -626,6 +650,30 @@ QPushButton:pressed {
        <width>281</width>
        <height>461</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Century Gothic</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QTableWidget {
+        background-color: rgba(255, 255, 255, 50);
+		selection-background-color: #087cd4;
+    	selection-color: white;
+        border: none;
+    }
+    QHeaderView::section {
+        background-color: rgba(255, 255, 255, 50);
+    }
+    QTableWidget::item {
+        background-color: rgba(255, 255, 255, 50);
+    }
+QTableWidget::item:selected { 
+		background-color: #087cd4;
+		color: white;
+	}</string>
      </property>
     </widget>
    </widget>

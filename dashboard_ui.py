@@ -200,6 +200,30 @@ class Ui_Dashboard(object):
         self.btnDashboard.setIcon(icon1)
         self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
         self.btnDashboard.setObjectName("btnDashboard")
+        self.btnNotif = QtWidgets.QPushButton(self.frame)
+        self.btnNotif.setGeometry(QtCore.QRect(290, 0, 61, 61))
+        self.btnNotif.setStyleSheet("QPushButton {\n"
+"    background: transparent;\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #5b8ca4;\n"
+"}")
+        self.btnNotif.setText("")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Joumongo\\Documents\\Economystique\\img/notif.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btnNotif.setIcon(icon2)
+        self.btnNotif.setIconSize(QtCore.QSize(40, 40))
+        self.btnNotif.setObjectName("btnNotif")
+        self.lblBadge = QtWidgets.QLabel(self.frame)
+        self.lblBadge.setGeometry(QtCore.QRect(330, 30, 21, 21))
+        self.lblBadge.setStyleSheet("color: white;\n"
+"background-color: #608084;\n"
+"border-radius: 10px;")
+        self.lblBadge.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBadge.setWordWrap(True)
+        self.lblBadge.setObjectName("lblBadge")
         self.btnCritical = QtWidgets.QPushButton(Dashboard)
         self.btnCritical.setGeometry(QtCore.QRect(1340, 760, 171, 51))
         font = QtGui.QFont()
@@ -279,6 +303,18 @@ class Ui_Dashboard(object):
         self.lblPerformance.setWordWrap(True)
         self.lblPerformance.setObjectName("lblPerformance")
         self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
+        self.lsExpProducts = QtWidgets.QListWidget(Dashboard)
+        self.lsExpProducts.setGeometry(QtCore.QRect(270, 60, 371, 91))
+        font = QtGui.QFont()
+        font.setFamily("Century Gothic")
+        font.setPointSize(10)
+        self.lsExpProducts.setFont(font)
+        self.lsExpProducts.setStyleSheet("border: 0px;\n"
+"border-bottom-left-radius: 10px;\n"
+"border-bottom-right-radius: 10px;\n"
+"background-color: rgba(56,92,108,196);\n"
+"color: white;")
+        self.lsExpProducts.setObjectName("lsExpProducts")
 
         self.retranslateUi(Dashboard)
         QtCore.QMetaObject.connectSlotsByName(Dashboard)
@@ -293,5 +329,6 @@ class Ui_Dashboard(object):
         self.btnInventory.setText(_translate("Dashboard", "Inventory"))
         self.btnPOS.setText(_translate("Dashboard", "POS"))
         self.btnDashboard.setText(_translate("Dashboard", "EconoMystique"))
+        self.lblBadge.setText(_translate("Dashboard", "2"))
         self.btnCritical.setText(_translate("Dashboard", "Critical Items"))
         self.btnCompare.setText(_translate("Dashboard", "Compare"))

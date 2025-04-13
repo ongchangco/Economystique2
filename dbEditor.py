@@ -3,7 +3,7 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "sales_2022.db")
+    connectionPath = os.path.join("db", "product_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
@@ -11,16 +11,16 @@ def edit_database():
     # cursor.execute("ALTER TABLE restock ADD COLUMN rop FLOAT DEFAULT 0")
     
     # EDIT CELL
-    '''cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(12,"C001"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C002"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(14,"C003"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(7,"C004"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C005"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C006"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(10,"C007"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(7,"C008"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(35,"C009"))
-    cursor.execute("UPDATE jan SET quantity_sold = ? WHERE product_id = ?;",(22,"C010"))'''
+    cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C002"))
+    cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C003"))
+    cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C010"))
+    '''cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C004"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C005"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C006"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C007"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C008"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C009"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C010"))'''
 
 
     # DELETE ENTRY

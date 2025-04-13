@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
-from PyQt5.QtCore import Qt, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex
+from PyQt5.QtWidgets import QDateEdit, QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
+from PyQt5.QtCore import Qt, QDate, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex
 from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -62,6 +62,7 @@ class MainWindow(QMainWindow):
         self.critical = CriticalWindow(self.widget)
         self.compare = ComPerformance(self.widget)
 
+
         # Update Listeners
         self.POS.inventory_update.connect(self.inventory.populate_products)
         self.POS.sales_update.connect(self.sales.load_sales_data)
@@ -94,6 +95,7 @@ class MainWindow(QMainWindow):
         self.inventory.go_to_sales.connect(self.show_sales)
         self.inventory.go_to_pos.connect(self.show_pos)
         self.inventory.go_to_account.connect(self.show_account)
+        self.inventory.expiredCheckRequested.connect(self.dashboard.load_expired_products)
         
         self.sales.go_to_inventory.connect(self.show_inventory)
         self.sales.go_to_dashboard.connect(self.show_dashboard)
@@ -199,6 +201,11 @@ class Dashboard(QMainWindow):
         self.sales_canvas = FigureCanvas(plt.figure())
         layout = QVBoxLayout()
         layout.addWidget(self.sales_canvas)
+        
+        # Notifications
+        self.load_expired_products()
+        self.ui.lsExpProducts.hide()
+        
         self.ui.gpPerformance.setLayout(layout)
         self.display_sales_performance()
         # Connect Buttons
@@ -208,6 +215,50 @@ class Dashboard(QMainWindow):
         self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
         self.ui.btnCritical.clicked.connect(self.go_to_critical)
         self.ui.btnCompare.clicked.connect(self.go_to_compare.emit)
+        self.ui.btnNotif.clicked.connect(self.show_exp_products)
+        
+    def show_exp_products(self):
+        if self.ui.lsExpProducts.isVisible():
+            self.ui.lsExpProducts.hide()
+        else:
+            self.ui.lsExpProducts.show()
+            self.ui.lblBadge.hide()
+    def load_expired_products(self):
+        self.ui.lsExpProducts.clear()
+        today = QDate.currentDate().toString("dd/MM/yy")
+        today_obj = QDate.fromString(today, "dd/MM/yy")
+
+        db_path = os.path.join("db", "product_db.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT product_name, exp_date FROM products_on_hand")
+        expired_products = []
+
+        for product_name, exp_date in cursor.fetchall():
+            if exp_date and exp_date.lower() != "n/a":
+                exp_date_obj = QDate.fromString(exp_date, "dd/MM/yy")
+                if exp_date_obj.isValid() and exp_date_obj <= today_obj:
+                    expired_products.append(f"{product_name} expired at {exp_date}")
+
+        conn.close()
+        self.ui.lsExpProducts.addItems(expired_products)
+        self.ui.lblBadge.show()
+        if expired_products:
+            self.ui.lblBadge.setText(str(len(expired_products)))
+            self.ui.lblBadge.show()
+        else:
+            self.ui.lblBadge.hide()
+
+        # --- Dynamically resize the QListWidget ---
+        item_count = self.ui.lsExpProducts.count()
+        if item_count > 0:
+            item_height = self.ui.lsExpProducts.sizeHintForRow(0)
+            total_height = item_count * item_height + 2  # +2 for borders/padding
+            max_height = 91  # You can adjust this limit
+            self.ui.lsExpProducts.setMaximumHeight(max_height)
+            self.ui.lsExpProducts.setMinimumHeight(min(total_height, max_height))
+            
     def go_to_critical(self):
         crit_window = CriticalWindow()
         crit_window.critical_item_selected.connect(self.critical_item_selected.emit)
@@ -281,6 +332,7 @@ class Dashboard(QMainWindow):
             return message
         else:
             return "Insufficient data to compare sales."
+        
     def display_best_selling_product(self):
         db_path = os.path.join("db", "sales_2025.db")  # Adjust the path if needed
         conn = sqlite3.connect(db_path)
@@ -357,7 +409,24 @@ class ComPerformance(QMainWindow):
             header.setSectionResizeMode(QHeaderView.Stretch)
 
             # Center content by default
-            table.setStyleSheet("QTableWidget::item { text-align: center; }")
+            table.setStyleSheet(""" QTableWidget {
+                                        background-color: rgba(255, 255, 255, 50);
+                                        selection-background-color: #087cd4;
+                                        selection-color: white;
+                                        border: none;
+                                    }
+                                    QHeaderView::section {
+                                        background-color: rgba(255, 255, 255, 50);
+                                    }
+                                    QTableWidget::item {
+                                        background-color: rgba(255, 255, 255, 50);
+                                        text-align: center;
+                                    }
+                                QTableWidget::item:selected { 
+                                        background-color: #087cd4;
+                                        color: white;
+                                    }
+                                """)
 
             # Connect double-click signal
             if table == self.ui.monthTable:
@@ -698,6 +767,7 @@ class Inventory(QMainWindow):
     go_to_sales = pyqtSignal()
     go_to_pos = pyqtSignal()
     go_to_account = pyqtSignal()
+    expiredCheckRequested = pyqtSignal()
     def __init__(self, widget=None):
         super(Inventory, self).__init__()
         self.ui = Ui_inventoryManagement()
@@ -770,7 +840,7 @@ class Inventory(QMainWindow):
         self.ui.tabProductTable.setRowCount(len(products)) 
         self.ui.tabProductTable.setColumnCount(4)
         self.ui.tabProductTable.verticalHeader().hide()
-        headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date"]
+        headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date (dd/mm/yy)"]
         self.ui.tabProductTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabProductTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
@@ -840,6 +910,7 @@ class Inventory(QMainWindow):
         addProduct_window = PrRestock()
         addProduct_window.restockConfirmed.connect(self.populate_products)
         addProduct_window.restockConfirmed.connect(self.populate_ingredients)
+        addProduct_window.expiredCheckRequested.connect(self.expiredCheckRequested)
         addProduct_window.exec_()
 class AddCritical(QDialog):
     restockConfirmed = pyqtSignal()
@@ -1045,7 +1116,8 @@ class Restock(QDialog):
         self.close()
         QMessageBox.information(self, "Success", "Item(s) added successfully.")
 class PrRestock(QDialog):
-    restockConfirmed = pyqtSignal()     
+    restockConfirmed = pyqtSignal() 
+    expiredCheckRequested = pyqtSignal()    
     def __init__(self):
         super(PrRestock, self).__init__()
         self.ui = Ui_PrRestock()
@@ -1212,6 +1284,7 @@ class PrRestock(QDialog):
         res_conn.close()
         
         self.restockConfirmed.emit()
+        self.expiredCheckRequested.emit()
         self.close()
         QMessageBox.information(self, "Success", "Item(s) added successfully.")
 class AddExisting(QDialog):     
@@ -1419,6 +1492,21 @@ class AddPrExisting(QDialog):
         self.ui.buttonBox.rejected.connect(self.reject)
         self.ui.teAmount.textChanged.connect(self.validate_input)
         self.apply_shadow_effects()
+        
+        self.ui.deExpDate.setDate(QDate.currentDate())
+        calendar = self.ui.deExpDate.calendarWidget()
+        calendar.setMinimumSize(400, 300)
+        self.ui.deExpDate.setStyleSheet("""QDateEdit {
+                                            background: white;
+                                            border: 1px solid black;
+                                            border-radius: 5px;
+                                            }
+                                        QCalendarWidget QToolButton {
+                                                color: black;
+                                                background-color: #f0f0f0;
+                                                font-size: 20px;
+                                            }
+                                        """)
         # Set validator for the amount input field (teAmount)
         int_validator = QIntValidator(1, 2147483647)  # Min, Max
         self.ui.teAmount.setValidator(int_validator)
@@ -1481,7 +1569,7 @@ class AddPrExisting(QDialog):
                 QMessageBox.warning(self, "Input Error", "Amount cannot be empty.")
                 return
             amount = int(amount_text)
-            newExpDate = self.ui.teExpDate.text()
+            newExpDate = self.ui.deExpDate.date().toString("dd-MM-yy")
 
             # Get ingredients required for this product
             ingredients_path = os.path.join("db", "ingredients_db.db")
@@ -1578,7 +1666,7 @@ class AddPrExisting(QDialog):
                 return
             product_id, product_name = self.product_items[index]
             amount = int(self.ui.teAmount.text())
-            newExpDate = self.ui.teExpDate.text()
+            newExpDate = self.ui.deExpDate.date().toString("dd/MM/yy")
 
             cursor = self.db_connection.cursor()
             cursor.execute("""

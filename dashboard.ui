@@ -201,7 +201,7 @@ color: white;</string>
    <widget class="QPushButton" name="btnSales">
     <property name="geometry">
      <rect>
-      <x>1312</x>
+      <x>1250</x>
       <y>0</y>
       <width>111</width>
       <height>61</height>
@@ -237,7 +237,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnInventory">
     <property name="geometry">
      <rect>
-      <x>1202</x>
+      <x>1140</x>
       <y>0</y>
       <width>111</width>
       <height>61</height>
@@ -273,7 +273,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnPOS">
     <property name="geometry">
      <rect>
-      <x>1422</x>
+      <x>1360</x>
       <y>0</y>
       <width>111</width>
       <height>61</height>
@@ -309,7 +309,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnAccount">
     <property name="geometry">
      <rect>
-      <x>1530</x>
+      <x>1468</x>
       <y>0</y>
       <width>71</width>
       <height>61</height>
@@ -398,7 +398,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="btnNotif">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>1540</x>
       <y>0</y>
       <width>61</width>
       <height>61</height>
@@ -431,7 +431,7 @@ QPushButton:hover {
    <widget class="QLabel" name="lblBadge">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>1570</x>
       <y>30</y>
       <width>21</width>
       <height>21</height>
@@ -439,7 +439,7 @@ QPushButton:hover {
     </property>
     <property name="styleSheet">
      <string notr="true">color: white;
-background-color: #608084;
+background-color: red;
 border-radius: 10px;</string>
     </property>
     <property name="text">
@@ -599,7 +599,7 @@ color: white;</string>
   <widget class="QListWidget" name="lsExpProducts">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>1230</x>
      <y>60</y>
      <width>371</width>
      <height>91</height>

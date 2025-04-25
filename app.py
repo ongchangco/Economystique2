@@ -155,7 +155,7 @@ class Login(QMainWindow):
         self.ui.setupUi(self)
 
         self.ui.pushButton.clicked.connect(self.loginfunction)
-        self.ui.signUpButton.clicked.connect(self.open_signUp)  # Example button name for SignUp
+        self.ui.signUpButton.clicked.connect(self.open_signUp)
 
     def open_signUp(self):
         self.switch_to_signup.emit()
@@ -255,7 +255,7 @@ class Dashboard(QMainWindow):
         if item_count > 0:
             item_height = self.ui.lsExpProducts.sizeHintForRow(0)
             total_height = item_count * item_height + 2  # +2 for borders/padding
-            max_height = 91  # You can adjust this limit
+            max_height = 91  
             self.ui.lsExpProducts.setMaximumHeight(max_height)
             self.ui.lsExpProducts.setMinimumHeight(min(total_height, max_height))
             
@@ -1208,7 +1208,6 @@ class PrRestock(QDialog):
                     QMessageBox.warning(self, "Missing Data", f"Could not find Product ID for row {row + 1}.")
             # Commit changes to the database
             conn.commit()
-            QMessageBox.information(self, "Success", "Selected item(s) removed successfully.")
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
         finally:
@@ -2301,9 +2300,8 @@ class SalesForecastWindow(QMainWindow):
     def use_gpt_neo_forecast(self, past_data):
         from statsmodels.tsa.holtwinters import Holt
         from statsmodels.tsa import arima_model
-        from statsmodels.tsa import exponential_smoothing
         from statsmodels.tsa import vector_ar
-        import numpy as np
+        
 
         if len(past_data) < 2 or all(x == past_data[0] for x in past_data):
             return past_data[-1] if past_data else 0  # Avoid division errors

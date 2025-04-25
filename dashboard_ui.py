@@ -94,7 +94,7 @@ class Ui_Dashboard(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.btnSales = QtWidgets.QPushButton(self.frame)
-        self.btnSales.setGeometry(QtCore.QRect(1312, 0, 111, 61))
+        self.btnSales.setGeometry(QtCore.QRect(1250, 0, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.btnSales.setFont(font)
@@ -114,7 +114,7 @@ class Ui_Dashboard(object):
 "")
         self.btnSales.setObjectName("btnSales")
         self.btnInventory = QtWidgets.QPushButton(self.frame)
-        self.btnInventory.setGeometry(QtCore.QRect(1202, 0, 111, 61))
+        self.btnInventory.setGeometry(QtCore.QRect(1140, 0, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.btnInventory.setFont(font)
@@ -134,7 +134,7 @@ class Ui_Dashboard(object):
 "")
         self.btnInventory.setObjectName("btnInventory")
         self.btnPOS = QtWidgets.QPushButton(self.frame)
-        self.btnPOS.setGeometry(QtCore.QRect(1422, 0, 111, 61))
+        self.btnPOS.setGeometry(QtCore.QRect(1360, 0, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.btnPOS.setFont(font)
@@ -154,7 +154,7 @@ class Ui_Dashboard(object):
 "")
         self.btnPOS.setObjectName("btnPOS")
         self.btnAccount = QtWidgets.QPushButton(self.frame)
-        self.btnAccount.setGeometry(QtCore.QRect(1530, 0, 71, 61))
+        self.btnAccount.setGeometry(QtCore.QRect(1468, 0, 71, 61))
         self.btnAccount.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnAccount.setStyleSheet("QPushButton {\n"
 "    background-color: #365b6d;\n"
@@ -201,7 +201,7 @@ class Ui_Dashboard(object):
         self.btnDashboard.setIconSize(QtCore.QSize(30, 30))
         self.btnDashboard.setObjectName("btnDashboard")
         self.btnNotif = QtWidgets.QPushButton(self.frame)
-        self.btnNotif.setGeometry(QtCore.QRect(290, 0, 61, 61))
+        self.btnNotif.setGeometry(QtCore.QRect(1540, 0, 61, 61))
         self.btnNotif.setStyleSheet("QPushButton {\n"
 "    background: transparent;\n"
 "    border: 0px;\n"
@@ -217,9 +217,9 @@ class Ui_Dashboard(object):
         self.btnNotif.setIconSize(QtCore.QSize(40, 40))
         self.btnNotif.setObjectName("btnNotif")
         self.lblBadge = QtWidgets.QLabel(self.frame)
-        self.lblBadge.setGeometry(QtCore.QRect(330, 30, 21, 21))
+        self.lblBadge.setGeometry(QtCore.QRect(1570, 30, 21, 21))
         self.lblBadge.setStyleSheet("color: white;\n"
-"background-color: #608084;\n"
+"background-color: red;\n"
 "border-radius: 10px;")
         self.lblBadge.setAlignment(QtCore.Qt.AlignCenter)
         self.lblBadge.setWordWrap(True)
@@ -304,7 +304,7 @@ class Ui_Dashboard(object):
         self.lblPerformance.setObjectName("lblPerformance")
         self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
         self.lsExpProducts = QtWidgets.QListWidget(Dashboard)
-        self.lsExpProducts.setGeometry(QtCore.QRect(270, 60, 371, 91))
+        self.lsExpProducts.setGeometry(QtCore.QRect(1230, 60, 371, 91))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(10)

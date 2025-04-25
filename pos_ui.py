@@ -278,7 +278,7 @@ class Ui_pos(object):
         font.setBold(False)
         font.setWeight(50)
         self.label.setFont(font)
-        self.label.setStyleSheet("color: black;")
+        self.label.setStyleSheet("color: white;")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.cartList = QtWidgets.QListView(pos)

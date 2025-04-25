@@ -652,7 +652,7 @@ QPushButton:pressed {
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: black;</string>
+    <string notr="true">color: white;</string>
    </property>
    <property name="text">
     <string>Cart</string>

@@ -11,10 +11,10 @@ def edit_database():
     # cursor.execute("ALTER TABLE restock ADD COLUMN rop FLOAT DEFAULT 0")
     
     # EDIT CELL
-    cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C002"))
-    cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C003"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C003"))
+    '''cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C003"))
     cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C010"))
-    '''cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C004"))
+    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C004"))
     cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C005"))
     cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C006"))
     cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C007"))

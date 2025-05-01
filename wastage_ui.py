@@ -96,7 +96,7 @@ class Ui_decWastage(object):
 
     def retranslateUi(self, decWastage):
         _translate = QtCore.QCoreApplication.translate
-        decWastage.setWindowTitle(_translate("decWastage", "Dialog"))
+        decWastage.setWindowTitle(_translate("decWastage", "Wastage"))
         self.teAmount.setPlaceholderText(_translate("decWastage", "Enter a number..."))
         self.label.setText(_translate("decWastage", "Item"))
         self.label_2.setText(_translate("decWastage", "Quantity"))

@@ -3,44 +3,66 @@ import sqlite3
 
 
 def edit_database():
-    connectionPath = os.path.join("db", "product_db.db")
+    connectionPath = os.path.join("db", "inventory_db.db")
     connection = sqlite3.connect(connectionPath)
     cursor = connection.cursor()
 
     # ADD COLUMN
-    # cursor.execute("ALTER TABLE restock ADD COLUMN rop FLOAT DEFAULT 0")
+    #cursor.execute("ALTER TABLE products_on_hand ADD COLUMN image BLOB")
     
     # EDIT CELL
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C003"))
-    '''cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C003"))
-    cursor.execute("UPDATE products_on_hand SET on_hand = ? WHERE product_id = ?;",(0,"C010"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C004"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C005"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C006"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C007"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C008"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C009"))
-    cursor.execute("UPDATE products_on_hand SET exp_date = ? WHERE product_id = ?;",("n/a","C010"))'''
-
+    """cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(850,"C001"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(760,"C002"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(820,"C003"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(750,"C004"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(850,"C005"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(760,"C006"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(780,"C007"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(900,"C008"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(370,"C009"))
+    cursor.execute("UPDATE products_on_hand SET price = ? WHERE product_id = ?;",(40,"C010"))"""
 
     # DELETE ENTRY
-    #cursor.execute("DELETE FROM products_on_hand WHERE product_id = 'C011'")
+    #cursor.execute("DELETE FROM inventory WHERE inventory_id = 'INV0034'")
+    
+    # DELETE COLUMN
+    #cursor.execute("ALTER TABLE ingredients DROP COLUMN 'C012'")
     
     # DELETE TABLE
-    #cursor.execute(f"DROP TABLE IF EXISTS january")
+    #cursor.execute(f"DROP TABLE IF EXISTS y2024")
     
     # EDIT TABLE NAME
     #cursor.execute("ALTER TABLE this_month RENAME TO apr")
     
+    # ADD BLOB IN COLUMN
+    """product_id = "C010"
+    image_path = "img/C010.png"
+    
+    def convert_to_binary(filename):
+        with open(filename, 'rb') as file:
+            return file.read()
+    
+    try:
+        image_data = convert_to_binary(image_path)
+        cursor.execute("UPDATE products_on_hand SET image = ? WHERE product_id = ?", (image_data, product_id))
+        connection.commit()
+        print(f"Image added successfully to product_id: {product_id}")
+    except Exception as e:
+        print(f"Failed to update image: {e}")
+    finally:
+        connection.close()"""
+    
+    
+    
     # CREATE TABLE
-    cursor.execute("""
+    '''cursor.execute("""
     CREATE TABLE IF NOT EXISTS year_total (
         product_id TEXT PRIMARY KEY,
         product_name TEXT NOT NULL,
         price FLOAT NOT NULL,
         quantity_sold int NOT NULL
     )
-    """)
+    """)'''
     
     
     # ADD DATA

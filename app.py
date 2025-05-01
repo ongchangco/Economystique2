@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDateEdit, QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
+from PyQt5.QtWidgets import QFileDialog, QDateEdit, QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
 from PyQt5.QtCore import Qt, QDate, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex
-from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor
+from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor, QPixmap
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
@@ -197,7 +197,6 @@ class Dashboard(QMainWindow):
         self.ui = Ui_Dashboard()
         self.ui.setupUi(self)
         
-        # Matplotlib Canvas for Sales Graph
         self.sales_canvas = FigureCanvas(plt.figure())
         layout = QVBoxLayout()
         layout.addWidget(self.sales_canvas)
@@ -208,6 +207,7 @@ class Dashboard(QMainWindow):
         
         self.ui.gpPerformance.setLayout(layout)
         self.display_sales_performance()
+        
         # Connect Buttons
         self.ui.btnInventory.clicked.connect(self.go_to_inventory.emit)
         self.ui.btnSales.clicked.connect(self.go_to_sales.emit)
@@ -223,6 +223,7 @@ class Dashboard(QMainWindow):
         else:
             self.ui.lsExpProducts.show()
             self.ui.lblBadge.hide()
+            
     def load_expired_products(self):
         self.ui.lsExpProducts.clear()
         today = QDate.currentDate().toString("dd/MM/yy")
@@ -263,7 +264,7 @@ class Dashboard(QMainWindow):
         crit_window = CriticalWindow()
         crit_window.critical_item_selected.connect(self.critical_item_selected.emit)
         crit_window.exec_()
-    # AAAAAAAAAAIIIIIIIIIIIIIIIIIIII
+
     def display_sales_performance(self):
         """ Fetch sales data and display it as a linear graph """
         sales_data = fetch_sales_data()  
@@ -371,7 +372,7 @@ class ComPerformance(QMainWindow):
         self.ui.cbYYear.addItems(["2025","2024","2023", "2022"])
         # Set up the Tables
         self.setupGraphTables()
-        # Set a layout to the gpPerformance widget if it doesn't have one
+        # Set layout
         if self.ui.gpPerformance.layout() is None:
             self.ui.gpPerformance.setLayout(QVBoxLayout())
         if self.ui.gpYPerformance.layout() is None:
@@ -435,10 +436,9 @@ class ComPerformance(QMainWindow):
                 table.itemDoubleClicked.connect(self.removeYearGraph)
                 
     def addToMonthTable(self, month: str, year: int):
-        # Use the new format: "2025 January"
         row_position = self.ui.monthTable.rowCount()
         self.ui.monthTable.insertRow(row_position)
-        item = QTableWidgetItem(f"{year} {month}")  # Updated format
+        item = QTableWidgetItem(f"{year} {month}")
         item.setTextAlignment(Qt.AlignCenter)
         self.ui.monthTable.setItem(row_position, 0, item)
 
@@ -457,51 +457,40 @@ class ComPerformance(QMainWindow):
                 return True
         return False
     def removeMonthGraph(self, item: QTableWidgetItem):
-        month_year = item.text()  # Format: "2025 January"
+        month_year = item.text()
         row = item.row()
         self.ui.monthTable.removeRow(row)
-
-        # Directly use the month_year text without parsing
+        # Without parsing
         self.remove_from_graph(month_year)
 
     def removeYearGraph(self, item: QTableWidgetItem):
-        year = item.text()  # Just the year, e.g., "2023"
+        year = item.text()
         row = item.row()
         self.ui.yearTable.removeRow(row)
-
-        # Call your graph removal logic here
         self.remove_year_from_graph(year)
         
     def add_to_graph(self):
-        """Add a new bar to the graph with the selected color"""
-        # Get the selected month and year
         selected_month = self.ui.cbMonth.currentText()
         selected_year = self.ui.cbYear.currentText()
-        label = f"{selected_year} {selected_month}"  # New format: "2025 January"
+        label = f"{selected_year} {selected_month}" 
 
-        # Prevent invalid 2025 month selection (only Jan to Apr are valid)
+        # Prevent invalid months
         if selected_year == "2025":
             valid_months_2025 = ["January", "February", "March", "April"]
             if selected_month not in valid_months_2025:
                 QMessageBox.warning(self, "Invalid Selection",
                                     f"Sales data for {selected_month} 2025 is not available.")
                 return
-        
-        # Compute total sales for the selected month
+            
         total_sales = self.get_total_sales(selected_year, selected_month)
 
-        # Check if the entry already exists in the graph
+        # Exists??
         if label in self.graph_labels:
-            # If it exists, show a popup
             QMessageBox.warning(self, "Duplicate Entry", f"{label} is already in the graph!")
             return
 
-        # Add label to the list (so we can check for duplicates later)
         self.graph_labels.append(label)
-
-        # Update the QTable with the new entry
         self.addToMonthTable(selected_month, selected_year)
-        # Add the data to the graph
         self.update_graph(label, total_sales)
         
     def calculate_total_sales(self, database, month_table):
@@ -509,16 +498,14 @@ class ComPerformance(QMainWindow):
         try:
             conn = sqlite3.connect(database)
             cursor = conn.cursor()
-            
-            # Query to calculate total sales for the selected month
             query = f"SELECT SUM(price * quantity_sold) FROM {month_table}"
             cursor.execute(query)
             result = cursor.fetchone()
             
             conn.close()
             
-            # Return the total sales value
-            return result[0] if result[0] else 0  # If no sales, return 0
+            # Return total sales value
+            return result[0] if result[0] else 0 
         except sqlite3.Error as e:
             QMessageBox.warning(self, "Database Error", f"Error querying the database: {e}")
             return None
@@ -527,8 +514,8 @@ class ComPerformance(QMainWindow):
         conn = sqlite3.connect(f"db/sales_{year}.db")
         cursor = conn.cursor()
 
-        # Convert month to the corresponding table name
-        month_table = month.lower()[:3]  # e.g. 'jan', 'feb', etc.
+        # Month to Table
+        month_table = month.lower()[:3]  
 
         cursor.execute(f"SELECT SUM(price * quantity_sold) FROM {month_table}")
         result = cursor.fetchone()
@@ -536,6 +523,7 @@ class ComPerformance(QMainWindow):
 
         conn.close()
         return total_sales
+    
     def update_graph(self, label, total_sales):
         if not hasattr(self, 'fig') or self.fig is None:
             self.fig, self.ax = plt.subplots()
@@ -551,7 +539,7 @@ class ComPerformance(QMainWindow):
 
         self.graph_data.append((label, total_sales, current_color))
 
-        # Clear and redraw all bars
+        # Clear and Redraw
         self.ax.clear()
         self.fig.patch.set_facecolor((1, 1, 1, 0))
         self.ax.set_facecolor((1, 1, 1, 0))
@@ -560,16 +548,16 @@ class ComPerformance(QMainWindow):
         colors = [color for _, _, color in self.graph_data]
         self.ax.bar(labels, values, color=colors)
 
-        # Add the value labels inside each bar
+        # Values for Each
         bars = self.ax.bar(labels, values, color=colors)
         for bar, value in zip(bars, values):
             height = bar.get_height()
             self.ax.text(
-                bar.get_x() + bar.get_width() / 2,  # X position: center of the bar
-                height / 2,                         # Y position: middle of the bar
-                f'{value:,.2f}',                     # Format the value
-                ha='center', va='center',          # Center align horizontally and vertically
-                color='black', fontsize=12         # Style
+                bar.get_x() + bar.get_width() / 2, 
+                height / 2,                        
+                f'{value:,.2f}',                    
+                ha='center', va='center',          
+                color='black', fontsize=12       
             )
         
         self.ax.set_xlabel("Month")
@@ -777,7 +765,7 @@ class Inventory(QMainWindow):
         self.populate_products()
         self.ui.tabWidget.setCurrentIndex(0)
         self.ui.tabIngredientTable.itemDoubleClicked.connect(self.restock_ROP)
-        # Connect buttons
+   
         self.ui.btnRestock.clicked.connect(self.restock)
         self.ui.btnWastage.clicked.connect(self.declare_wastage)
         self.ui.btnAddProduct.clicked.connect(self.addProduct)
@@ -787,21 +775,20 @@ class Inventory(QMainWindow):
         self.ui.btnAccount.clicked.connect(self.go_to_account.emit)
     
     def populate_ingredients(self):
-        # Get database connection
         db_path = os.path.join("db", "inventory_db.db")
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
-        # Fetch all items from the inventory table INCLUDING rop
+ 
         cursor.execute("""
             SELECT inventory_id, description, brand, unit, on_hand, rop
             FROM inventory
         """)
         inventory_items = cursor.fetchall()
-        # Set up the table
+        # Set Table
         self.ui.tabIngredientTable.setRowCount(len(inventory_items)) 
-        self.ui.tabIngredientTable.setColumnCount(5)  # Still 5 columns shown (excluding rop)
+        self.ui.tabIngredientTable.setColumnCount(5)
         self.ui.tabIngredientTable.verticalHeader().hide()
-        # Set headers for the table
+        # Set Headers
         headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
         self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabIngredientTable.horizontalHeader()
@@ -997,16 +984,13 @@ class Restock(QDialog):
         conn = self.connect_rsDB()
         cursor = conn.cursor()
 
-        # Fetch all items from the restock table
+        # Fetch Items
         cursor.execute("SELECT inventory_id, description, brand, unit, amount FROM restock")
         restock_items = cursor.fetchall()
 
-        # Set up the table
         self.ui.tabRestockTable.setRowCount(len(restock_items)) 
         self.ui.tabRestockTable.setColumnCount(5)
         self.ui.tabRestockTable.verticalHeader().hide()
-        
-        # Set headers for the table
         headers = ["Inventory ID", "Description", "Brand", "Unit", "Amount"]
         self.ui.tabRestockTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabRestockTable.horizontalHeader()
@@ -1045,7 +1029,7 @@ class Restock(QDialog):
             QMessageBox.warning(self, "Selection Error", "No item selected. Please select a row to delete.")
             return
 
-        # Identify unique rows from selected cells
+        # Identify Unique
         rows_to_delete = sorted(set(item.row() for item in selected_items), reverse=True)
 
         reply = QMessageBox.question(self, "Remove Item", "Are you sure you want to remove the selected items?",
@@ -1053,33 +1037,26 @@ class Restock(QDialog):
         if reply == QMessageBox.No:
             return
 
-        # Connect to the database
         conn = self.connect_rsDB()
         cursor = conn.cursor()
 
         try:
             for row in rows_to_delete:
-                # Retrieve the inventory_id from the first column
                 inventory_item = self.ui.tabRestockTable.item(row, 0) 
                 if inventory_item:
                     inventory_id = inventory_item.text()
-
-                    # Delete the item from the database
                     cursor.execute("DELETE FROM restock WHERE inventory_id = ?", (inventory_id,))
-
-                    # Remove the row from the table widget
                     self.ui.tabRestockTable.removeRow(row)
                 else:
                     QMessageBox.warning(self, "Missing Data", f"Could not find Inventory ID for row {row + 1}.")
 
-            # Commit changes to the database
             conn.commit()
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
         finally:
             conn.close()
 
-        # Refresh the table to reflect the updated database
+        # Refresh Table
         self.populate_restock_table()
         
     def confirmItems(self):
@@ -1088,30 +1065,27 @@ class Restock(QDialog):
         inv_cursor = inv_conn.cursor()
         res_conn = self.connect_rsDB()
         res_cursor = res_conn.cursor()
-        # Fetch all entries from restock
+        # Fetch Entries
         res_cursor.execute("SELECT * FROM restock")
         restock_entries = res_cursor.fetchall()
         for restock_entry in restock_entries:
             inventory_id, description, brand, unit, amount, rop = restock_entry
-            # Check if inventory_id exists in inventory
             inv_cursor.execute("SELECT on_hand FROM inventory WHERE inventory_id = ?", (inventory_id,))
             existing_entry = inv_cursor.fetchone()
+            # If Exists??
             if existing_entry:
-                # If exists, update on_hand quantity
                 new_on_hand = existing_entry[0] + amount
                 inv_cursor.execute("UPDATE inventory SET on_hand = ? WHERE inventory_id = ?", (new_on_hand, inventory_id))
             else:
-                # If not exists, insert new entry
                 inv_cursor.execute("INSERT INTO inventory (inventory_id, description, brand, unit, on_hand, rop) VALUES (?, ?, ?, ?, ?, ?)", 
                             (inventory_id, description, brand, unit, amount, rop))
         inv_conn.commit()
         inv_conn.close()
-        # Empty Restock Database        
+        # Empty Restock      
         res_cursor.execute("DELETE FROM restock")
         res_conn.commit()
         res_conn.close()
         
-        # Emit signal before closing
         self.restockConfirmed.emit()
         self.close()
         QMessageBox.information(self, "Success", "Item(s) added successfully.")
@@ -1183,36 +1157,30 @@ class PrRestock(QDialog):
         if not selected_items:
             QMessageBox.warning(self, "Selection Error", "No item selected. Please select a row to delete.")
             return
-        # Identify unique rows from selected cells
+        # Identify Unique
         rows_to_delete = sorted(set(item.row() for item in selected_items), reverse=True)
         reply = QMessageBox.question(self, "Remove Item", "Are you sure you want to remove the selected items?",
                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.No:
             return
-        # Connect to the database
         conn = self.connect_rsDB()
         cursor = conn.cursor()
         try:
             for row in rows_to_delete:
-                # Retrieve the product_id from the first column
                 product_item = self.ui.tabPrRestockTable.item(row, 0) 
                 if product_item:
                     product_id = product_item.text()
-
-                    # Delete the item from the database
                     cursor.execute("DELETE FROM restock_product WHERE product_id = ?", (product_id,))
 
-                    # Remove the row from the table widget
                     self.ui.tabPrRestockTable.removeRow(row)
                 else:
                     QMessageBox.warning(self, "Missing Data", f"Could not find Product ID for row {row + 1}.")
-            # Commit changes to the database
             conn.commit()
         except sqlite3.Error as e:
             QMessageBox.critical(self, "Database Error", f"Failed to remove item(s): {e}")
         finally:
             conn.close()
-        # Refresh the table to reflect the updated database
+        # Refresh Table
         self.populate_restock_table()
         
     def confirmProducts(self):
@@ -1231,14 +1199,14 @@ class PrRestock(QDialog):
         ing_conn = sqlite3.connect(ing_path)
         ing_cursor = ing_conn.cursor()
 
-        # Fetch all entries from restock
+        # Fetch Entries
         res_cursor.execute("SELECT * FROM restock_product")
         restock_entries = res_cursor.fetchall()
 
         for restock_entry in restock_entries:
             product_id, product_name, amount, exp_date = restock_entry
 
-            # Update or insert into products_on_hand
+            # Update
             pr_cursor.execute("SELECT on_hand FROM products_on_hand WHERE product_id = ?", (product_id,))
             existing_entry = pr_cursor.fetchone()
 
@@ -1789,22 +1757,20 @@ class AddPrNew(QDialog):
         # Connect buttons
         self.ui.btnCancel.clicked.connect(self.close)
         self.ui.btnAdd.clicked.connect(self.add)
+        self.ui.btnImage.clicked.connect(self.add_image)
         self.ui.btnConfirm.clicked.connect(self.confirm)
         self.ui.btnRemove.clicked.connect(self.remove)
     def populate_combobox(self):
         inv_path = os.path.join("db", "inventory_db.db")
         inv_conn = sqlite3.connect(inv_path)
         inv_cursor = inv_conn.cursor()
-        # Fetch inventory_id, description, and brand
         inv_cursor.execute("SELECT inventory_id, description, unit FROM inventory")
         self.inventory_items = inv_cursor.fetchall()
-        # Clear existing items in the combo box
         self.ui.cbItems.clear()
-        # Populate the combo box with formatted entries
         for item in self.inventory_items:
             inventory_id, description, unit = item
             display_text = f"{inventory_id} - {description} (in {unit})"
-            self.ui.cbItems.addItem(display_text, inventory_id)  # Store inventory_id as userData
+            self.ui.cbItems.addItem(display_text, inventory_id) 
         inv_cursor.close()
     def populate_table(self):
         data_path = os.path.join("db", "prrestock_db.db")
@@ -1841,16 +1807,31 @@ class AddPrNew(QDialog):
                 self.ui.tabPrIngredients.setItem(row, col, table_item)
         self.ui.tabPrIngredients.resizeRowsToContents()
         data_cursor.close()
+        
+    def add_image(self):
+        # Open a file dialog to select an image
+        file_path, _ = QFileDialog.getOpenFileName(
+            self, 
+            "Select Image", 
+            "", 
+            "Image Files (*.png *.jpg *.jpeg *.bmp *.gif)"
+        )
+        self.image_path = file_path
+        # If a file was selected, set it to lblImage
+        if file_path:
+            pixmap = QPixmap(file_path)
+            scaled_pixmap = pixmap.scaled(self.ui.lblImage.size(), aspectRatioMode=1)
+            self.ui.lblImage.setPixmap(scaled_pixmap)
     def add(self):
-        inventory_id = self.ui.cbItems.currentData()  # Get selected inventory_id
-        amount = self.ui.leAmount.text().strip()  # Get entered amount
+        inventory_id = self.ui.cbItems.currentData()  
+        amount = self.ui.leAmount.text().strip() 
 
         if not inventory_id or not amount:
             QMessageBox.warning(self, "Input Error", "Please select an ingredient and enter an amount.")
             return
 
         try:
-            amount = float(amount)  # Ensure valid numeric input
+            amount = float(amount)  
         except ValueError:
             QMessageBox.warning(self, "Input Error", "Amount must be a number.")
             return
@@ -1924,10 +1905,27 @@ class AddPrNew(QDialog):
 
         product_id = self.ui.lePrID.text().strip()
         product_name = self.ui.lePrName.text().strip()
+        price_text = self.ui.lePrice.text().strip()
 
-        if not product_id or not product_name:
-            QMessageBox.warning(self, "Input Error", "Please enter a Product ID and Product Name.")
+        if not product_id or not product_name or not price_text:
+            QMessageBox.warning(self, "Input Error", "Please fill in all required fields, including price.")
             return
+
+        try:
+            price = float(price_text)
+        except ValueError:
+            QMessageBox.warning(self, "Invalid Price", "Please enter a valid number for the price.")
+            return
+
+        # Read image as BLOB
+        image_blob = None
+        if hasattr(self, 'image_path') and self.image_path:
+            try:
+                with open(self.image_path, 'rb') as file:
+                    image_blob = file.read()
+            except Exception as e:
+                QMessageBox.warning(self, "Image Error", f"Could not read selected image: {e}")
+                return
 
         pr_conn = sqlite3.connect(prrestock_path)
         pr_cursor = pr_conn.cursor()
@@ -1940,16 +1938,16 @@ class AddPrNew(QDialog):
 
         try:
             product_cursor.execute("""
-                INSERT INTO products_on_hand (product_id, product_name, on_hand, exp_date) 
-                VALUES (?, ?, 0, 'N/A')
-            """, (product_id, product_name))
+                INSERT INTO products_on_hand (product_id, product_name, on_hand, exp_date, price, image) 
+                VALUES (?, ?, 0, 'N/A', ?, ?)
+            """, (product_id, product_name, price, image_blob))
             product_conn.commit()
 
             pr_cursor.execute("SELECT inventory_id, description, amount FROM new_product_data")
             new_ingredients = pr_cursor.fetchall()
 
             if not new_ingredients:
-                QMessageBox.warning(self, "Data Error", "You have new ingredients for the new product!")
+                QMessageBox.warning(self, "Data Error", "You have no new ingredients for the new product!")
                 return
 
             ingredients_cursor.execute("PRAGMA table_info(ingredients)")
@@ -1966,19 +1964,20 @@ class AddPrNew(QDialog):
 
                 if existing_ingredient:
                     # Update existing ingredient with new amount
-                    ingredients_cursor.execute(f"UPDATE ingredients SET '{product_id}' = ? WHERE inventory_id = ?", (amount, inventory_id))
+                    ingredients_cursor.execute(f"""
+                        UPDATE ingredients SET '{product_id}' = ? WHERE inventory_id = ?
+                    """, (amount, inventory_id))
                 else:
                     # Insert new ingredient, setting all other product columns to 0
                     other_columns = ", ".join([f"'{col}'" for col in existing_columns if col != "inventory_id" and col != "description"])
-                    default_values = ", ".join(["0"] * (len(existing_columns) - 2))  # Excluding inventory_id & description
-                    
+                    default_values = ", ".join(["0"] * (len(existing_columns) - 2))  # Exclude inventory_id & description
+
                     ingredients_cursor.execute(f"""
                         INSERT INTO ingredients (inventory_id, description, {other_columns}, '{product_id}') 
                         VALUES (?, ?, {default_values}, ?)
                     """, (inventory_id, description, amount))
-            
-            ingredients_conn.commit()
 
+            ingredients_conn.commit()
             pr_cursor.execute("DELETE FROM new_product_data")
             pr_conn.commit()
 

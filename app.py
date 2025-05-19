@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QDateEdit, QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
-from PyQt5.QtCore import Qt, QDate, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex
+from PyQt5.QtWidgets import QToolButton, QFileDialog, QDateEdit, QTableWidget, QLabel, QToolTip, QComboBox, QDialogButtonBox, QPushButton, QListWidget, QApplication, QMainWindow, QMessageBox, QAbstractItemView, QHeaderView, QDialog, QTableWidgetItem, QVBoxLayout, QGraphicsDropShadowEffect, QTextEdit, QLineEdit, QWidget
+from PyQt5.QtCore import Qt, QDate, pyqtSignal, QThread, QTimer, QStringListModel, QModelIndex, QSize, QBuffer, QIODevice
 from PyQt5.QtGui import  QValidator, QIntValidator, QDoubleValidator, QStandardItemModel, QStandardItem, QIcon, QColor, QPixmap
 from transformers import pipeline, GPTNeoForCausalLM, GPT2Tokenizer
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -134,6 +134,7 @@ class MainWindow(QMainWindow):
     def show_salesForecast(self):
         self.widget.setCurrentWidget(self.salesForecast)
     def show_pos(self):
+        self.POS.load_product_buttons()
         self.widget.setCurrentWidget(self.POS)
     def show_account(self):
         self.widget.setCurrentWidget(self.account)
@@ -233,14 +234,14 @@ class Dashboard(QMainWindow):
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
-        cursor.execute("SELECT product_name, exp_date FROM products_on_hand")
+        cursor.execute("SELECT product_name, on_hand, exp_date FROM products_on_hand")
         expired_products = []
 
-        for product_name, exp_date in cursor.fetchall():
+        for product_name, on_hand, exp_date in cursor.fetchall():
             if exp_date and exp_date.lower() != "n/a":
                 exp_date_obj = QDate.fromString(exp_date, "dd/MM/yy")
                 if exp_date_obj.isValid() and exp_date_obj <= today_obj:
-                    expired_products.append(f"{product_name} expired at {exp_date}")
+                    expired_products.append(f"{on_hand} units of {product_name} expired at {exp_date}")
 
         conn.close()
         self.ui.lsExpProducts.addItems(expired_products)
@@ -786,10 +787,10 @@ class Inventory(QMainWindow):
         inventory_items = cursor.fetchall()
         # Set Table
         self.ui.tabIngredientTable.setRowCount(len(inventory_items)) 
-        self.ui.tabIngredientTable.setColumnCount(5)
+        self.ui.tabIngredientTable.setColumnCount(6)
         self.ui.tabIngredientTable.verticalHeader().hide()
         # Set Headers
-        headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand"]
+        headers = ["Inventory ID", "Description", "Brand", "Unit", "On Hand", "ROP"]
         self.ui.tabIngredientTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabIngredientTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
@@ -804,7 +805,7 @@ class Inventory(QMainWindow):
             on_hand = int(on_hand) if on_hand is not None else 0
             rop = int(rop) if rop is not None else 0
             # Prepare the row values (excluding rop from the table display)
-            row_values = [inventory_id, description, brand, unit, on_hand]
+            row_values = [inventory_id, description, brand, unit, on_hand, rop]
             # Loop through each column and insert items
             for col, value in enumerate(row_values):
                 table_item = QTableWidgetItem(str(value))
@@ -827,7 +828,7 @@ class Inventory(QMainWindow):
         self.ui.tabProductTable.setRowCount(len(products)) 
         self.ui.tabProductTable.setColumnCount(4)
         self.ui.tabProductTable.verticalHeader().hide()
-        headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date (dd/mm/yy)"]
+        headers = ["Product ID", "Name of Product", "On Hand", "Expiry Date (dd-mm-yy)"]
         self.ui.tabProductTable.setHorizontalHeaderLabels(headers)
         header = self.ui.tabProductTable.horizontalHeader()
         header.setStyleSheet("QHeaderView::section { background-color: #365b6d; color: white; font-size: 20px; font-weight: bold;}")
@@ -1902,6 +1903,7 @@ class AddPrNew(QDialog):
         prrestock_path = os.path.join("db", "prrestock_db.db")
         product_path = os.path.join("db", "product_db.db")
         ingredients_path = os.path.join("db", "ingredients_db.db")
+        sales_path = os.path.join("db","sales_db.db")
 
         product_id = self.ui.lePrID.text().strip()
         product_name = self.ui.lePrName.text().strip()
@@ -1917,32 +1919,55 @@ class AddPrNew(QDialog):
             QMessageBox.warning(self, "Invalid Price", "Please enter a valid number for the price.")
             return
 
-        # Read image as BLOB
-        image_blob = None
-        if hasattr(self, 'image_path') and self.image_path:
-            try:
-                with open(self.image_path, 'rb') as file:
-                    image_blob = file.read()
-            except Exception as e:
-                QMessageBox.warning(self, "Image Error", f"Could not read selected image: {e}")
-                return
+        # Convert the pixmap in lblImage to BLOB
+        pixmap = self.ui.lblImage.pixmap()
+        if pixmap is None:
+            QMessageBox.warning(self, "Image Error", "No image found in label.")
+            return
+
+        buffer = QBuffer()
+        buffer.open(QIODevice.WriteOnly)
+        pixmap.save(buffer, "PNG")
+        image_blob = buffer.data()
 
         pr_conn = sqlite3.connect(prrestock_path)
         pr_cursor = pr_conn.cursor()
-        
+
         product_conn = sqlite3.connect(product_path)
         product_cursor = product_conn.cursor()
+
+        # Check for duplicate product_id before proceeding
+        product_cursor.execute("SELECT 1 FROM products_on_hand WHERE product_id = ?", (product_id,))
+        if product_cursor.fetchone():
+            QMessageBox.warning(self, "Duplicate Product ID", "This is a duplicate Product ID.")
+            product_cursor.close()
+            product_conn.close()
+            pr_cursor.close()
+            pr_conn.close()
+            return
 
         ingredients_conn = sqlite3.connect(ingredients_path)
         ingredients_cursor = ingredients_conn.cursor()
 
+        sales_conn = sqlite3.connect(sales_path)
+        sales_cursor = sales_conn.cursor()
+
         try:
+            # Insert new product
             product_cursor.execute("""
                 INSERT INTO products_on_hand (product_id, product_name, on_hand, exp_date, price, image) 
                 VALUES (?, ?, 0, 'N/A', ?, ?)
             """, (product_id, product_name, price, image_blob))
             product_conn.commit()
 
+            # Insert into sales table
+            sales_cursor.execute("""
+                INSERT INTO sales (product_id, product_name, price, quantity_sold)
+                VALUES (?, ?, ?, 0)
+            """, (product_id, product_name, price))
+            sales_conn.commit()
+
+            # Ingredient processing
             pr_cursor.execute("SELECT inventory_id, description, amount FROM new_product_data")
             new_ingredients = pr_cursor.fetchall()
 
@@ -1951,29 +1976,25 @@ class AddPrNew(QDialog):
                 return
 
             ingredients_cursor.execute("PRAGMA table_info(ingredients)")
-            existing_columns = [col[1] for col in ingredients_cursor.fetchall()] 
-            
+            existing_columns = [col[1] for col in ingredients_cursor.fetchall()]
+
             if product_id not in existing_columns:
                 ingredients_cursor.execute(f"ALTER TABLE ingredients ADD COLUMN '{product_id}' REAL DEFAULT 0")
                 ingredients_conn.commit()
 
             for inventory_id, description, amount in new_ingredients:
-                # Check if inventory_id exists in ingredients database
                 ingredients_cursor.execute("SELECT inventory_id FROM ingredients WHERE inventory_id = ?", (inventory_id,))
                 existing_ingredient = ingredients_cursor.fetchone()
 
                 if existing_ingredient:
-                    # Update existing ingredient with new amount
                     ingredients_cursor.execute(f"""
                         UPDATE ingredients SET '{product_id}' = ? WHERE inventory_id = ?
                     """, (amount, inventory_id))
                 else:
-                    # Insert new ingredient, setting all other product columns to 0
-                    other_columns = ", ".join([f"'{col}'" for col in existing_columns if col != "inventory_id" and col != "description"])
-                    default_values = ", ".join(["0"] * (len(existing_columns) - 2))  # Exclude inventory_id & description
-
+                    other_columns = ", ".join([f"'{col}'" for col in existing_columns if col not in ("inventory_id", "description")])
+                    default_values = ", ".join(["0"] * (len(existing_columns) - 2))
                     ingredients_cursor.execute(f"""
-                        INSERT INTO ingredients (inventory_id, description, {other_columns}, '{product_id}') 
+                        INSERT INTO ingredients (inventory_id, description, {other_columns}, '{product_id}')
                         VALUES (?, ?, {default_values}, ?)
                     """, (inventory_id, description, amount))
 
@@ -1993,6 +2014,8 @@ class AddPrNew(QDialog):
             product_conn.close()
             ingredients_cursor.close()
             ingredients_conn.close()
+            sales_cursor.close()
+            sales_conn.close()
 class SalesWindow(QMainWindow):
     go_to_dashboard = pyqtSignal()
     go_to_inventory = pyqtSignal()
@@ -2231,8 +2254,8 @@ class SalesForecastWindow(QMainWindow):
         conn.close()
         
     def get_sales_data(self, product_id):
-        months_2024 = ["apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-        months_2025 = ["jan", "feb", "mar"]
+        months_2024 = ["may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+        months_2025 = ["jan", "feb", "mar", "apr"]
         
         sales_data = []
         
@@ -2271,7 +2294,7 @@ class SalesForecastWindow(QMainWindow):
         sales_2023_path = os.path.join("db", "sales_2023.db")
         sales_2024_path = os.path.join("db", "sales_2024.db")
         
-        past_april_sales = []
+        past_sales = []
         
         for db_path in [sales_2022_path,sales_2023_path, sales_2024_path]:
             if not os.path.exists(db_path):
@@ -2284,16 +2307,16 @@ class SalesForecastWindow(QMainWindow):
                 cursor.execute("SELECT quantity_sold FROM apr WHERE product_id = ?", (product_id,))
                 result = cursor.fetchone()
                 if result:
-                    past_april_sales.append(result[0])
+                    past_sales.append(result[0])
             except sqlite3.OperationalError:
                 pass
 
             conn.close()
 
-        if not past_april_sales:
+        if not past_sales:
             return None
 
-        forecasted_value = self.use_gpt_neo_forecast(past_april_sales)
+        forecasted_value = self.use_gpt_neo_forecast(past_sales)
         return forecasted_value
     
     def use_gpt_neo_forecast(self, past_data):
@@ -2315,22 +2338,22 @@ class SalesForecastWindow(QMainWindow):
         if forecast is None:
             return "No historical data available to forecast."
 
-        # Get the April sales (the last value in past_sales list)
-        april_sales = self.past_sales[-1] if len(self.past_sales) > 0 else 0
+        # Get the May sales (the last value in past_sales list)
+        may_sales = self.past_sales[-1] if len(self.past_sales) > 0 else 0
 
         # Calculate the percentage change from March sales to forecasted sales
-        if april_sales > 0:  # Avoid division by zero
-            change_percentage = ((forecast - april_sales) / april_sales) * 100
+        if may_sales > 0:  # Avoid division by zero
+            change_percentage = ((forecast - may_sales) / may_sales) * 100
         else:
             change_percentage = 0  # No change if April sales were 0
 
         # Generate comment based on the change
-        if forecast > april_sales:
-            return f"Sales are expected to <span style='color: #7ff58d;'>INCREASE</span> in April by <span style='color: #7ff58d;'>{round(change_percentage, 2)}%</span>."
-        elif forecast < april_sales:
-            return f"Sales are expected to <span style='color: #f5737c;'>DECREASE</span> in April by <span style='color: #f5737c;'>{round(abs(change_percentage), 2)}%</span>."
+        if forecast > may_sales:
+            return f"Sales are expected to <span style='color: #7ff58d;'>INCREASE</span> in May by <span style='color: #7ff58d;'>{round(change_percentage, 2)}%</span>."
+        elif forecast < may_sales:
+            return f"Sales are expected to <span style='color: #f5737c;'>DECREASE</span> in May by <span style='color: #f5737c;'>{round(abs(change_percentage), 2)}%</span>."
         else:
-            return "Sales are predicted to remain stable in April."
+            return "Sales are predicted to remain stable in May."
         
     def plot_forecast(self, past_sales, forecasted_value):
         # Ensure gpPerformance has a layout
@@ -2348,7 +2371,7 @@ class SalesForecastWindow(QMainWindow):
         # Create a new figure
         fig, ax = plt.subplots(figsize=(6, 4))
         fig.patch.set_facecolor((1, 1, 1, 0.75))
-        months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr (Forecast)"]
+        months = [ "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May (Forecast)"]
 
         # Combine past sales data with forecasted value for April 2025
         values = past_sales + [forecasted_value]
@@ -2375,7 +2398,7 @@ class SalesForecastWindow(QMainWindow):
         # Labels and title
         ax.set_xlabel("Month")
         ax.set_ylabel("Quantity Sold")
-        ax.set_title("Sales Forecast for April 2025")
+        ax.set_title("Sales Forecast for May 2025")
         ax.set_facecolor((1, 1, 1, 0))
         ax.legend()
 
@@ -2437,6 +2460,8 @@ class POSWindow(QMainWindow):
         self.setWindowTitle("POS")
         self.widget = widget
 
+        self.load_product_buttons()
+        
         # Create a model for the QListView
         self.cart_model = QStandardItemModel()
         self.ui.cartList.setModel(self.cart_model)
@@ -2451,17 +2476,57 @@ class POSWindow(QMainWindow):
         self.ui.btnAccount.clicked.connect(self.go_to_account)
         self.ui.btnClear.clicked.connect(self.clear_cart)
         self.ui.btnCheckout.clicked.connect(self.checkout)
-        # Connect product buttons to their respective functions
-        self.ui.btnC001.clicked.connect(lambda: self.add_to_cart("C001"))
-        self.ui.btnC002.clicked.connect(lambda: self.add_to_cart("C002"))
-        self.ui.btnC003.clicked.connect(lambda: self.add_to_cart("C003"))
-        self.ui.btnC004.clicked.connect(lambda: self.add_to_cart("C004"))
-        self.ui.btnC005.clicked.connect(lambda: self.add_to_cart("C005"))
-        self.ui.btnC006.clicked.connect(lambda: self.add_to_cart("C006"))
-        self.ui.btnC007.clicked.connect(lambda: self.add_to_cart("C007"))
-        self.ui.btnC008.clicked.connect(lambda: self.add_to_cart("C008"))
-        self.ui.btnC009.clicked.connect(lambda: self.add_to_cart("C009"))
-        self.ui.btnC010.clicked.connect(lambda: self.add_to_cart("C010"))
+    
+    def load_product_buttons(self):
+        product_path = os.path.join("db", "product_db.db")
+        conn = sqlite3.connect(product_path)
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT product_id, product_name, on_hand, price, image FROM products_on_hand")
+        products = cursor.fetchall()
+        conn.close()
+
+        row = col = 0
+        max_columns = 4  # Adjust depending on your desired layout
+
+        for product_id, product_name, on_hand, price, image_blob in products:
+            button = QToolButton()
+            button.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+            button.setIconSize(QSize(150, 150))
+            button.setFixedSize(261, 251)
+
+            # Convert image blob to pixmap
+            if image_blob:
+                pixmap = QPixmap()
+                pixmap.loadFromData(image_blob)
+                button.setIcon(QIcon(pixmap))
+            else:
+                button.setIcon(QIcon("img/cake_default.png"))  
+
+            # Format button text
+            button.setText(f"{product_id} {product_name}\n{price:.2f}\nOn Stock: {on_hand}")
+            button.setStyleSheet("font-size: 10pt; background-color: rgba(255, 255, 255, 160); border-radius: 5px;")
+            
+            # Set product_id as a custom property
+            button.setProperty("product_id", product_id)
+            button.clicked.connect(lambda _, pid=product_id: self.add_to_cart(pid))
+
+            # Add to grid layout
+            self.ui.gridProducts.addWidget(button, row, col)
+            col += 1
+            if col >= max_columns:
+                col = 0
+                row += 1
+                
+    def clear_product_buttons(self):
+        # Remove all widgets from the gridProducts layout
+        layout = self.ui.gridProducts
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.setParent(None)
+                
     def add_to_cart(self, product_id):
         sales_path = os.path.join("db", "sales_db.db")
         product_path = os.path.join("db", "product_db.db")
@@ -2576,6 +2641,10 @@ class POSWindow(QMainWindow):
 
             QMessageBox.information(self, "Success", "Transaction completed successfully!")
             self.clear_cart()
+            
+            # Refresh product buttons to reflect new stock levels
+            self.clear_product_buttons()
+            self.load_product_buttons()
             
             # Update Other Tables
             self.inventory_update.emit()

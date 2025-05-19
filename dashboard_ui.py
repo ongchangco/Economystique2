@@ -304,7 +304,7 @@ class Ui_Dashboard(object):
         self.lblPerformance.setObjectName("lblPerformance")
         self.gridLayout.addWidget(self.lblPerformance, 0, 0, 1, 1)
         self.lsExpProducts = QtWidgets.QListWidget(Dashboard)
-        self.lsExpProducts.setGeometry(QtCore.QRect(1230, 60, 371, 91))
+        self.lsExpProducts.setGeometry(QtCore.QRect(1140, 60, 461, 91))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(10)

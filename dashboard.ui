@@ -599,9 +599,9 @@ color: white;</string>
   <widget class="QListWidget" name="lsExpProducts">
    <property name="geometry">
     <rect>
-     <x>1230</x>
+     <x>1140</x>
      <y>60</y>
-     <width>371</width>
+     <width>461</width>
      <height>91</height>
     </rect>
    </property>
